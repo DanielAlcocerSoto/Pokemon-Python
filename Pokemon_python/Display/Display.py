@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
 import pygame, sys
 from pygame.locals import *
 from Pokemon_python.GeneratorDB import get_image_path, get_sprite_path
