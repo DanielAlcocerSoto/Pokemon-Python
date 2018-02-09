@@ -1,12 +1,10 @@
 import pygame, sys
 from pygame.locals import *
-from GeneratorDB import get_image_path, get_sprite_path
+from Pokemon_python.GeneratorDB import get_image_path, get_sprite_path
 from random import randint
 
-
-
 SCALE = 1.5
-FRONT_SPRITE_SCALE = 1
+FRONT_SPRITE_SCALE = 1.25
 BACK_SPRITE_SCALE = 1.75
 BACKGROUND_SCALE = 1.5
 
@@ -32,7 +30,7 @@ ICON_NAME = 'icon'
 LOG_NAME  = 'log'
 HEALTH_NAME = 'health'
 BACKGROUND_NAME = 'background_'+str(randint(0,11))
-LETTER_TYPE = 'Calibri'
+LETTER_TYPE = 'Courier New'
 
 def get_background_path(name_file):
 	return get_image_path(BACKGROUND_DIR+name_file)
@@ -75,7 +73,7 @@ class mySprite(pygame.sprite.Sprite):
 
 	def display(self):
 		SCREEN.blit(self._image, self._location)
-		
+
 class Sprite (mySprite):
 	def __init__(self, image_file, center):
 		path = get_sprite_path(image_file)
@@ -97,7 +95,7 @@ class Log (Background):
 		self.set_text('')
 
 	def set_text(self, texts):
-		self._text_img = [FONT.render(text, 0, BLACK) for text in texts]		
+		self._text_img = [FONT.render(text, 0, BLACK) for text in texts]
 
 	def display(self):
 		Background.display(self)
@@ -112,7 +110,7 @@ class Health (Background):
 			(pygame.Rect(POS_BAR_F1[0],POS_BAR_F1[1], BAR_LENGTH, BAR_HEIGHT),GREEN),
 			(pygame.Rect(POS_BAR_A1[0],POS_BAR_A1[1], BAR_LENGTH, BAR_HEIGHT),GREEN),
 			(pygame.Rect(POS_BAR_A2[0],POS_BAR_A2[1], BAR_LENGTH, BAR_HEIGHT),GREEN)]
-		
+
 	def set_health_of(indx, act_health, max_health):
 		pct = act_health/max_health
 		x, y = POS_BAR_F2
@@ -133,7 +131,7 @@ class Window:
 		self.log = Log((0,BACKGROUND_SIZE[1]))
 		self.health = Health()
 
-		poke1 = '1_bulbasaur' 
+		poke1 = '1_bulbasaur'
 		poke2 = '3_venusaur'
 		#1_bulbasaur
 		#3_venusaur
@@ -143,7 +141,7 @@ class Window:
 		pk_f2 = Sprite(poke2+'_front', POS_F2)
 
 		self.visualize_items = [self.battle_bg, pk_f1, pk_f2, pk_a1, pk_a2, self.log, self.health]
-	
+
 	def set_text_log(self, text):
 		self.log.set_text(text)
 
@@ -167,15 +165,11 @@ class Window:
 					print('left')
 				elif event.key == K_UP or event.key == K_w:
 					print('up')
-				elif event.key == K_DOWN or event.key == K_s: 
+				elif event.key == K_DOWN or event.key == K_s:
 					print('down')
 
-		
+
 		for surface in self.visualize_items:
 			surface.display()
 
 		pygame.display.update()
-
-		
-
-

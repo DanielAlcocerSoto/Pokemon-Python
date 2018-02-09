@@ -2,7 +2,7 @@
 """
 Module
 """
-from ClassesDB import Pokemon
+from Pokemon_python.ClassesDB import Pokemon
 from random import randint
 
 __version__ = '0.4'
@@ -34,18 +34,18 @@ class Trainer:
 		target = self._target + 2 if self.is_ally() else self._target
 		return (self._pk.moves_can_use()[self._idmove], target)
 	def choice_action(self, info):
-		""" 
+		"""
 		Args:
 			state (dict??/obj): contains information about the current state of the game.
 		Action:
 			set the value of the attribute self._idmove [0, self.num_moves_can_use()-1]
-			and the value of the attribute self._target [0, 1], 
+			and the value of the attribute self._target [0, 1],
 			which represents the action that the trainer will perform on next turn.
 		"""
 		raise NotImplementedError
 
 
 class TrainerRandom(Trainer):
-	def choice_action(self, info): 
+	def choice_action(self, info):
 		self._idmove = randint(0, self.num_moves_can_use()-1)
 		self._target = randint(0, 1)

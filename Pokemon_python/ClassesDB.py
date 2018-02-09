@@ -3,7 +3,7 @@
 Module that contains the definition of the main classes
 that contain information from the database
 """
-from GeneratorDB import load_json, POKE_FILE, TYPE_FILE, MOVE_FILE
+from Pokemon_python.GeneratorDB import load_json, POKE_FILE, TYPE_FILE, MOVE_FILE
 from random import randint, sample
 from math import floor
 
@@ -81,7 +81,7 @@ class Move(Object_Info):
 		return 0 < self._pp
 
 
-class Pokemon(Object_Info): 
+class Pokemon(Object_Info):
 	def __init__(self, name, level):
 		Object_Info.__init__(self, name, POKE_FILE)
 		self._level= max(min(level,100),1)
@@ -97,7 +97,7 @@ class Pokemon(Object_Info):
 		#OTHER:( 5 + { Nivel / 100 x [ (Stat Base x 2) + IV + PE/4 ] } ) x "Naturaleza" --> no usado
 		st = self._stats[stat]
 		precalc = floor(self._level/100 * ((st['base_stat']*2) + st['individual_value'] + floor(st['effort']/4)))
-		if stat == 'hp': return precalc + self._level + 10 
+		if stat == 'hp': return precalc + self._level + 10
 		else: return precalc + 5
 
 	def health(self):
@@ -142,4 +142,3 @@ if __name__ == '__main__':
 	print(pk3.get_stat('attack'))
 	for move in pk3.moves_can_use():
 		print(move.name())
-

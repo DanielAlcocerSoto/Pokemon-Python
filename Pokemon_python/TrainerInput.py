@@ -2,8 +2,8 @@
 """
 Module
 """
-from ClassesDB import Pokemon, Type, Move
-from Trainer import Trainer
+from Pokemon_python.ClassesDB import Pokemon, Type, Move
+from Pokemon_python.Trainer import Trainer
 
 __version__ = '0.4'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
@@ -26,7 +26,7 @@ class TrainerInput(Trainer):
 			name = move.name()
 			num = 'This move can not be used'
 			for i,can_move in enumerate(self._pk.moves_can_use()):
-				if can_move.name() == name: 
+				if can_move.name() == name:
 					num='Move '+str(i)
 					break
 			print(num+': '+name+' ('+str(move.type().name())+')')

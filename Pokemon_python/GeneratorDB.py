@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """
-Module to interact with the pokeAPI 
-to generate the information 
-(making requests to the API) 
+Module to interact with the pokeAPI
+to generate the information
+(making requests to the API)
 and to save it into a files
 """
 import requests
@@ -36,7 +36,7 @@ def print_dict(d, sort=False):
 
 def load_json(name_file):
 	with open(DIR_JSON+name_file+'.json', 'r') as file:
-		obj = json.load(file) 
+		obj = json.load(file)
 	return obj
 
 def save_json(name_file, obj):
@@ -45,7 +45,7 @@ def save_json(name_file, obj):
 
 def download_image(url,name_file):
 	response = requests.get(url, stream=True)
-	with open(get_image_path(name_file), 'wb') as file:
+	with open(get_sprite_path(name_file), 'wb') as file:
 		shutil.copyfileobj(response.raw, file)
 
 def get_sprite_path(name_file):
@@ -77,9 +77,9 @@ def generate_pokemons():
 		return [ty["type"]["name"] for ty in types]
 
 	def filter_stats(stats):
-		return {st["stat"]["name"]: 
+		return {st["stat"]["name"]:
 				{"effort": st["effort"],
-				"base_stat": st["base_stat"]} 
+				"base_stat": st["base_stat"]}
 	            for st in stats }
 
 	def filter_moves(moves):
@@ -98,8 +98,8 @@ def generate_pokemons():
 				'moves':filter_moves(pokemon['moves']),
 				'sprites':filter_sprites(pokemon)}
 
-	pokedex = { pokemon['name']: 
-				filter_pokemon_info(get(pokemon['url'])) 
+	pokedex = { pokemon['name']:
+				filter_pokemon_info(get(pokemon['url']))
 				for pokemon in search('pokemon', args = {'limit':N_POKE})}
 	save_json(POKE_FILE, pokedex)
 
@@ -108,11 +108,11 @@ def generate_pokemons():
 def generate_types():
 	def filter_type_info(ty):
 		print(ty['name'])
-		return {relation: [t['name'] for t in types] 
+		return {relation: [t['name'] for t in types]
 				for relation, types in ty['damage_relations'].items()
 				if relation.split('_')[2] == 'to'}
 
-	typedex = { ty['name']: 
+	typedex = { ty['name']:
 				filter_type_info(get(ty['url']))
 				for ty in search('type', args = {'limit':N_TYPE})}
 	save_json(TYPE_FILE, typedex)
@@ -164,8 +164,5 @@ if __name__ == '__main__':
 	parser.add_argument('--move', '-m', action='store_true')
 	parser.add_argument('--poke', '-p', action='store_true')
 	parser.add_argument('--type', '-t', action='store_true')
-	parser.add_argument('--all' , '-a', action='store_true') 
-	main(parser.parse_args())	
-	
-
-	
+	parser.add_argument('--all' , '-a', action='store_true')
+	main(parser.parse_args())
