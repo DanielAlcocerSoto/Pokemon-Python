@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import pygame, sys
 from pygame.locals import *
-from Pokemon_python.GeneratorDB import get_image_path, get_sprite_path
+from Pokemon_python.utils_data_base import load_image, load_sprite, load_cell, load_background
 from random import randint
 
 SCALE = 1.5
@@ -15,7 +15,7 @@ BAR_LENGTH = int (48 * SCALE * BACKGROUND_SCALE)
 BAR_HEIGHT = int (2 * SCALE * BACKGROUND_SCALE)
 
 
-LETTER_SIZE = int (15 * SCALE * BACKGROUND_SCALE)
+LETTER_SIZE = int (10 * SCALE * BACKGROUND_SCALE)
 BACKGROUND_SIZE = (256,144)
 SPRITE_SIZE = (96,96)
 LOG_SIZE = (256,46)
@@ -27,17 +27,12 @@ RED = (255,0,0)
 YELLOW = (255,255,0)
 
 
-BACKGROUND_DIR = 'Backgrounds/'
 ICON_NAME = 'icon'
 LOG_NAME  = 'log'
 HEALTH_NAME = 'health'
 BACKGROUND_NAME = 'background_'+str(randint(0,11))
-LETTER_TYPE = 'Courier New'
-
-def get_background_path(name_file):
-	return get_image_path(BACKGROUND_DIR+name_file)
-def get_cell_path(name_file):
-	return get_image_path(BACKGROUND_DIR+name_file)
+LETTER_TYPE = 'Pokemon Generation 1 Regular'#'Courier New'#'Pokemon GB'
+#'Pokemon R/S'
 
 def pair_mult_num(pair, num):
 	return (int(pair[0]*num),int(pair[1]*num))
@@ -67,9 +62,8 @@ SCREEN = pygame.display.set_mode(scale(SCREEN_SIZE))
 FONT = pygame.font.SysFont(LETTER_TYPE, LETTER_SIZE)
 
 class mySprite(pygame.sprite.Sprite):
-	def __init__(self, path_image, factor, tl_location):
+	def __init__(self, image, factor, tl_location):
 		pygame.sprite.Sprite.__init__(self)
-		image = pygame.image.load(path_image)
 		self._image = pygame.transform.scale(image, scale(pair_mult_num(image.get_size(),factor)))
 		self._location = scale(tl_location)
 
@@ -78,16 +72,16 @@ class mySprite(pygame.sprite.Sprite):
 
 class Sprite (mySprite):
 	def __init__(self, image_file, center):
-		path = get_sprite_path(image_file)
+		image = load_sprite(image_file)
 		factor = BACK_SPRITE_SCALE if 'back' in image_file else FRONT_SPRITE_SCALE
 		tl_location = center_to_top_left(center, pair_mult_num(SPRITE_SIZE, factor))
-		mySprite.__init__(self, path, factor, tl_location)
+		mySprite.__init__(self, image, factor, tl_location)
 
 class Background (mySprite):
 	def __init__(self, image_file, top_left_location = (0,0)):
-		path = get_background_path(image_file)
+		image = load_background(image_file)
 		tl_location = pair_mult_num(top_left_location, BACKGROUND_SCALE)
-		mySprite.__init__(self, path, BACKGROUND_SCALE, tl_location)
+		mySprite.__init__(self, image, BACKGROUND_SCALE, tl_location)
 
 class Log (Background):
 	def __init__(self, top_left_location):
@@ -127,7 +121,7 @@ class Health (Background):
 
 class Window:
 	def __init__(self):
-		pygame.display.set_icon(pygame.image.load(get_image_path(ICON_NAME)))
+		pygame.display.set_icon(load_image(ICON_NAME))
 		pygame.display.set_caption('POKEMON DOUBLE BATTLE')
 		self.battle_bg = Background(BACKGROUND_NAME)
 		self.log = Log((0,BACKGROUND_SIZE[1]))
@@ -143,6 +137,12 @@ class Window:
 		pk_f2 = Sprite(poke2+'_front', POS_F2)
 
 		self.visualize_items = [self.battle_bg, pk_f1, pk_f2, pk_a1, pk_a2, self.log, self.health]
+
+		"""
+		pygame.mixer.music.load(path)
+		pygame.mixer.music.play(n_rep)
+		"""
+
 
 	def set_text_log(self, text):
 		self.log.set_text(text)

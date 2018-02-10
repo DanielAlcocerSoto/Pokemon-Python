@@ -1,58 +1,32 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
+
 """
 Module to interact with the pokeAPI
 to generate the information
 (making requests to the API)
 and to save it into a files
 """
+
+from Pokemon_python.utils_data_base import download_sprite, save_json, load_json
+from Pokemon_python.utils_data_base import POKE_FILE, TYPE_FILE, MOVE_FILE
+
 import requests
 import json
-import shutil
 import argparse
 
-__version__ = '0.9'
+__version__ = '1.0'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
 ##################################CONSTANTS####################################
 
 API = 'http://pokeapi.co/api/v2/'
-DIR_DB = 'DataBase/'
-DIR_JSON = DIR_DB+'JSon/'
-DIR_IMAGES = DIR_DB+'Images/'
-DIR_SPRITES = DIR_IMAGES+'Sprites/'
 
-POKE_FILE = 'pokemonDB'
-TYPE_FILE = 'typeDB'
-MOVE_FILE = 'moveDB'
-
-N_POKE = 151
+N_POKE = 151 #Gen 1
 N_TYPE = 18
 N_MOVE = 719
 
 ####################################UTILS######################################
-
-def print_dict(d, sort=False):
-	print(json.dumps(d, indent=4, sort_keys=sort))
-
-def load_json(name_file):
-	with open(DIR_JSON+name_file+'.json', 'r') as file:
-		obj = json.load(file)
-	return obj
-
-def save_json(name_file, obj):
-	with open(DIR_JSON+name_file+'.json', 'w') as file:
-		json.dump(obj, file, indent=4)
-
-def download_image(url,name_file):
-	response = requests.get(url, stream=True)
-	with open(get_sprite_path(name_file), 'wb') as file:
-		shutil.copyfileobj(response.raw, file)
-
-def get_sprite_path(name_file):
-	return DIR_SPRITES+name_file+'.png'
-def get_image_path(name_file):
-	return DIR_IMAGES+name_file+'.png'
 
 def get(url):
 	response = requests.get(url)
@@ -88,8 +62,8 @@ def generate_pokemons():
 
 	def filter_sprites(pokemon):
 		name_file = str(pokemon['id'])+'_'+pokemon['name']+'_'
-		download_image(pokemon['sprites']['front_default'], name_file+'front')
-		download_image(pokemon['sprites']['back_default'], name_file+'back')
+		download_sprite(pokemon['sprites']['front_default'], name_file+'front')
+		download_sprite(pokemon['sprites']['back_default'], name_file+'back')
 		return {'front':name_file+'front', 'back':name_file+'back'}
 
 	def filter_pokemon_info(pokemon):
@@ -143,27 +117,3 @@ def generate_moves(start=0, ITER = 7):#Max 405 start with 1
 		print ('new try....................'+str(N_MOVE//ITER*i)+'/'+str(N_MOVE))
 		bucle(search('move', args = {'limit':N_MOVE//ITER, 'offset':N_MOVE//ITER*i}))
 	bucle(search('move', args = {'limit':N_MOVE%ITER, 'offset':N_MOVE//ITER*ITER})) # total 719 = N_MOVE
-
-#####################################MAIN######################################
-
-def main(args):
-	if  args.move or args.all:
-		print('Generating moves info...')
-		generate_moves()
-	if  args.poke or args.all:
-		print('Generating pokemons info...')
-		generate_pokemons()
-	if  args.type or args.all:
-		print('Generating types info...')
-		generate_types()
-	if  not (args.poke or args.move or args.type or args.all):
-		print('Specify that you want to generate: --move, --poke, --type or --all')
-
-
-if __name__ == '__main__':
-	parser = argparse.ArgumentParser()
-	parser.add_argument('--move', '-m', action='store_true')
-	parser.add_argument('--poke', '-p', action='store_true')
-	parser.add_argument('--type', '-t', action='store_true')
-	parser.add_argument('--all' , '-a', action='store_true')
-	main(parser.parse_args())

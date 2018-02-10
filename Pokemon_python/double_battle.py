@@ -1,13 +1,18 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
+
 """
-Module
+
 """
-from Pokemon_python.ClassesDB import Pokemon, Type, Move, possible_pokemons_names
+
+from Pokemon_python.core.pokemon import Pokemon, possible_pokemons_names
+from Pokemon_python.core.type import Type
+from Pokemon_python.core.move import Move
+from Pokemon_python.trainer import TrainerRandom, ALLY, FOE
+from Pokemon_python.trainerInput import TrainerInput
+
 from random import randint, uniform, choice
 from math import floor
-from Pokemon_python.Trainer import Trainer, TrainerRandom, ALLY, FOE
-from Pokemon_python.TrainerInput import TrainerInput
 
 __version__ = '0.4'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
@@ -123,28 +128,3 @@ class Double_Battle:
 						else: print('\tEl ataque ha fallado')
 					else : #auto cambiar objetivo???  util para la IA nop
 						print('\t'+pk_enemy.name()+' ja estaba debilitado')
-
-
-
-if __name__ == '__main__':
-	"""
-	a1=Attack(pk1,pk2,pk1.moves()[0])
-	print('\nbulbasaur vs. charmander')
-	print(a1.dmg)
-	print(a1.is_critic)
-	print(pk2.health())
-
-	a2=Attack(pk2,pk1,pk2.moves()[0])
-	print('\ncharmander vs. bulbasaur')
-	print(a2.dmg)
-	print(a2.is_critic)
-	print(pk1.health())"""
-
-	#tr0 = TrainerInput(ALLY, Pokemon('bulbasaur', 95))
-	#tr2	= TrainerRandom(FOE, Pokemon('seadra',95))
-
-
-	Battle = Double_Battle(base_level = 95)
-	while(not Battle.is_finished()):
-		Battle.doTurn()
-	print('Allies win? '+str(Battle.winners()))

@@ -1,12 +1,15 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
+
 """
-Module
+
 """
-from Pokemon_python.ClassesDB import Pokemon
+
+from Pokemon_python.core.pokemon import Pokemon
+
 from random import randint
 
-__version__ = '0.4'
+__version__ = '1.0'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
 ALLY = True

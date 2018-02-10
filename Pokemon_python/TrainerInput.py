@@ -1,12 +1,16 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-"""
-Module
-"""
-from Pokemon_python.ClassesDB import Pokemon, Type, Move
-from Pokemon_python.Trainer import Trainer
 
-__version__ = '0.4'
+"""
+
+"""
+
+from Pokemon_python.core.pokemon import Pokemon
+from Pokemon_python.core.type import Type
+from Pokemon_python.core.move import Move
+from Pokemon_python.trainer import Trainer
+
+__version__ = '0.5'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
 

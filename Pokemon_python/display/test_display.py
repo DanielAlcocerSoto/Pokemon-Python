@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-from Pokemon_python.Display.Display import Window
+from Pokemon_python.display.display import Window
 
 #main call
 def main():
