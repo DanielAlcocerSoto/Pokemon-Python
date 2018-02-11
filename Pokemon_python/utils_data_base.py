@@ -21,6 +21,9 @@ DIR_CELLS = DIR_IMAGES+'Cells/'
 DIR_SPRITES = DIR_IMAGES+'Sprites/'
 DIR_BACKGROUND = DIR_IMAGES+'Backgrounds/'
 
+DISPLAY_CONFIG = 'Pokemon_python/display/display_config.json'
+MUSIC_CONFIG = 'Pokemon_python/display/music/music_config.json'
+
 def print_dict(d, sort=False):
 	print(json.dumps(d, indent=4, sort_keys=sort))
 
@@ -49,6 +52,11 @@ def load_cell(name_file):
 
 def load_background(name_file):
 	return load(DIR_BACKGROUND+name_file+'.png')
+
+def config(path_config):
+	with open(path_config, 'r') as file:
+		obj = json.load(file)
+	return obj
 
 class Object_Info:
 	def __init__(self, name, file):

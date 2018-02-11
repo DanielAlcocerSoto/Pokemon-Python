@@ -6,8 +6,8 @@
 """
 
 from Pokemon_python import test_battle
-from Pokemon_python.display import test_display
+from Pokemon_python.display import test_window
 
 if __name__ == '__main__':
-	test_display.main()
+	test_window.main()
 	#test_battle.main()

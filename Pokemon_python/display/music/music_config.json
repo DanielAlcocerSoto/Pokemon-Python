@@ -1,0 +1,20 @@
+{
+  "VOLUME": 25,
+  "DIR_MUSIC": "DataBase/Music/",
+  "NAME_MUSIC":[
+    "Gym",
+    "Trainer",
+    "Wild Pokemon"
+  ],
+  "NAME_GEN":[
+    "JC",
+    "KC",
+    "GB",
+    "RS",
+    "DP",
+    "JGS",
+    "KGS",
+    "BW"
+  ],
+  "EXTENSION": ".mp3"
+}
