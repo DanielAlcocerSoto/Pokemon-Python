@@ -5,14 +5,15 @@
 
 """
 
-from Pokemon_python.utils_data_base import TYPE_FILE, Object_Info
+from Pokemon_python.utils_data_base import Object_Info
+from Pokemon_python.directory_config import Directory
 
 __version__ = '1.0'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
 class Type(Object_Info):
 	def __init__(self, name):
-		Object_Info.__init__(self, name, TYPE_FILE)
+		Object_Info.__init__(self, name, Directory.TYPE_FILE)
 		self._multiplierTo = {}
 		for key in self._keys:
 			if   key in self._info['no_damage_to']:     self._multiplierTo[key] = 0

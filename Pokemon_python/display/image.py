@@ -6,7 +6,8 @@
 """
 
 from Pokemon_python.utils_data_base import load_image, load_background
-from Pokemon_python.display.utils_display import pair_mult_num, scale, BACKGROUND_SCALE
+from Pokemon_python.display.utils_display import pair_mult_num, scale
+from Pokemon_python.display.display_config import Display_Config
 
 import pygame, sys
 
@@ -22,8 +23,8 @@ class Image(pygame.sprite.Sprite):
 class Background (Image):
 	def __init__(self, image_file, top_left_location = (0,0)):
 		image = load_background(image_file)
-		tl_location = pair_mult_num(top_left_location, BACKGROUND_SCALE)
-		Image.__init__(self, image, BACKGROUND_SCALE, tl_location)
+		tl_location = pair_mult_num(top_left_location, Display_Config.BACKGROUND_SCALE)
+		Image.__init__(self, image, Display_Config.BACKGROUND_SCALE, tl_location)
 
 class Display:
     def __init__(self, font, visualize_items):

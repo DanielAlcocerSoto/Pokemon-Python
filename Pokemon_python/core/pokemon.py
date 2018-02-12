@@ -5,7 +5,8 @@
 
 """
 
-from Pokemon_python.utils_data_base import POKE_FILE, Object_Info, load_json
+from Pokemon_python.utils_data_base import Object_Info, load_json
+from Pokemon_python.directory_config import Directory
 from Pokemon_python.core.move import Move
 from Pokemon_python.core.type import Type
 
@@ -17,11 +18,11 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
 
 def possible_pokemons_names():
-		return list(load_json(POKE_FILE).keys())
+		return list(load_json(Directory.POKE_FILE).keys())
 
 class Pokemon(Object_Info):
 	def __init__(self, name, level):
-		Object_Info.__init__(self, name, POKE_FILE)
+		Object_Info.__init__(self, name, Directory.POKE_FILE)
 		self._level= max(min(level,100),1)
 		self._types = [Type(x) for x in self._info['types']]
 		self._moves = [Move(x) for x in sample(self._info['moves'],min(4,len(self._info['moves'])))]

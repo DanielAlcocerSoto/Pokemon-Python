@@ -1,6 +1,6 @@
 {
   "VOLUME": 25,
-  "DIR_MUSIC": "DataBase/Music/",
+  "EXTENSION": ".mp3",
   "NAME_MUSIC":[
     "Gym",
     "Trainer",
@@ -15,6 +15,5 @@
     "JGS",
     "KGS",
     "BW"
-  ],
-  "EXTENSION": ".mp3"
+  ]
 }

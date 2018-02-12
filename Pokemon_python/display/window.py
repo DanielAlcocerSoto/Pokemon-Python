@@ -10,22 +10,13 @@ from Pokemon_python.display.utils_display import pair_mult_num, scale, scale_bg,
 from Pokemon_python.display.battle.battle import Battle_display
 from Pokemon_python.display.dialog.dialog import Dialog_display
 from Pokemon_python.display.music.song import Song
-from Pokemon_python.utils_data_base import config, DISPLAY_CONFIG
+from Pokemon_python.display.display_config import Display_Config
 #from Pokemon_python.diplay.buttons import buttons
 
 import pygame, sys
 from pygame.locals import *
 
-#GLOBAL DISPLAY CONFIGURATIONS
-CONFIG = config(DISPLAY_CONFIG)
-SCALE = CONFIG['SCALE']
-BACKGROUND_SCALE = CONFIG['BACKGROUND_SCALE']
-
-BATTLE_SIZE = CONFIG['BATTLE_SIZE']
-LOG_SIZE = CONFIG['LOG_SIZE']
-
-
-LETTER_SIZE = int (10 * SCALE * BACKGROUND_SCALE)
+LETTER_SIZE = int (10 * Display_Config.SCALE * Display_Config.BACKGROUND_SCALE)
 
 LETTER_TYPE = 'Pokemon Generation 1 Regular'#'Courier New'#'Pokemon GB'
 #'Pokemon R/S'
@@ -39,7 +30,7 @@ TITLE = 'POKEMON DOUBLE BATTLE'
 class Window:
 	def __init__(self):
 		pygame.init()
-		SCREEN_SIZE = pair_mult_num((BATTLE_SIZE[0],BATTLE_SIZE[1]+LOG_SIZE[1]), BACKGROUND_SCALE)
+		SCREEN_SIZE = pair_mult_num((Display_Config.BATTLE_SIZE[0],Display_Config.BATTLE_SIZE[1]+Display_Config.LOG_SIZE[1]), Display_Config.BACKGROUND_SCALE)
 		self.SCREEN = pygame.display.set_mode(scale(SCREEN_SIZE))
 		self.FONT = pygame.font.Font(LETTER_FILE,LETTER_SIZE)
 

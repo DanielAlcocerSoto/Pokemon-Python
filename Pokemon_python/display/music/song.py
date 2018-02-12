@@ -5,25 +5,19 @@
 
 """
 
-from Pokemon_python.utils_data_base import config, MUSIC_CONFIG
+from Pokemon_python.directory_config import Directory
+from Pokemon_python.display.music.music_config import Music_Config
 
 import pygame
 
 from random import choice
 
-#GLOBAL DISPLAY CONFIGURATIONS
-CONFIG = config(MUSIC_CONFIG)
-VOLUME = CONFIG['VOLUME']/100
-DIR_MUSIC = CONFIG['DIR_MUSIC']
-NAME_MUSIC = CONFIG['NAME_MUSIC']
-NAME_GEN = CONFIG['NAME_GEN']
-EXTENSION = CONFIG['EXTENSION']
 
 class Song:
     def __init__(self):
-        self.name_song = choice(NAME_MUSIC)+'_'+choice(NAME_GEN)
-        pygame.mixer.music.load(DIR_MUSIC+self.name_song+EXTENSION)
-        pygame.mixer.music.set_volume(VOLUME)
+        self.name_song = choice(Music_Config.NAME_MUSIC)+'_'+choice(Music_Config.NAME_GEN)
+        pygame.mixer.music.load(Directory.DIR_MUSIC+self.name_song+Music_Config.EXTENSION)
+        pygame.mixer.music.set_volume(Music_Config.VOLUME/100)
 
     def play(self, print_name = False):
         pygame.mixer.music.play(-1)
