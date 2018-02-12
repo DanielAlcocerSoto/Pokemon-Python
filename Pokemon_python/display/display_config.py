@@ -11,6 +11,7 @@ from Pokemon_python.directory_config import Directory
 class Display_Configuration(Configuration):
     def __init__(self):
         Configuration.__init__(self, Directory.DISPLAY_CONFIG)
+        self.TITLE = self._config["TITLE"]
         #Scales
         self.SCALE = self._config["SCALE"]
         self.FRONT_SPRITE_SCALE = self._config["FRONT_SPRITE_SCALE"]

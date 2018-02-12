@@ -7,18 +7,15 @@
 
 from Pokemon_python.utils_data_base import load_image
 from Pokemon_python.display.utils_display import pair_mult_num, scale, scale_bg, center_to_top_left
+from Pokemon_python.display.display_config import Display_Config
+from Pokemon_python.directory_config import Directory
 from Pokemon_python.display.battle.battle import Battle_display
 from Pokemon_python.display.dialog.dialog import Dialog_display
 from Pokemon_python.display.music.song import Song
-from Pokemon_python.display.display_config import Display_Config
 #from Pokemon_python.diplay.buttons import buttons
 
 import pygame, sys
 from pygame.locals import *
-
-
-ICON_NAME = 'icon'
-TITLE = 'POKEMON DOUBLE BATTLE'
 
 class Window:
 	def __init__(self):
@@ -26,8 +23,8 @@ class Window:
 		SCREEN_SIZE = pair_mult_num((Display_Config.BATTLE_SIZE[0],Display_Config.BATTLE_SIZE[1]+Display_Config.LOG_SIZE[1]), Display_Config.BACKGROUND_SCALE)
 		self.SCREEN = pygame.display.set_mode(scale(SCREEN_SIZE))
 
-		pygame.display.set_icon(load_image(ICON_NAME))
-		pygame.display.set_caption(TITLE)
+		pygame.display.set_icon(load_image(Directory.ICON_FILE))
+		pygame.display.set_caption(Display_Config.TITLE)
 
 		self.battle = Battle_display()
 		self.dialog = Dialog_display()

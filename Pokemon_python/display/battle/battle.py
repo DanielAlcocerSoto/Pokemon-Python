@@ -9,6 +9,8 @@ from Pokemon_python.utils_data_base import load_sprite
 from Pokemon_python.display.image import Image, Background, Display
 from Pokemon_python.display.utils_display import pair_mult_num, scale, scale_bg, center_to_top_left
 from Pokemon_python.display.display_config import Display_Config
+from Pokemon_python.directory_config import Directory
+from Pokemon_python.display.battle.battle_config import Battle_Config
 
 import pygame, sys
 
@@ -21,15 +23,10 @@ POS_A2 = (3*_x/2, _b_y-_y/3)		#(144,184)
 POS_F1 = (_b_x-3*_x/2, _b_y/2.1)	#(240,108)
 POS_F2 = (_b_x-_x/2, _b_y/2.1)		#(336,108)
 
-POS_BAR_F2 = scale_bg((57,22))
-POS_BAR_F1 = scale_bg((50,51))
-POS_BAR_A1 = scale_bg((189,107))
-POS_BAR_A2 = scale_bg((196,136))
-
-
-BACKGROUND_NAME = 'background_'
-HEALTH_NAME = 'health'
-
+POS_BAR_F2 = scale_bg(Battle_Config.POS_BAR_F2)
+POS_BAR_F1 = scale_bg(Battle_Config.POS_BAR_F1)
+POS_BAR_A1 = scale_bg(Battle_Config.POS_BAR_A1)
+POS_BAR_A2 = scale_bg(Battle_Config.POS_BAR_A2)
 
 class Sprite (Image):
 	def __init__(self, image_file, center):
@@ -40,7 +37,7 @@ class Sprite (Image):
 
 class Health (Background):
 	def __init__(self):
-		Background.__init__(self, HEALTH_NAME)
+		Background.__init__(self, Directory.HEALTH_FILE)
 		self.BAR_LENGTH, self.BAR_HEIGHT = scale_bg(Display_Config.BAR_SIZE)
 		self.bar_img_col = [
 			(pygame.Rect(POS_BAR_F2[0],POS_BAR_F2[1], self.BAR_LENGTH, self.BAR_HEIGHT),Display_Config.GREEN),
@@ -63,7 +60,7 @@ class Health (Background):
 
 class Battle_display(Display):
     def __init__(self):
-        self.battle_bg = Background(BACKGROUND_NAME+str(randint(0,11)))
+        self.battle_bg = Background(Directory.BACKGROUND_NAME+str(randint(0,11)))
         self.health = Health()
         poke1 = '1_bulbasaur'
         poke2 = '3_venusaur'
