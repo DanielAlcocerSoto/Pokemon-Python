@@ -27,8 +27,7 @@ class Background (Image):
 		Image.__init__(self, image, Display_Config.BACKGROUND_SCALE, tl_location)
 
 class Display:
-    def __init__(self, font, visualize_items):
-        self.font = font
+    def __init__(self, visualize_items):
         self.visualize_items = visualize_items
 
     def display(self, SCREEN):

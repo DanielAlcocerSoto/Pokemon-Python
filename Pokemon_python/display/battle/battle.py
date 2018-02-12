@@ -62,7 +62,7 @@ class Health (Background):
 
 
 class Battle_display(Display):
-    def __init__(self, font):
+    def __init__(self):
         self.battle_bg = Background(BACKGROUND_NAME+str(randint(0,11)))
         self.health = Health()
         poke1 = '1_bulbasaur'
@@ -75,4 +75,4 @@ class Battle_display(Display):
         pk_f2 = Sprite(poke2+'_front', POS_F2)
 
         visualize_items = [self.battle_bg, pk_f1, pk_f2, pk_a1, pk_a2, self.health]
-        Display.__init__(self, font, visualize_items)
+        Display.__init__(self, visualize_items)

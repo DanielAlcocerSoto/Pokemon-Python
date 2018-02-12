@@ -16,13 +16,6 @@ from Pokemon_python.display.display_config import Display_Config
 import pygame, sys
 from pygame.locals import *
 
-LETTER_SIZE = int (10 * Display_Config.SCALE * Display_Config.BACKGROUND_SCALE)
-
-LETTER_TYPE = 'Pokemon Generation 1 Regular'#'Courier New'#'Pokemon GB'
-#'Pokemon R/S'
-LETTER_FILE = 'DataBase/Fonts/pokemon_generation_1.ttf'
-#pygame.font.SysFont(LETTER_TYPE, LETTER_SIZE)
-
 
 ICON_NAME = 'icon'
 TITLE = 'POKEMON DOUBLE BATTLE'
@@ -32,13 +25,12 @@ class Window:
 		pygame.init()
 		SCREEN_SIZE = pair_mult_num((Display_Config.BATTLE_SIZE[0],Display_Config.BATTLE_SIZE[1]+Display_Config.LOG_SIZE[1]), Display_Config.BACKGROUND_SCALE)
 		self.SCREEN = pygame.display.set_mode(scale(SCREEN_SIZE))
-		self.FONT = pygame.font.Font(LETTER_FILE,LETTER_SIZE)
 
 		pygame.display.set_icon(load_image(ICON_NAME))
 		pygame.display.set_caption(TITLE)
 
-		self.battle = Battle_display(self.FONT)
-		self.dialog = Dialog_display(self.FONT)
+		self.battle = Battle_display()
+		self.dialog = Dialog_display()
 
 		self.visualize_items = [self.battle, self.dialog]
 		Song().play(True)
