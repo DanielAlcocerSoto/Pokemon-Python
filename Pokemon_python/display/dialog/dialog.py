@@ -12,7 +12,7 @@ from Pokemon_python.display.dialog.dialog_config import Dialog_Config
 from Pokemon_python.directory_config import Directory
 from Pokemon_python.display.font.font import Font
 
-import pygame, sys
+import pygame
 
 from random import randint
 

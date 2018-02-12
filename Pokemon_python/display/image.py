@@ -6,30 +6,32 @@
 """
 
 from Pokemon_python.utils_data_base import load_image, load_background
-from Pokemon_python.display.utils_display import pair_mult_num, scale
+from Pokemon_python.display.utils_display import pair_mult_num, scale, final_scale
 from Pokemon_python.display.display_config import Display_Config
 
-import pygame, sys
+import pygame
 
 class Image(pygame.sprite.Sprite):
-	def __init__(self, image, factor, tl_location):
+	def __init__(self, image, top_left_location):
 		pygame.sprite.Sprite.__init__(self)
-		self._image = pygame.transform.scale(image, scale(pair_mult_num(image.get_size(),factor)))
-		self._location = scale(tl_location)
+		self._image = image
+		self._location = top_left_location
 
-	def display(self, SCREEN):
+	def display(self,SCREEN):
 		SCREEN.blit(self._image, self._location)
 
-class Background (Image):
-	def __init__(self, image_file, top_left_location = (0,0)):
+class Background(Image):
+	def __init__(self, image_file, top_left_location = [0,0]):
 		image = load_background(image_file)
-		tl_location = pair_mult_num(top_left_location, Display_Config.BACKGROUND_SCALE)
-		Image.__init__(self, image, Display_Config.BACKGROUND_SCALE, tl_location)
+		factor = Display_Config.BACKGROUND_SCALE
+		final_image =  pygame.transform.scale(image, final_scale(image.get_size(),factor))
+		location =  final_scale(top_left_location, factor)
+		Image.__init__(self,final_image,location)
 
 class Display:
-    def __init__(self, visualize_items):
-        self.visualize_items = visualize_items
+	def __init__(self, visualize_items):
+		self.visualize_items = visualize_items
 
-    def display(self, SCREEN):
-        for surface in self.visualize_items:
-            surface.display(SCREEN)
+	def display(self, SCREEN):
+		for surface in self.visualize_items:
+			surface.display(SCREEN)
