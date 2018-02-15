@@ -6,7 +6,7 @@ Module that contains the move class
 """
 
 from Pokemon_python.utils_data_base import Object_Info
-from Pokemon_python.directory_config import Directory
+from Pokemon_python.sittings import Directory
 from Pokemon_python.core.type import Type
 
 __version__ = '1.0'
@@ -14,7 +14,7 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
 class Move(Object_Info):
 	def __init__(self, name):
-		Object_Info.__init__(self, name, Directory.MOVE_FILE)
+		Object_Info.__init__(self, name, Directory['MOVE_FILE'])
 		self._pp = self._info['pp']
 		self._type = Type(self._info['type'])
 

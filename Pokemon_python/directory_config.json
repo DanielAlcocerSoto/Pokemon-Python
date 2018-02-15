@@ -4,6 +4,7 @@
   "MUSIC_CONFIG": "display/music/music_config",
   "DIALOG_CONFIG": "display/dialog/dialog_config",
   "BATTLE_CONFIG": "display/battle/battle_config",
+  "SELECT_CONFIG": "display/selection/select_config",
 
   "POKE_FILE": "pokemonDB",
   "TYPE_FILE": "typeDB",
@@ -11,9 +12,15 @@
   "DIALOG_FILE": "log",
   "ICON_FILE": "icon",
   "HEALTH_FILE":"health",
+  "SELECT_MOVE_FILE":"SelectMove",
+  "SELECT_TARGET_FILE":"SelectTarget",
+  "NONE_CELL_FILE": "cell_poke",
+  "SELECTOR_FILE": "cell_selector",
+  "SELECTOR_L_FILE": "cell_selector_large",
 
   "LETTER_FILE": "DataBase/Fonts/pokemon_generation_1.ttf",
   "BACKGROUND_NAME":"background_",
+  "CELL_NAME":"cell_",
 
   "DIR_JSON": "DataBase/JSon/",
   "DIR_MUSIC": "DataBase/Music/",
