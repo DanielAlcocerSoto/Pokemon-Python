@@ -6,8 +6,8 @@
 """
 
 from Pokemon_python.utils_data_base import load_image, load_background
-from Pokemon_python.display.utils_display import pair_mult_num, scale, final_scale
 from Pokemon_python.sittings import Display_Config
+from .utils_display import pair_mult_num, scale, final_scale
 
 import pygame
 

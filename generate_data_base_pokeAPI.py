@@ -1,4 +1,11 @@
-from Pokemon_python.generator_data_base import generate_pokemons, generate_types, generate_moves
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+"""
+
+"""
+
+from Pokemon_python.generate_data.generator_data_base import generate_pokemons, generate_types, generate_moves
 
 def main(args):
 	if  args.move or args.all:

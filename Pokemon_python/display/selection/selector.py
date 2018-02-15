@@ -6,9 +6,9 @@
 """
 
 from Pokemon_python.sittings import Directory, Display_Config, Select_Config
+from Pokemon_python.utils_data_base import load_cell
 from Pokemon_python.display.image import Background
 from Pokemon_python.display.utils_display import pair_mult_num, scale, scale_bg, transalte
-from Pokemon_python.utils_data_base import load_cell
 
 
 import pygame
@@ -53,4 +53,6 @@ class Selector:
         return min(self.pos[1]*2+self.pos[0],4)
 
     def display(self,SCREEN):
-        SCREEN.blit(self._image, self._location)
+        x = pygame.time.get_ticks()/1500
+        if x-int(x)<0.5:
+            SCREEN.blit(self._image, self._location)

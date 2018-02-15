@@ -5,10 +5,10 @@
 
 """
 
-from Pokemon_python.core.pokemon import Pokemon
-from Pokemon_python.core.type import Type
-from Pokemon_python.core.move import Move
-from Pokemon_python.trainer import Trainer
+from .core.pokemon import Pokemon
+from .core.type import Type
+from .core.move import Move
+from .trainer import Trainer
 
 __version__ = '0.5'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'

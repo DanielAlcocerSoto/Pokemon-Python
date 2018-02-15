@@ -5,7 +5,7 @@
 
 """
 
-from Pokemon_python.sittings import Directory
+from .sittings import Directory
 
 from pygame.image import load
 

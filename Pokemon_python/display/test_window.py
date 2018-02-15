@@ -5,7 +5,7 @@
 
 """
 
-from Pokemon_python.display.window import Window
+from .window import Window
 
 #main call
 def main():

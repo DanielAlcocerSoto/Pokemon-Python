@@ -5,11 +5,11 @@
 
 """
 
-from Pokemon_python.core.pokemon import Pokemon, possible_pokemons_names
-from Pokemon_python.core.type import Type
-from Pokemon_python.core.move import Move
-from Pokemon_python.trainer import TrainerRandom, ALLY, FOE
-from Pokemon_python.trainerInput import TrainerInput
+from .core.pokemon import Pokemon, possible_pokemons_names
+from .core.type import Type
+from .core.move import Move
+from .trainer import TrainerRandom, ALLY, FOE
+from .trainerInput import TrainerInput
 
 from random import randint, uniform, choice
 from math import floor

@@ -5,6 +5,7 @@
   "DIALOG_CONFIG": "display/dialog/dialog_config",
   "BATTLE_CONFIG": "display/battle/battle_config",
   "SELECT_CONFIG": "display/selection/select_config",
+  "GENERATE_CONFIG": "generate_data/generate_data_config",
 
   "POKE_FILE": "pokemonDB",
   "TYPE_FILE": "typeDB",

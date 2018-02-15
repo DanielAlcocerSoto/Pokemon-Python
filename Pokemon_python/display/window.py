@@ -6,12 +6,12 @@
 """
 
 from Pokemon_python.utils_data_base import load_image
-from Pokemon_python.display.utils_display import pair_mult_num, scale, scale_bg, center_to_top_left
 from Pokemon_python.sittings import Directory, Display_Config
-from Pokemon_python.display.music.song import Song
-from Pokemon_python.display.battle.battle import Battle_display
-from Pokemon_python.display.dialog.dialog import Dialog_display
-from Pokemon_python.display.selection.selection import Selection_Display
+from .utils_display import pair_mult_num, scale, scale_bg, center_to_top_left
+from .music.song import Song
+from .battle.battle import Battle_display
+from .dialog.dialog import Dialog_display
+from .selection.selection import Selection_Display
 
 import pygame, sys
 from pygame.locals import *
@@ -49,8 +49,7 @@ class Window:
 
 			elif event.type == MOUSEBUTTONDOWN and event.button == 1:
 				mouse = pygame.mouse.get_pos()
-				print(mouse)
-				#if Image[1].collidrect(mouse):
+				print(self.select.click_at(mouse))
 
 			elif event.type == KEYDOWN:
 				if event.key == K_RIGHT or event.key == K_d:
@@ -62,7 +61,7 @@ class Window:
 				elif event.key == K_DOWN or event.key == K_s:
 					self.select.selector.move_to_down()
 				elif event.key == K_RETURN or event.key == K_SPACE:
-					print(self.select.selector.get_selection())
+					print(self.select.get_move_selected())
 
 	def set_text_log(self, text):
 		self.dialog.set_text(text)

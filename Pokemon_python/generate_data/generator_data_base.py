@@ -9,7 +9,7 @@ and to save it into a files
 """
 
 from Pokemon_python.utils_data_base import download_sprite, save_json, load_json
-from Pokemon_python.utils_data_base import POKE_FILE, TYPE_FILE, MOVE_FILE
+from Pokemon_python.sittings import Directory, Generate_Config
 
 import requests
 import json
@@ -17,14 +17,6 @@ import argparse
 
 __version__ = '1.0'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
-
-##################################CONSTANTS####################################
-
-API = 'http://pokeapi.co/api/v2/'
-
-N_POKE = 151 #Gen 1
-N_TYPE = 18
-N_MOVE = 719
 
 ####################################UTILS######################################
 
@@ -36,7 +28,7 @@ def get(url):
 		response.raise_for_status()
 
 def search(attr, args={}):
-	response = requests.get(API+attr+'/', params = args)
+	response = requests.get(Generate_Config['API']+attr+'/', params = args)
 	if response.ok: return response.json().get('results',[])
 	else:
 		print('Error in requests_search: '+str(response.status_code) +': '+ str(response.reason))
@@ -46,7 +38,7 @@ def search(attr, args={}):
 
 def generate_pokemons():
 
-	movesList = load_json(MOVE_FILE).keys()
+	movesList = load_json(Directory['MOVE_FILE']).keys()
 
 	def filter_types(types):
 		return [ty["type"]["name"] for ty in types]
@@ -75,8 +67,8 @@ def generate_pokemons():
 
 	pokedex = { pokemon['name']:
 				filter_pokemon_info(get(pokemon['url']))
-				for pokemon in search('pokemon', args = {'limit':N_POKE})}
-	save_json(POKE_FILE, pokedex)
+				for pokemon in search('pokemon', args = {'limit':Generate_Config['N_POKE']})}
+	save_json(Directory['POKE_FILE'], pokedex)
 
 ####################################TYPES######################################
 
@@ -89,14 +81,14 @@ def generate_types():
 
 	typedex = { ty['name']:
 				filter_type_info(get(ty['url']))
-				for ty in search('type', args = {'limit':N_TYPE})}
+				for ty in search('type', args = {'limit':Generate_Config['N_TYPE']})}
 	save_json(TYPE_FILE, typedex)
 
 ####################################MOVES######################################
 
 def generate_moves(start=0, ITER = 7):#Max 405 start with 1
 	def bucle (result):
-		movedex = load_json(MOVE_FILE)
+		movedex = load_json(Directory['MOVE_FILE'])
 		for r in result:
 			move = get(r['url'])
 			if move['power'] != None:
@@ -110,9 +102,10 @@ def generate_moves(start=0, ITER = 7):#Max 405 start with 1
 					'damage_class':move['damage_class']['name'],
 					'crit_rate':move['meta']['crit_rate']
 				}
-		save_json(MOVE_FILE, movedex)
+		save_json(Directory['MOVE_FILE'], movedex)
 
-	if start == 0: save_json(MOVE_FILE, {})
+	if start == 0: save_json(Directory['MOVE_FILE'], {})
+	N_MOVE = Generate_Config['N_MOVE']
 	for i in range(start,ITER): #too many info, maybe some problem appear
 		print ('new try....................'+str(N_MOVE//ITER*i)+'/'+str(N_MOVE))
 		bucle(search('move', args = {'limit':N_MOVE//ITER, 'offset':N_MOVE//ITER*i}))

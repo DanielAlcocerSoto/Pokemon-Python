@@ -5,8 +5,8 @@
 
 """
 
-from Pokemon_python.double_battle import Double_Battle, Attack
-from Pokemon_python.core.pokemon import Pokemon
+from .double_battle import Double_Battle, Attack
+from .core.pokemon import Pokemon
 
 
 def main():

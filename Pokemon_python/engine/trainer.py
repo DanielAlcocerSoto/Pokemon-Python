@@ -5,7 +5,7 @@
 
 """
 
-from Pokemon_python.core.pokemon import Pokemon
+from .core.pokemon import Pokemon
 
 from random import randint
 

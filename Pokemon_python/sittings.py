@@ -18,6 +18,7 @@ Directory = load_dict(_ROOT+'directory_config')
 def load_config(name):
 	return load_dict(_ROOT+Directory[name])
 
+Generate_Config  = load_config('GENERATE_CONFIG')
 Display_Config = load_config('DISPLAY_CONFIG')
 Battle_Config = load_config('BATTLE_CONFIG')
 Dialog_Config = load_config('DIALOG_CONFIG')

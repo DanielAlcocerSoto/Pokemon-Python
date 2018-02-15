@@ -5,7 +5,7 @@
 
 """
 
-from Pokemon_python import test_battle
+from Pokemon_python.engine import test_battle
 from Pokemon_python.display import test_window
 
 if __name__ == '__main__':

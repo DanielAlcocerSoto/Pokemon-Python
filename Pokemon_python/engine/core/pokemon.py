@@ -7,8 +7,8 @@
 
 from Pokemon_python.utils_data_base import Object_Info, load_json
 from Pokemon_python.sittings import Directory
-from Pokemon_python.core.move import Move
-from Pokemon_python.core.type import Type
+from .move import Move
+from .type import Type
 
 from random import randint, sample
 from math import floor

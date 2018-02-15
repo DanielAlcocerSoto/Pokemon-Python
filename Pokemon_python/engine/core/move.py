@@ -7,7 +7,7 @@ Module that contains the move class
 
 from Pokemon_python.utils_data_base import Object_Info
 from Pokemon_python.sittings import Directory
-from Pokemon_python.core.type import Type
+from .type import Type
 
 __version__ = '1.0'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
