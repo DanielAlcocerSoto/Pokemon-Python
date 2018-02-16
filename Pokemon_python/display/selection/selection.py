@@ -17,6 +17,8 @@ import pygame
 
 class Selection_Display(Display):
     def __init__(self,pokemon):
+        self.pokemon = pokemon
+        print(self.pokemon.name())
         moves = pokemon.moves_can_use()
         height = Display_Config['BATTLE_SIZE'][1]+Display_Config['LOG_SIZE'][1]
         self.bg = Background(Directory['SELECT_MOVE_FILE'],top_left_location=(0,height))
@@ -33,7 +35,8 @@ class Selection_Display(Display):
 
     def click_at(self, mouse):
         self.buttons[0].get_move().use()
-        print(self.buttons[0].get_move().actual_pp())
+        self.pokemon.hurt(10)
+        print(self.pokemon.health())
         for i, button in enumerate(self.buttons):
             if button.point_inside(mouse):
                 return i

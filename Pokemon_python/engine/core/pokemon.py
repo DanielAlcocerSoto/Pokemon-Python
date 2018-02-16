@@ -58,3 +58,7 @@ class Pokemon(Object_Info):
 	def hurt(self, damage):
 		self._health -= damage
 		if self.is_fainted(): self._health=0
+
+	def sprite(self,is_ally):
+		name = 'back' if is_ally else 'front'
+		return self._info['sprites'][name]

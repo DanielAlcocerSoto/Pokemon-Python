@@ -28,7 +28,7 @@ class Font:
             else: texts[line] = word
             counter_char += 1
 
-        self._text_img = [self._font.render(text, 0, Display_Config[color_name]) for text in texts.values()]
+        self._text_img = [self._font.render(text, 1, Display_Config[color_name]) for text in texts.values()]
 
     def display(self, SCREEN):
         for i, t_img in enumerate(self._text_img):

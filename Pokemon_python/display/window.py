@@ -30,7 +30,7 @@ class Window:
 
 		self.battle = Battle_display(state)
 		self.dialog = Dialog_display()
-		self.select = Selection_Display(state["Ally_0"])
+		self.select = Selection_Display(state[Display_Config["Ally_0"]])
 
 		self.visualize_items = [self.battle, self.dialog, self.select]
 		#Song().play(True)

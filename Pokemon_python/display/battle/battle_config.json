@@ -2,5 +2,15 @@
   "POS_BAR_F2": [57,22],
   "POS_BAR_F1": [50,51],
   "POS_BAR_A1": [189,107],
-  "POS_BAR_A2": [196,136]
+  "POS_BAR_A2": [196,136],
+
+  "POS_BAR_FORMAT":"POS_BAR_{}{}",
+
+  "POS_A1": 0,
+  "POS_A2": 1,
+  "POS_F1": 2,
+  "POS_F2": 3,
+
+  "HEALTH_NAME_SHIFT":[-49,-15],
+  "HEALTH_LVL_SHIFT":[33,-15]
 }

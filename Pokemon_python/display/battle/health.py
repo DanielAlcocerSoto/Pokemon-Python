@@ -7,35 +7,38 @@
 
 from Pokemon_python.utils_data_base import load_sprite
 from Pokemon_python.display.image import Background, Display, Image
-from Pokemon_python.display.utils_display import pair_mult_num, scale, scale_bg, center_to_top_left, final_scale
+from Pokemon_python.display.utils_display import num_to_text, scale_bg
 from Pokemon_python.sittings import Directory, Display_Config, Battle_Config
+from Pokemon_python.display.font.font import Font
 
 import pygame
 
+POS_A1 = 0
+POS_A2 = 1
+POS_F1 = 2
+POS_F2 = 3
 
-POS_BAR_F2 = scale_bg(Battle_Config['POS_BAR_F2'])
-POS_BAR_F1 = scale_bg(Battle_Config['POS_BAR_F1'])
-POS_BAR_A1 = scale_bg(Battle_Config['POS_BAR_A1'])
-POS_BAR_A2 = scale_bg(Battle_Config['POS_BAR_A2'])
-
-class Health (Background):
-	def __init__(self):
-		Background.__init__(self, Directory['HEALTH_FILE'])
+class Health_Rect_Info:
+	def __init__(self, pokemon, POS):
+		self.poke = pokemon
 		self.BAR_LENGTH, self.BAR_HEIGHT = scale_bg(Display_Config['BAR_SIZE'])
-		self.bar_img_col = [
-			(pygame.Rect(POS_BAR_F2[0],POS_BAR_F2[1], self.BAR_LENGTH, self.BAR_HEIGHT),Display_Config['GREEN']),
-			(pygame.Rect(POS_BAR_F1[0],POS_BAR_F1[1], self.BAR_LENGTH, self.BAR_HEIGHT),Display_Config['GREEN']),
-			(pygame.Rect(POS_BAR_A1[0],POS_BAR_A1[1], self.BAR_LENGTH, self.BAR_HEIGHT),Display_Config['GREEN']),
-			(pygame.Rect(POS_BAR_A2[0],POS_BAR_A2[1], self.BAR_LENGTH, self.BAR_HEIGHT),Display_Config['GREEN'])]
+		ally = 'A' if POS<2 else 'F'
+		location = Battle_Config[Battle_Config['POS_BAR_FORMAT'].format(ally,POS%2+1)]
+		self.POS_BAR = scale_bg(location)
 
-	def set_health_of(idx, act_health, max_health):
-		pct = act_health/max_health
-		x, y = POS_BAR_F2
-		fill = (pct/100.0 * BAR_LENGTH)
-		color = 'GREEN' if pct>0.5 else 'YELLOW' if pct>0.25 else 'RED'
-		self.bar_img_col[idx] = (pygame.Rect(x, y, fill, self.BAR_HEIGHT),Display_Config[color])
+		self.font_name = Font(location,Battle_Config['HEALTH_NAME_SHIFT'])
+		self.font_name.set_text(pokemon.name(),'WHITE')
+
+		self.font_level = Font(location,Battle_Config['HEALTH_LVL_SHIFT'])
+		self.font_level.set_text(str(pokemon.level()),'WHITE')
 
 	def display(self,SCREEN):
-		Background.display(self,SCREEN)
-		for bar_img, color in self.bar_img_col:
-			pygame.draw.rect(SCREEN, color, bar_img)
+		self.font_level.display(SCREEN)
+		self.font_name.display(SCREEN)
+		self.poke.is_fainted()
+		if not self.poke.is_fainted():
+			pct = self.poke.health()/self.poke.get_stat('hp')
+			fill = (pct * self.BAR_LENGTH)
+			bar_img = pygame.Rect(self.POS_BAR[0],self.POS_BAR[1], fill, self.BAR_HEIGHT)
+			color_name = 'GREEN' if pct>0.5 else 'YELLOW' if pct>0.25 else 'RED'
+			pygame.draw.rect(SCREEN, Display_Config[color_name], bar_img)
