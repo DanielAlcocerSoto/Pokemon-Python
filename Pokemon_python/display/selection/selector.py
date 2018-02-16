@@ -53,6 +53,6 @@ class Selector:
         return min(self.pos[1]*2+self.pos[0],4)
 
     def display(self,SCREEN):
-        x = pygame.time.get_ticks()/1500
-        if x-int(x)<0.5:
+        x = pygame.time.get_ticks()/1000
+        if x-int(x)<0.7:
             SCREEN.blit(self._image, self._location)

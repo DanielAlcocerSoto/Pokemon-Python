@@ -26,3 +26,11 @@ def final_scale(pair, factor):
 
 def transalte(pos, desp):
 	return (pos[0]+desp[0],pos[1]+desp[1])
+
+def num_to_text(num,max_digits=3):
+	s_num= str(num)
+	if len(s_num) < max_digits:
+		spaces = max_digits-len(s_num)
+		for i in range(0,spaces):
+			s_num = ' '+s_num
+	return s_num

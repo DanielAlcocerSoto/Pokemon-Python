@@ -12,12 +12,13 @@ from .music.song import Song
 from .battle.battle import Battle_display
 from .dialog.dialog import Dialog_display
 from .selection.selection import Selection_Display
+from Pokemon_python.engine.core.move import Move
 
 import pygame, sys
 from pygame.locals import *
 
 class Window:
-	def __init__(self):
+	def __init__(self,state):
 		pygame.init()
 		width = Display_Config['BATTLE_SIZE'][0]
 		height = Display_Config['BATTLE_SIZE'][1]+Display_Config['LOG_SIZE'][1]+Display_Config['SELECT_SIZE'][1]
@@ -27,9 +28,9 @@ class Window:
 		pygame.display.set_icon(load_image(Directory['ICON_FILE']))
 		pygame.display.set_caption(Display_Config['TITLE'])
 
-		self.battle = Battle_display()
+		self.battle = Battle_display(state)
 		self.dialog = Dialog_display()
-		self.select = Selection_Display()
+		self.select = Selection_Display(state["Ally_0"])
 
 		self.visualize_items = [self.battle, self.dialog, self.select]
 		#Song().play(True)

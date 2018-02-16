@@ -9,15 +9,11 @@ from Pokemon_python.utils_data_base import load_sprite
 from Pokemon_python.display.image import Background, Display, Image
 from Pokemon_python.display.utils_display import pair_mult_num, scale, scale_bg, center_to_top_left, final_scale
 from Pokemon_python.sittings import Directory, Display_Config, Battle_Config
+from .health import Health
 
 import pygame
 
 from random import randint
-
-POS_BAR_F2 = scale_bg(Battle_Config['POS_BAR_F2'])
-POS_BAR_F1 = scale_bg(Battle_Config['POS_BAR_F1'])
-POS_BAR_A1 = scale_bg(Battle_Config['POS_BAR_A1'])
-POS_BAR_A2 = scale_bg(Battle_Config['POS_BAR_A2'])
 
 POS_A1 = 0
 POS_A2 = 1
@@ -42,31 +38,8 @@ class Sprite (Image):
 		Image.__init__(self,final_image,location)
 
 
-class Health (Background):
-	def __init__(self):
-		Background.__init__(self, Directory['HEALTH_FILE'])
-		self.BAR_LENGTH, self.BAR_HEIGHT = scale_bg(Display_Config['BAR_SIZE'])
-		self.bar_img_col = [
-			(pygame.Rect(POS_BAR_F2[0],POS_BAR_F2[1], self.BAR_LENGTH, self.BAR_HEIGHT),Display_Config['GREEN']),
-			(pygame.Rect(POS_BAR_F1[0],POS_BAR_F1[1], self.BAR_LENGTH, self.BAR_HEIGHT),Display_Config['GREEN']),
-			(pygame.Rect(POS_BAR_A1[0],POS_BAR_A1[1], self.BAR_LENGTH, self.BAR_HEIGHT),Display_Config['GREEN']),
-			(pygame.Rect(POS_BAR_A2[0],POS_BAR_A2[1], self.BAR_LENGTH, self.BAR_HEIGHT),Display_Config['GREEN'])]
-
-	def set_health_of(indx, act_health, max_health):
-		pct = act_health/max_health
-		x, y = POS_BAR_F2
-		fill = (pct/100.0 * BAR_LENGTH)
-		color = Display_Config['GREEN'] if pct>0.5 else Display_Config['YELLOW'] if pct>0.25 else Display_Config['RED']
-		self.bar_img_col[indx] = (pygame.Rect(x, y, fill, self.BAR_HEIGHT), color)
-
-	def display(self,SCREEN):
-		Background.display(self,SCREEN)
-		for bar_img, color in self.bar_img_col:
-			pygame.draw.rect(SCREEN, color, bar_img)
-
-
 class Battle_display(Display):
-	def __init__(self):
+	def __init__(self, state):
 		self.battle_bg = Background(Directory['BACKGROUND_NAME']+str(randint(0,11)))
 		self.health = Health()
 		poke1 = '1_bulbasaur'

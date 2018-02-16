@@ -41,6 +41,7 @@ class Move(Object_Info):
 
 	def use(self):
 		self._pp-=1
+		self._pp = max(self._pp,0)
 
 	def can_use(self):
 		return 0 < self._pp
