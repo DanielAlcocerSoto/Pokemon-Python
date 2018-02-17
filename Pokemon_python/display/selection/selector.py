@@ -14,8 +14,9 @@ from Pokemon_python.display.utils_display import pair_mult_num, scale, scale_bg,
 import pygame
 
 class Selector:
-    def __init__(self, select_move = True):
+    def __init__(self, select_move = True, display_selector = True):
         self._select_move = 1 if select_move else 2
+        self.display_selector = display_selector
         self._shift = (0,Display_Config['BATTLE_SIZE'][1]+Display_Config['LOG_SIZE'][1])
         self.pos = [0,0]
         self.set_location()
@@ -53,6 +54,7 @@ class Selector:
         return min(self.pos[1]*2+self.pos[0],4)
 
     def display(self,SCREEN):
-        x = pygame.time.get_ticks()/1000
-        if x-int(x)<0.7:
-            SCREEN.blit(self._image, self._location)
+        if self.display_selector:
+            x = pygame.time.get_ticks()/1000
+            if x-int(x)<0.7:
+                SCREEN.blit(self._image, self._location)

@@ -11,7 +11,7 @@ from .utils_display import pair_mult_num, scale, scale_bg, center_to_top_left
 from .music.song import Song
 from .battle.battle import Battle_display
 from .dialog.dialog import Dialog_display
-from .selection.selection import Selection_Display
+from .selection.selection import Selection_Manager
 from Pokemon_python.engine.core.move import Move
 
 import pygame, sys
@@ -32,8 +32,7 @@ class Window:
 
 		self.battle = Battle_display(state)
 		self.dialog = Dialog_display()
-		self.select = Selection_Display(state)
-		self.selector = self.select.selector
+		self.select = Selection_Manager(state)
 		self.visualize_items = [self.battle, self.dialog, self.select]
 		#Song().play(True)
 		self.sentence = load_config('TEXT_FILE')
@@ -46,19 +45,15 @@ class Window:
 		return action
 
 	def set_action_selected(self,obj):
-
 		if self.select.in_mode('MODE_MOVE'):
 			self.move = obj
 			self.select.change_mode('MODE_TARGET')
-			self.selector = self.select.selector
 		elif self.select.in_mode('MODE_TARGET'):
 			self.target = obj
 			if obj == 4: #cancel button
 				self.select.change_mode('MODE_MOVE')
-				self.selector = self.select.selector
 				return None
 			self.select.change_mode('MODE_OFF')
-			self.selector = self.select.selector
 			return (self.move, self.target)
 		return None
 
@@ -77,13 +72,13 @@ class Window:
 
 				elif event.type == KEYDOWN:
 					if event.key == K_RIGHT or event.key == K_d:
-						self.selector.move_to_right()
+						self.select.selector.move_to_right()
 					elif event.key == K_LEFT or event.key == K_a:
-						self.selector.move_to_left()
+						self.select.selector.move_to_left()
 					elif event.key == K_UP or event.key == K_w:
-						self.selector.move_to_up()
+						self.select.selector.move_to_up()
 					elif event.key == K_DOWN or event.key == K_s:
-						self.selector.move_to_down()
+						self.select.selector.move_to_down()
 					elif event.key == K_RETURN or event.key == K_SPACE:
 						return self.set_action_selected(self.select.get_selected())
 		return None
@@ -92,7 +87,7 @@ class Window:
 		text = self.sentence[name].format(*args)
 		self.dialog.set_text(text)
 		self.visualize()
-		sleep(2)
+		sleep(2)#click or enter
 
 	def get_action(self):
 		self.select.change_mode('MODE_MOVE')

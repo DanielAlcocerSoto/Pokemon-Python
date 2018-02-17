@@ -18,13 +18,11 @@ class Font:
         self._font = pygame.font.Font(Directory['LETTER_FILE'], self.LETTER_SIZE)
 
     def set_text(self, text, color_name = "BLACK"):
-        MAX_LENGHT = 30
-        counter_char = 0
+        counter_char = line = 0
         texts = {}
-        line = 0
         for word in text.split(' '):
             counter_char += len(word)
-            if line in texts and counter_char<=MAX_LENGHT:
+            if line in texts and counter_char<=Font_Config['MAX_LENGHT']:
                 texts[line] += ' '+word
                 counter_char += 1
             else:
