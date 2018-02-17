@@ -21,12 +21,16 @@ class Font:
         MAX_LENGHT = 30
         counter_char = 0
         texts = {}
+        line = 0
         for word in text.split(' '):
             counter_char += len(word)
-            line = int(counter_char/MAX_LENGHT)
-            if line in texts: texts[line] += ' '+word
-            else: texts[line] = word
-            counter_char += 1
+            if line in texts and counter_char<=MAX_LENGHT:
+                texts[line] += ' '+word
+                counter_char += 1
+            else:
+                line += 1
+                texts[line] = word
+                counter_char = len(word)+1
 
         self._text_img = [self._font.render(text, 1, Display_Config[color_name]) for text in texts.values()]
 

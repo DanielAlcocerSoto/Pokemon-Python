@@ -54,3 +54,30 @@ class Button():
             color = 'BLACK' if pct>0.5 else 'YELLOW' if pct>0.25 else 'RED'
             self.font_actual_pp.set_text(num_to_text(self.move.actual_pp()),color)
             self.font_actual_pp.display(SCREEN)
+
+class Button_Target():
+    def __init__(self, top_left_location, pokemon):
+        shift = (0,Display_Config['BATTLE_SIZE'][1]+Display_Config['LOG_SIZE'][1])
+        location = transalte(top_left_location,shift)
+        self._location = scale_bg(location)
+
+        self.pokemon=pokemon
+        name = Directory['CELL_NAME'].format('poke')
+        image = load_cell(name)
+        self._image = pygame.transform.scale(image, scale_bg(image.get_size()))
+
+        self.font_name = Font(location,Select_Config['BUTTON_NAME_SHIFT'])
+        self.font_name.set_text(pokemon.name())
+
+    def get_pokemon(self):
+        return self.pokemon
+
+    def point_inside(self, point):
+        left, top = self._location
+        width, height = self._image.get_size()
+        rect = pygame.Rect(left, top, width, height)
+        return rect.collidepoint(point)
+
+    def display(self,SCREEN):
+        SCREEN.blit(self._image, self._location)
+        self.font_name.display(SCREEN)

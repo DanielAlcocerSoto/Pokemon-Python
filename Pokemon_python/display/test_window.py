@@ -27,6 +27,6 @@ def main():
 			Display_Config["Foe_0"]:pokeF1,
 			Display_Config["Foe_1"]:pokeF2}
 	display = Window(state)
-	display.set_text_log('hola que pasa esto es un texto extra llargo gente')
+	display.show('TEST')
 	while True:
 		display.visualize()

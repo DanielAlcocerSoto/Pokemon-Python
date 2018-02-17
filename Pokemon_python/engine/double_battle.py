@@ -14,6 +14,9 @@ from .trainerInput import TrainerInput
 from random import randint, uniform, choice
 from math import floor
 
+from Pokemon_python.sittings import Display_Config
+from Pokemon_python.display.window import Window
+
 __version__ = '0.4'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
@@ -53,14 +56,22 @@ class Attack:
 
 
 class Double_Battle:
-	def __init__(self, trainerA1=None, trainerA2=None, trainerF1=None, trainerF2=None, base_level = 50, varability_level = 5):
+	def __init__(self, trainerA1=None, trainerA2=None, trainerF1=None, trainerF2=None, base_level = 50, varability_level = 50,):
 		list_poke = possible_pokemons_names()
 		if trainerA1==None: trainerA1 = TrainerInput(ALLY, Pokemon(choice(list_poke), base_level + randint(-varability_level,varability_level)))
 		if trainerA2==None: trainerA2 = TrainerRandom(ALLY,Pokemon(choice(list_poke), base_level + randint(-varability_level,varability_level)))
 		if trainerF1==None: trainerF1 = TrainerRandom(FOE, Pokemon(choice(list_poke), base_level + randint(-varability_level,varability_level)))
 		if trainerF2==None: trainerF2 = TrainerRandom(FOE, Pokemon(choice(list_poke), base_level + randint(-varability_level,varability_level)))
 		self._trainers = [trainerA1,trainerA2,trainerF1,trainerF2]
-		print('Start Battle: '+trainerA1.pokemon().name()+' and '+trainerA2.pokemon().name()+' vs. '+trainerF1.pokemon().name()+' and '+trainerF2.pokemon().name())
+		state = {
+				Display_Config["Ally_0"]:trainerA1.pokemon(),
+				Display_Config["Ally_1"]:trainerA2.pokemon(),
+				Display_Config["Foe_0"]:trainerF1.pokemon(),
+				Display_Config["Foe_1"]:trainerF2.pokemon()
+				}
+		self.window = Window(state)
+		trainerA1.set_input_method(self.window)
+		self.window.show('START', [t.pokemon().name() for t in self._trainers])
 
 	def is_finished(self):
 		fainteds = list(map(lambda tr: tr.pokemon().is_fainted(), self._trainers))
@@ -75,39 +86,13 @@ class Double_Battle:
 		priority = move.priority()		# which one is performed first in a battle
 		return priority*1000 + pk.get_stat('speed')
 
-	def generate_print_state(self):
-		print('')
-		self._state={}
-		for i,trainer in enumerate(self._trainers):
-			poke = trainer.pokemon()
-			poke_info= {'pos': i%2,
-						'ally':trainer.is_ally(),
-						'lvl': poke.level(),
-						'hp': poke.health(),
-						'max_hp': poke.get_stat('hp'),
-						'fained': poke.is_fainted()}
-
-			types = poke.types()
-			if len(types) == 2:
-				str_types = types[0].name()+'/'+types[1].name()
-				poke_info['types'] = [types[0].name(),types[1].name()]
-			else:
-				str_types =types[0].name()
-				poke_info['types'] = [types[0].name()]
-
-			team = 'Ally' if trainer.is_ally() else 'Foe'
-			print(team+' '+str(i%2)+':\t'+str(poke.name())+' lvl:'+str(poke.level())+' ('+str_types+')')
-			print('\tHP: '+str(poke.health())+'/'+str(poke.get_stat('hp')))
-
-			self._state[poke.name()]=poke_info
-
 	def doTurn(self):
 		if not self.is_finished():
-			self.generate_print_state()
+			self.window.visualize()
 			live_trainers = []
 			for trainer in self._trainers:
 				if not trainer.pokemon().is_fainted():
-					trainer.choice_action(self._state)
+					trainer.choice_action()
 					live_trainers.append(trainer)
 
 			for trainer in sorted(live_trainers, key=self.attack_order, reverse=True):
@@ -115,16 +100,18 @@ class Double_Battle:
 				if not trainer.pokemon().is_fainted():#fainted during this turn
 					move, target = trainer.action()
 					pk_enemy = self._trainers[target].pokemon()
-					print(trainer.pokemon().name()+' ha usado '+move.name()+' contra '+pk_enemy.name())
+					self.window.show('USE_ATTACK',[trainer.pokemon().name(),move.name(),pk_enemy.name()])
 					if not pk_enemy.is_fainted():
 						if with_prob_of(move.accuracy()):
 							attack  = Attack(trainer.pokemon(), pk_enemy, move)
 							trainer.set_last_attack(attack)
-							if attack.efectivity == 4: print ('\tEs super efectivo')
-							if attack.efectivity == 2: print ('\tEs muy efectivo')
-							if attack.efectivity == 0.5: print ('\tEs poco efectivo')
-							if attack.efectivity == 0.25: print ('\tEs muy poco efectivo')
-							if attack.efectivity == 0: print ('\tNo es efectivo')
-						else: print('\tEl ataque ha fallado')
+							if attack.efectivity == 4:		self.window.show('EFECTIVITY_x4')
+							if attack.efectivity == 2:		self.window.show('EFECTIVITY_x2')
+							if attack.efectivity == 0.5: 	self.window.show('EFECTIVITY_x05')
+							if attack.efectivity == 0.25: 	self.window.show('EFECTIVITY_x025')
+							if attack.efectivity == 0:		self.window.show('EFECTIVITY_x0')
+						else: self.window.show('MISS_ATTACK')
 					else : #auto cambiar objetivo???  util para la IA nop
-						print('\t'+pk_enemy.name()+' ja estaba debilitado')
+						self.window.show('TARGET_FAINTED',[pk_enemy.name()])
+
+		self.window.visualize()

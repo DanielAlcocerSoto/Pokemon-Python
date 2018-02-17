@@ -21,11 +21,11 @@ class Selector:
         self.set_location()
 
     def set_location(self):
-        name = 'SELECTOR_L_FILE' if self.pos[0] == 2 else 'SELECTOR_FILE'
+        name = 'SELECTOR_L_FILE' if self.pos[1] == 2 else 'SELECTOR_FILE'
         image = load_cell(Directory[name])
         self._image = pygame.transform.scale(image, scale_bg(image.get_size()))
 
-        if self.pos[0] < 2:
+        if self.pos[1] < 2:
             width = Select_Config['POS_MOVE_'+str(self.pos[0])][0]
             height = Select_Config['POS_MOVE_'+str(self.pos[1]*2)][1]
         else:

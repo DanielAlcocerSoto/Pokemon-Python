@@ -37,7 +37,7 @@ class Trainer:
 	def action(self):
 		target = self._target + 2 if self.is_ally() else self._target
 		return (self._pk.moves_can_use()[self._idmove], target)
-	def choice_action(self, info):
+	def choice_action(self):
 		"""
 		Args:
 			state (dict??/obj): contains information about the current state of the game.
@@ -50,6 +50,6 @@ class Trainer:
 
 
 class TrainerRandom(Trainer):
-	def choice_action(self, info):
+	def choice_action(self):
 		self._idmove = randint(0, self.num_moves_can_use()-1)
 		self._target = randint(0, 1)
