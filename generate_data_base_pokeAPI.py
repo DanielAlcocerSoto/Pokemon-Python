@@ -6,6 +6,7 @@
 """
 
 from Pokemon_python.generate_data.generator_data_base import generate_pokemons, generate_types, generate_moves
+import argparse
 
 def main(args):
 	if  args.move or args.all:

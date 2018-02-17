@@ -1,7 +1,7 @@
 {
   "API": "http://pokeapi.co/api/v2/",
 
-  "N_POKE": 151,
+  "N_POKE": 493,
   "N_TYPE": 18,
   "N_MOVE": 719
 }

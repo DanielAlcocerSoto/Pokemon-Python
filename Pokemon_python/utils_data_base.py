@@ -11,6 +11,8 @@ from pygame.image import load
 
 import json
 import shutil
+import requests
+import os.path
 
 def print_dict(d, sort=False):
 	print(json.dumps(d, indent=4, sort_keys=sort))
@@ -25,9 +27,11 @@ def save_json(name_file, obj):
 		json.dump(obj, file, indent=4)
 
 def download_sprite(url,name_file):
-	response = requests.get(url, stream=True)
-	with open(get_sprite_path(name_file), 'wb') as file:
-		shutil.copyfileobj(response.raw, file)
+	path = Directory['DIR_SPRITES']+name_file+'.png'
+	if not os.path.exists(path):
+		response = requests.get(url, stream=True)
+		with open(path, 'wb') as file:
+			shutil.copyfileobj(response.raw, file)
 
 def load_image(name_file):
 	return load(Directory['DIR_IMAGES']+name_file+'.png')

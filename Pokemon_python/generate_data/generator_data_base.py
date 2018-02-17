@@ -36,7 +36,7 @@ def search(attr, args={}):
 
 ###################################POKEMON#####################################
 
-def generate_pokemons():
+def generate_pokemons(start=0, ITER = 4):
 
 	movesList = load_json(Directory['MOVE_FILE']).keys()
 
@@ -65,10 +65,19 @@ def generate_pokemons():
 				'moves':filter_moves(pokemon['moves']),
 				'sprites':filter_sprites(pokemon)}
 
-	pokedex = { pokemon['name']:
-				filter_pokemon_info(get(pokemon['url']))
-				for pokemon in search('pokemon', args = {'limit':Generate_Config['N_POKE']})}
-	save_json(Directory['POKE_FILE'], pokedex)
+	def bucle (result):
+		pokedex = load_json(Directory['MOVE_FILE'])
+		for r in result:
+			pokemon = get(r['url'])
+			pokedex[pokemon['name']] = filter_pokemon_info(pokemon)
+		save_json(Directory['MOVE_FILE'], pokedex)
+
+	if start == 0: save_json(Directory['MOVE_FILE'], {})
+	N_POKE = Generate_Config['N_POKE']
+	for i in range(start,ITER): #too many info, maybe some problem appear
+		print ('new try....................'+str(N_POKE//ITER*i)+'/'+str(N_POKE))
+		bucle(search('pokemon', args = {'limit':N_POKE//ITER, 'offset':N_POKE//ITER*i}))
+	bucle(search('pokemon', args = {'limit':N_POKE%ITER, 'offset':N_POKE//ITER*ITER}))
 
 ####################################TYPES######################################
 
@@ -87,13 +96,20 @@ def generate_types():
 ####################################MOVES######################################
 
 def generate_moves(start=0, ITER = 7):#Max 405 start with 1
+	def es_name(move):
+		for idiom in move['names']:
+			if idiom['language']['name'] == 'es':
+				return idiom['name']
+		return move['name']
+
 	def bucle (result):
 		movedex = load_json(Directory['MOVE_FILE'])
 		for r in result:
 			move = get(r['url'])
 			if move['power'] != None:
-				print (move['name'])
-				movedex[move['name']] = {
+				name_move = es_name(move)
+				print (name_move)
+				movedex[name_move] = {
 					'power':move['power'],
 					'pp':move['pp'],
 					'type':move['type']['name'],
