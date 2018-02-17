@@ -63,16 +63,22 @@ class Double_Battle:
 		if trainerF1==None: trainerF1 = TrainerRandom(FOE, Pokemon(choice(list_poke), base_level + randint(-varability_level,varability_level)))
 		if trainerF2==None: trainerF2 = TrainerRandom(FOE, Pokemon(choice(list_poke), base_level + randint(-varability_level,varability_level)))
 		self._trainers = [trainerA1,trainerA2,trainerF1,trainerF2]
-		state = {
+		self.state = {
 				Display_Config["Ally_0"]:trainerA1.pokemon(),
 				Display_Config["Ally_1"]:trainerA2.pokemon(),
 				Display_Config["Foe_0"]:trainerF1.pokemon(),
 				Display_Config["Foe_1"]:trainerF2.pokemon()
 				}
-		self.window = Window(state)
+		self.window = Window(self.state)
 		trainerA1.set_input_method(self.window)
-		self.window.show('START', [t.pokemon().name() for t in self._trainers])
+		#self.window.show('START', [t.pokemon().name() for t in self._trainers])
 
+	def show_result(self):
+		if self.is_finished:
+			winners = [tr.pokemon().name() for tr in self._trainers if not tr.pokemon().is_fainted()]
+			if len(winners) == 2: self.window.show("WINNERS", winners)
+			if len(winners) == 1: self.window.show("WINNER", winners)
+			self.window.show("WIN" if self.winners() else "LOSE", time=5)
 	def is_finished(self):
 		fainteds = list(map(lambda tr: tr.pokemon().is_fainted(), self._trainers))
 		return (fainteds[0] and fainteds[1]) or (fainteds[2] and fainteds[3])

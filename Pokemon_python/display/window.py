@@ -83,11 +83,11 @@ class Window:
 						return self.set_action_selected(self.select.get_selected())
 		return None
 
-	def show(self, name, args=[]):
+	def show(self, name, args=[], time=2):
 		text = self.sentence[name].format(*args)
 		self.dialog.set_text(text)
 		self.visualize()
-		sleep(2)#click or enter
+		sleep(time)#click or enter
 
 	def get_action(self):
 		self.select.change_mode('MODE_MOVE')

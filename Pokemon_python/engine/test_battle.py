@@ -31,4 +31,5 @@ def main():
 	Battle = Double_Battle(base_level = 95, varability_level = 5)
 	while(not Battle.is_finished()):
 		Battle.doTurn()
+	Battle.show_result()
 	print('Allies win? '+str(Battle.winners()))

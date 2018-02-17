@@ -1,6 +1,7 @@
 {
   "TEST": "hola que pasa esto es un texto extra llargo gente",
   "START": "Start Battle: {} and {} vs. {} and {}",
+  "ASK_MOVE": "Que deberia hacer {}?",
   "USE_ATTACK": "{} ha usado {} contra {}",
   "EFECTIVITY_x4": "Es super efectivo",
   "EFECTIVITY_x2": "Es muy efectivo",
@@ -8,5 +9,9 @@
   "EFECTIVITY_x025": "Es muy poco efectivo",
   "EFECTIVITY_x0": "No es efectivo",
   "MISS_ATTACK": "El ataque ha fallado",
-  "TARGET_FAINTED": "{}  ya estaba debilitado"
+  "TARGET_FAINTED": "{}  ya estaba debilitado",
+  "WINNERS":"{} y {} han ganado!",
+  "WINNER":"{} ha ganado!",
+  "WIN":"Felicidades entrenador, has ganado el combate !!!",
+  "LOSE":"Has perdido el combate... Mas suerte la proxima!"
 }

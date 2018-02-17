@@ -16,6 +16,7 @@ class Font:
         self.pos = scale_bg(transalte(reference, shift))
         self.LETTER_SIZE = int (letter_size * Display_Config['SCALE'] * Display_Config['BACKGROUND_SCALE'])
         self._font = pygame.font.Font(Directory['LETTER_FILE'], self.LETTER_SIZE)
+        self.set_text('')
 
     def set_text(self, text, color_name = "BLACK"):
         counter_char = line = 0
