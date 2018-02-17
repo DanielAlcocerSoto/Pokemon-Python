@@ -53,6 +53,10 @@ class Window:
 			self.selector = self.select.selector
 		elif self.select.in_mode('MODE_TARGET'):
 			self.target = obj
+			if obj == 4: #cancel button
+				self.select.change_mode('MODE_MOVE')
+				self.selector = self.select.selector
+				return None
 			self.select.change_mode('MODE_OFF')
 			self.selector = self.select.selector
 			return (self.move, self.target)

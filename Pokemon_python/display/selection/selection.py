@@ -72,7 +72,7 @@ class Selection_Target(Display):
         self.selector = Selector(False)
         self.target_0 = target_0
         self.target_1 = target_1
-        self.buttons = [#TODO all pokemons posible selectable
+        self.buttons = [#TODO all pokemons posible selectable+ cancel button to detect it on click
             Button_Target(Select_Config['POS_MOVE_0'],target_0),
             Button_Target(Select_Config['POS_MOVE_1'],target_1)
         ]
