@@ -18,6 +18,8 @@ class Move(Object_Info):
 		self._pp = self._info['pp']
 		self._type = Type(self._info['type'])
 
+	def name(self):
+		return  self._info['es_name']
 	def power(self):
 		return self._info['power']
 	def accuracy(self):
