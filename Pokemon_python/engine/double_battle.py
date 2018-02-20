@@ -71,13 +71,13 @@ class Double_Battle:
 				}
 		self.window = Window(self.state)
 		trainerA1.set_input_method(self.window)
-		#self.window.show('START', [t.pokemon().name() for t in self._trainers])
+		self.window.show('START', *[t.pokemon().name() for t in self._trainers])
 
 	def show_result(self):
 		if self.is_finished:
 			winners = [tr.pokemon().name() for tr in self._trainers if not tr.pokemon().is_fainted()]
-			if len(winners) == 2: self.window.show("WINNERS", winners)
-			if len(winners) == 1: self.window.show("WINNER", winners)
+			if len(winners) == 2: self.window.show("WINNERS", *winners)
+			if len(winners) == 1: self.window.show("WINNER", *winners)
 			self.window.show("WIN" if self.winners() else "LOSE", time=5)
 	def is_finished(self):
 		fainteds = list(map(lambda tr: tr.pokemon().is_fainted(), self._trainers))
@@ -108,7 +108,7 @@ class Double_Battle:
 				if not poke.is_fainted():#fainted during this turn
 					move, target = trainer.action()
 					pk_enemy = self._trainers[target].pokemon()
-					self.window.show('USE_ATTACK',[poke.name(),move.name(),pk_enemy.name()])
+					self.window.show('USE_ATTACK',poke.name(),move.name(),pk_enemy.name())
 					if not pk_enemy.is_fainted():
 						if with_prob_of(move.accuracy()):
 							attack  = Attack(poke, pk_enemy, move)
@@ -119,9 +119,9 @@ class Double_Battle:
 							if attack.efectivity == 0.25: 	self.window.show('EFECTIVITY_x025')
 							if attack.efectivity == 0:		self.window.show('EFECTIVITY_x0')
 							if attack.is_critic:			self.window.show('CRITIC_ATTACK')
-							if pk_enemy.is_fainted(): 		self.window.show('DEAD_POKEMON',[pk_enemy.name()])
+							if pk_enemy.is_fainted(): 		self.window.show('DEAD_POKEMON',pk_enemy.name())
 						else: self.window.show('MISS_ATTACK',poke.name())
 					else : #auto cambiar objetivo???  util para la IA nop
-						self.window.show('TARGET_FAINTED',[pk_enemy.name()])
+						self.window.show('TARGET_FAINTED',pk_enemy.name())
 
 		self.window.visualize()

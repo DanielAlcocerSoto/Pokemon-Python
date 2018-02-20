@@ -16,5 +16,5 @@ class TrainerInput(Trainer):
 		self.window = window
 
 	def choice_action(self):
-		self.window.show("ASK_MOVE",[self._pk.name()],time=0)
+		self.window.show("ASK_MOVE",self._pk.name(),time=0)
 		self._idmove, self._target = self.window.get_action()

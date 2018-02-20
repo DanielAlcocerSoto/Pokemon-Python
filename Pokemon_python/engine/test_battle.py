@@ -27,7 +27,7 @@ def main():
 	#tr2 = TrainerRandom(FOE, Pokemon('seadra',95))
 
 
-	Battle = Double_Battle(base_level = 95, varability_level = 5)
+	Battle = Double_Battle(base_level = 50, varability_level = 10)
 	while(not Battle.is_finished()):
 		Battle.doTurn()
 	Battle.show_result()

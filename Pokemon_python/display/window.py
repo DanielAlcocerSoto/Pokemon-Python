@@ -45,17 +45,18 @@ class Window:
 		return action
 
 	def set_action_selected(self,obj):
-		if self.select.in_mode('MODE_MOVE'):
-			self.move = obj
-			self.select.change_mode('MODE_TARGET')
-		elif self.select.in_mode('MODE_TARGET'):
-			self.target = obj
-			if obj == 4: #cancel button
-				self.select.change_mode('MODE_MOVE')
-				return None
-			elif obj in [0,1]:
-				self.select.change_mode('MODE_OFF')
-				return (self.move, self.target)
+		if obj != None:
+			if self.select.in_mode('MODE_MOVE'):
+				self.move = obj
+				self.select.change_mode('MODE_TARGET')
+			elif self.select.in_mode('MODE_TARGET'):
+				self.target = obj
+				if obj == 4: #cancel button
+					self.select.change_mode('MODE_MOVE')
+					return None
+				elif obj in [0,1]:
+					self.select.change_mode('MODE_OFF')
+					return (self.move, self.target)
 		return None
 
 	def manage_events(self):
@@ -68,8 +69,7 @@ class Window:
 			elif not self.select.in_mode('MODE_OFF'):
 				if event.type == MOUSEBUTTONDOWN and event.button == 1:
 					mouse = pygame.mouse.get_pos()
-					obj = self.select.click_at(mouse)
-					if obj != None: return self.set_action_selected(obj)
+					return self.set_action_selected(self.select.click_at(mouse))
 
 				elif event.type == KEYDOWN:
 					if event.key in [K_RIGHT, K_d]:
@@ -81,12 +81,12 @@ class Window:
 					elif event.key in [K_DOWN, K_s]:
 						self.select.selector.move_to_down()
 					elif event.key in [K_RETURN, K_SPACE]:
-						obj = self.select.get_selected()
-						if obj != None:return self.set_action_selected(obj)
+						return self.set_action_selected(self.select.get_selected())
 		return None
 
-	def show(self, name, args=[], time=2):
+	def show(self, name, *args, time=2):
 		text = self.sentence[name].format(*args)
+		print(text)
 		self.dialog.set_text(text)
 		self.visualize()
 		sleep(time)#click or enter
