@@ -13,7 +13,6 @@ from Pokemon_python.sittings import Directory, Generate_Config
 
 import requests
 import json
-import argparse
 
 __version__ = '1.0'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
@@ -36,7 +35,7 @@ def search(attr, args={}):
 
 ###################################POKEMON#####################################
 
-def generate_pokemons(start=2, ITER = 4):
+def generate_pokemons(start=0, ITER = 4):
 
 	movesList = load_json(Directory['MOVE_FILE']).keys()
 
@@ -91,7 +90,7 @@ def generate_types():
 	typedex = { ty['name']:
 				filter_type_info(get(ty['url']))
 				for ty in search('type', args = {'limit':Generate_Config['N_TYPE']})}
-	save_json(TYPE_FILE, typedex)
+	save_json(Directory['TYPE_FILE'], typedex)
 
 ####################################MOVES######################################
 

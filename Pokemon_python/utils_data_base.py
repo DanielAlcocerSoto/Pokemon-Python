@@ -56,4 +56,4 @@ class Object_Info:
 		else : raise Exception('Name "'+name+'" does not exist in '+file)
 
 	def name(self):
-		return self._name
+		return self._name.title()

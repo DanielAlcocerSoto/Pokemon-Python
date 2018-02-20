@@ -103,20 +103,24 @@ class Double_Battle:
 
 			for trainer in sorted(live_trainers, key=self.attack_order, reverse=True):
 				#dialog... x used a,,,,is efective.... (trainer. talk()???? not por los prints de battle)
-				if not trainer.pokemon().is_fainted():#fainted during this turn
+				if self.is_finished(): break
+				poke = trainer.pokemon()
+				if not poke.is_fainted():#fainted during this turn
 					move, target = trainer.action()
 					pk_enemy = self._trainers[target].pokemon()
-					self.window.show('USE_ATTACK',[trainer.pokemon().name(),move.name(),pk_enemy.name()])
+					self.window.show('USE_ATTACK',[poke.name(),move.name(),pk_enemy.name()])
 					if not pk_enemy.is_fainted():
 						if with_prob_of(move.accuracy()):
-							attack  = Attack(trainer.pokemon(), pk_enemy, move)
+							attack  = Attack(poke, pk_enemy, move)
 							trainer.set_last_attack(attack)
 							if attack.efectivity == 4:		self.window.show('EFECTIVITY_x4')
 							if attack.efectivity == 2:		self.window.show('EFECTIVITY_x2')
 							if attack.efectivity == 0.5: 	self.window.show('EFECTIVITY_x05')
 							if attack.efectivity == 0.25: 	self.window.show('EFECTIVITY_x025')
 							if attack.efectivity == 0:		self.window.show('EFECTIVITY_x0')
-						else: self.window.show('MISS_ATTACK')
+							if attack.is_critic:			self.window.show('CRITIC_ATTACK')
+							if pk_enemy.is_fainted(): 		self.window.show('DEAD_POKEMON',[pk_enemy.name()])
+						else: self.window.show('MISS_ATTACK',poke.name())
 					else : #auto cambiar objetivo???  util para la IA nop
 						self.window.show('TARGET_FAINTED',[pk_enemy.name()])
 

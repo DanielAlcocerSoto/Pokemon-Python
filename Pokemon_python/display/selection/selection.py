@@ -25,7 +25,7 @@ class Selection_Manager:
           "MODE_TARGET":self.selection_target,
           "MODE_OFF":   self.selection_none
         }
-        self.change_mode('MODE_MOVE')
+        self.change_mode('MODE_OFF')
 
     def get_selected(self):
         return self.active_mode.get_idx_selected()

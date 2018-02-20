@@ -1,6 +1,5 @@
 {
     "pound": {
-        "es_name": "Destructor",
         "power": 40,
         "pp": 35,
         "type": "normal",
@@ -10,7 +9,6 @@
         "crit_rate": 0
     },
     "karate-chop": {
-        "es_name": "Golpe K\u00e1rate",
         "power": 50,
         "pp": 25,
         "type": "fighting",
@@ -20,7 +18,6 @@
         "crit_rate": 1
     },
     "double-slap": {
-        "es_name": "Doble Bofet\u00f3n",
         "power": 15,
         "pp": 10,
         "type": "normal",
@@ -30,7 +27,6 @@
         "crit_rate": 0
     },
     "comet-punch": {
-        "es_name": "Pu\u00f1o Cometa",
         "power": 18,
         "pp": 15,
         "type": "normal",
@@ -40,7 +36,6 @@
         "crit_rate": 0
     },
     "mega-punch": {
-        "es_name": "Megapu\u00f1o",
         "power": 80,
         "pp": 20,
         "type": "normal",
@@ -50,7 +45,6 @@
         "crit_rate": 0
     },
     "pay-day": {
-        "es_name": "D\u00eda de Pago",
         "power": 40,
         "pp": 20,
         "type": "normal",
@@ -60,7 +54,6 @@
         "crit_rate": 0
     },
     "fire-punch": {
-        "es_name": "Pu\u00f1o Fuego",
         "power": 75,
         "pp": 15,
         "type": "fire",
@@ -70,7 +63,6 @@
         "crit_rate": 0
     },
     "ice-punch": {
-        "es_name": "Pu\u00f1o Hielo",
         "power": 75,
         "pp": 15,
         "type": "ice",
@@ -80,7 +72,6 @@
         "crit_rate": 0
     },
     "thunder-punch": {
-        "es_name": "Pu\u00f1o Trueno",
         "power": 75,
         "pp": 15,
         "type": "electric",
@@ -90,7 +81,6 @@
         "crit_rate": 0
     },
     "scratch": {
-        "es_name": "Ara\u00f1azo",
         "power": 40,
         "pp": 35,
         "type": "normal",
@@ -100,7 +90,6 @@
         "crit_rate": 0
     },
     "vice-grip": {
-        "es_name": "Agarre",
         "power": 55,
         "pp": 30,
         "type": "normal",
@@ -110,7 +99,6 @@
         "crit_rate": 0
     },
     "razor-wind": {
-        "es_name": "Viento Cortante",
         "power": 80,
         "pp": 10,
         "type": "normal",
@@ -120,7 +108,6 @@
         "crit_rate": 1
     },
     "cut": {
-        "es_name": "Corte",
         "power": 50,
         "pp": 30,
         "type": "normal",
@@ -130,7 +117,6 @@
         "crit_rate": 0
     },
     "gust": {
-        "es_name": "Tornado",
         "power": 40,
         "pp": 35,
         "type": "flying",
@@ -140,7 +126,6 @@
         "crit_rate": 0
     },
     "wing-attack": {
-        "es_name": "Ataque Ala",
         "power": 60,
         "pp": 35,
         "type": "flying",
@@ -150,7 +135,6 @@
         "crit_rate": 0
     },
     "fly": {
-        "es_name": "Vuelo",
         "power": 90,
         "pp": 15,
         "type": "flying",
@@ -160,7 +144,6 @@
         "crit_rate": 0
     },
     "bind": {
-        "es_name": "Atadura",
         "power": 15,
         "pp": 20,
         "type": "normal",
@@ -170,7 +153,6 @@
         "crit_rate": 0
     },
     "slam": {
-        "es_name": "Atizar",
         "power": 80,
         "pp": 20,
         "type": "normal",
@@ -180,7 +162,6 @@
         "crit_rate": 0
     },
     "vine-whip": {
-        "es_name": "L\u00e1tigo Cepa",
         "power": 45,
         "pp": 25,
         "type": "grass",
@@ -190,7 +171,6 @@
         "crit_rate": 0
     },
     "stomp": {
-        "es_name": "Pisot\u00f3n",
         "power": 65,
         "pp": 20,
         "type": "normal",
@@ -200,7 +180,6 @@
         "crit_rate": 0
     },
     "double-kick": {
-        "es_name": "Doble Patada",
         "power": 30,
         "pp": 30,
         "type": "fighting",
@@ -210,7 +189,6 @@
         "crit_rate": 0
     },
     "mega-kick": {
-        "es_name": "Megapatada",
         "power": 120,
         "pp": 5,
         "type": "normal",
@@ -220,7 +198,6 @@
         "crit_rate": 0
     },
     "jump-kick": {
-        "es_name": "Patada Salto",
         "power": 100,
         "pp": 10,
         "type": "fighting",
@@ -230,7 +207,6 @@
         "crit_rate": 0
     },
     "rolling-kick": {
-        "es_name": "Patada Giro",
         "power": 60,
         "pp": 15,
         "type": "fighting",
@@ -240,7 +216,6 @@
         "crit_rate": 0
     },
     "headbutt": {
-        "es_name": "Golpe Cabeza",
         "power": 70,
         "pp": 15,
         "type": "normal",
@@ -250,7 +225,6 @@
         "crit_rate": 0
     },
     "horn-attack": {
-        "es_name": "Cornada",
         "power": 65,
         "pp": 25,
         "type": "normal",
@@ -260,7 +234,6 @@
         "crit_rate": 0
     },
     "fury-attack": {
-        "es_name": "Ataque Furia",
         "power": 15,
         "pp": 20,
         "type": "normal",
@@ -270,7 +243,6 @@
         "crit_rate": 0
     },
     "tackle": {
-        "es_name": "Placaje",
         "power": 40,
         "pp": 35,
         "type": "normal",
@@ -280,7 +252,6 @@
         "crit_rate": 0
     },
     "body-slam": {
-        "es_name": "Golpe Cuerpo",
         "power": 85,
         "pp": 15,
         "type": "normal",
@@ -290,7 +261,6 @@
         "crit_rate": 0
     },
     "wrap": {
-        "es_name": "Constricci\u00f3n",
         "power": 15,
         "pp": 20,
         "type": "normal",
@@ -300,7 +270,6 @@
         "crit_rate": 0
     },
     "take-down": {
-        "es_name": "Derribo",
         "power": 90,
         "pp": 20,
         "type": "normal",
@@ -310,7 +279,6 @@
         "crit_rate": 0
     },
     "thrash": {
-        "es_name": "Golpe",
         "power": 120,
         "pp": 10,
         "type": "normal",
@@ -320,7 +288,6 @@
         "crit_rate": 0
     },
     "double-edge": {
-        "es_name": "Doble Filo",
         "power": 120,
         "pp": 15,
         "type": "normal",
@@ -330,7 +297,6 @@
         "crit_rate": 0
     },
     "poison-sting": {
-        "es_name": "Picotazo Ven",
         "power": 15,
         "pp": 35,
         "type": "poison",
@@ -340,7 +306,6 @@
         "crit_rate": 0
     },
     "twineedle": {
-        "es_name": "Doble Ataque",
         "power": 25,
         "pp": 20,
         "type": "bug",
@@ -350,7 +315,6 @@
         "crit_rate": 0
     },
     "pin-missile": {
-        "es_name": "Pin Misil",
         "power": 25,
         "pp": 20,
         "type": "bug",
@@ -360,7 +324,6 @@
         "crit_rate": 0
     },
     "bite": {
-        "es_name": "Mordisco",
         "power": 60,
         "pp": 25,
         "type": "dark",
@@ -370,7 +333,6 @@
         "crit_rate": 0
     },
     "acid": {
-        "es_name": "\u00c1cido",
         "power": 40,
         "pp": 30,
         "type": "poison",
@@ -380,7 +342,6 @@
         "crit_rate": 0
     },
     "ember": {
-        "es_name": "Ascuas",
         "power": 40,
         "pp": 25,
         "type": "fire",
@@ -390,7 +351,6 @@
         "crit_rate": 0
     },
     "flamethrower": {
-        "es_name": "Lanzallamas",
         "power": 90,
         "pp": 15,
         "type": "fire",
@@ -400,7 +360,6 @@
         "crit_rate": 0
     },
     "water-gun": {
-        "es_name": "Pistola Agua",
         "power": 40,
         "pp": 25,
         "type": "water",
@@ -410,7 +369,6 @@
         "crit_rate": 0
     },
     "hydro-pump": {
-        "es_name": "Hidrobomba",
         "power": 110,
         "pp": 5,
         "type": "water",
@@ -420,7 +378,6 @@
         "crit_rate": 0
     },
     "surf": {
-        "es_name": "Surf",
         "power": 90,
         "pp": 15,
         "type": "water",
@@ -430,7 +387,6 @@
         "crit_rate": 0
     },
     "ice-beam": {
-        "es_name": "Rayo Hielo",
         "power": 90,
         "pp": 10,
         "type": "ice",
@@ -440,7 +396,6 @@
         "crit_rate": 0
     },
     "blizzard": {
-        "es_name": "Ventisca",
         "power": 110,
         "pp": 5,
         "type": "ice",
@@ -450,7 +405,6 @@
         "crit_rate": 0
     },
     "psybeam": {
-        "es_name": "Psicorrayo",
         "power": 65,
         "pp": 20,
         "type": "psychic",
@@ -460,7 +414,6 @@
         "crit_rate": 0
     },
     "bubble-beam": {
-        "es_name": "Rayo Burbuja",
         "power": 65,
         "pp": 20,
         "type": "water",
@@ -470,7 +423,6 @@
         "crit_rate": 0
     },
     "aurora-beam": {
-        "es_name": "Rayo Aurora",
         "power": 65,
         "pp": 20,
         "type": "ice",
@@ -480,7 +432,6 @@
         "crit_rate": 0
     },
     "hyper-beam": {
-        "es_name": "Hiperrayo",
         "power": 150,
         "pp": 5,
         "type": "normal",
@@ -490,7 +441,6 @@
         "crit_rate": 0
     },
     "peck": {
-        "es_name": "Picotazo",
         "power": 35,
         "pp": 35,
         "type": "flying",
@@ -500,7 +450,6 @@
         "crit_rate": 0
     },
     "drill-peck": {
-        "es_name": "Pico Taladro",
         "power": 80,
         "pp": 20,
         "type": "flying",
@@ -510,7 +459,6 @@
         "crit_rate": 0
     },
     "submission": {
-        "es_name": "Sumisi\u00f3n",
         "power": 80,
         "pp": 20,
         "type": "fighting",
@@ -520,7 +468,6 @@
         "crit_rate": 0
     },
     "strength": {
-        "es_name": "Fuerza",
         "power": 80,
         "pp": 15,
         "type": "normal",
@@ -530,7 +477,6 @@
         "crit_rate": 0
     },
     "absorb": {
-        "es_name": "Absorber",
         "power": 20,
         "pp": 25,
         "type": "grass",
@@ -540,7 +486,6 @@
         "crit_rate": 0
     },
     "mega-drain": {
-        "es_name": "Megaagotar",
         "power": 40,
         "pp": 15,
         "type": "grass",
@@ -550,7 +495,6 @@
         "crit_rate": 0
     },
     "razor-leaf": {
-        "es_name": "Hoja Afilada",
         "power": 55,
         "pp": 25,
         "type": "grass",
@@ -560,7 +504,6 @@
         "crit_rate": 1
     },
     "solar-beam": {
-        "es_name": "Rayo Solar",
         "power": 120,
         "pp": 10,
         "type": "grass",
@@ -570,7 +513,6 @@
         "crit_rate": 0
     },
     "petal-dance": {
-        "es_name": "Danza P\u00e9talo",
         "power": 120,
         "pp": 10,
         "type": "grass",
@@ -580,7 +522,6 @@
         "crit_rate": 0
     },
     "fire-spin": {
-        "es_name": "Giro Fuego",
         "power": 35,
         "pp": 15,
         "type": "fire",
@@ -590,7 +531,6 @@
         "crit_rate": 0
     },
     "thunder-shock": {
-        "es_name": "Impactrueno",
         "power": 40,
         "pp": 30,
         "type": "electric",
@@ -600,7 +540,6 @@
         "crit_rate": 0
     },
     "thunderbolt": {
-        "es_name": "Rayo",
         "power": 90,
         "pp": 15,
         "type": "electric",
@@ -610,7 +549,6 @@
         "crit_rate": 0
     },
     "thunder": {
-        "es_name": "Trueno",
         "power": 110,
         "pp": 10,
         "type": "electric",
@@ -620,7 +558,6 @@
         "crit_rate": 0
     },
     "rock-throw": {
-        "es_name": "Lanzarrocas",
         "power": 50,
         "pp": 15,
         "type": "rock",
@@ -630,7 +567,6 @@
         "crit_rate": 0
     },
     "earthquake": {
-        "es_name": "Terremoto",
         "power": 100,
         "pp": 10,
         "type": "ground",
@@ -640,7 +576,6 @@
         "crit_rate": 0
     },
     "dig": {
-        "es_name": "Excavar",
         "power": 80,
         "pp": 10,
         "type": "ground",
@@ -650,7 +585,6 @@
         "crit_rate": 0
     },
     "confusion": {
-        "es_name": "Confusi\u00f3n",
         "power": 50,
         "pp": 25,
         "type": "psychic",
@@ -660,7 +594,6 @@
         "crit_rate": 0
     },
     "psychic": {
-        "es_name": "Ps\u00edquico",
         "power": 90,
         "pp": 10,
         "type": "psychic",
@@ -670,7 +603,6 @@
         "crit_rate": 0
     },
     "quick-attack": {
-        "es_name": "Ataque R\u00e1pido",
         "power": 40,
         "pp": 30,
         "type": "normal",
@@ -680,7 +612,6 @@
         "crit_rate": 0
     },
     "rage": {
-        "es_name": "Furia",
         "power": 20,
         "pp": 20,
         "type": "normal",
@@ -690,7 +621,6 @@
         "crit_rate": 0
     },
     "self-destruct": {
-        "es_name": "Autodestrucci\u00f3n",
         "power": 200,
         "pp": 5,
         "type": "normal",
@@ -700,7 +630,6 @@
         "crit_rate": 0
     },
     "egg-bomb": {
-        "es_name": "Bomba Huevo",
         "power": 100,
         "pp": 10,
         "type": "normal",
@@ -710,7 +639,6 @@
         "crit_rate": 0
     },
     "lick": {
-        "es_name": "Leng\u00fcetazo",
         "power": 30,
         "pp": 30,
         "type": "ghost",
@@ -720,7 +648,6 @@
         "crit_rate": 0
     },
     "smog": {
-        "es_name": "Poluci\u00f3n",
         "power": 30,
         "pp": 20,
         "type": "poison",
@@ -730,7 +657,6 @@
         "crit_rate": 0
     },
     "sludge": {
-        "es_name": "Residuos",
         "power": 65,
         "pp": 20,
         "type": "poison",
@@ -740,7 +666,6 @@
         "crit_rate": 0
     },
     "bone-club": {
-        "es_name": "Hueso Palo",
         "power": 65,
         "pp": 20,
         "type": "ground",
@@ -750,7 +675,6 @@
         "crit_rate": 0
     },
     "fire-blast": {
-        "es_name": "Llamarada",
         "power": 110,
         "pp": 5,
         "type": "fire",
@@ -760,7 +684,6 @@
         "crit_rate": 0
     },
     "waterfall": {
-        "es_name": "Cascada",
         "power": 80,
         "pp": 15,
         "type": "water",
@@ -770,7 +693,6 @@
         "crit_rate": 0
     },
     "clamp": {
-        "es_name": "Tenaza",
         "power": 35,
         "pp": 15,
         "type": "water",
@@ -780,7 +702,6 @@
         "crit_rate": 0
     },
     "swift": {
-        "es_name": "Rapidez",
         "power": 60,
         "pp": 20,
         "type": "normal",
@@ -790,7 +711,6 @@
         "crit_rate": 0
     },
     "skull-bash": {
-        "es_name": "Cabezazo",
         "power": 130,
         "pp": 10,
         "type": "normal",
@@ -800,7 +720,6 @@
         "crit_rate": 0
     },
     "spike-cannon": {
-        "es_name": "Clavo Ca\u00f1\u00f3n",
         "power": 20,
         "pp": 15,
         "type": "normal",
@@ -810,7 +729,6 @@
         "crit_rate": 0
     },
     "constrict": {
-        "es_name": "Restricci\u00f3n",
         "power": 10,
         "pp": 35,
         "type": "normal",
@@ -820,7 +738,6 @@
         "crit_rate": 0
     },
     "high-jump-kick": {
-        "es_name": "Pat. Salto Alta",
         "power": 130,
         "pp": 10,
         "type": "fighting",
@@ -830,7 +747,6 @@
         "crit_rate": 0
     },
     "dream-eater": {
-        "es_name": "Come Sue\u00f1os",
         "power": 100,
         "pp": 15,
         "type": "psychic",
@@ -840,7 +756,6 @@
         "crit_rate": 0
     },
     "barrage": {
-        "es_name": "Presa",
         "power": 15,
         "pp": 20,
         "type": "normal",
@@ -850,7 +765,6 @@
         "crit_rate": 0
     },
     "leech-life": {
-        "es_name": "Chupavidas",
         "power": 80,
         "pp": 10,
         "type": "bug",
@@ -860,7 +774,6 @@
         "crit_rate": 0
     },
     "sky-attack": {
-        "es_name": "Ataque A\u00e9reo",
         "power": 140,
         "pp": 5,
         "type": "flying",
@@ -870,7 +783,6 @@
         "crit_rate": 1
     },
     "bubble": {
-        "es_name": "Burbuja",
         "power": 40,
         "pp": 30,
         "type": "water",
@@ -880,7 +792,6 @@
         "crit_rate": 0
     },
     "dizzy-punch": {
-        "es_name": "Pu\u00f1o Mareo",
         "power": 70,
         "pp": 10,
         "type": "normal",
@@ -890,7 +801,6 @@
         "crit_rate": 0
     },
     "crabhammer": {
-        "es_name": "Martillazo",
         "power": 100,
         "pp": 10,
         "type": "water",
@@ -900,7 +810,6 @@
         "crit_rate": 1
     },
     "explosion": {
-        "es_name": "Explosi\u00f3n",
         "power": 250,
         "pp": 5,
         "type": "normal",
@@ -910,7 +819,6 @@
         "crit_rate": 0
     },
     "fury-swipes": {
-        "es_name": "Golpes Furia",
         "power": 18,
         "pp": 15,
         "type": "normal",
@@ -920,7 +828,6 @@
         "crit_rate": 0
     },
     "bonemerang": {
-        "es_name": "Huesomerang",
         "power": 50,
         "pp": 10,
         "type": "ground",
@@ -930,7 +837,6 @@
         "crit_rate": 0
     },
     "rock-slide": {
-        "es_name": "Avalancha",
         "power": 75,
         "pp": 10,
         "type": "rock",
@@ -940,7 +846,6 @@
         "crit_rate": 0
     },
     "hyper-fang": {
-        "es_name": "Hipercolmillo",
         "power": 80,
         "pp": 15,
         "type": "normal",
@@ -950,7 +855,6 @@
         "crit_rate": 0
     },
     "tri-attack": {
-        "es_name": "Triataque",
         "power": 80,
         "pp": 10,
         "type": "normal",
@@ -960,7 +864,6 @@
         "crit_rate": 0
     },
     "slash": {
-        "es_name": "Cuchillada",
         "power": 70,
         "pp": 20,
         "type": "normal",
@@ -970,7 +873,6 @@
         "crit_rate": 1
     },
     "struggle": {
-        "es_name": "Forcejeo",
         "power": 50,
         "pp": 1,
         "type": "normal",
@@ -980,7 +882,6 @@
         "crit_rate": 0
     },
     "triple-kick": {
-        "es_name": "Triple Patada",
         "power": 10,
         "pp": 10,
         "type": "fighting",
@@ -990,7 +891,6 @@
         "crit_rate": 0
     },
     "thief": {
-        "es_name": "Ladr\u00f3n",
         "power": 60,
         "pp": 25,
         "type": "dark",
@@ -1000,7 +900,6 @@
         "crit_rate": 0
     },
     "flame-wheel": {
-        "es_name": "Rueda Fuego",
         "power": 60,
         "pp": 25,
         "type": "fire",
@@ -1010,7 +909,6 @@
         "crit_rate": 0
     },
     "snore": {
-        "es_name": "Ronquido",
         "power": 50,
         "pp": 15,
         "type": "normal",
@@ -1020,7 +918,6 @@
         "crit_rate": 0
     },
     "aeroblast": {
-        "es_name": "Aerochorro",
         "power": 100,
         "pp": 5,
         "type": "flying",
@@ -1030,7 +927,6 @@
         "crit_rate": 1
     },
     "powder-snow": {
-        "es_name": "Nieve Polvo",
         "power": 40,
         "pp": 25,
         "type": "ice",
@@ -1040,7 +936,6 @@
         "crit_rate": 0
     },
     "mach-punch": {
-        "es_name": "Ultrapu\u00f1o",
         "power": 40,
         "pp": 30,
         "type": "fighting",
@@ -1050,7 +945,6 @@
         "crit_rate": 0
     },
     "feint-attack": {
-        "es_name": "Finta",
         "power": 60,
         "pp": 20,
         "type": "dark",
@@ -1060,7 +954,6 @@
         "crit_rate": 0
     },
     "sludge-bomb": {
-        "es_name": "Bomba Lodo",
         "power": 90,
         "pp": 10,
         "type": "poison",
@@ -1070,7 +963,6 @@
         "crit_rate": 0
     },
     "mud-slap": {
-        "es_name": "Bofet\u00f3n Lodo",
         "power": 20,
         "pp": 10,
         "type": "ground",
@@ -1080,7 +972,6 @@
         "crit_rate": 0
     },
     "octazooka": {
-        "es_name": "Pulpoca\u00f1\u00f3n",
         "power": 65,
         "pp": 10,
         "type": "water",
@@ -1090,7 +981,6 @@
         "crit_rate": 0
     },
     "zap-cannon": {
-        "es_name": "Electroca\u00f1\u00f3n",
         "power": 120,
         "pp": 5,
         "type": "electric",
@@ -1100,7 +990,6 @@
         "crit_rate": 0
     },
     "icy-wind": {
-        "es_name": "Viento Hielo",
         "power": 55,
         "pp": 15,
         "type": "ice",
@@ -1110,7 +999,6 @@
         "crit_rate": 0
     },
     "bone-rush": {
-        "es_name": "Ataque \u00d3seo",
         "power": 25,
         "pp": 10,
         "type": "ground",
@@ -1120,7 +1008,6 @@
         "crit_rate": 0
     },
     "outrage": {
-        "es_name": "Enfado",
         "power": 120,
         "pp": 10,
         "type": "dragon",
@@ -1130,7 +1017,6 @@
         "crit_rate": 0
     },
     "giga-drain": {
-        "es_name": "Gigadrenado",
         "power": 75,
         "pp": 10,
         "type": "grass",
@@ -1140,7 +1026,6 @@
         "crit_rate": 0
     },
     "rollout": {
-        "es_name": "Desenrollar",
         "power": 30,
         "pp": 20,
         "type": "rock",
@@ -1150,7 +1035,6 @@
         "crit_rate": 0
     },
     "false-swipe": {
-        "es_name": "Falsotortazo",
         "power": 40,
         "pp": 40,
         "type": "normal",
@@ -1160,7 +1044,6 @@
         "crit_rate": 0
     },
     "spark": {
-        "es_name": "Chispa",
         "power": 65,
         "pp": 20,
         "type": "electric",
@@ -1170,7 +1053,6 @@
         "crit_rate": 0
     },
     "fury-cutter": {
-        "es_name": "Corte Furia",
         "power": 40,
         "pp": 20,
         "type": "bug",
@@ -1180,7 +1062,6 @@
         "crit_rate": 0
     },
     "steel-wing": {
-        "es_name": "Ala de Acero",
         "power": 70,
         "pp": 25,
         "type": "steel",
@@ -1190,7 +1071,6 @@
         "crit_rate": 0
     },
     "sacred-fire": {
-        "es_name": "Fuego Sagrado",
         "power": 100,
         "pp": 5,
         "type": "fire",
@@ -1200,7 +1080,6 @@
         "crit_rate": 0
     },
     "dynamic-punch": {
-        "es_name": "Pu\u00f1o Din\u00e1mico",
         "power": 100,
         "pp": 5,
         "type": "fighting",
@@ -1210,7 +1089,6 @@
         "crit_rate": 0
     },
     "megahorn": {
-        "es_name": "Megacuerno",
         "power": 120,
         "pp": 10,
         "type": "bug",
@@ -1220,7 +1098,6 @@
         "crit_rate": 0
     },
     "dragon-breath": {
-        "es_name": "Dragoaliento",
         "power": 60,
         "pp": 20,
         "type": "dragon",
@@ -1230,7 +1107,6 @@
         "crit_rate": 0
     },
     "pursuit": {
-        "es_name": "Persecuci\u00f3n",
         "power": 40,
         "pp": 20,
         "type": "dark",
@@ -1240,7 +1116,6 @@
         "crit_rate": 0
     },
     "rapid-spin": {
-        "es_name": "Giro R\u00e1pido",
         "power": 20,
         "pp": 40,
         "type": "normal",
@@ -1250,7 +1125,6 @@
         "crit_rate": 0
     },
     "iron-tail": {
-        "es_name": "Cola F\u00e9rrea",
         "power": 100,
         "pp": 15,
         "type": "steel",
@@ -1260,7 +1134,6 @@
         "crit_rate": 0
     },
     "metal-claw": {
-        "es_name": "Garra Metal",
         "power": 50,
         "pp": 35,
         "type": "steel",
@@ -1270,7 +1143,6 @@
         "crit_rate": 0
     },
     "vital-throw": {
-        "es_name": "Tiro Vital",
         "power": 70,
         "pp": 10,
         "type": "fighting",
@@ -1280,7 +1152,6 @@
         "crit_rate": 0
     },
     "hidden-power": {
-        "es_name": "Poder Oculto",
         "power": 60,
         "pp": 15,
         "type": "normal",
@@ -1290,7 +1161,6 @@
         "crit_rate": 0
     },
     "cross-chop": {
-        "es_name": "Tajo Cruzado",
         "power": 100,
         "pp": 5,
         "type": "fighting",
@@ -1300,7 +1170,6 @@
         "crit_rate": 1
     },
     "twister": {
-        "es_name": "Cicl\u00f3n",
         "power": 40,
         "pp": 20,
         "type": "dragon",
@@ -1310,7 +1179,6 @@
         "crit_rate": 0
     },
     "crunch": {
-        "es_name": "Triturar",
         "power": 80,
         "pp": 15,
         "type": "dark",
@@ -1320,7 +1188,6 @@
         "crit_rate": 0
     },
     "extreme-speed": {
-        "es_name": "Veloc. Extrema",
         "power": 80,
         "pp": 5,
         "type": "normal",
@@ -1330,7 +1197,6 @@
         "crit_rate": 0
     },
     "ancient-power": {
-        "es_name": "Poder Pasado",
         "power": 60,
         "pp": 5,
         "type": "rock",
@@ -1340,7 +1206,6 @@
         "crit_rate": 0
     },
     "shadow-ball": {
-        "es_name": "Bola Sombra",
         "power": 80,
         "pp": 15,
         "type": "ghost",
@@ -1350,7 +1215,6 @@
         "crit_rate": 0
     },
     "future-sight": {
-        "es_name": "Premonici\u00f3n",
         "power": 120,
         "pp": 10,
         "type": "psychic",
@@ -1360,7 +1224,6 @@
         "crit_rate": 0
     },
     "rock-smash": {
-        "es_name": "Golpe Roca",
         "power": 40,
         "pp": 15,
         "type": "fighting",
@@ -1370,7 +1233,6 @@
         "crit_rate": 0
     },
     "whirlpool": {
-        "es_name": "Torbellino",
         "power": 35,
         "pp": 15,
         "type": "water",
@@ -1380,7 +1242,6 @@
         "crit_rate": 0
     },
     "fake-out": {
-        "es_name": "Sorpresa",
         "power": 40,
         "pp": 10,
         "type": "normal",
@@ -1390,7 +1251,6 @@
         "crit_rate": 0
     },
     "uproar": {
-        "es_name": "Alboroto",
         "power": 90,
         "pp": 10,
         "type": "normal",
@@ -1400,7 +1260,6 @@
         "crit_rate": 0
     },
     "heat-wave": {
-        "es_name": "Onda \u00cdgnea",
         "power": 95,
         "pp": 10,
         "type": "fire",
@@ -1410,7 +1269,6 @@
         "crit_rate": 0
     },
     "facade": {
-        "es_name": "Imagen",
         "power": 70,
         "pp": 20,
         "type": "normal",
@@ -1420,7 +1278,6 @@
         "crit_rate": 0
     },
     "focus-punch": {
-        "es_name": "Pu\u00f1o Certero",
         "power": 150,
         "pp": 20,
         "type": "fighting",
@@ -1430,7 +1287,6 @@
         "crit_rate": 0
     },
     "smelling-salts": {
-        "es_name": "Est\u00edmulo",
         "power": 70,
         "pp": 10,
         "type": "normal",
@@ -1440,7 +1296,6 @@
         "crit_rate": 0
     },
     "superpower": {
-        "es_name": "Fuerza Bruta",
         "power": 120,
         "pp": 5,
         "type": "fighting",
@@ -1450,7 +1305,6 @@
         "crit_rate": 0
     },
     "revenge": {
-        "es_name": "Desquite",
         "power": 60,
         "pp": 10,
         "type": "fighting",
@@ -1460,7 +1314,6 @@
         "crit_rate": 0
     },
     "brick-break": {
-        "es_name": "Demolici\u00f3n",
         "power": 75,
         "pp": 15,
         "type": "fighting",
@@ -1470,7 +1323,6 @@
         "crit_rate": 0
     },
     "knock-off": {
-        "es_name": "Desarme",
         "power": 65,
         "pp": 20,
         "type": "dark",
@@ -1480,7 +1332,6 @@
         "crit_rate": 0
     },
     "eruption": {
-        "es_name": "Estallido",
         "power": 150,
         "pp": 5,
         "type": "fire",
@@ -1490,7 +1341,6 @@
         "crit_rate": 0
     },
     "secret-power": {
-        "es_name": "Da\u00f1o Secreto",
         "power": 70,
         "pp": 20,
         "type": "normal",
@@ -1500,7 +1350,6 @@
         "crit_rate": 0
     },
     "dive": {
-        "es_name": "Buceo",
         "power": 80,
         "pp": 10,
         "type": "water",
@@ -1510,7 +1359,6 @@
         "crit_rate": 0
     },
     "arm-thrust": {
-        "es_name": "Empuj\u00f3n",
         "power": 15,
         "pp": 20,
         "type": "fighting",
@@ -1520,7 +1368,6 @@
         "crit_rate": 0
     },
     "luster-purge": {
-        "es_name": "Resplandor",
         "power": 70,
         "pp": 5,
         "type": "psychic",
@@ -1530,7 +1377,6 @@
         "crit_rate": 0
     },
     "mist-ball": {
-        "es_name": "Bola Neblina",
         "power": 70,
         "pp": 5,
         "type": "psychic",
@@ -1540,7 +1386,6 @@
         "crit_rate": 0
     },
     "blaze-kick": {
-        "es_name": "Patada \u00cdgnea",
         "power": 85,
         "pp": 10,
         "type": "fire",
@@ -1550,7 +1395,6 @@
         "crit_rate": 1
     },
     "ice-ball": {
-        "es_name": "Bola Hielo",
         "power": 30,
         "pp": 20,
         "type": "ice",
@@ -1560,7 +1404,6 @@
         "crit_rate": 0
     },
     "needle-arm": {
-        "es_name": "Brazo Pincho",
         "power": 60,
         "pp": 15,
         "type": "grass",
@@ -1570,7 +1413,6 @@
         "crit_rate": 0
     },
     "hyper-voice": {
-        "es_name": "Vozarr\u00f3n",
         "power": 90,
         "pp": 10,
         "type": "normal",
@@ -1580,7 +1422,6 @@
         "crit_rate": 0
     },
     "poison-fang": {
-        "es_name": "Colmillo Ven",
         "power": 50,
         "pp": 15,
         "type": "poison",
@@ -1590,7 +1431,6 @@
         "crit_rate": 0
     },
     "crush-claw": {
-        "es_name": "Garra Brutal",
         "power": 75,
         "pp": 10,
         "type": "normal",
@@ -1600,7 +1440,6 @@
         "crit_rate": 0
     },
     "blast-burn": {
-        "es_name": "Anillo \u00cdgneo",
         "power": 150,
         "pp": 5,
         "type": "fire",
@@ -1610,7 +1449,6 @@
         "crit_rate": 0
     },
     "hydro-cannon": {
-        "es_name": "Hidroca\u00f1\u00f3n",
         "power": 150,
         "pp": 5,
         "type": "water",
@@ -1620,7 +1458,6 @@
         "crit_rate": 0
     },
     "meteor-mash": {
-        "es_name": "Pu\u00f1o Meteoro",
         "power": 90,
         "pp": 10,
         "type": "steel",
@@ -1630,7 +1467,6 @@
         "crit_rate": 0
     },
     "astonish": {
-        "es_name": "Impresionar",
         "power": 30,
         "pp": 15,
         "type": "ghost",
@@ -1640,7 +1476,6 @@
         "crit_rate": 0
     },
     "weather-ball": {
-        "es_name": "Meteorobola",
         "power": 50,
         "pp": 10,
         "type": "normal",
@@ -1650,7 +1485,6 @@
         "crit_rate": 0
     },
     "air-cutter": {
-        "es_name": "Aire Afilado",
         "power": 60,
         "pp": 25,
         "type": "flying",
@@ -1660,7 +1494,6 @@
         "crit_rate": 1
     },
     "overheat": {
-        "es_name": "Sofoco",
         "power": 130,
         "pp": 5,
         "type": "fire",
@@ -1670,7 +1503,6 @@
         "crit_rate": 0
     },
     "rock-tomb": {
-        "es_name": "Tumba Rocas",
         "power": 60,
         "pp": 15,
         "type": "rock",
@@ -1680,7 +1512,6 @@
         "crit_rate": 0
     },
     "silver-wind": {
-        "es_name": "Viento Plata",
         "power": 60,
         "pp": 5,
         "type": "bug",
@@ -1690,7 +1521,6 @@
         "crit_rate": 0
     },
     "water-spout": {
-        "es_name": "Salpicar",
         "power": 150,
         "pp": 5,
         "type": "water",
@@ -1700,7 +1530,6 @@
         "crit_rate": 0
     },
     "signal-beam": {
-        "es_name": "Doble Rayo",
         "power": 75,
         "pp": 15,
         "type": "bug",
@@ -1710,7 +1539,6 @@
         "crit_rate": 0
     },
     "shadow-punch": {
-        "es_name": "Pu\u00f1o Sombra",
         "power": 60,
         "pp": 20,
         "type": "ghost",
@@ -1720,7 +1548,6 @@
         "crit_rate": 0
     },
     "extrasensory": {
-        "es_name": "Paranormal",
         "power": 80,
         "pp": 20,
         "type": "psychic",
@@ -1730,7 +1557,6 @@
         "crit_rate": 0
     },
     "sky-uppercut": {
-        "es_name": "Gancho Alto",
         "power": 85,
         "pp": 15,
         "type": "fighting",
@@ -1740,7 +1566,6 @@
         "crit_rate": 0
     },
     "sand-tomb": {
-        "es_name": "Bucle Arena",
         "power": 35,
         "pp": 15,
         "type": "ground",
@@ -1750,7 +1575,6 @@
         "crit_rate": 0
     },
     "muddy-water": {
-        "es_name": "Agua Lodosa",
         "power": 90,
         "pp": 10,
         "type": "water",
@@ -1760,7 +1584,6 @@
         "crit_rate": 0
     },
     "bullet-seed": {
-        "es_name": "Recurrente",
         "power": 25,
         "pp": 30,
         "type": "grass",
@@ -1770,7 +1593,6 @@
         "crit_rate": 0
     },
     "aerial-ace": {
-        "es_name": "Golpe A\u00e9reo",
         "power": 60,
         "pp": 20,
         "type": "flying",
@@ -1780,7 +1602,6 @@
         "crit_rate": 0
     },
     "icicle-spear": {
-        "es_name": "Car\u00e1mbano",
         "power": 25,
         "pp": 30,
         "type": "ice",
@@ -1790,7 +1611,6 @@
         "crit_rate": 0
     },
     "dragon-claw": {
-        "es_name": "Garra Drag\u00f3n",
         "power": 80,
         "pp": 15,
         "type": "dragon",
@@ -1800,7 +1620,6 @@
         "crit_rate": 0
     },
     "frenzy-plant": {
-        "es_name": "Planta Feroz",
         "power": 150,
         "pp": 5,
         "type": "grass",
@@ -1810,7 +1629,6 @@
         "crit_rate": 0
     },
     "bounce": {
-        "es_name": "Bote",
         "power": 85,
         "pp": 5,
         "type": "flying",
@@ -1820,7 +1638,6 @@
         "crit_rate": 0
     },
     "mud-shot": {
-        "es_name": "Disparo Lodo",
         "power": 55,
         "pp": 15,
         "type": "ground",
@@ -1830,7 +1647,6 @@
         "crit_rate": 0
     },
     "poison-tail": {
-        "es_name": "Cola Veneno",
         "power": 50,
         "pp": 25,
         "type": "poison",
@@ -1840,7 +1656,6 @@
         "crit_rate": 1
     },
     "covet": {
-        "es_name": "Antojo",
         "power": 60,
         "pp": 25,
         "type": "normal",
@@ -1850,7 +1665,6 @@
         "crit_rate": 0
     },
     "volt-tackle": {
-        "es_name": "Placaje El\u00e9c",
         "power": 120,
         "pp": 15,
         "type": "electric",
@@ -1860,7 +1674,6 @@
         "crit_rate": 0
     },
     "magical-leaf": {
-        "es_name": "Hoja M\u00e1gica",
         "power": 60,
         "pp": 20,
         "type": "grass",
@@ -1870,7 +1683,6 @@
         "crit_rate": 0
     },
     "leaf-blade": {
-        "es_name": "Hoja Aguda",
         "power": 90,
         "pp": 15,
         "type": "grass",
@@ -1880,7 +1692,6 @@
         "crit_rate": 1
     },
     "rock-blast": {
-        "es_name": "Pedrada",
         "power": 25,
         "pp": 10,
         "type": "rock",
@@ -1890,7 +1701,6 @@
         "crit_rate": 0
     },
     "shock-wave": {
-        "es_name": "Onda Voltio",
         "power": 60,
         "pp": 20,
         "type": "electric",
@@ -1900,7 +1710,6 @@
         "crit_rate": 0
     },
     "water-pulse": {
-        "es_name": "Hidropulso",
         "power": 60,
         "pp": 20,
         "type": "water",
@@ -1910,7 +1719,6 @@
         "crit_rate": 0
     },
     "doom-desire": {
-        "es_name": "Deseo Oculto",
         "power": 140,
         "pp": 5,
         "type": "steel",
@@ -1920,7 +1728,6 @@
         "crit_rate": 0
     },
     "psycho-boost": {
-        "es_name": "Psicoataque",
         "power": 140,
         "pp": 5,
         "type": "psychic",
@@ -1930,7 +1737,6 @@
         "crit_rate": 0
     },
     "wake-up-slap": {
-        "es_name": "Espabila",
         "power": 70,
         "pp": 10,
         "type": "fighting",
@@ -1940,7 +1746,6 @@
         "crit_rate": 0
     },
     "hammer-arm": {
-        "es_name": "Machada",
         "power": 100,
         "pp": 10,
         "type": "fighting",
@@ -1950,7 +1755,6 @@
         "crit_rate": 0
     },
     "brine": {
-        "es_name": "Salmuera",
         "power": 65,
         "pp": 10,
         "type": "water",
@@ -1960,7 +1764,6 @@
         "crit_rate": 0
     },
     "feint": {
-        "es_name": "Amago",
         "power": 30,
         "pp": 10,
         "type": "normal",
@@ -1970,7 +1773,6 @@
         "crit_rate": 0
     },
     "pluck": {
-        "es_name": "Picoteo",
         "power": 60,
         "pp": 20,
         "type": "flying",
@@ -1980,7 +1782,6 @@
         "crit_rate": 0
     },
     "u-turn": {
-        "es_name": "Ida y Vuelta",
         "power": 70,
         "pp": 20,
         "type": "bug",
@@ -1990,7 +1791,6 @@
         "crit_rate": 0
     },
     "close-combat": {
-        "es_name": "A Bocajarro",
         "power": 120,
         "pp": 5,
         "type": "fighting",
@@ -2000,7 +1800,6 @@
         "crit_rate": 0
     },
     "payback": {
-        "es_name": "Vendetta",
         "power": 50,
         "pp": 10,
         "type": "dark",
@@ -2010,7 +1809,6 @@
         "crit_rate": 0
     },
     "assurance": {
-        "es_name": "Buena Baza",
         "power": 60,
         "pp": 10,
         "type": "dark",
@@ -2020,7 +1818,6 @@
         "crit_rate": 0
     },
     "last-resort": {
-        "es_name": "\u00daltima Baza",
         "power": 140,
         "pp": 5,
         "type": "normal",
@@ -2030,7 +1827,6 @@
         "crit_rate": 0
     },
     "sucker-punch": {
-        "es_name": "Golpe Bajo",
         "power": 70,
         "pp": 5,
         "type": "dark",
@@ -2040,7 +1836,6 @@
         "crit_rate": 0
     },
     "flare-blitz": {
-        "es_name": "Envite \u00cdgneo",
         "power": 120,
         "pp": 15,
         "type": "fire",
@@ -2050,7 +1845,6 @@
         "crit_rate": 0
     },
     "force-palm": {
-        "es_name": "Palmeo",
         "power": 60,
         "pp": 10,
         "type": "fighting",
@@ -2060,7 +1854,6 @@
         "crit_rate": 0
     },
     "aura-sphere": {
-        "es_name": "Esfera Aural",
         "power": 80,
         "pp": 20,
         "type": "fighting",
@@ -2070,7 +1863,6 @@
         "crit_rate": 0
     },
     "poison-jab": {
-        "es_name": "Puya Nociva",
         "power": 80,
         "pp": 20,
         "type": "poison",
@@ -2080,7 +1872,6 @@
         "crit_rate": 0
     },
     "dark-pulse": {
-        "es_name": "Pulso Umbr\u00edo",
         "power": 80,
         "pp": 15,
         "type": "dark",
@@ -2090,7 +1881,6 @@
         "crit_rate": 0
     },
     "night-slash": {
-        "es_name": "Tajo Umbr\u00edo",
         "power": 70,
         "pp": 15,
         "type": "dark",
@@ -2100,7 +1890,6 @@
         "crit_rate": 1
     },
     "aqua-tail": {
-        "es_name": "Acua Cola",
         "power": 90,
         "pp": 10,
         "type": "water",
@@ -2110,7 +1899,6 @@
         "crit_rate": 0
     },
     "seed-bomb": {
-        "es_name": "Bomba Germen",
         "power": 80,
         "pp": 15,
         "type": "grass",
@@ -2120,7 +1908,6 @@
         "crit_rate": 0
     },
     "air-slash": {
-        "es_name": "Tajo A\u00e9reo",
         "power": 75,
         "pp": 15,
         "type": "flying",
@@ -2130,7 +1917,6 @@
         "crit_rate": 0
     },
     "x-scissor": {
-        "es_name": "Tijera X",
         "power": 80,
         "pp": 15,
         "type": "bug",
@@ -2140,7 +1926,6 @@
         "crit_rate": 0
     },
     "bug-buzz": {
-        "es_name": "Zumbido",
         "power": 90,
         "pp": 10,
         "type": "bug",
@@ -2150,7 +1935,6 @@
         "crit_rate": 0
     },
     "dragon-pulse": {
-        "es_name": "Pulso Drag\u00f3n",
         "power": 85,
         "pp": 10,
         "type": "dragon",
@@ -2160,7 +1944,6 @@
         "crit_rate": 0
     },
     "dragon-rush": {
-        "es_name": "Carga Drag\u00f3n",
         "power": 100,
         "pp": 10,
         "type": "dragon",
@@ -2170,7 +1953,6 @@
         "crit_rate": 0
     },
     "power-gem": {
-        "es_name": "Joya de Luz",
         "power": 80,
         "pp": 20,
         "type": "rock",
@@ -2180,7 +1962,6 @@
         "crit_rate": 0
     },
     "drain-punch": {
-        "es_name": "Pu\u00f1o Drenaje",
         "power": 75,
         "pp": 10,
         "type": "fighting",
@@ -2190,7 +1971,6 @@
         "crit_rate": 0
     },
     "vacuum-wave": {
-        "es_name": "Onda Vac\u00edo",
         "power": 40,
         "pp": 30,
         "type": "fighting",
@@ -2200,7 +1980,6 @@
         "crit_rate": 0
     },
     "focus-blast": {
-        "es_name": "Onda Certera",
         "power": 120,
         "pp": 5,
         "type": "fighting",
@@ -2210,7 +1989,6 @@
         "crit_rate": 0
     },
     "energy-ball": {
-        "es_name": "Energibola",
         "power": 90,
         "pp": 10,
         "type": "grass",
@@ -2220,7 +1998,6 @@
         "crit_rate": 0
     },
     "brave-bird": {
-        "es_name": "P\u00e1jaro Osado",
         "power": 120,
         "pp": 15,
         "type": "flying",
@@ -2230,7 +2007,6 @@
         "crit_rate": 0
     },
     "earth-power": {
-        "es_name": "Tierra Viva",
         "power": 90,
         "pp": 10,
         "type": "ground",
@@ -2240,7 +2016,6 @@
         "crit_rate": 0
     },
     "giga-impact": {
-        "es_name": "Giga Impacto",
         "power": 150,
         "pp": 5,
         "type": "normal",
@@ -2250,7 +2025,6 @@
         "crit_rate": 0
     },
     "bullet-punch": {
-        "es_name": "Pu\u00f1o Bala",
         "power": 40,
         "pp": 30,
         "type": "steel",
@@ -2260,7 +2034,6 @@
         "crit_rate": 0
     },
     "avalanche": {
-        "es_name": "Alud",
         "power": 60,
         "pp": 10,
         "type": "ice",
@@ -2270,7 +2043,6 @@
         "crit_rate": 0
     },
     "ice-shard": {
-        "es_name": "Canto Helado",
         "power": 40,
         "pp": 30,
         "type": "ice",
@@ -2280,7 +2052,6 @@
         "crit_rate": 0
     },
     "shadow-claw": {
-        "es_name": "Garra Umbr\u00eda",
         "power": 70,
         "pp": 15,
         "type": "ghost",
@@ -2290,7 +2061,6 @@
         "crit_rate": 1
     },
     "thunder-fang": {
-        "es_name": "Colmillo Rayo",
         "power": 65,
         "pp": 15,
         "type": "electric",
@@ -2300,7 +2070,6 @@
         "crit_rate": 0
     },
     "ice-fang": {
-        "es_name": "Colmillo Hielo",
         "power": 65,
         "pp": 15,
         "type": "ice",
@@ -2310,7 +2079,6 @@
         "crit_rate": 0
     },
     "fire-fang": {
-        "es_name": "Colmillo \u00cdgneo",
         "power": 65,
         "pp": 15,
         "type": "fire",
@@ -2320,7 +2088,6 @@
         "crit_rate": 0
     },
     "shadow-sneak": {
-        "es_name": "Sombra Vil",
         "power": 40,
         "pp": 30,
         "type": "ghost",
@@ -2330,7 +2097,6 @@
         "crit_rate": 0
     },
     "mud-bomb": {
-        "es_name": "Bomba Fango",
         "power": 65,
         "pp": 10,
         "type": "ground",
@@ -2340,7 +2106,6 @@
         "crit_rate": 0
     },
     "psycho-cut": {
-        "es_name": "Psicocorte",
         "power": 70,
         "pp": 20,
         "type": "psychic",
@@ -2350,7 +2115,6 @@
         "crit_rate": 1
     },
     "zen-headbutt": {
-        "es_name": "Cabezazo Zen",
         "power": 80,
         "pp": 15,
         "type": "psychic",
@@ -2360,7 +2124,6 @@
         "crit_rate": 0
     },
     "mirror-shot": {
-        "es_name": "Disparo Espejo",
         "power": 65,
         "pp": 10,
         "type": "steel",
@@ -2370,7 +2133,6 @@
         "crit_rate": 0
     },
     "flash-cannon": {
-        "es_name": "Foco Resplandor",
         "power": 80,
         "pp": 10,
         "type": "steel",
@@ -2380,7 +2142,6 @@
         "crit_rate": 0
     },
     "rock-climb": {
-        "es_name": "Treparrocas",
         "power": 90,
         "pp": 20,
         "type": "normal",
@@ -2390,7 +2151,6 @@
         "crit_rate": 0
     },
     "draco-meteor": {
-        "es_name": "Cometa Draco",
         "power": 130,
         "pp": 5,
         "type": "dragon",
@@ -2400,7 +2160,6 @@
         "crit_rate": 0
     },
     "discharge": {
-        "es_name": "Chispazo",
         "power": 80,
         "pp": 15,
         "type": "electric",
@@ -2410,7 +2169,6 @@
         "crit_rate": 0
     },
     "lava-plume": {
-        "es_name": "Humareda",
         "power": 80,
         "pp": 15,
         "type": "fire",
@@ -2420,7 +2178,6 @@
         "crit_rate": 0
     },
     "leaf-storm": {
-        "es_name": "Lluevehojas",
         "power": 130,
         "pp": 5,
         "type": "grass",
@@ -2430,7 +2187,6 @@
         "crit_rate": 0
     },
     "power-whip": {
-        "es_name": "Latigazo",
         "power": 120,
         "pp": 10,
         "type": "grass",
@@ -2440,7 +2196,6 @@
         "crit_rate": 0
     },
     "rock-wrecker": {
-        "es_name": "Romperrocas",
         "power": 150,
         "pp": 5,
         "type": "rock",
@@ -2450,7 +2205,6 @@
         "crit_rate": 0
     },
     "cross-poison": {
-        "es_name": "Veneno X",
         "power": 70,
         "pp": 20,
         "type": "poison",
@@ -2460,7 +2214,6 @@
         "crit_rate": 1
     },
     "gunk-shot": {
-        "es_name": "Lanza Mugre",
         "power": 120,
         "pp": 5,
         "type": "poison",
@@ -2470,7 +2223,6 @@
         "crit_rate": 0
     },
     "iron-head": {
-        "es_name": "Cabeza de Hierro",
         "power": 80,
         "pp": 15,
         "type": "steel",
@@ -2480,7 +2232,6 @@
         "crit_rate": 0
     },
     "magnet-bomb": {
-        "es_name": "Bomba Im\u00e1n",
         "power": 60,
         "pp": 20,
         "type": "steel",
@@ -2490,7 +2241,6 @@
         "crit_rate": 0
     },
     "stone-edge": {
-        "es_name": "Roca Afilada",
         "power": 100,
         "pp": 5,
         "type": "rock",
@@ -2500,7 +2250,6 @@
         "crit_rate": 1
     },
     "chatter": {
-        "es_name": "Ch\u00e1chara",
         "power": 65,
         "pp": 20,
         "type": "flying",
@@ -2510,7 +2259,6 @@
         "crit_rate": 0
     },
     "judgment": {
-        "es_name": "Sentencia",
         "power": 100,
         "pp": 10,
         "type": "normal",
@@ -2520,7 +2268,6 @@
         "crit_rate": 0
     },
     "bug-bite": {
-        "es_name": "Picadura",
         "power": 60,
         "pp": 20,
         "type": "bug",
@@ -2530,7 +2277,6 @@
         "crit_rate": 0
     },
     "charge-beam": {
-        "es_name": "Rayo Carga",
         "power": 50,
         "pp": 10,
         "type": "electric",
@@ -2540,7 +2286,6 @@
         "crit_rate": 0
     },
     "wood-hammer": {
-        "es_name": "Mazazo",
         "power": 120,
         "pp": 15,
         "type": "grass",
@@ -2550,7 +2295,6 @@
         "crit_rate": 0
     },
     "aqua-jet": {
-        "es_name": "Acua Jet",
         "power": 40,
         "pp": 20,
         "type": "water",
@@ -2560,7 +2304,6 @@
         "crit_rate": 0
     },
     "attack-order": {
-        "es_name": "Al Ataque",
         "power": 90,
         "pp": 15,
         "type": "bug",
@@ -2570,7 +2313,6 @@
         "crit_rate": 1
     },
     "head-smash": {
-        "es_name": "Testarazo",
         "power": 150,
         "pp": 5,
         "type": "rock",
@@ -2580,7 +2322,6 @@
         "crit_rate": 0
     },
     "double-hit": {
-        "es_name": "Doble Golpe",
         "power": 35,
         "pp": 10,
         "type": "normal",
@@ -2590,7 +2331,6 @@
         "crit_rate": 0
     },
     "roar-of-time": {
-        "es_name": "Distorsi\u00f3n",
         "power": 150,
         "pp": 5,
         "type": "dragon",
@@ -2600,7 +2340,6 @@
         "crit_rate": 0
     },
     "spacial-rend": {
-        "es_name": "Corte Vac\u00edo",
         "power": 100,
         "pp": 5,
         "type": "dragon",
@@ -2610,7 +2349,6 @@
         "crit_rate": 1
     },
     "magma-storm": {
-        "es_name": "Lluvia \u00cdgnea",
         "power": 100,
         "pp": 5,
         "type": "fire",
@@ -2620,7 +2358,6 @@
         "crit_rate": 0
     },
     "seed-flare": {
-        "es_name": "Fogonazo",
         "power": 120,
         "pp": 5,
         "type": "grass",
@@ -2630,7 +2367,6 @@
         "crit_rate": 0
     },
     "ominous-wind": {
-        "es_name": "Viento Aciago",
         "power": 60,
         "pp": 5,
         "type": "ghost",
@@ -2640,7 +2376,6 @@
         "crit_rate": 0
     },
     "shadow-force": {
-        "es_name": "Golpe Umbr\u00edo",
         "power": 120,
         "pp": 5,
         "type": "ghost",
@@ -2650,7 +2385,6 @@
         "crit_rate": 0
     },
     "psyshock": {
-        "es_name": "Psicocarga",
         "power": 80,
         "pp": 10,
         "type": "psychic",
@@ -2660,7 +2394,6 @@
         "crit_rate": 0
     },
     "venoshock": {
-        "es_name": "Carga T\u00f3xica",
         "power": 65,
         "pp": 10,
         "type": "poison",
@@ -2670,7 +2403,6 @@
         "crit_rate": 0
     },
     "smack-down": {
-        "es_name": "Antia\u00e9reo",
         "power": 50,
         "pp": 15,
         "type": "rock",
@@ -2680,7 +2412,6 @@
         "crit_rate": 0
     },
     "storm-throw": {
-        "es_name": "Llave Cors\u00e9",
         "power": 60,
         "pp": 10,
         "type": "fighting",
@@ -2690,7 +2421,6 @@
         "crit_rate": 6
     },
     "flame-burst": {
-        "es_name": "Pirotecnia",
         "power": 70,
         "pp": 15,
         "type": "fire",
@@ -2700,7 +2430,6 @@
         "crit_rate": 0
     },
     "sludge-wave": {
-        "es_name": "Onda T\u00f3xica",
         "power": 95,
         "pp": 10,
         "type": "poison",
@@ -2710,7 +2439,6 @@
         "crit_rate": 0
     },
     "synchronoise": {
-        "es_name": "Sincrorruido",
         "power": 120,
         "pp": 10,
         "type": "psychic",
@@ -2720,7 +2448,6 @@
         "crit_rate": 0
     },
     "flame-charge": {
-        "es_name": "Nitrocarga",
         "power": 50,
         "pp": 20,
         "type": "fire",
@@ -2730,7 +2457,6 @@
         "crit_rate": 0
     },
     "low-sweep": {
-        "es_name": "Puntapi\u00e9",
         "power": 65,
         "pp": 20,
         "type": "fighting",
@@ -2740,7 +2466,6 @@
         "crit_rate": 0
     },
     "acid-spray": {
-        "es_name": "Bomba \u00c1cida",
         "power": 40,
         "pp": 20,
         "type": "poison",
@@ -2750,7 +2475,6 @@
         "crit_rate": 0
     },
     "foul-play": {
-        "es_name": "Juego Sucio",
         "power": 95,
         "pp": 15,
         "type": "dark",
@@ -2760,7 +2484,6 @@
         "crit_rate": 0
     },
     "round": {
-        "es_name": "Canon",
         "power": 60,
         "pp": 15,
         "type": "normal",
@@ -2770,7 +2493,6 @@
         "crit_rate": 0
     },
     "echoed-voice": {
-        "es_name": "Eco Voz",
         "power": 40,
         "pp": 15,
         "type": "normal",
@@ -2780,7 +2502,6 @@
         "crit_rate": 0
     },
     "chip-away": {
-        "es_name": "Guardia Baja",
         "power": 70,
         "pp": 20,
         "type": "normal",
@@ -2790,7 +2511,6 @@
         "crit_rate": 0
     },
     "clear-smog": {
-        "es_name": "Niebla Clara",
         "power": 50,
         "pp": 15,
         "type": "poison",
@@ -2800,7 +2520,6 @@
         "crit_rate": 0
     },
     "stored-power": {
-        "es_name": "Poder Reserva",
         "power": 20,
         "pp": 10,
         "type": "psychic",
@@ -2810,7 +2529,6 @@
         "crit_rate": 0
     },
     "scald": {
-        "es_name": "Escaldar",
         "power": 80,
         "pp": 15,
         "type": "water",
@@ -2820,7 +2538,6 @@
         "crit_rate": 0
     },
     "hex": {
-        "es_name": "Infortunio",
         "power": 65,
         "pp": 10,
         "type": "ghost",
@@ -2830,7 +2547,6 @@
         "crit_rate": 0
     },
     "sky-drop": {
-        "es_name": "Ca\u00edda Libre",
         "power": 60,
         "pp": 10,
         "type": "flying",
@@ -2840,7 +2556,6 @@
         "crit_rate": 0
     },
     "circle-throw": {
-        "es_name": "Llave Giro",
         "power": 60,
         "pp": 10,
         "type": "fighting",
@@ -2850,7 +2565,6 @@
         "crit_rate": 0
     },
     "incinerate": {
-        "es_name": "Calcinaci\u00f3n",
         "power": 60,
         "pp": 15,
         "type": "fire",
@@ -2860,7 +2574,6 @@
         "crit_rate": 0
     },
     "acrobatics": {
-        "es_name": "Acr\u00f3bata",
         "power": 55,
         "pp": 15,
         "type": "flying",
@@ -2870,7 +2583,6 @@
         "crit_rate": 0
     },
     "retaliate": {
-        "es_name": "Represalia",
         "power": 70,
         "pp": 5,
         "type": "normal",
@@ -2880,7 +2592,6 @@
         "crit_rate": 0
     },
     "inferno": {
-        "es_name": "Infierno",
         "power": 100,
         "pp": 5,
         "type": "fire",
@@ -2890,7 +2601,6 @@
         "crit_rate": 0
     },
     "water-pledge": {
-        "es_name": "Voto Agua",
         "power": 80,
         "pp": 10,
         "type": "water",
@@ -2900,7 +2610,6 @@
         "crit_rate": 0
     },
     "fire-pledge": {
-        "es_name": "Voto Fuego",
         "power": 80,
         "pp": 10,
         "type": "fire",
@@ -2910,7 +2619,6 @@
         "crit_rate": 0
     },
     "grass-pledge": {
-        "es_name": "Voto Planta",
         "power": 80,
         "pp": 10,
         "type": "grass",
@@ -2920,7 +2628,6 @@
         "crit_rate": 0
     },
     "volt-switch": {
-        "es_name": "Voltiocambio",
         "power": 70,
         "pp": 20,
         "type": "electric",
@@ -2930,7 +2637,6 @@
         "crit_rate": 0
     },
     "struggle-bug": {
-        "es_name": "Estoicismo",
         "power": 50,
         "pp": 20,
         "type": "bug",
@@ -2940,7 +2646,6 @@
         "crit_rate": 0
     },
     "bulldoze": {
-        "es_name": "Terratemblor",
         "power": 60,
         "pp": 20,
         "type": "ground",
@@ -2950,7 +2655,6 @@
         "crit_rate": 0
     },
     "frost-breath": {
-        "es_name": "Vaho G\u00e9lido",
         "power": 60,
         "pp": 10,
         "type": "ice",
@@ -2960,7 +2664,6 @@
         "crit_rate": 6
     },
     "dragon-tail": {
-        "es_name": "Cola Drag\u00f3n",
         "power": 60,
         "pp": 10,
         "type": "dragon",
@@ -2970,7 +2673,6 @@
         "crit_rate": 0
     },
     "electroweb": {
-        "es_name": "Electrotela",
         "power": 55,
         "pp": 15,
         "type": "electric",
@@ -2980,7 +2682,6 @@
         "crit_rate": 0
     },
     "wild-charge": {
-        "es_name": "Voltio Cruel",
         "power": 90,
         "pp": 15,
         "type": "electric",
@@ -2990,7 +2691,6 @@
         "crit_rate": 0
     },
     "drill-run": {
-        "es_name": "Taladradora",
         "power": 80,
         "pp": 10,
         "type": "ground",
@@ -3000,7 +2700,6 @@
         "crit_rate": 1
     },
     "dual-chop": {
-        "es_name": "Golpe Bis",
         "power": 40,
         "pp": 15,
         "type": "dragon",
@@ -3010,7 +2709,6 @@
         "crit_rate": 0
     },
     "heart-stamp": {
-        "es_name": "Arrumaco",
         "power": 60,
         "pp": 25,
         "type": "psychic",
@@ -3020,7 +2718,6 @@
         "crit_rate": 0
     },
     "horn-leech": {
-        "es_name": "Asta Drenaje",
         "power": 75,
         "pp": 10,
         "type": "grass",
@@ -3030,7 +2727,6 @@
         "crit_rate": 0
     },
     "sacred-sword": {
-        "es_name": "Espada Santa",
         "power": 90,
         "pp": 15,
         "type": "fighting",
@@ -3040,7 +2736,6 @@
         "crit_rate": 0
     },
     "razor-shell": {
-        "es_name": "Concha Filo",
         "power": 75,
         "pp": 10,
         "type": "water",
@@ -3050,7 +2745,6 @@
         "crit_rate": 0
     },
     "leaf-tornado": {
-        "es_name": "Cicl\u00f3n de Hojas",
         "power": 65,
         "pp": 10,
         "type": "grass",
@@ -3060,7 +2754,6 @@
         "crit_rate": 0
     },
     "steamroller": {
-        "es_name": "Rodillo de P\u00faas",
         "power": 65,
         "pp": 20,
         "type": "bug",
@@ -3070,7 +2763,6 @@
         "crit_rate": 0
     },
     "night-daze": {
-        "es_name": "Pulso Noche",
         "power": 85,
         "pp": 10,
         "type": "dark",
@@ -3080,7 +2772,6 @@
         "crit_rate": 0
     },
     "psystrike": {
-        "es_name": "Onda Mental",
         "power": 100,
         "pp": 10,
         "type": "psychic",
@@ -3090,7 +2781,6 @@
         "crit_rate": 0
     },
     "tail-slap": {
-        "es_name": "Plumerazo",
         "power": 25,
         "pp": 10,
         "type": "normal",
@@ -3100,7 +2790,6 @@
         "crit_rate": 0
     },
     "hurricane": {
-        "es_name": "Vendaval",
         "power": 110,
         "pp": 10,
         "type": "flying",
@@ -3110,7 +2799,6 @@
         "crit_rate": 0
     },
     "head-charge": {
-        "es_name": "Ariete",
         "power": 120,
         "pp": 15,
         "type": "normal",
@@ -3120,7 +2808,6 @@
         "crit_rate": 0
     },
     "gear-grind": {
-        "es_name": "Rueda Doble",
         "power": 50,
         "pp": 15,
         "type": "steel",
@@ -3130,7 +2817,6 @@
         "crit_rate": 0
     },
     "searing-shot": {
-        "es_name": "Bomba \u00cdgnea",
         "power": 100,
         "pp": 5,
         "type": "fire",
@@ -3140,7 +2826,6 @@
         "crit_rate": 0
     },
     "techno-blast": {
-        "es_name": "Tecno Shock",
         "power": 120,
         "pp": 5,
         "type": "normal",
@@ -3150,7 +2835,6 @@
         "crit_rate": 0
     },
     "relic-song": {
-        "es_name": "Canto Arcaico",
         "power": 75,
         "pp": 10,
         "type": "normal",
@@ -3160,7 +2844,6 @@
         "crit_rate": 0
     },
     "secret-sword": {
-        "es_name": "Sable M\u00edstico",
         "power": 85,
         "pp": 10,
         "type": "fighting",
@@ -3170,7 +2853,6 @@
         "crit_rate": 0
     },
     "glaciate": {
-        "es_name": "Mundo G\u00e9lido",
         "power": 65,
         "pp": 10,
         "type": "ice",
@@ -3180,7 +2862,6 @@
         "crit_rate": 0
     },
     "bolt-strike": {
-        "es_name": "Ataque Fulgor",
         "power": 130,
         "pp": 5,
         "type": "electric",
@@ -3190,7 +2871,6 @@
         "crit_rate": 0
     },
     "blue-flare": {
-        "es_name": "Llama Azul",
         "power": 130,
         "pp": 5,
         "type": "fire",
@@ -3200,7 +2880,6 @@
         "crit_rate": 0
     },
     "fiery-dance": {
-        "es_name": "Danza Llama",
         "power": 80,
         "pp": 10,
         "type": "fire",
@@ -3210,7 +2889,6 @@
         "crit_rate": 0
     },
     "freeze-shock": {
-        "es_name": "Rayo G\u00e9lido",
         "power": 140,
         "pp": 5,
         "type": "ice",
@@ -3220,7 +2898,6 @@
         "crit_rate": 0
     },
     "ice-burn": {
-        "es_name": "Llama G\u00e9lida",
         "power": 140,
         "pp": 5,
         "type": "ice",
@@ -3230,7 +2907,6 @@
         "crit_rate": 0
     },
     "snarl": {
-        "es_name": "Alarido",
         "power": 55,
         "pp": 15,
         "type": "dark",
@@ -3240,7 +2916,6 @@
         "crit_rate": 0
     },
     "icicle-crash": {
-        "es_name": "Chuzos",
         "power": 85,
         "pp": 10,
         "type": "ice",
@@ -3250,7 +2925,6 @@
         "crit_rate": 0
     },
     "v-create": {
-        "es_name": "V de Fuego",
         "power": 180,
         "pp": 5,
         "type": "fire",
@@ -3260,7 +2934,6 @@
         "crit_rate": 0
     },
     "fusion-flare": {
-        "es_name": "Llama Fusi\u00f3n",
         "power": 100,
         "pp": 5,
         "type": "fire",
@@ -3270,7 +2943,6 @@
         "crit_rate": 0
     },
     "fusion-bolt": {
-        "es_name": "Rayo Fusi\u00f3n",
         "power": 100,
         "pp": 5,
         "type": "electric",
@@ -3280,7 +2952,6 @@
         "crit_rate": 0
     },
     "flying-press": {
-        "es_name": "Plancha Voladora",
         "power": 100,
         "pp": 10,
         "type": "fighting",
@@ -3290,7 +2961,6 @@
         "crit_rate": 0
     },
     "belch": {
-        "es_name": "Eructo",
         "power": 120,
         "pp": 10,
         "type": "poison",
@@ -3300,7 +2970,6 @@
         "crit_rate": 0
     },
     "fell-stinger": {
-        "es_name": "Aguij\u00f3n Letal",
         "power": 50,
         "pp": 25,
         "type": "bug",
@@ -3310,7 +2979,6 @@
         "crit_rate": 0
     },
     "phantom-force": {
-        "es_name": "Golpe Fantasma",
         "power": 90,
         "pp": 10,
         "type": "ghost",
@@ -3320,7 +2988,6 @@
         "crit_rate": 0
     },
     "parabolic-charge": {
-        "es_name": "Carga Par\u00e1bola",
         "power": 65,
         "pp": 20,
         "type": "electric",
@@ -3330,7 +2997,6 @@
         "crit_rate": 0
     },
     "petal-blizzard": {
-        "es_name": "Tormenta Floral",
         "power": 90,
         "pp": 15,
         "type": "grass",
@@ -3340,7 +3006,6 @@
         "crit_rate": 0
     },
     "freeze-dry": {
-        "es_name": "Liofilizaci\u00f3n",
         "power": 70,
         "pp": 20,
         "type": "ice",
@@ -3350,7 +3015,6 @@
         "crit_rate": 0
     },
     "disarming-voice": {
-        "es_name": "Voz Cautivadora",
         "power": 40,
         "pp": 15,
         "type": "fairy",
@@ -3360,7 +3024,6 @@
         "crit_rate": 0
     },
     "draining-kiss": {
-        "es_name": "Beso Drenaje",
         "power": 50,
         "pp": 10,
         "type": "fairy",
@@ -3370,7 +3033,6 @@
         "crit_rate": 0
     },
     "play-rough": {
-        "es_name": "Caranto\u00f1a",
         "power": 90,
         "pp": 10,
         "type": "fairy",
@@ -3380,7 +3042,6 @@
         "crit_rate": 0
     },
     "fairy-wind": {
-        "es_name": "Viento Fe\u00e9rico",
         "power": 40,
         "pp": 30,
         "type": "fairy",
@@ -3390,7 +3051,6 @@
         "crit_rate": 0
     },
     "moonblast": {
-        "es_name": "Fuerza Lunar",
         "power": 95,
         "pp": 15,
         "type": "fairy",
@@ -3400,7 +3060,6 @@
         "crit_rate": 0
     },
     "boomburst": {
-        "es_name": "Estruendo",
         "power": 140,
         "pp": 10,
         "type": "normal",
@@ -3410,7 +3069,6 @@
         "crit_rate": 0
     },
     "diamond-storm": {
-        "es_name": "Torm. Diamantes",
         "power": 100,
         "pp": 5,
         "type": "rock",
@@ -3420,7 +3078,6 @@
         "crit_rate": 0
     },
     "steam-eruption": {
-        "es_name": "Chorro de Vapor",
         "power": 110,
         "pp": 5,
         "type": "water",
@@ -3430,7 +3087,6 @@
         "crit_rate": 0
     },
     "hyperspace-hole": {
-        "es_name": "Paso Dimensional",
         "power": 80,
         "pp": 5,
         "type": "psychic",
@@ -3440,7 +3096,6 @@
         "crit_rate": 0
     },
     "water-shuriken": {
-        "es_name": "Shuriken de Agua",
         "power": 15,
         "pp": 20,
         "type": "water",
@@ -3450,7 +3105,6 @@
         "crit_rate": 0
     },
     "mystical-fire": {
-        "es_name": "Llama Embrujada",
         "power": 75,
         "pp": 10,
         "type": "fire",
@@ -3460,7 +3114,6 @@
         "crit_rate": 0
     },
     "dazzling-gleam": {
-        "es_name": "Brillo M\u00e1gico",
         "power": 80,
         "pp": 10,
         "type": "fairy",
@@ -3470,7 +3123,6 @@
         "crit_rate": 0
     },
     "nuzzle": {
-        "es_name": "Moflete Est\u00e1tico",
         "power": 20,
         "pp": 20,
         "type": "electric",
@@ -3480,7 +3132,6 @@
         "crit_rate": 0
     },
     "hold-back": {
-        "es_name": "Clemencia",
         "power": 40,
         "pp": 40,
         "type": "normal",
@@ -3490,7 +3141,6 @@
         "crit_rate": 0
     },
     "infestation": {
-        "es_name": "Acoso",
         "power": 20,
         "pp": 20,
         "type": "bug",
@@ -3500,7 +3150,6 @@
         "crit_rate": 0
     },
     "power-up-punch": {
-        "es_name": "Pu\u00f1o Incremento",
         "power": 40,
         "pp": 20,
         "type": "fighting",
@@ -3510,7 +3159,6 @@
         "crit_rate": 0
     },
     "oblivion-wing": {
-        "es_name": "Ala Mort\u00edfera",
         "power": 80,
         "pp": 10,
         "type": "flying",
@@ -3520,7 +3168,6 @@
         "crit_rate": 0
     },
     "thousand-arrows": {
-        "es_name": "Mil Flechas",
         "power": 90,
         "pp": 10,
         "type": "ground",
@@ -3530,7 +3177,6 @@
         "crit_rate": 0
     },
     "thousand-waves": {
-        "es_name": "Mil Temblores",
         "power": 90,
         "pp": 10,
         "type": "ground",
@@ -3540,7 +3186,6 @@
         "crit_rate": 0
     },
     "lands-wrath": {
-        "es_name": "Fuerza Tel\u00farica",
         "power": 90,
         "pp": 10,
         "type": "ground",
@@ -3550,7 +3195,6 @@
         "crit_rate": 0
     },
     "light-of-ruin": {
-        "es_name": "Luz Aniquiladora",
         "power": 140,
         "pp": 5,
         "type": "fairy",
@@ -3560,7 +3204,6 @@
         "crit_rate": 0
     },
     "origin-pulse": {
-        "es_name": "Pulso Primigenio",
         "power": 110,
         "pp": 10,
         "type": "water",
@@ -3570,7 +3213,6 @@
         "crit_rate": 0
     },
     "precipice-blades": {
-        "es_name": "Filo del Abismo",
         "power": 120,
         "pp": 10,
         "type": "ground",
@@ -3580,7 +3222,6 @@
         "crit_rate": 0
     },
     "dragon-ascent": {
-        "es_name": "Ascenso Draco",
         "power": 120,
         "pp": 5,
         "type": "flying",
@@ -3590,7 +3231,6 @@
         "crit_rate": 0
     },
     "hyperspace-fury": {
-        "es_name": "Cerco Dimensi\u00f3n",
         "power": 100,
         "pp": 5,
         "type": "dark",
@@ -3600,7 +3240,6 @@
         "crit_rate": 0
     },
     "catastropika": {
-        "es_name": "Pikavoltio Letal",
         "power": 210,
         "pp": 1,
         "type": "electric",
@@ -3610,7 +3249,6 @@
         "crit_rate": 0
     },
     "first-impression": {
-        "es_name": "Escaramuza",
         "power": 90,
         "pp": 10,
         "type": "bug",
@@ -3620,7 +3258,6 @@
         "crit_rate": 0
     },
     "spirit-shackle": {
-        "es_name": "Puntada Sombr\u00eda",
         "power": 80,
         "pp": 10,
         "type": "ghost",
@@ -3630,7 +3267,6 @@
         "crit_rate": 0
     },
     "darkest-lariat": {
-        "es_name": "Lariat Oscuro",
         "power": 85,
         "pp": 10,
         "type": "dark",
@@ -3640,7 +3276,6 @@
         "crit_rate": 0
     },
     "sparkling-aria": {
-        "es_name": "Aria Burbuja",
         "power": 90,
         "pp": 10,
         "type": "water",
@@ -3650,7 +3285,6 @@
         "crit_rate": 0
     },
     "ice-hammer": {
-        "es_name": "Martillo Hielo",
         "power": 100,
         "pp": 10,
         "type": "ice",
@@ -3660,7 +3294,6 @@
         "crit_rate": 0
     },
     "high-horsepower": {
-        "es_name": "Fuerza Equina",
         "power": 95,
         "pp": 10,
         "type": "ground",
@@ -3670,7 +3303,6 @@
         "crit_rate": 0
     },
     "solar-blade": {
-        "es_name": "Cuchilla Solar",
         "power": 125,
         "pp": 10,
         "type": "grass",
@@ -3680,7 +3312,6 @@
         "crit_rate": 0
     },
     "leafage": {
-        "es_name": "Follaje",
         "power": 40,
         "pp": 40,
         "type": "grass",
@@ -3690,7 +3321,6 @@
         "crit_rate": 0
     },
     "throat-chop": {
-        "es_name": "Golpe Mordaza",
         "power": 80,
         "pp": 15,
         "type": "dark",
@@ -3700,7 +3330,6 @@
         "crit_rate": 0
     },
     "pollen-puff": {
-        "es_name": "Bola de Polen",
         "power": 90,
         "pp": 15,
         "type": "bug",
@@ -3710,7 +3339,6 @@
         "crit_rate": 0
     },
     "anchor-shot": {
-        "es_name": "Anclaje",
         "power": 80,
         "pp": 20,
         "type": "steel",
@@ -3720,7 +3348,6 @@
         "crit_rate": 0
     },
     "lunge": {
-        "es_name": "Plancha",
         "power": 80,
         "pp": 15,
         "type": "bug",
@@ -3730,7 +3357,6 @@
         "crit_rate": 0
     },
     "fire-lash": {
-        "es_name": "L\u00e1tigo \u00cdgneo",
         "power": 80,
         "pp": 15,
         "type": "fire",
@@ -3740,7 +3366,6 @@
         "crit_rate": 0
     },
     "power-trip": {
-        "es_name": "Chuler\u00eda",
         "power": 20,
         "pp": 10,
         "type": "dark",
@@ -3750,7 +3375,6 @@
         "crit_rate": 0
     },
     "burn-up": {
-        "es_name": "Llama Final",
         "power": 130,
         "pp": 5,
         "type": "fire",
@@ -3760,7 +3384,6 @@
         "crit_rate": 0
     },
     "smart-strike": {
-        "es_name": "Cuerno Certero",
         "power": 70,
         "pp": 10,
         "type": "steel",
@@ -3770,7 +3393,6 @@
         "crit_rate": 0
     },
     "revelation-dance": {
-        "es_name": "Danza Despertar",
         "power": 90,
         "pp": 15,
         "type": "normal",
@@ -3780,7 +3402,6 @@
         "crit_rate": 0
     },
     "core-enforcer": {
-        "es_name": "N\u00facleo Castigo",
         "power": 100,
         "pp": 10,
         "type": "dragon",
@@ -3790,7 +3411,6 @@
         "crit_rate": 0
     },
     "trop-kick": {
-        "es_name": "Patada Tropical",
         "power": 70,
         "pp": 15,
         "type": "grass",
@@ -3800,7 +3420,6 @@
         "crit_rate": 0
     },
     "beak-blast": {
-        "es_name": "Pico Ca\u00f1\u00f3n",
         "power": 100,
         "pp": 15,
         "type": "flying",
@@ -3810,7 +3429,6 @@
         "crit_rate": 0
     },
     "clanging-scales": {
-        "es_name": "Fragor Escamas",
         "power": 110,
         "pp": 5,
         "type": "dragon",
@@ -3820,7 +3438,6 @@
         "crit_rate": 0
     },
     "dragon-hammer": {
-        "es_name": "Martillo Drag\u00f3n",
         "power": 90,
         "pp": 15,
         "type": "dragon",
@@ -3830,7 +3447,6 @@
         "crit_rate": 0
     },
     "brutal-swing": {
-        "es_name": "Giro Vil",
         "power": 60,
         "pp": 20,
         "type": "dark",
@@ -3840,7 +3456,6 @@
         "crit_rate": 0
     },
     "sinister-arrow-raid": {
-        "es_name": "Aluvi\u00f3n de Flechas Sombr\u00edas",
         "power": 180,
         "pp": 1,
         "type": "ghost",
@@ -3850,7 +3465,6 @@
         "crit_rate": 0
     },
     "malicious-moonsault": {
-        "es_name": "Hiperplancha Oscura",
         "power": 180,
         "pp": 1,
         "type": "dark",
@@ -3860,7 +3474,6 @@
         "crit_rate": 0
     },
     "oceanic-operetta": {
-        "es_name": "Sinfon\u00eda de la Diva Marina",
         "power": 195,
         "pp": 1,
         "type": "water",
@@ -3870,7 +3483,6 @@
         "crit_rate": 0
     },
     "soul-stealing-7-star-strike": {
-        "es_name": "Constelaci\u00f3n Robaalmas",
         "power": 195,
         "pp": 1,
         "type": "ghost",
@@ -3880,7 +3492,6 @@
         "crit_rate": 0
     },
     "stoked-sparksurfer": {
-        "es_name": "Surfeo Galv\u00e1nico",
         "power": 175,
         "pp": 1,
         "type": "electric",
@@ -3890,7 +3501,6 @@
         "crit_rate": 0
     },
     "pulverizing-pancake": {
-        "es_name": "Arrojo Intempestivo",
         "power": 210,
         "pp": 1,
         "type": "normal",
@@ -3900,7 +3510,6 @@
         "crit_rate": 0
     },
     "genesis-supernova": {
-        "es_name": "Supernova Original",
         "power": 185,
         "pp": 1,
         "type": "psychic",
@@ -3910,7 +3519,6 @@
         "crit_rate": 0
     },
     "shell-trap": {
-        "es_name": "Coraza Trampa",
         "power": 150,
         "pp": 5,
         "type": "fire",
@@ -3920,7 +3528,6 @@
         "crit_rate": 0
     },
     "fleur-cannon": {
-        "es_name": "Ca\u00f1\u00f3n Floral",
         "power": 130,
         "pp": 5,
         "type": "fairy",
@@ -3930,7 +3537,6 @@
         "crit_rate": 0
     },
     "psychic-fangs": {
-        "es_name": "Psicocolmillo",
         "power": 85,
         "pp": 10,
         "type": "psychic",
@@ -3940,7 +3546,6 @@
         "crit_rate": 0
     },
     "stomping-tantrum": {
-        "es_name": "Pataleta",
         "power": 75,
         "pp": 10,
         "type": "ground",
@@ -3950,7 +3555,6 @@
         "crit_rate": 0
     },
     "shadow-bone": {
-        "es_name": "Hueso Sombr\u00edo",
         "power": 85,
         "pp": 10,
         "type": "ghost",
@@ -3960,7 +3564,6 @@
         "crit_rate": 0
     },
     "accelerock": {
-        "es_name": "Roca Veloz",
         "power": 40,
         "pp": 20,
         "type": "rock",
@@ -3970,7 +3573,6 @@
         "crit_rate": 0
     },
     "liquidation": {
-        "es_name": "Hidroariete",
         "power": 85,
         "pp": 10,
         "type": "water",
@@ -3980,7 +3582,6 @@
         "crit_rate": 0
     },
     "prismatic-laser": {
-        "es_name": "L\u00e1ser Prisma",
         "power": 160,
         "pp": 10,
         "type": "psychic",
@@ -3990,7 +3591,6 @@
         "crit_rate": 0
     },
     "spectral-thief": {
-        "es_name": "Robasombra",
         "power": 90,
         "pp": 10,
         "type": "ghost",
@@ -4000,7 +3600,6 @@
         "crit_rate": 0
     },
     "sunsteel-strike": {
-        "es_name": "Meteoimpacto",
         "power": 100,
         "pp": 5,
         "type": "steel",
@@ -4010,7 +3609,6 @@
         "crit_rate": 0
     },
     "moongeist-beam": {
-        "es_name": "Rayo Umbr\u00edo",
         "power": 100,
         "pp": 5,
         "type": "ghost",
@@ -4020,7 +3618,6 @@
         "crit_rate": 0
     },
     "zing-zap": {
-        "es_name": "Electropunzada",
         "power": 80,
         "pp": 10,
         "type": "electric",
@@ -4030,7 +3627,6 @@
         "crit_rate": 0
     },
     "multi-attack": {
-        "es_name": "Multiataque",
         "power": 90,
         "pp": 10,
         "type": "normal",
@@ -4040,7 +3636,6 @@
         "crit_rate": 0
     },
     "10-000-000-volt-thunderbolt": {
-        "es_name": "Gigarrayo Fulminante",
         "power": 195,
         "pp": 1,
         "type": "electric",

@@ -53,13 +53,14 @@ class Window:
 			if obj == 4: #cancel button
 				self.select.change_mode('MODE_MOVE')
 				return None
-			self.select.change_mode('MODE_OFF')
-			return (self.move, self.target)
+			elif obj in [0,1]:
+				self.select.change_mode('MODE_OFF')
+				return (self.move, self.target)
 		return None
 
 	def manage_events(self):
 		for event in pygame.event.get():
-			if event.type == QUIT or (event.type == KEYDOWN and (event.key == K_ESCAPE or event.key == K_q)):
+			if event.type == QUIT or (event.type == KEYDOWN and (event.key in [K_ESCAPE, K_q])):
 				print('QUIT GAME')
 				pygame.quit()
 				sys.exit()
@@ -71,16 +72,17 @@ class Window:
 					if obj != None: return self.set_action_selected(obj)
 
 				elif event.type == KEYDOWN:
-					if event.key == K_RIGHT or event.key == K_d:
+					if event.key in [K_RIGHT, K_d]:
 						self.select.selector.move_to_right()
-					elif event.key == K_LEFT or event.key == K_a:
+					elif event.key in [K_LEFT, K_a]:
 						self.select.selector.move_to_left()
-					elif event.key == K_UP or event.key == K_w:
+					elif event.key in [K_UP, K_w]:
 						self.select.selector.move_to_up()
-					elif event.key == K_DOWN or event.key == K_s:
+					elif event.key in [K_DOWN, K_s]:
 						self.select.selector.move_to_down()
-					elif event.key == K_RETURN or event.key == K_SPACE:
-						return self.set_action_selected(self.select.get_selected())
+					elif event.key in [K_RETURN, K_SPACE]:
+						obj = self.select.get_selected()
+						if obj != None:return self.set_action_selected(obj)
 		return None
 
 	def show(self, name, args=[], time=2):
