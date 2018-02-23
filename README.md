@@ -1,6 +1,6 @@
 # Pokemon-Python
 Programa en python para emular una batalla pokemon doble.
-Por ahora solo muestra una batalla no animada.
+Por ahora emula una batalla entre pokemons elejidos al azar.
 
 ![Demo](/Demo/2vs2battle.png)
 

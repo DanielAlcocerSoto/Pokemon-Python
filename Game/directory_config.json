@@ -1,0 +1,37 @@
+{
+  "FONT_CONFIG": "display/font/font_config",
+  "DISPLAY_CONFIG": "display/display_config",
+  "MUSIC_CONFIG": "display/music/music_config",
+  "DIALOG_CONFIG": "display/dialog/dialog_config",
+  "ATTACK_CONFIG": "engine/attack_config",
+  "BATTLE_CONFIG": "display/battle/battle_config",
+  "SELECT_CONFIG": "display/selection/select_config",
+  "GENERATE_CONFIG": "generate_data/generate_data_config",
+
+  "TEXT_PATTERN": "display/text",
+
+  "POKE_FILE": "pokemonDB",
+  "TYPE_FILE": "typeDB",
+  "MOVE_FILE": "moveDB",
+  "DIALOG_FILE": "log",
+  "ICON_FILE": "icon",
+  "HEALTH_FILE":"health",
+  "SELECT_MOVE_FILE":"SelectMove",
+  "SELECT_TARGET_FILE":"SelectTarget",
+  "SELECT_EMPTY_FILE":"select_empty",
+  "NONE_CELL_FILE": "cell_poke",
+  "SELECTOR_FILE": "cell_selector",
+  "SELECTOR_L_FILE": "cell_selector_large",
+
+  "FONT_FILE": "DataBase/Fonts/pokemon_generation_1.ttf",
+  
+  "BACKGROUND_NAME":"background_{}",
+  "CELL_NAME":"cell_{}",
+
+  "DIR_INFO": "DataBase/Info/",
+  "DIR_MUSIC": "DataBase/Music/",
+  "DIR_IMAGES": "DataBase/Images/",
+  "DIR_CELLS": "DataBase/Images/Cells/",
+  "DIR_SPRITES": "DataBase/Images/Sprites/",
+  "DIR_BACKGROUND": "DataBase/Images/Backgrounds/"
+}

@@ -1,0 +1,19 @@
+{
+  "TEST": "test TEST Test test 1234 ?¿! .. Ññaá -_ +``' çï<º'",
+  "START": "Start Battle: {} and {} vs. {} and {}.",
+  "ASK_MOVE": "What will {} do?",
+  "USE_ATTACK": "{} used {} versus {}.",
+  "EFECTIVITY_x4": "It's super effective!",
+  "EFECTIVITY_x2": "It's very effective!",
+  "EFECTIVITY_x05": "It's not very effective ...",
+  "EFECTIVITY_x025": "It's very ineffective ...",
+  "EFECTIVITY_x0": "It's not effective ...",
+  "MISS_ATTACK": "{}'s attack missed!",
+  "CRITIC_ATTACK": "A critical hit!",
+  "DEAD_POKEMON": "{} fainted!",
+  "TARGET_FAINTED": "{} already fainted.",
+  "WINNERS": "{} and {} won!",
+  "WINNER": "{} won!",
+  "WIN": "Congratulations trainer, you have won the battle !!!",
+  "LOSE": "You have lost the battle ... More luck the next!"
+}
