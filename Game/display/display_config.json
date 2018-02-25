@@ -1,7 +1,7 @@
 {
   "TITLE": "POKEMON DOUBLE BATTLE",
 
-  "SCALE": 1.5,
+  "SCALE": 1.2,
   "BACKGROUND_SCALE": 1.5,
   "BACK_SPRITE_SCALE": 1.75,
   "FRONT_SPRITE_SCALE": 1.25,
@@ -18,11 +18,6 @@
   "BLACK": [0, 0, 0],
   "WHITE": [255, 255, 255],
   "YELLOW": [250,200,20],
-
-  "Ally_0": 0,
-  "Ally_1": 1,
-  "Foe_0": 2,
-  "Foe_1": 3,
 
   "PLAY_MUSIC": false
   }

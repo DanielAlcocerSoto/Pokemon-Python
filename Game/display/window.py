@@ -43,7 +43,8 @@ class Window:
 					  with the corresponding pokemon.
 
 		Action:
-			Create and execute a window where the 'state' battle is displayed.
+			Create and execute a window where the 'state' of a  battle
+			is displayed.
 		"""
 		pygame.init()
 		width = Display_Config['BATTLE_SIZE'][0]
@@ -64,6 +65,46 @@ class Window:
 		if Display_Config["PLAY_MUSIC"]: Song().play(True)
 
 	"""
+		Function to exit the program depending on the event of the window.
+	"""
+	def manage_event_quit(self, event):
+		"""
+			Args:
+				event ('class:Event'): A event form pygame.
+
+			Action:
+				Quit of pygame and the game if the event detected by pygame
+				is the enter or the space key, or if the button exit is pressed.
+		"""
+		if event.type == QUIT or (event.type == KEYDOWN and
+								 (event.key in [K_ESCAPE, K_q])):
+			print('QUIT GAME')
+			pygame.quit()
+			sys.exit()
+
+	"""
+		Function to refresh the window.
+	"""
+	def visualize(self, manage_event=True):
+		"""
+			Args:
+				manage_event ('bool'): Indicates if it is necessary to check
+									   the exit event.
+
+			Action:
+				Display the current state of the battle, refreshing the
+				screen, calling the 'display' functions of the objects that
+				form this window. In the case that 'manage_event' is true,
+				the exit event will also be checked.
+		"""
+		if manage_event:
+			for event in pygame.event.get():
+				self.manage_event_quit(event)
+		for surface in self.visualize_items:
+			surface.display(self.SCREEN)
+		pygame.display.update()
+
+	"""
 		Function to display a message in the dialog section.
 	"""
 	def show(self, name, *args, time=2):
@@ -75,34 +116,24 @@ class Window:
 
 			Action:
 				Display a the sentence pattern 'name', foramted with 'args' and
-				wait 'time' seconds.
+				wait 'time' seconds. The message also disappear if the enter or
+				space key is pressed.
 		"""
 		text = Sentence[name].format(*args)
 		print(text) # To have a "log"
 		self.dialog.set_text(text)
-		self.visualize()
-		sleep(time) # maybe click or enter ??
-
-	"""
-		Function to manage the events of the window which is used to quit
-		the game.
-	"""
-	def manage_event_quit(self):
-		for event in pygame.event.get():
-			if event.type == QUIT or (event.type == KEYDOWN and
-									 (event.key in [K_ESCAPE, K_q])):
-				print('QUIT GAME')
-				pygame.quit()
-				sys.exit()
-
-	"""
-		Function to refresh the window.
-	"""
-	def visualize(self):
-		self.manage_event_quit()
-		for surface in self.visualize_items:
-			surface.display(self.SCREEN)
-		pygame.display.update()
+		self.visualize(manage_event=False)
+		time_init = pygame.time.get_ticks()
+		delta_time = 0
+		click_enter = False
+		# Wait 'time' sec or click/enter event
+		while delta_time < time and not click_enter:
+			for event in pygame.event.get():
+				self.manage_event_quit(event)
+				if (event.type == MOUSEBUTTONDOWN and event.button == 1) or \
+				(event.type == KEYDOWN and event.key in [K_RETURN, K_SPACE]):
+					click_enter = True
+			delta_time = (pygame.time.get_ticks() - time_init)/1000
 
 	"""
 		Function to get the index of the selected item in the selection section.
@@ -115,9 +146,11 @@ class Window:
 				The index of the button if any button is selected, either
 				by keyboard or mouse. If there is nothing selected at the time
 				of calling this function, it will return null.
-				It also manages the movement of the selector by keyboard.
+				It also manages the movement of the selector by keyboard and
+				mmanage the quit event.
 		"""
 		for event in pygame.event.get():
+			self.manage_event_quit(event)
 			if not self.select.in_mode('MODE_OFF'):
 				if event.type == MOUSEBUTTONDOWN and event.button == 1:
 					mouse = pygame.mouse.get_pos()
@@ -147,8 +180,8 @@ class Window:
 			Return ('int','int'):
 				The move index and the target index of the action decided by
 				the user.
-				Note: If the user has not yet decided the action, a wait is made
-					  until it is obtained.
+				Note: If the user has not yet decided the action, it wait until
+				the user select an action.
 		"""
 		change_mode = self.select.change_mode
 		in_mode = self.select.in_mode
@@ -156,7 +189,7 @@ class Window:
 		change_mode('MODE_MOVE')
 		move = target = None
 		while target == None:
-			self.visualize()
+			self.visualize(manage_event=False)
 			idx = self.get_selection_from_display()
 
 			if idx != None:

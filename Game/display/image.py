@@ -8,7 +8,7 @@
 # Local imports
 from Game.settings import Display_Config
 from Game.utils_data_base import load_image, load_background
-from .utils_display import pair_mult_num, scale, final_scale
+from .utils_display import pair_mult_num, scale, scale_bg
 
 # 3rd party imports
 import pygame
@@ -33,8 +33,8 @@ class Background(Image):
 	def __init__(self, image_file, top_left_location = [0,0]):
 		image = load_background(image_file)
 		factor = Display_Config['BACKGROUND_SCALE']
-		final_image =  pygame.transform.scale(image, final_scale(image.get_size(),factor))
-		location =  final_scale(top_left_location, factor)
+		final_image =  pygame.transform.scale(image, scale_bg(image.get_size()))
+		location = scale_bg(top_left_location)
 		Image.__init__(self,final_image,location)
 
 class Display:
