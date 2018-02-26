@@ -40,16 +40,15 @@ class Window:
 				state ('dict of class:Pokemon'): A dictionary with all the
 												 information needed to display
 												 the a battle.
-					Note: This dict have as key: "Ally_0","Ally_1","Foe_0" and
-						  "Foe_1" with the corresponding pokemon.
+					Note: This dict have as key: "Ally_0", "Ally_1", "Foe_0"
+						  and "Foe_1" with the corresponding pokemon as a value.
 
 			Action:
 				Create and execute a window where the 'state' of a  battle
 				is displayed.
 		"""
 		pygame.init()
-		width = Display_Config['BATTLE_SIZE'][0]
-		height = Display_Config['BATTLE_SIZE'][1]
+		width, height = Display_Config['BATTLE_SIZE']
 		height += Display_Config['LOG_SIZE'][1]
 		height += Display_Config['SELECT_SIZE'][1]
 		SCREEN_SIZE = (width,height)

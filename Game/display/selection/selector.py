@@ -28,18 +28,15 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
     selected.
 """
 class Selector:
-    def __init__(self, select_move = True, display_selector = True):
+    def __init__(self, select_move = True):
         """
             Args:
                 select_move ('bool'): Indicate if select moves or pokemons.
-                display_selector ('bool'): Indicates whether the selector
-                                           should be displayed.
             Action:
                 Create a selector able to move between the different buttons and
                 obtain the index of the selected button.
         """
         self._select_move = 1 if select_move else 2
-        self.display_selector = display_selector
         self._shift = (0,Display_Config['BATTLE_SIZE'][1]+Display_Config['LOG_SIZE'][1])
         self.pos = [0,0]
         self._time_init = pygame.time.get_ticks()
@@ -111,8 +108,7 @@ class Selector:
         Funcion to display this object.
     """
     def display(self,SCREEN):
-        if self.display_selector:
-            stripe = (1000*Select_Config["SELECTOR_DISPLAY_STRIPE"])
-            delta_time = (pygame.time.get_ticks() - self._time_init)/stripe
-            if delta_time-int(delta_time)<Select_Config["SELECTOR_DISPLAY_TIME"]:
-                SCREEN.blit(self._image, self._location)
+        stripe = (1000*Select_Config["SELECTOR_DISPLAY_STRIPE"])
+        delta_time = (pygame.time.get_ticks() - self._time_init)/stripe
+        if delta_time-int(delta_time)<Select_Config["SELECTOR_DISPLAY_TIME"]:
+            SCREEN.blit(self._image, self._location)
