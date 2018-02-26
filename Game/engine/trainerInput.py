@@ -27,11 +27,12 @@ class TrainerInput(Trainer):
 	"""
 	def set_input_method(self, window):
 		"""
-		Args:
-			window (class:'Window'): The windows where is displayed the battle.
+			Args:
+				window (class:'Window'): The windows where is displayed the
+										 battle.
 
-		Action:
-			Set the windows where is displayed the battle.
+			Action:
+				Set the windows where is displayed the battle.
 		"""
 		self.window = window
 

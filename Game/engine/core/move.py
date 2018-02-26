@@ -26,11 +26,11 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 class Move(Object_Info):
 	def __init__(self, name):
 		"""
-		Args:
-			name ('str'): The name (key of the dictionary) of the move.
+			Args:
+				name ('str'): The name (key of the dictionary) of the move.
 
-		Action:
-			Create a Move with the information of 'name' move.
+			Action:
+				Create a Move with the information of 'name' move.
 		"""
 		Object_Info.__init__(self, name, Directory['MOVE_FILE'])
 		self._pp = self._info['pp']

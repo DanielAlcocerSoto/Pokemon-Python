@@ -30,14 +30,15 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 class Image:
 	def __init__(self, image, top_left_location):
 		"""
-		Args:
-			image (class:'pygame.Surface'): The image to display in the screen.
-			top_left_location (set:'int','int'): The top left location of the
-												 'image' in the screen.
+			Args:
+				image (class:'pygame.Surface'): The image to display in the
+												screen.
+				top_left_location (set:'int','int'): The top left location of
+													 the 'image' in the screen.
 
-		Action:
-			Create a image that will be displayed in a screen in the
-			'top_left_location' position.
+			Action:
+				Create a image that will be displayed in a screen in the
+				'top_left_location' position.
 		"""
 		self._image = image
 		self._location = top_left_location
@@ -47,12 +48,13 @@ class Image:
 	"""
 	def display(self, SCREEN):
 		"""
-		Args:
-			SCREEN (class:'pygame.Surface'): The current screen of the window
-											 where to display the image.
+			Args:
+				SCREEN (class:'pygame.Surface'): The current screen of the
+												 window where to display the
+												 image.
 
-		Action:
-			Display the image in SCREEN.
+			Action:
+				Display the image in SCREEN.
 		"""
 		SCREEN.blit(self._image, self._location)
 
@@ -62,14 +64,15 @@ class Image:
 class Background(Image):
 	def __init__(self, image_file, top_left_location = [0,0]):
 		"""
-		Args:
-			image (class:'pygame.Surface'): The image to display in the screen.
-			top_left_location (set:'int','int'): The top left location of the
-												 'image' in the screen.
+			Args:
+				image (class:'pygame.Surface'): The image to display in the
+												screen.
+				top_left_location (set:'int','int'): The top left location of
+													 the 'image' in the screen.
 
-		Action:
-			Create a image that will be displayed in a screen in the
-			'top_left_location' position.
+			Action:
+				Create a image that will be displayed in a screen in the
+				'top_left_location' position.
 		"""
 		image = load_background(image_file)
 		factor = Display_Config['BACKGROUND_SCALE']
@@ -83,12 +86,12 @@ class Background(Image):
 class Display:
 	def __init__(self, visualize_items):
 		"""
-		Args:
-			visualize_items ('list of obj'): A list of object with a 'display'
-											 function (p.e. Image).
+			Args:
+				visualize_items ('list of obj'): A list of object with a
+												 'display' function (p.e. Image).
 
-		Action:
-			Create a object with several displayable items.
+			Action:
+				Create a object with several displayable items.
 		"""
 		self._visualize_items = visualize_items
 

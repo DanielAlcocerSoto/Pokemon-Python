@@ -24,11 +24,11 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 class Type(Object_Info):
 	def __init__(self, name):
 		"""
-		Args:
-			name ('str'): The name (key of the dictionary) of the type.
+			Args:
+				name ('str'): The name (key of the dictionary) of the type.
 
-		Action:
-			Create a Type with the information of 'name' type.
+			Action:
+				Create a Type with the information of 'name' type.
 		"""
 		Object_Info.__init__(self, name, Directory['TYPE_FILE'])
 		self._multiplierTo = {}

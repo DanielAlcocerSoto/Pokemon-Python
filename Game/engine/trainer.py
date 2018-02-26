@@ -38,12 +38,12 @@ FOE = False
 class Trainer:
 	def __init__(self, team, pokemon):
 		"""
-		Args:
-			team ('bool'): The team to which the trainer belongs.
-			pokemon (class:'Pokemon'): The Pokemon of the trainer.
+			Args:
+				team ('bool'): The team to which the trainer belongs.
+				pokemon (class:'Pokemon'): The Pokemon of the trainer.
 
-		Action:
-			Create a 'Trainer' of the team 'team' with a pokemon 'pokemon'.
+			Action:
+				Create a 'Trainer' of the team 'team' with a pokemon 'pokemon'.
 		"""
 		self._team=team
 		self._pk = pokemon
@@ -74,10 +74,10 @@ class Trainer:
 	"""
 	def action(self):
 		"""
-		Args: -
+			Args: -
 
-		Return  (class:'Move', 'int'):
-			The move object of the choiced move, and the index of the target.
+			Return  (class:'Move', 'int'):
+				The move object of the choiced move, and the index of the target.
 		"""
 		target = self._target + 2 if self.is_ally() else self._target
 		return (self._pk.moves_can_use()[self._idmove], target)
@@ -87,12 +87,14 @@ class Trainer:
 	"""
 	def choice_action(self):
 		"""
-		Args: -
+			Args: -
 
-		Action:
-			Set the value of the attribute self._idmove [0, self.num_moves_can_use()-1]
-			and the value of the attribute self._target [0, 1],
-			which represents the action that the pokemon will perform on next turn.
+			Action:
+				Set the value of the attribute self._idmove [0,
+				self.num_moves_can_use()-1]
+				and the value of the attribute self._target [0, 1],
+				which represents the action that the pokemon will perform on
+				next turn.
 		"""
 		raise NotImplementedError
 

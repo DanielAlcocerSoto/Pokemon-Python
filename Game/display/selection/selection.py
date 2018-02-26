@@ -2,7 +2,20 @@
 # -*- coding: utf-8 -*-
 
 """
+Module that contains several classes related to the function of selecting from
+the window.
+Basically, Selection_Manager is the main class to generate the section for the
+selection, and Selection_Display is a general class useful for the three types
+of possible screens to show as selection, i.e Selection_Move, Selection_Target
+and Selection_None
 
+It contains the following class:
+
+	Selection_Manager
+    Selection_Display
+    Selection_Move
+    Selection_Target
+    Selection_None
 """
 
 # Local imports
@@ -20,35 +33,62 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
 
 """
-
+    Class to display the selection section and manage their mode
+    i.e. MODE_MOVE, MODE_TARGET and MODE_OFF
 """
 class Selection_Manager:
     def __init__(self,state):
-        self.selection_move = Selection_Move(state["Ally_0"])
-        self.selection_target = Selection_Target(state["Foe_0"],state["Foe_1"])
-        self.selection_none = Selection_None()
+        """
+            Args:
+                state ('dict of class:Pokemon'): A dictionary with all the
+    											 information needed to display
+                                                 the a battle.
+    				Note: This dict have as key: "Ally_0","Ally_1","Foe_0" and
+    					  "Foe_1" with the corresponding pokemon.
+            Action:
+                Create a manager of the modes of the action selection section
+                of the window
+        """
         self.modes = {
-          "MODE_MOVE":  self.selection_move,
-          "MODE_TARGET":self.selection_target,
-          "MODE_OFF":   self.selection_none
+          "MODE_MOVE":  Selection_Move(state["Ally_0"]),
+          "MODE_TARGET":Selection_Target(state["Foe_0"],state["Foe_1"]),
+          "MODE_OFF":   Selection_None()
         }
         self.change_mode('MODE_OFF')
 
+    """
+        Gets the index of the button currently selected. [0,3] buttons,
+        [4] cancel. This function may also return None depending on the
+        implementation of the class.
+    """
     def get_selected(self):
         return self.active_mode.get_idx_selected()
 
+    """
+        Gets the index of the button clicked. [0,3] buttons, [4] cancel or None
+        if no button has been clicked.
+    """
     def click_at(self, mouse):
         return self.active_mode.click_at(mouse)
 
-    def in_mode(self,name_mode):
+    """
+        Returns True if the current mode is 'name_mode', False otherwise.
+    """
+    def in_mode(self, name_mode):
         return self.mode == name_mode
 
+    """
+        Change to the 'name_mode' mode.
+    """
     def change_mode(self,name_mode):
         self.mode = name_mode
         self.active_mode = self.modes[name_mode]
         self.selector = self.active_mode.selector
         self._visualize_items = [self.active_mode]
 
+    """
+    	Funcion to display the current selection section.
+    """
     def display(self,SCREEN):
         self.active_mode.display(SCREEN)
 
@@ -56,7 +96,9 @@ class Selection_Display(Display):
     def __init__(self, background_name, buttons):
         height = Display_Config['BATTLE_SIZE'][1]+Display_Config['LOG_SIZE'][1]
         bg = Background(Directory[background_name],top_left_location=(0,height))
-        self.selector = Selector(select_move= not 'TARGET' in background_name, display_selector= not 'EMPTY' in background_name)
+        select_move = select_move = not 'TARGET' in background_name
+        display_selector = display_selector= not 'EMPTY' in background_name
+        self.selector = Selector(select_move, display_selector)
         self.buttons = buttons
         visualize_items = [bg]
         for button in self.buttons: visualize_items.append(button)
@@ -74,7 +116,9 @@ class Selection_Display(Display):
 class Selection_Move(Selection_Display):
     def __init__(self, pokemon):
         moves = pokemon.moves_can_use()
-        buttons = [Button_Move('POS_MOVE_'+str(i), moves[i] if i<len(moves) else None) for i in range(0,4)]
+        buttons = [
+            Button_Move('POS_MOVE_'+str(i), moves[i] if i<len(moves) else None)
+            for i in range(0,4)]
         Selection_Display.__init__(self,'SELECT_MOVE_FILE', buttons)
 
 class Selection_Target(Selection_Display):

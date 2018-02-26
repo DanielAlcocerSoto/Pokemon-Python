@@ -33,22 +33,25 @@ class Double_Battle:
 					   trainerF1 = None, trainerF2 = None,
 				 	   base_level = 50, varability_level = 50):
 		"""
-		Args:
-			trainerA1 (class:'Trainer'): The allied trainer 1 (the user's trainer).
-			trainerA2 (class:'Trainer'): The allied trainer 2.
-			trainerF1 (class:'Trainer'): The enemy trainer 1.
-			trainerF2 (class:'Trainer'): The enemy trainer 2.
-				Note: If any of the trainer is not provided, a TrainerRandom will
-				      be generated with a random Pokémon, except if trainerA1 is
-					  missing. In this case, a TrainerInput is created with a
-					  random pokemon.
-			base_level ('int'): The base level of the pokemons if necessary to
-								create them.
-			varability_level ('int'): The varaiability of the base level of the
-									  pokemons if necessary to create them.
+			Args:
+				trainerA1 (class:'Trainer'): The allied trainer 1 (the user's
+											 trainer).
+				trainerA2 (class:'Trainer'): The allied trainer 2.
+				trainerF1 (class:'Trainer'): The enemy trainer 1.
+				trainerF2 (class:'Trainer'): The enemy trainer 2.
+					Note: If any of the trainer is not provided, a TrainerRandom
+					 	  will be generated with a random Pokémon, except if
+						  trainerA1 is missing. In this case, a TrainerInput is
+						  created with a random pokemon.
+				base_level ('int'): The base level of the pokemons if necessary
+				  					to create them.
+				varability_level ('int'): The varaiability of the base level of
+										  the pokemons if necessary to create
+										  them.
 
-		Action:
-			Create and execute the attack and save relevant information about it.
+			Action:
+				Create and execute the attack and save relevant information
+				about it.
 		"""
 		list_poke = possible_pokemons_names()
 		if trainerA1==None:

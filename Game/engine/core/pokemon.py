@@ -33,10 +33,10 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 """
 def possible_pokemons_names():
 	"""
-	Args: -
+		Args: -
 
-	Return ('list of str'):
-		The name (key) of all the pokemons in the database.
+		Return ('list of str'):
+			The name (key) of all the pokemons in the database.
 	"""
 	return list(load_info(Directory['POKE_FILE']).keys())
 
@@ -47,11 +47,11 @@ def possible_pokemons_names():
 class Pokemon(Object_Info):
 	def __init__(self, name, level):
 		"""
-		Args:
-			name ('str'): The name (key of the dictionary) of the pokemon.
+			Args:
+				name ('str'): The name (key of the dictionary) of the pokemon.
 
-		Action:
-			Create a Pokemon with the information of 'name' pokemon.
+			Action:
+				Create a Pokemon with the information of 'name' pokemon.
 		"""
 		Object_Info.__init__(self, name, Directory['POKE_FILE'])
 		self._level= min(max(level,1),100)
@@ -68,13 +68,13 @@ class Pokemon(Object_Info):
 	"""
 	def get_stat(self, stat):
 		"""
-		Args:
-			stat ('str'): The name of the stadistic that you want to obtain.
-				Note: Possible names: "hp", "attack", "special-attack",
-									  "defense", "special-defense", "speed"
+			Args:
+				stat ('str'): The name of the stadistic that you want to obtain.
+					Note: Possible names: "hp", "attack", "special-attack",
+										  "defense", "special-defense", "speed"
 
-		Returns ('int'):
-			The final value of the 'stat' stadistic
+			Returns ('int'):
+				The final value of the 'stat' stadistic
 		"""
 		n=["hp", "attack", "special-attack", "defense", "special-defense", "speed"]
 		if stat in n:
@@ -153,13 +153,13 @@ class Pokemon(Object_Info):
 	"""
 	def sprite(self, is_ally):
 		"""
-		Args:
-			is_ally ('bool'): The team to which the pokemon belongs.
-				Note: If 'is_ally' id True, this function return the back sprite,
-					  and if is False return the front sprite.
+			Args:
+				is_ally ('bool'): The team to which the pokemon belongs.
+					Note: If 'is_ally' id True, this function return the back
+						  sprite, and if is False return the front sprite.
 
-		Return (str):
-			The name of the image file where the sprite is.
+			Return (str):
+				The name of the image file where the sprite is.
 		"""
 		name = 'back' if is_ally else 'front'
 		return self._info['sprites'][name]

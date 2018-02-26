@@ -36,15 +36,16 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 class Window:
 	def __init__(self,state):
 		"""
-		Args:
-			state ('dict of class:Pokemon'): A dictionary with all the information
-											 needed to display the a battle.
-				Note: This dict have as key: "Ally_0","Ally_1","Foe_0" and "Foe_1"
-					  with the corresponding pokemon.
+			Args:
+				state ('dict of class:Pokemon'): A dictionary with all the
+												 information needed to display
+												 the a battle.
+					Note: This dict have as key: "Ally_0","Ally_1","Foe_0" and
+						  "Foe_1" with the corresponding pokemon.
 
-		Action:
-			Create and execute a window where the 'state' of a  battle
-			is displayed.
+			Action:
+				Create and execute a window where the 'state' of a  battle
+				is displayed.
 		"""
 		pygame.init()
 		width = Display_Config['BATTLE_SIZE'][0]

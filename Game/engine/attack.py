@@ -31,13 +31,13 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 """
 def with_prob_of(prob):
 	"""
-	Args:
-		prob ('int'): The probability of True, value between (0,100).
+		Args:
+			prob ('int'): The probability of True, value between (0,100).
 
-	Return ('bool'):
-		True with probability 'prob'.
-		Note: With a 'prob' = 100 already exists a 1/100 probability of False,
-			  only with 'prob' = None a True is always guaranteed.
+		Return ('bool'):
+			True with probability 'prob'.
+			Note: With a 'prob' = 100 already exists a 1/100 probability of
+				  False, only with 'prob' = None a True is always guaranteed.
 	"""
 	if prob == None: return True
 	return uniform(0,100) < prob
@@ -49,14 +49,17 @@ def with_prob_of(prob):
 class Attack:
 	def __init__(self, poke_attacker, poke_defender, move):
 		"""
-		Args:
-			poke_attacker (class:'Pokemon'): The Pokémon that makes the attack.
-			poke_defender (class:'Pokemon'): The Pokémon that receives the attack.
-			move (class:'Move'): The Move that the 'poke_attacker' uses in the
-								 attack.
+			Args:
+				poke_attacker (class:'Pokemon'): The Pokémon that makes the
+												 attack.
+				poke_defender (class:'Pokemon'): The Pokémon that receives the
+												 attack.
+				move (class:'Move'): The Move that the 'poke_attacker' uses in
+									 the attack.
 
-		Action:
-			Create and execute the attack and save relevant information about it.
+			Action:
+				Create and execute the attack and save relevant information
+				about it.
 		"""
 		if with_prob_of(move.accuracy()):
 			self.missed_attack = False
@@ -71,15 +74,17 @@ class Attack:
 	"""
 	def calc_damage(self, poke_attacker, poke_defender, used_move):
 		"""
-		Args:
-			poke_attacker (class:'Pokemon'): The Pokémon that makes the attack.
-			poke_defender (class:'Pokemon'): The Pokémon that receives the attack.
-			used_move (class:'Move'): The Move that the 'poke_attacker' uses in
-									  the attack.
+			Args:
+				poke_attacker (class:'Pokemon'): The Pokémon that makes the
+												 attack.
+				poke_defender (class:'Pokemon'): The Pokémon that receives the
+												 attack.
+				used_move (class:'Move'): The Move that the 'poke_attacker' uses
+										   in the attack.
 
-		Action:
-			Calculate the damage of this attack and save relevant information
-			about it.
+			Action:
+				Calculate the damage of this attack and save relevant
+				information about it.
 		"""
 
 		sp = 'special-' if used_move.damage_class() == 'special' else ''
