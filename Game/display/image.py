@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Module that contains the some generic classes, useful for the implementation of
+Module that contains some generic classes, useful for the implementation of
 classes related to the visualization of elements on the screen.
 
 It contains the following classes:

@@ -2,7 +2,14 @@
 # -*- coding: utf-8 -*-
 
 """
+Module that consists mainly of the Battle_display classe.
+It is used to generate the battle section, to display the currently state of the
+battle. It display the level, name, bar of health and sprite of each pokemon.
 
+It contains the following classes:
+
+	Sprite
+    Battle_display
 """
 
 # Local imports
@@ -24,33 +31,68 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
 
 """
-
+	Extended class from Image to display the sprite of a pokemon.
 """
 class Sprite (Image):
 	def __init__(self, pokemon, POS):
+		"""
+		    Args:
+		        pokemon (class:'Pokemon'): The pokemon to be displayed.
+		        POS ('str'): The key to obtain the position where display the
+							 pokemon.
+
+		    Action:
+		        Create an extencion of 'Image' to show the sprite of 'pokemon'
+				in the position indicate by the 'POS' key.
+		"""
 		self.pokemon = pokemon
 		image_file = pokemon.sprite(POS<2)
 		image = load_sprite(image_file)
-		factor_sprite = Display_Config['BACK_SPRITE_SCALE'] if 'back' in image_file else Display_Config['FRONT_SPRITE_SCALE']
-
 		x, y = image.get_size()
-		b_x, b_y = pair_mult_num(Display_Config['BATTLE_SIZE'], Display_Config['BACKGROUND_SCALE'])
+		battle_size = Display_Config['BATTLE_SIZE']
+		background_size = Display_Config['BACKGROUND_SCALE']
+		b_x, b_y = pair_mult_num(battle_size, background_size)
 		if   POS == Battle_Config['POS_A1']: pos = (x/2, b_y-y/3)
 		elif POS == Battle_Config['POS_A2']: pos = (3*x/2, b_y-y/3)
 		elif POS == Battle_Config['POS_F1']: pos = (b_x-3*x/2, b_y/2.1)
 		elif POS == Battle_Config['POS_F2']: pos = (b_x-x/2, b_y/2.1)
 
-		top_left_location = center_to_top_left(pos, pair_mult_num(image.get_size(),factor_sprite))
+		if 'back' in image_file:
+			factor_sprite = Display_Config['BACK_SPRITE_SCALE']
+		else:
+			factor_sprite = Display_Config['FRONT_SPRITE_SCALE']
+
+		partly_size = pair_mult_num(image.get_size(),factor_sprite)
+		top_left_location = center_to_top_left(pos, partly_size)
 		location = scale(top_left_location)
-		final_image = pygame.transform.scale(image, final_scale(image.get_size(),factor_sprite))
+		final_size = final_scale(image.get_size(),factor_sprite)
+		final_image = pygame.transform.scale(image, final_size)
 		Image.__init__(self,final_image,location)
 
+	"""
+        Funcion to display this sprite.
+    """
 	def display(self,SCREEN):
 		if not self.pokemon.is_fainted(): Image.display(self,SCREEN)
 
+"""
+	Extended class from Display to display the battle section.
+"""
 class Battle_display(Display):
 	def __init__(self, state):
-		battle_bg = Background(Directory['BACKGROUND_NAME'].format(str(randint(0,11))))
+		"""
+		    Args:
+		        state ('dict of class:Pokemon'): A dictionary with all the
+												 information needed to display
+		                                         the a battle.
+					Note: This dict have as key: "Ally_0","Ally_1","Foe_0" and
+						  "Foe_1" with the corresponding pokemon.
+		    Action:
+		        Create an extension of the "Display" class to display the
+				battle section of the game.
+		"""
+		num = str(randint(0,11))
+		battle_bg = Background(Directory['BACKGROUND_NAME'].format(num))
 		health_bg = Background(Directory['HEALTH_FILE'])
 
 		health_0 = Health_Rect_Info(state['Ally_0'], Battle_Config['POS_A1'])
@@ -63,5 +105,6 @@ class Battle_display(Display):
 		pk_f1 = Sprite(state['Foe_0'], Battle_Config['POS_F1'])
 		pk_f2 = Sprite(state['Foe_1'], Battle_Config['POS_F2'])
 
-		visualize_items = [battle_bg, pk_f1, pk_f2, pk_a1, pk_a2, health_bg, health_0, health_1, health_2, health_3]
+		visualize_items = [battle_bg, pk_f1, pk_f2, pk_a1, pk_a2,
+						   health_bg, health_0, health_1, health_2, health_3]
 		Display.__init__(self, visualize_items)

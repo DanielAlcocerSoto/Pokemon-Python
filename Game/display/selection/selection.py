@@ -47,7 +47,7 @@ class Selection_Manager:
     					  "Foe_1" with the corresponding pokemon.
             Action:
                 Create a manager of the modes of the action selection section
-                of the window
+                of the window.
         """
         self.modes = {
           "MODE_MOVE":  Selection_Move(state["Ally_0"]),
