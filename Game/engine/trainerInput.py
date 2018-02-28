@@ -18,7 +18,7 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
 
 """
-	Class extend from Trainer that implements the choice_action function and
+	Extended class from Trainer that implements the choice_action function and
 	allows to choose the action through the graphic input.
 """
 class TrainerInput(Trainer):

@@ -62,7 +62,7 @@ class Window:
 		self.select = Selection_Manager(state)
 		self.visualize_items = [self.battle, self.dialog, self.select]
 
-		if Display_Config["PLAY_MUSIC"]: Song().play(True)
+		if Display_Config["PLAY_MUSIC"]: Song().play()
 
 	"""
 		Function to exit the program depending on the event of the window.

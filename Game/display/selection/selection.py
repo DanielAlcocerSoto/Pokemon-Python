@@ -33,8 +33,8 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
 
 """
-    Class to display the selection section and manage their mode
-    i.e. MODE_MOVE, MODE_TARGET and MODE_OFF
+    Class to display the selection section and manage their mode,
+    i.e. MODE_MOVE, MODE_TARGET and MODE_OFF.
 """
 class Selection_Manager:
     def __init__(self,state):
@@ -140,7 +140,7 @@ class Selection_Display(Display):
 		return None
 
 """
-	Class extended from Selection_Display to display the move selection section.
+	Extended class from Selection_Display to display the move selection section.
 """
 class Selection_Move(Selection_Display):
 	def __init__(self, pokemon):
@@ -160,7 +160,7 @@ class Selection_Move(Selection_Display):
 		Selection_Display.__init__(self,'SELECT_MOVE_FILE', buttons)
 
 """
-	Class extended from Selection_Display to display the target selection
+	Extended class from Selection_Display to display the target selection
 	section.
 """
 class Selection_Target(Selection_Display):

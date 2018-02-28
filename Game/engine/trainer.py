@@ -100,7 +100,7 @@ class Trainer:
 
 
 """
-	Class extended from Trainer that implements the choice_action function
+	Extended class from Trainer that implements the choice_action function
 	as a random choice.
 """
 class TrainerRandom(Trainer):
