@@ -12,6 +12,7 @@ It contains the following class:
 
 # Local imports
 from .trainer import Trainer
+from Game.display.window import Window
 
 __version__ = '0.5'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
@@ -25,7 +26,7 @@ class TrainerInput(Trainer):
 	"""
 		Set the windows where is displayed the battle.
 	"""
-	def set_input_method(self, window):
+	def set_state(self, state):
 		"""
 			Args:
 				window (class:'Window'): The windows where is displayed the
@@ -34,7 +35,8 @@ class TrainerInput(Trainer):
 			Action:
 				Set the windows where is displayed the battle.
 		"""
-		self.window = window
+		self.window = Window(state)
+		self.show = self.window.show
 
 	"""
 		Implementation of choice_action funcion of the Trainer class

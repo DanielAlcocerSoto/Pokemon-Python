@@ -98,6 +98,8 @@ class Trainer:
 		"""
 		raise NotImplementedError
 
+	def set_state(self, state):
+		pass
 
 """
 	Extended class from Trainer that implements the choice_action function

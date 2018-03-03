@@ -74,10 +74,12 @@ class Double_Battle:
 				"Foe_0":  trainerF1.pokemon(),
 				"Foe_1":  trainerF2.pokemon()
 				}
-		self.window = Window(self.state)
-		if isinstance(trainerA1, TrainerInput):
-			trainerA1.set_input_method(self.window)
-		self.window.show('START', *[t.pokemon().name() for t in self._trainers])
+		for t in self._trainers:
+			t.set_state(self.state)
+			if isinstance(t, TrainerInput):
+				self.show = t.show
+
+		self.show('START', *[t.pokemon().name() for t in self._trainers])
 
 	"""
 		Function to show the result of the battle if the battle is finished.
@@ -87,9 +89,9 @@ class Double_Battle:
 			winners = [ tr.pokemon().name()
 						for tr in self._trainers
 						if not tr.pokemon().is_fainted()]
-			if len(winners) == 2: self.window.show("WINNERS", *winners)
-			if len(winners) == 1: self.window.show("WINNER", *winners)
-			self.window.show("WIN" if self.winners() else "LOSE", time=5)
+			if len(winners) == 2: self.show("WINNERS", *winners)
+			if len(winners) == 1: self.show("WINNER", *winners)
+			self.show("WIN" if self.winners() else "LOSE", time=5)
 
 	"""
 		Return True if the battle is finished, False otherwise.
@@ -127,7 +129,6 @@ class Double_Battle:
 	"""
 	def doTurn(self):
 		if not self.is_finished():
-			self.window.visualize()
 			live_trainers = []
 			for trainer in self._trainers:
 				if not trainer.pokemon().is_fainted():
@@ -143,25 +144,24 @@ class Double_Battle:
 					pk_enemy = self._trainers[target].pokemon()
 					name_p = poke.name()
 					name_e = pk_enemy.name()
-					self.window.show('USE_ATTACK', name_p, move.name(), name_e)
+					self.show('USE_ATTACK', name_p, move.name(), name_e)
 					if not pk_enemy.is_fainted():
 						attack = Attack(poke, pk_enemy, move)
 						# Show results of the attack
 						if not attack.missed_attack:
 							if attack.efectivity == 4:
-								self.window.show('EFECTIVITY_x4')
+								self.show('EFECTIVITY_x4')
 							if attack.efectivity == 2:
-								self.window.show('EFECTIVITY_x2')
+								self.show('EFECTIVITY_x2')
 							if attack.efectivity == 0.5:
-								self.window.show('EFECTIVITY_x05')
+								self.show('EFECTIVITY_x05')
 							if attack.efectivity == 0.25:
-								self.window.show('EFECTIVITY_x025')
+								self.show('EFECTIVITY_x025')
 							if attack.efectivity == 0:
-								self.window.show('EFECTIVITY_x0')
+								self.show('EFECTIVITY_x0')
 							if attack.is_critic:
-								self.window.show('CRITIC_ATTACK')
+								self.show('CRITIC_ATTACK')
 							if pk_enemy.is_fainted():
-								self.window.show('DEAD_POKEMON', name_e)
-						else: self.window.show('MISS_ATTACK', name_p)
-					else: self.window.show('TARGET_FAINTED', name_e)
-		self.window.visualize()
+								self.show('DEAD_POKEMON', name_e)
+						else: self.show('MISS_ATTACK', name_p)
+					else: self.show('TARGET_FAINTED', name_e)

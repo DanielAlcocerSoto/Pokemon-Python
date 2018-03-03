@@ -61,6 +61,10 @@ class Attack:
 				Create and execute the attack and save relevant information
 				about it.
 		"""
+		self.poke_attacker = poke_attacker
+		self.poke_defender = poke_defender
+		self.move = move
+
 		if with_prob_of(move.accuracy()):
 			self.missed_attack = False
 			move.use()

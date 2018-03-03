@@ -7,5 +7,5 @@ setup(name='pokemon-double-battle',
       author='Daniel Alcocer',
       author_email='daniel.alcocer@est.fib.upc.edu',
       install_requires=[
-          'pygame',
+          'pygame', 'keras', 'tensorflow'
       ])
