@@ -44,3 +44,22 @@ class TrainerInput(Trainer):
 	def choice_action(self):
 		self.window.show("ASK_MOVE",self._pk.name(),time=0)
 		self._idmove, self._target = self.window.get_action()
+
+	def show_attack(self, attack):
+			p = attack.poke_attacker
+			if not p.is_fainted():
+				eb = attack.poke_defender
+				ea = attack.poke_defender_after
+				name_p = p.name()
+				name_e = eb.name()
+				self.show('USE_ATTACK', name_p, attack.move.name(), name_e)
+				if eb.is_fainted(): self.show('TARGET_FAINTED', name_e)
+				elif attack.missed_attack: self.show('MISS_ATTACK', name_p)
+				else: # Show results of the attack
+					if   attack.efectivity == 4: self.show('EFECTIVITY_x4')
+					elif attack.efectivity == 2: self.show('EFECTIVITY_x2')
+					elif attack.efectivity == 0.5: self.show('EFECTIVITY_x05')
+					elif attack.efectivity == 0.25: self.show('EFECTIVITY_x025')
+					elif attack.efectivity == 0: self.show('EFECTIVITY_x0')
+					if attack.is_critic: self.show('CRITIC_ATTACK')
+					if ea.is_fainted(): self.show('DEAD_POKEMON', name_e)

@@ -21,6 +21,7 @@ from Game.settings import Attack_Config
 # General imports
 from random import randint, uniform
 from math import floor
+from copy import deepcopy as copy
 
 __version__ = '1.0'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
@@ -61,17 +62,17 @@ class Attack:
 				Create and execute the attack and save relevant information
 				about it.
 		"""
-		self.poke_attacker = poke_attacker
-		self.poke_defender = poke_defender
+		self.poke_attacker = copy(poke_attacker)
+		self.poke_defender = copy(poke_defender)
 		self.move = move
 
-		if with_prob_of(move.accuracy()):
-			self.missed_attack = False
+		self.missed_attack = not with_prob_of(move.accuracy())
+		if not self.missed_attack:
 			move.use()
 			self.calc_damage(poke_attacker, poke_defender, move)
 			poke_defender.hurt(self.dmg)
-		else:
-			self.missed_attack = True
+
+		self.poke_defender_after = copy(poke_defender)
 
 	"""
 		Calculate the damage of this attack.

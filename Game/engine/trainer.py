@@ -100,6 +100,9 @@ class Trainer:
 
 	def set_state(self, state):
 		pass
+		
+	def recive_results(self, attacks):
+		pass
 
 """
 	Extended class from Trainer that implements the choice_action function

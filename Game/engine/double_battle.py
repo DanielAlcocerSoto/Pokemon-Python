@@ -78,6 +78,7 @@ class Double_Battle:
 			t.set_state(self.state)
 			if isinstance(t, TrainerInput):
 				self.show = t.show
+				self.show_attack = t.show_attack
 
 		self.show('START', *[t.pokemon().name() for t in self._trainers])
 
@@ -130,38 +131,26 @@ class Double_Battle:
 	def doTurn(self):
 		if not self.is_finished():
 			live_trainers = []
+			# choice actions
 			for trainer in self._trainers:
 				if not trainer.pokemon().is_fainted():
 					trainer.choice_action()
 					live_trainers.append(trainer)
 
 			tr_sort = sorted(live_trainers, key=self.attack_order, reverse=True)
+			attacks = []
+			# do actions
 			for trainer in tr_sort:
 				if self.is_finished(): break
 				poke = trainer.pokemon()
 				if not poke.is_fainted(): # If fainted during this turn
 					move, target = trainer.action()
 					pk_enemy = self._trainers[target].pokemon()
-					name_p = poke.name()
-					name_e = pk_enemy.name()
-					self.show('USE_ATTACK', name_p, move.name(), name_e)
 					if not pk_enemy.is_fainted():
 						attack = Attack(poke, pk_enemy, move)
-						# Show results of the attack
-						if not attack.missed_attack:
-							if attack.efectivity == 4:
-								self.show('EFECTIVITY_x4')
-							if attack.efectivity == 2:
-								self.show('EFECTIVITY_x2')
-							if attack.efectivity == 0.5:
-								self.show('EFECTIVITY_x05')
-							if attack.efectivity == 0.25:
-								self.show('EFECTIVITY_x025')
-							if attack.efectivity == 0:
-								self.show('EFECTIVITY_x0')
-							if attack.is_critic:
-								self.show('CRITIC_ATTACK')
-							if pk_enemy.is_fainted():
-								self.show('DEAD_POKEMON', name_e)
-						else: self.show('MISS_ATTACK', name_p)
-					else: self.show('TARGET_FAINTED', name_e)
+						attacks.append(attack)
+						self.show_attack(attack)
+
+			#recive_results
+			for trainer in live_trainers:
+				trainer.recive_results(attacks)
