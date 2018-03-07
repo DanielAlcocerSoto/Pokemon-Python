@@ -21,11 +21,11 @@ from keras.optimizers import Adam
 
 # General imports
 from random import randint, choice, random, sample
-from numpy import argmax
+from numpy import argmax, amax, array
 from copy import deepcopy as copy
+from ast import literal_eval
 from pandas import read_csv
 import csv
-from numpy import amax
 
 
 __version__ = '0.5'
@@ -41,8 +41,12 @@ def save(obj):
         writer.writerow(obj)
 
 def load():
-    df = read_csv(memory+'.csv', delimiter=',', header=None)
-    return [tuple(x) for x in df.values]
+	df = read_csv(memory+'.csv', delimiter=',', header=None)
+	ret = [ array (
+			[literal_eval(field) if isinstance(field, str) else field
+			 for field in row]
+			) for row in df.values]
+	return ret
 
 
 """
@@ -50,7 +54,7 @@ def load():
 """
 class Agent(Trainer):
 	def __init__(self):
-		self.state_size = 30
+		self.state_size = 10
 		self.action_size = 4*2
 		self.gamma = 0.95   # discount rate
 		self.epsilon = 1.0  # exploration rate
@@ -74,7 +78,7 @@ class Agent(Trainer):
 		# Output Layer with # of actions: 2 nodes (left, right)
 		model.add(Dense(self.action_size, activation='linear'))
 		# Create the model based on the information above
-		model.compile(loss='mse',
+		model.compile(loss='categorical_crossentropy',
 		              optimizer=Adam(lr=self.learning_rate))
 		return model
 
@@ -83,10 +87,10 @@ class Agent(Trainer):
 		return [1,2,3,4,5,6,7,8,9,0]
 
 	def _get_action_coded(self):
-		return self._idmove*10+self._target
+		return self._target*4 + self._idmove
 
 	def _decode_action(self, action):
-		return action//10, action%10
+		return action%4, action//4,
 
 	def _remember(self, reward, done):
 		state = self._get_state_coded(self.last_state)
@@ -113,7 +117,6 @@ class Agent(Trainer):
 
 
 	def recive_results(self, attacks):
-
 		#TODO calc reward self.actual_state
 		reward = 5
 		self._remember(reward, self.pokemon().is_fainted())
@@ -125,12 +128,17 @@ class Agent(Trainer):
 		batch_size = min(len(memory),32)
 		minibatch = sample(memory, batch_size)
 		for state, action, reward, next_state, done in minibatch:
+			state = array([state]) # list of inputs in a numpy.array
+			next_state = array([next_state])
 			target = reward
 			if not done:
-			  target = reward + self.gamma * \
+				target = reward + self.gamma * \
 			           amax(self.model.predict(next_state)[0])
 			target_f = self.model.predict(state)
 			target_f[0][action] = target
 			self.model.fit(state, target_f, epochs=1, verbose=0)
 		if self.epsilon > self.epsilon_min:
 			self.epsilon *= self.epsilon_decay
+
+		pokemon_name = choice(possible_pokemons_names())
+		self._pk=Pokemon(pokemon_name, 50)
