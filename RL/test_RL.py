@@ -6,7 +6,7 @@ Module to test the Agent class
 """
 
 # Local imports
-from RL.agent import Agent
+from RL.agent_to_train import AgentTrain
 from RL.environment import Environment
 
 __version__ = '0.5'
@@ -17,7 +17,7 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 	Test the execution of the Agent class.
 """
 if __name__ == "__main__":
-    agent = Agent()
+    agent = AgentTrain()
     # Iterate the game
     episodes = 10
     for e in range(episodes):

@@ -7,3 +7,7 @@ dos trainers IA
 estos usan modelos, los cuales avra de destinitos tipos
 
 modelo tiene funciones concretas de soporte para los trainer
+
+3 tipo de run: entrenar modelo X con los datos actuales
+entrenar modelo con el jugador
+jugar con jugador
