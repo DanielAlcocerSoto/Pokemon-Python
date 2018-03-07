@@ -1,3 +1,4 @@
+
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
@@ -15,7 +16,7 @@ from Game.engine.trainer import Trainer, ALLY, FOE
 from Game.engine.core.pokemon import Pokemon, possible_pokemons_names
 
 # 3rd party imports
-from keras.models import Sequential
+from keras.models import Sequential, load_model
 from keras.layers import Dense, Activation
 from keras.optimizers import Adam
 
@@ -33,40 +34,27 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
 
 
-memory = "RL/Data/log"
+file_log = "RL/Data/log"
+model_path = "RL/Data/"
 
-def save(obj):
-    with open(memory+'.csv', 'a') as csv_file:
-        writer = csv.writer(csv_file)
-        writer.writerow(obj)
 
-def load():
-	df = read_csv(memory+'.csv', delimiter=',', header=None)
-	ret = [ array (
-			[literal_eval(field) if isinstance(field, str) else field
-			 for field in row]
-			) for row in df.values]
-	return ret
+
+
 
 
 """
 	Extended class from Trainer that use RL.
 """
-class Agent(Trainer):
-	def __init__(self):
-		self.state_size = 10
-		self.action_size = 4*2
+class Model:
+	def __init__(self, model_file=None):
 		self.gamma = 0.95   # discount rate
-		self.epsilon = 1.0  # exploration rate
-		self.epsilon_min = 0.01
-		self.epsilon_decay = 0.995
-		self.learning_rate = 0.001
-		self.model = self._build_model()
+		self.epsilon = 1.0  # exploration rate --var
+		self.epsilon_min = 0.01 #train
+		self.epsilon_decay = 0.995 #train
+		if model_file == None: self.model = self._build_model()
+		else: self.model = load_model(model_path+model_file+'.h5')
 
-		pokemon_name = choice(possible_pokemons_names())
-		Trainer.__init__(self,ALLY,Pokemon(pokemon_name, 50))
-
-	def _build_model(self):
+	def _build_model(self, learning_rate = 0.001, state_size = 10):
 		# Neural Net for Deep-Q learning Model
 		# Sequential() creates the foundation of the layers.
 		model = Sequential()
@@ -75,57 +63,50 @@ class Agent(Trainer):
 		model.add(Dense(24, input_dim=self.state_size, activation='relu'))
 		# Hidden layer with 24 nodes
 		model.add(Dense(24, activation='relu'))
-		# Output Layer with # of actions: 2 nodes (left, right)
-		model.add(Dense(self.action_size, activation='linear'))
+		# Output Layer with # of actions: 8 nodes (left, right)
+		model.add(Dense(4*2, activation='linear'))
 		# Create the model based on the information above
 		model.compile(loss='categorical_crossentropy',
 		              optimizer=Adam(lr=self.learning_rate))
 		return model
 
-	def _get_state_coded(self, state):
+	def _encode_state(self, state):
 		#TODO  index-->value
 		return [1,2,3,4,5,6,7,8,9,0]
 
-	def _get_action_coded(self):
-		return self._target*4 + self._idmove
+	def _encode_action(self,move, target):
+		return target*4 + move
 
 	def _decode_action(self, action):
 		return action%4, action//4,
 
-	def _remember(self, reward, done):
-		state = self._get_state_coded(self.last_state)
-		action = self._get_action_coded()
-		next_state = self._get_state_coded(self.actual_state)
-		# state = array floats
-		# action = num
-		#
-		save((state, action, reward, next_state, done))
+	def remember(self, state, move, target, reward, next_state, done):
+		state = self._encode_state(state)
+		action = self._encode_action(move, target)
+		next_state = self._encode_state(next_state)
+		obj = (state, action, reward, next_state, done)
+	    with open(file_log+'.csv', 'a') as csv_file:
+	        writer = csv.writer(csv_file)
+	        writer.writerow(obj)
 
-	def set_state(self, state):
-	    self.actual_state = state
-	    self.last_state = copy(state)
+	def predict(self, state):
+		state = self._encode_state(state)
+		act_values = self.model.predict(state)
+		print(act_values)#see how is it
+		action = argmax(act_values[0])
+		return move, target = self._decode_action(action)
 
-	def choice_action(self):
-		if random() <= self.epsilon:
-			self._idmove = randint(0, self.num_moves_can_use()-1)
-			self._target = randint(0, 1)
-		else:
-			state = self._get_state_coded(self.actual_state)
-			act_values = self.model.predict(state)
-			action = argmax(act_values[0])
-			self._idmove, self._target = self._decode_action(action)
-
-
-	def recive_results(self, attacks):
-		#TODO calc reward self.actual_state
-		#TODO done as parameter because  gen maybe live!!!
-		reward = 5
-		self._remember(reward, self.pokemon().is_fainted())
-		self.last_state = copy(self.actual_state)
+	def _load():
+		df = read_csv(file_log+'.csv', delimiter=',', header=None)
+		ret = [ array (
+				[literal_eval(field) if isinstance(field, str) else field
+				 for field in row]
+				) for row in df.values]
+		return ret
 
 	# train the agent with the experience of the episode
-	def replay(self):
-		memory = load()
+	def train(self):
+		memory = self._load()
 		batch_size = min(len(memory),32)
 		minibatch = sample(memory, batch_size)
 		for state, action, reward, next_state, done in minibatch:
@@ -141,6 +122,5 @@ class Agent(Trainer):
 		if self.epsilon > self.epsilon_min:
 			self.epsilon *= self.epsilon_decay
 
-		#reset trainer
-		pokemon_name = choice(possible_pokemons_names())
-		self._pk=Pokemon(pokemon_name, 50)
+	def save(self, model_file):
+		self.model.save(model_path+model_file+'.h5')

@@ -1,0 +1,9 @@
+dos trainers IA
+	play
+	train
+
++1 general?
+
+estos usan modelos, los cuales avra de destinitos tipos
+
+modelo tiene funciones concretas de soporte para los trainer
