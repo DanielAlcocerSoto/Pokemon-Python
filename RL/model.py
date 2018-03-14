@@ -11,10 +11,6 @@ It contains the following classes:
 	Agent
 """
 
-# Local imports
-from Game.engine.trainer import Trainer, ALLY, FOE
-from Game.engine.core.pokemon import Pokemon, possible_pokemons_names
-
 # 3rd party imports
 from keras.models import Sequential, load_model
 from keras.layers import Dense, Activation
@@ -66,9 +62,27 @@ class Model:
 		              optimizer=Adam(lr=learning_rate))
 		return model
 
-	def _encode_state(self, state):
+	def _calc_reward(self, my_role, attacks):
+		# TODO self.actual_state
+		if my_role in attacks.keys():
+			attack=attacks[my_role]
+			return attack.dmg
+		else: return 0
+
+	def _get_list_of_poke(self, poke): #'6'+2+3
+		n= ["hp", "attack", "special-attack", "defense", \
+			"special-defense", "speed"]
+		stats = [poke.get_stat(s) for s in n]
+		types = [t.name() for t in poke.types()]
+		return types+[poke.health(),poke.level(),poke.is_fainted()]
+
+	def _encode_state(self, state):#5+
 		#TODO  index-->value
-		return [1,2,3,4,5,6,7,8,9,0]
+		#my_pokemon
+		ret = self._get_list_of_poke(state['Ally_1'])
+
+		# enemies
+		return [1,2,3,4,5,6,7,'4',9,0]
 
 	def _encode_action(self,move, target):
 		return target*4 + move
@@ -76,9 +90,10 @@ class Model:
 	def _decode_action(self, action):
 		return action%4, action//4,
 
-	def remember(self, state, move, target, reward, next_state, done):
+	def remember(self, state, move, target, my_role, attacks, next_state, done):
 		state = self._encode_state(state)
 		action = self._encode_action(move, target)
+		reward = self._calc_reward(my_role, attacks)
 		next_state = self._encode_state(next_state)
 		#save
 		obj = (state, action, reward, next_state, done)
@@ -87,9 +102,9 @@ class Model:
 			writer.writerow(obj)
 
 	def predict(self, state):
-		state = self._encode_state(state)
+		#predic 1 action with 1 state of 10 elemens
+		state = array([self._encode_state(state)])
 		act_values = self.model.predict(state)
-		print(act_values)#see how is it
 		action = argmax(act_values[0])
 		return self._decode_action(action)
 
@@ -123,7 +138,7 @@ class Model:
 
 			# Train the Neural Net with the state and target_f
 			self.model.fit(state, target_f, epochs=1, verbose=0)
-			
+
 		"""
 		states, actions, rewards, next_states, dones = zip(*minibatch)
 		states = array(states) # list of inputs in a numpy.array

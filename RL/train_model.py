@@ -6,7 +6,6 @@ Module to test the Agent class
 """
 
 # Local imports
-from .agent import Agent
 from .environment import Environment
 from .modell import Model
 
@@ -16,6 +15,8 @@ import argparse
 __version__ = '0.5'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
+
+file_model = "model_test"
 
 """
 	Test the execution of the Agent class.
@@ -34,4 +35,4 @@ if __name__ == '__main__':
 	parser.add_argument('--poke', '-p', action='store_true')
 	parser.add_argument('--type', '-t', action='store_true')
 	parser.add_argument('--all' , '-a', action='store_true')
-	action(parser.parse_args())
+	main(parser.parse_args())

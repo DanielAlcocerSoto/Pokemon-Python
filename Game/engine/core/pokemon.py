@@ -21,7 +21,7 @@ from .type import Type
 from .move import Move
 
 # General imports
-from random import randint, sample
+from random import randint, sample, choice
 from math import floor
 
 __version__ = '0.9'
@@ -40,6 +40,21 @@ def possible_pokemons_names():
 	"""
 	return list(load_info(Directory['POKE_FILE']).keys())
 
+"""
+	Retuns a random pokemon with level = base_level +-varability_level.
+"""
+def Pokemon_Random(base_level = 50, varability_level = 50):
+	"""
+		Args:
+			base_level ('int'): Base level to apply varaiability.
+			varability_level ('int'): The varaiability of the base level.
+
+		Return (class:'Pokemon'):
+			Random pokemon with level between base_level-varability_level
+			and base_level+varability_level.
+	"""
+	lvl = base_level + randint(-varability_level,varability_level)
+	return Pokemon(choice(possible_pokemons_names()), lvl)
 
 """
 	Class with information about a pokemon.
@@ -76,7 +91,8 @@ class Pokemon(Object_Info):
 			Returns ('int'):
 				The final value of the 'stat' stadistic
 		"""
-		n=["hp", "attack", "special-attack", "defense", "special-defense", "speed"]
+		n= ["hp", "attack", "special-attack", "defense", \
+			"special-defense", "speed"]
 		if stat in n:
 			# Formulas:
 			# PS: 10 + { Nivel / 100 x [ (Stat Base x 2) + IV + PE/4 ] } + Nivel

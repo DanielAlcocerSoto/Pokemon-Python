@@ -7,7 +7,7 @@ This class is the principal class to execute a battle in the game.
 
 It contains the following class:
 
-	Environment
+    Environment
 """
 
 # Local imports
@@ -21,9 +21,12 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
 
 """
-	Class to make a environment for train RL.
+    Class to make a environment for train RL.
 """
 class Environment(Double_Battle):
-    def __init__(self, agent, base_level = 50, varability_level = 5):
-        Double_Battle.__init__(self, trainerA2 = agent, base_level = base_level,
-                                     varability_level = varability_level)
+    def doTurn(self):
+        Double_Battle.doTurn(self)
+        #recive_results
+        for trainer in self._trainers:
+            if not trainer.pokemon().is_fainted():
+                trainer.recive_results(self.last_attacks,self.is_finished())

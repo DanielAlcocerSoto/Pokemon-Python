@@ -9,11 +9,6 @@ It contains the following classes:
 
 	Trainer
 	TrainerRandom
-
-And the usefull constants:
-
-	ALLY
-	FOE
 """
 
 # Local imports
@@ -26,26 +21,21 @@ __version__ = '1.0'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
 
-# Constant that represent a Ally trainer
-ALLY = True
-
-# Constant that represent a Foe trainer
-FOE = False
-
 """
 	Generic trainer with basic funcions.
 """
 class Trainer:
-	def __init__(self, team, pokemon):
+	def __init__(self, role, pokemon):
 		"""
 			Args:
-				team ('bool'): The team to which the trainer belongs.
+				role ('str'): The role of this trainer
+							  [Ally_0,Ally_1,Foe_0,Foe_1]
 				pokemon (class:'Pokemon'): The Pokemon of the trainer.
 
 			Action:
 				Create a 'Trainer' of the team 'team' with a pokemon 'pokemon'.
 		"""
-		self._team=team
+		self.role= role
 		self._pk = pokemon
 
 	"""
@@ -60,7 +50,7 @@ class Trainer:
 		('' --> 'bool')
 	"""
 	def is_ally(self):
-		return self._team == ALLY
+		return "A" in self.role
 
 	"""
 		Return the moves that pokemon can do.
@@ -100,8 +90,8 @@ class Trainer:
 
 	def set_state(self, state):
 		pass
-		
-	def recive_results(self, attacks):
+
+	def recive_results(self, attacks, done):
 		pass
 
 """

@@ -67,6 +67,7 @@ class Attack:
 		self.move = move
 
 		self.missed_attack = not with_prob_of(move.accuracy())
+		self.dmg = 0
 		if not self.missed_attack:
 			move.use()
 			self.calc_damage(poke_attacker, poke_defender, move)

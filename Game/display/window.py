@@ -11,7 +11,7 @@ It contains the following class:
 """
 
 # Local imports
-from Game.settings import Directory, Sentence, Display_Config
+from Game.settings import Directory, Display_Config
 from Game.utils_data_base import load_image
 from .utils_display import scale_bg
 from .music.song import Song
@@ -107,7 +107,7 @@ class Window:
 	"""
 		Function to display a message in the dialog section.
 	"""
-	def show(self, name, *args, time=2):
+	def show(self, text, time=2):
 		"""
 			Args:
 				name ('Str'): The name of the sentence pattern.
@@ -119,8 +119,6 @@ class Window:
 				wait 'time' seconds. The message also disappear if the enter or
 				space key is pressed.
 		"""
-		text = Sentence[name].format(*args)
-		print(text) # To have a "log"
 		self.dialog.set_text(text)
 		self.visualize(manage_event=False)
 		time_init = pygame.time.get_ticks()

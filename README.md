@@ -1,18 +1,23 @@
 # Pokemon-Python
-Programa en python para emular una batalla pokemon doble.
-Por ahora emula una batalla entre pokemons elejidos al azar.
+Programa escrito en python para simular una batalla Pokémon doble.
+Por ahora es capaz de crear una batalla jugable contra enemigos cuyas acciones son aleatorias.
 
 ![Demo](/Demo/2vs2battle.png)
 
-## Librerias
-Se estan usando las siguientes librerias:
+## Librerías
+Se están usando las siguientes librerías:
   * pygame: https://github.com/pygame/pygame
+  * keras: https://github.com/keras-team/keras
 
 ## Tabla de contenido
   * [Introducción](#introduccion)
   * [Instalación](#instalacion)
+  * [Ejecución](#ejecucion)
 
 ## Introducción
 
 
 ## Instalación
+El código incluye un fichero para poder instalar las librerías necesarias para poder ejecutar el programa.
+
+## Ejecución

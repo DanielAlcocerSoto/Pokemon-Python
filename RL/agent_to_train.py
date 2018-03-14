@@ -10,29 +10,16 @@ It contains the following classes:
 	Agent
 """
 
-# Local imports
-from Game.engine.trainer import Trainer, ALLY, FOE
-from Game.engine.core.pokemon import Pokemon, possible_pokemons_names
-from .agent_to_play import Agent
+# Local import
+from .agent_to_play import TrainerIA
 from .model import Model
 
-# 3rd party imports
-from keras.models import Sequential
-from keras.layers import Dense, Activation
-from keras.optimizers import Adam
-
 # General imports
-from random import randint, choice, random, sample
-from numpy import argmax, amax, array
+from random import randint, random
 from copy import deepcopy as copy
-from ast import literal_eval
-from pandas import read_csv
-import csv
-
 
 __version__ = '0.5'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
-
 
 
 file_model = "model_test"
@@ -40,31 +27,42 @@ file_model = "model_test"
 """
 	Extended class from Trainer that use RL.
 """
-class AgentTrain(Agent):
-	def __init__(self, model = Model(), epsilon_min = 0.01, epsilon_decay = 0.995):
+class AgentTrain(TrainerIA):
+	def __init__(self, role, pokemon, model = Model(),
+				 epsilon_min = 0.01, epsilon_decay = 0.995):
 		self.epsilon = 1.0  # exploration rate
 		self.epsilon_min = epsilon_min
 		self.epsilon_decay = epsilon_decay
-		Agent.__init__(self, model)
-		self.replay()
+		TrainerIA.__init__(self, role, pokemon, model)
+		#self.replay() #to quick debug
+
+	def set_state(self, state):
+	    TrainerIA.set_state(self, state)
+	    self.last_state = copy(state)
 
 	def choice_action(self):
 		if random() <= self.epsilon:
 			self._idmove = randint(0, self.num_moves_can_use()-1)
 			self._target = randint(0, 1)
 		else:
-			Agent.choice_action(self)
+			TrainerIA.choice_action(self)
 
-	# train the agent with the experience of the episode
-	def replay(self):
+	def recive_results(self, attacks, done):
+		state = self.last_state
+		next_state = self.actual_state
+		self.model.remember(state, self._idmove, self._target, \
+							self.role, attacks, next_state, done)
+		self.last_state = copy(self.actual_state)
+
+	# train the agent with the experience of the episode and restart the agent
+	def replay(self, pokemon):
 		self.model.train()
 
 		if self.epsilon > self.epsilon_min:
 			self.epsilon *= self.epsilon_decay
 
 		#reset trainer
-		pokemon_name = choice(possible_pokemons_names())
-		self._pk=Pokemon(pokemon_name, 50)
+		self._pk=pokemon
 
 	def save_model(self):
 		self.model.save(file_model)
