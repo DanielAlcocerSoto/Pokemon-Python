@@ -66,8 +66,9 @@ class Attack:
 		self.poke_defender = copy(poke_defender)
 		self.move = move
 
-		self.missed_attack = not with_prob_of(move.accuracy())
 		self.dmg = 0
+		self.missed_attack = not with_prob_of(move.accuracy()) \
+							 or self.poke_defender.is_fainted()
 		if not self.missed_attack:
 			move.use()
 			self.calc_damage(poke_attacker, poke_defender, move)

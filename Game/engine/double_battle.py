@@ -72,7 +72,7 @@ class Double_Battle:
 
 		self._trainers = [trainerA1,trainerA2,trainerF1,trainerF2]
 		self.state = {t.role: t.pokemon() for t in self._trainers}
-		self.show_message = print
+		self.show_message = None
 		for t in self._trainers:
 			t.set_state(self.state)
 			if isinstance(t, TrainerInput):	self.show_message = t.show_message
@@ -95,8 +95,9 @@ class Double_Battle:
 	"""
 	def show(self, name, *args, time=2):
 		text = Sentence[name].format(*args)
-		if self.show_message != print: print(text) # To have a "log"
-		self.show_message(text,time)
+		print(text) # To have a "log"
+		if self.show_message != None: self.show_message(text,time)
+
 
 	"""
 		Function to display as a message the result of an attack
@@ -185,7 +186,6 @@ class Double_Battle:
 				if not poke.is_fainted(): # If fainted during this turn
 					move, target = trainer.action()
 					pk_enemy = self._trainers[target].pokemon()
-					if not pk_enemy.is_fainted():
-						attack = Attack(poke, pk_enemy, move)
-						self.last_attacks[trainer.role]=attack
-						self.show_attack(attack)
+					attack = Attack(poke, pk_enemy, move)
+					self.last_attacks[trainer.role]=attack
+					self.show_attack(attack)

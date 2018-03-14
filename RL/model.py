@@ -46,7 +46,7 @@ class Model:
 	def save(self, model_file):
 		self.model.save(model_path+model_file+'.h5')
 
-	def _build_model(self, learning_rate = 0.001, state_size = 10):
+	def _build_model(self, learning_rate = 0.001, state_size = 45):
 		# Neural Net for Deep-Q learning Model
 		# Sequential() creates the foundation of the layers.
 		model = Sequential()
@@ -69,20 +69,29 @@ class Model:
 			return attack.dmg
 		else: return 0
 
-	def _get_list_of_poke(self, poke): #'6'+2+3
-		n= ["hp", "attack", "special-attack", "defense", \
-			"special-defense", "speed"]
+	def _poke_to_list(self, poke): #'6'+2+3 =11
+		n = ["hp", "attack", "special-attack", "defense", \
+			 "special-defense", "speed"]
 		stats = [poke.get_stat(s) for s in n]
 		types = [t.name() for t in poke.types()]
-		return types+[poke.health(),poke.level(),poke.is_fainted()]
+		if len(types)==1:types.append('-')
+		return stats+types+[poke.health(),poke.level(),poke.is_fainted()]
 
-	def _encode_state(self, state):#5+
+	def _move_to_list(self, move): #3
+		return [move.type().name(), move.actual_pp(), move.power()]
+
+	def _encode_state(self, state):# 3*4 + 11*3
 		#TODO  index-->value
-		#my_pokemon
-		ret = self._get_list_of_poke(state['Ally_1'])
-
-		# enemies
-		return [1,2,3,4,5,6,7,'4',9,0]
+		#my_pokemon_data
+		ret = self._poke_to_list(state['Ally_1'])
+		moves=state['Ally_1'].moves()
+		for i in range(4):
+			if i < len(moves): ret+= self._move_to_list(moves[i])
+			else: ret+= ['-']*3#numero_de_datos_de_move
+		for j in range(2):
+			ret+=self._poke_to_list(state['Foe_'+str(j)])
+		# enemies_data
+		return ret
 
 	def _encode_action(self,move, target):
 		return target*4 + move
