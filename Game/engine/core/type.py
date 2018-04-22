@@ -12,11 +12,23 @@ This module contains the following class:
 
 # Local imports
 from Game.settings import Directory
-from Game.utils_data_base import Object_Info
+from Game.utils_data_base import Object_Info, load_info
 
 __version__ = '1.0'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
+
+"""
+	Returns the name of all types in the database.
+"""
+def possible_type_names():
+	"""
+		Args: -
+
+		Return ('list of str'):
+			The name (key) of all types in the database.
+	"""
+	return list(load_info(Directory['TYPE_FILE']).keys())
 
 """
 	Class with information about a type.

@@ -11,6 +11,9 @@ It contains the following classes:
 	Agent
 """
 
+# Local import
+from .encoder import Encoder
+
 # 3rd party imports
 from keras.models import Sequential, load_model
 from keras.layers import Dense, Activation
@@ -39,6 +42,7 @@ model_path = "RL/Data/"
 """
 class Model:
 	def __init__(self, model_file=None, gama = 0.95):
+		self.encoder = Encoder()
 		self.gamma = gama   # discount rate
 		if model_file == None: self.model = self._build_model()
 		else: self.model = load_model(model_path+model_file+'.h5')
@@ -69,41 +73,17 @@ class Model:
 			return attack.dmg
 		else: return 0
 
-	def _poke_to_list(self, poke): #'6'+2+3 =11
-		n = ["hp", "attack", "special-attack", "defense", \
-			 "special-defense", "speed"]
-		stats = [poke.get_stat(s) for s in n]
-		types = [t.name() for t in poke.types()]
-		if len(types)==1:types.append('-')
-		return stats+types+[poke.health(),poke.level(),poke.is_fainted()]
-
-	def _move_to_list(self, move): #3
-		return [move.type().name(), move.actual_pp(), move.power()]
-
-	def _encode_state(self, state):# 3*4 + 11*3
-		#TODO  index-->value
-		#my_pokemon_data
-		ret = self._poke_to_list(state['Ally_1'])
-		moves=state['Ally_1'].moves()
-		for i in range(4):
-			if i < len(moves): ret+= self._move_to_list(moves[i])
-			else: ret+= ['-']*3#numero_de_datos_de_move
-		for j in range(2):
-			ret+=self._poke_to_list(state['Foe_'+str(j)])
-		# enemies_data
-		return ret
-
-	def _encode_action(self,move, target):
+	def _encode_action(self, move, target):
 		return target*4 + move
 
 	def _decode_action(self, action):
-		return action%4, action//4,
+		return action%4, action//4
 
 	def remember(self, state, move, target, my_role, attacks, next_state, done):
-		state = self._encode_state(state)
+		state = self.encoder.encode_state(state)
 		action = self._encode_action(move, target)
 		reward = self._calc_reward(my_role, attacks)
-		next_state = self._encode_state(next_state)
+		next_state = self.encoder.encode_state(next_state)
 		#save
 		obj = (state, action, reward, next_state, done)
 		with open(file_log+'.csv', 'a') as csv_file:
@@ -112,7 +92,7 @@ class Model:
 
 	def predict(self, state):
 		#predic 1 action with 1 state of 10 elemens
-		state = array([self._encode_state(state)])
+		state = array([self.encoder.encode_state(state)])
 		act_values = self.model.predict(state)
 		action = argmax(act_values[0])
 		return self._decode_action(action)
