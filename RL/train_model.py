@@ -6,8 +6,8 @@ Module to test the Agent class
 """
 
 # Local imports
-from .environment import Environment
-from .modell import Model
+from RL.environment import Environment
+from RL.model import Model
 
 # General imports
 import argparse
@@ -22,7 +22,7 @@ file_model = "model_test"
 	Test the execution of the Agent class.
 """
 def main(args):
-    model = Model()
+	model = Model()
 	model.train()
 	model.save(file_model)
 
@@ -31,8 +31,8 @@ if __name__ == '__main__':
 		Main function of this funcionality.
 	"""
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--move', '-m', action='store_true')
-	parser.add_argument('--poke', '-p', action='store_true')
-	parser.add_argument('--type', '-t', action='store_true')
-	parser.add_argument('--all' , '-a', action='store_true')
+	#parser.add_argument('--move', '-m', action='store_true')
+	#parser.add_argument('--poke', '-p', action='store_true')
+	#parser.add_argument('--type', '-t', action='store_true')
+	#parser.add_argument('--all' , '-a', action='store_true')
 	main(parser.parse_args())

@@ -50,13 +50,13 @@ class Model:
 	def save(self, model_file):
 		self.model.save(model_path+model_file+'.h5')
 
-	def _build_model(self, learning_rate = 0.001, state_size = 45):
+	def _build_model(self, learning_rate = 0.001):
 		# Neural Net for Deep-Q learning Model
 		# Sequential() creates the foundation of the layers.
 		model = Sequential()
 		# 'Dense' is the basic form of a neural network layer
 		# Input Layer of state size(4) and Hidden Layer with 24 nodes
-		model.add(Dense(24, input_dim=state_size, activation='relu'))
+		model.add(Dense(24, input_dim=self.encoder.state_size, activation='relu'))
 		# Hidden layer with 24 nodes
 		model.add(Dense(24, activation='relu'))
 		# Output Layer with # of actions: 8 nodes (left, right)
@@ -73,15 +73,9 @@ class Model:
 			return attack.dmg
 		else: return 0
 
-	def _encode_action(self, move, target):
-		return target*4 + move
-
-	def _decode_action(self, action):
-		return action%4, action//4
-
 	def remember(self, state, move, target, my_role, attacks, next_state, done):
 		state = self.encoder.encode_state(state)
-		action = self._encode_action(move, target)
+		action = self.encoder.encode_action(move, target)
 		reward = self._calc_reward(my_role, attacks)
 		next_state = self.encoder.encode_state(next_state)
 		#save
@@ -95,7 +89,7 @@ class Model:
 		state = array([self.encoder.encode_state(state)])
 		act_values = self.model.predict(state)
 		action = argmax(act_values[0])
-		return self._decode_action(action)
+		return self.encoder.decode_action(action)
 
 	def _load(self):
 		df = read_csv(file_log+'.csv', delimiter=',', header=None)
