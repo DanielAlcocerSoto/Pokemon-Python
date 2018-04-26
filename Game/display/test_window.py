@@ -7,7 +7,7 @@ Module to test the Window class
 
 # Local imports
 from Game.settings import Display_Config
-from Game.engine.core.pokemon import Pokemon, possible_pokemons_names
+from Game.engine.core.pokemon import Pokemon
 from .window import Window
 
 # General imports
@@ -21,7 +21,7 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 	Test the execution of the Window class.
 """
 def main():
-	list_poke = possible_pokemons_names()
+	list_poke = Pokemon.possible_names()
 	base_level = 50
 	vary = 50
 	pokeA1 = Pokemon(choice(list_poke), base_level + randint(-vary,vary))

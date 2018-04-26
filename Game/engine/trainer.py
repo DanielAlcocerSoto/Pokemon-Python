@@ -53,13 +53,6 @@ class Trainer:
 		return "A" in self.role
 
 	"""
-		Return the moves that pokemon can do.
-		('' --> 'list of class:Move')
-	"""
-	def num_moves_can_use(self):
-		return len(self._pk.moves_can_use())
-
-	"""
 		Return the action setted using the choice_action function.
 	"""
 	def action(self):
@@ -70,7 +63,7 @@ class Trainer:
 				The move object of the choiced move, and the index of the target.
 		"""
 		target = self._target + 2 if self.is_ally() else self._target
-		return (self._pk.moves_can_use()[self._idmove], target)
+		return (self._pk.moves()[self._idmove], target)
 
 	"""
 		Set the next action that the pokemon will do.
@@ -80,8 +73,7 @@ class Trainer:
 			Args: -
 
 			Action:
-				Set the value of the attribute self._idmove [0,
-				self.num_moves_can_use()-1]
+				Set the value of the attribute self._idmove [0,3]
 				and the value of the attribute self._target [0, 1],
 				which represents the action that the pokemon will perform on
 				next turn.
@@ -103,5 +95,5 @@ class TrainerRandom(Trainer):
 		Implementation of choice_action funcion of the Trainer class.
 	"""
 	def choice_action(self):
-		self._idmove = randint(0, self.num_moves_can_use()-1)
+		self._idmove = randint(0, 3)
 		self._target = randint(0, 1)

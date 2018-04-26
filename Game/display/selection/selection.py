@@ -153,7 +153,7 @@ class Selection_Move(Selection_Display):
 				Create an extension of the "Selection_Display" class to show
 				the moves of 'pokemon'.
 		"""
-		moves = pokemon.moves_can_use()
+		moves = pokemon.moves()
 		buttons = [
 		    Button_Move('POS_MOVE_'+str(i), moves[i] if i<len(moves) else None)
 		    for i in range(0,4)]

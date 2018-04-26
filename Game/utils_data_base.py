@@ -151,6 +151,19 @@ def load_background(name_file):
 	be it move, type or pokemon.
 """
 class Object_Info:
+	"""
+		Returns all key in the database.
+	"""
+	@staticmethod
+	def possible_names():
+		"""
+			Args: -
+
+			Return ('list of str'):
+				The name (key) of all the items in the database.
+		"""
+		raise NotImplementedError
+
 	def __init__(self, name, file_name):
 		"""
 		Args:
@@ -163,9 +176,8 @@ class Object_Info:
 		"""
 
 		file_dict = load_info(file_name)
-		self._keys = list(file_dict.keys())
 		self._name = name
-		if self._name in self._keys:
+		if self._name in list(file_dict.keys()):
 			self._info = file_dict[name]
 		else : raise Exception('Name "'+name+'" does not exist in '+file_name)
 

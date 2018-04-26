@@ -25,7 +25,6 @@ def action(args):
 		Action:
 			This function call the action indicated in the parameter 'args'.
 	"""
-
 	if  args.move or args.all:
 		print('Generating moves info...')
 		generate_moves()
@@ -44,7 +43,6 @@ if __name__ == '__main__':
 	"""
 		Main function of this funcionality.
 	"""
-
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--move', '-m', action='store_true')
 	parser.add_argument('--poke', '-p', action='store_true')

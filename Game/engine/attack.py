@@ -67,14 +67,18 @@ class Attack:
 		self.move = move
 
 		self.dmg = 0
-		self.missed_attack = not with_prob_of(move.accuracy()) \
-							 or self.poke_defender.is_fainted()
-		if not self.missed_attack:
-			move.use()
-			self.calc_damage(poke_attacker, poke_defender, move)
-			poke_defender.hurt(self.dmg)
+		self.has_pp = move.can_use()
+		if not self.has_pp: self.missed_attack = False
+		else:
+			self.missed_attack = not with_prob_of(move.accuracy()) \
+								 or self.poke_defender.is_fainted()
+			if not self.missed_attack:
+				move.use()
+				self.calc_damage(poke_attacker, poke_defender, move)
+				poke_defender.hurt(self.dmg)
 
 		self.poke_defender_after = copy(poke_defender)
+
 
 	"""
 		Calculate the damage of this attack.

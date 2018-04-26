@@ -13,7 +13,7 @@ It contains the following class:
 # Local imports
 from Game.settings import Sentence, Display_Config
 from Game.display.window import Window
-from .core.pokemon import Pokemon_Random
+from .core.pokemon import Pokemon
 from .trainer import TrainerRandom
 from .trainerInput import TrainerInput
 from .attack import Attack
@@ -58,16 +58,16 @@ class Double_Battle:
 				about it.
 		"""
 		if pokemon_trainerA1==None:
-			pokemon_trainerA1 = Pokemon_Random(base_level, varability_level)
+			pokemon_trainerA1 = Pokemon.Random(base_level, varability_level)
 		trainerA1 = constructor_trainerA1("Ally_0", pokemon_trainerA1)
 		if pokemon_trainerA2==None:
-			pokemon_trainerA2 = Pokemon_Random(base_level, varability_level)
+			pokemon_trainerA2 = Pokemon.Random(base_level, varability_level)
 		trainerA2 = constructor_trainerA2("Ally_1", pokemon_trainerA2)
 		if pokemon_trainerF1==None:
-			pokemon_trainerF1 = Pokemon_Random(base_level, varability_level)
+			pokemon_trainerF1 = Pokemon.Random(base_level, varability_level)
 		trainerF1 = constructor_trainerF1("Foe_0", pokemon_trainerF1)
 		if pokemon_trainerF2==None:
-			pokemon_trainerF2 = Pokemon_Random(base_level, varability_level)
+			pokemon_trainerF2 = Pokemon.Random(base_level, varability_level)
 		trainerF2 = constructor_trainerF2("Foe_1", pokemon_trainerF2)
 
 		self._trainers = [trainerA1,trainerA2,trainerF1,trainerF2]

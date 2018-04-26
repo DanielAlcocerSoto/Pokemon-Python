@@ -42,7 +42,7 @@ class AgentTrain(TrainerIA):
 
 	def choice_action(self):
 		if random() <= self.epsilon:
-			self._idmove = randint(0, self.num_moves_can_use()-1)
+			self._idmove = randint(0, 3)
 			self._target = randint(0, 1)
 		else:
 			TrainerIA.choice_action(self)

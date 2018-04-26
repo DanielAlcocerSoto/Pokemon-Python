@@ -825,45 +825,6 @@
             "back": "10_caterpie_back"
         }
     },
-    "metapod": {
-        "types": [
-            "bug"
-        ],
-        "stats": {
-            "speed": {
-                "effort": 0,
-                "base_stat": 30
-            },
-            "special-defense": {
-                "effort": 0,
-                "base_stat": 25
-            },
-            "special-attack": {
-                "effort": 0,
-                "base_stat": 25
-            },
-            "defense": {
-                "effort": 2,
-                "base_stat": 55
-            },
-            "attack": {
-                "effort": 0,
-                "base_stat": 20
-            },
-            "hp": {
-                "effort": 0,
-                "base_stat": 50
-            }
-        },
-        "moves": [
-            "bug-bite",
-            "electroweb"
-        ],
-        "sprites": {
-            "front": "11_metapod_front",
-            "back": "11_metapod_back"
-        }
-    },
     "butterfree": {
         "types": [
             "flying",
@@ -938,87 +899,6 @@
         "sprites": {
             "front": "12_butterfree_front",
             "back": "12_butterfree_back"
-        }
-    },
-    "weedle": {
-        "types": [
-            "poison",
-            "bug"
-        ],
-        "stats": {
-            "speed": {
-                "effort": 1,
-                "base_stat": 50
-            },
-            "special-defense": {
-                "effort": 0,
-                "base_stat": 20
-            },
-            "special-attack": {
-                "effort": 0,
-                "base_stat": 20
-            },
-            "defense": {
-                "effort": 0,
-                "base_stat": 30
-            },
-            "attack": {
-                "effort": 0,
-                "base_stat": 35
-            },
-            "hp": {
-                "effort": 0,
-                "base_stat": 40
-            }
-        },
-        "moves": [
-            "poison-sting",
-            "bug-bite",
-            "electroweb"
-        ],
-        "sprites": {
-            "front": "13_weedle_front",
-            "back": "13_weedle_back"
-        }
-    },
-    "kakuna": {
-        "types": [
-            "poison",
-            "bug"
-        ],
-        "stats": {
-            "speed": {
-                "effort": 0,
-                "base_stat": 35
-            },
-            "special-defense": {
-                "effort": 0,
-                "base_stat": 25
-            },
-            "special-attack": {
-                "effort": 0,
-                "base_stat": 25
-            },
-            "defense": {
-                "effort": 2,
-                "base_stat": 50
-            },
-            "attack": {
-                "effort": 0,
-                "base_stat": 25
-            },
-            "hp": {
-                "effort": 0,
-                "base_stat": 45
-            }
-        },
-        "moves": [
-            "bug-bite",
-            "electroweb"
-        ],
-        "sprites": {
-            "front": "14_kakuna_front",
-            "back": "14_kakuna_back"
         }
     },
     "beedrill": {
@@ -10299,45 +10179,6 @@
             "back": "128_tauros_back"
         }
     },
-    "magikarp": {
-        "types": [
-            "water"
-        ],
-        "stats": {
-            "speed": {
-                "effort": 1,
-                "base_stat": 80
-            },
-            "special-defense": {
-                "effort": 0,
-                "base_stat": 20
-            },
-            "special-attack": {
-                "effort": 0,
-                "base_stat": 15
-            },
-            "defense": {
-                "effort": 0,
-                "base_stat": 55
-            },
-            "attack": {
-                "effort": 0,
-                "base_stat": 10
-            },
-            "hp": {
-                "effort": 0,
-                "base_stat": 20
-            }
-        },
-        "moves": [
-            "tackle",
-            "bounce"
-        ],
-        "sprites": {
-            "front": "129_magikarp_front",
-            "back": "129_magikarp_back"
-        }
-    },
     "gyarados": {
         "types": [
             "flying",
@@ -10523,42 +10364,6 @@
         "sprites": {
             "front": "131_lapras_front",
             "back": "131_lapras_back"
-        }
-    },
-    "ditto": {
-        "types": [
-            "normal"
-        ],
-        "stats": {
-            "speed": {
-                "effort": 0,
-                "base_stat": 48
-            },
-            "special-defense": {
-                "effort": 0,
-                "base_stat": 48
-            },
-            "special-attack": {
-                "effort": 0,
-                "base_stat": 48
-            },
-            "defense": {
-                "effort": 0,
-                "base_stat": 48
-            },
-            "attack": {
-                "effort": 0,
-                "base_stat": 48
-            },
-            "hp": {
-                "effort": 1,
-                "base_stat": 48
-            }
-        },
-        "moves": [],
-        "sprites": {
-            "front": "132_ditto_front",
-            "back": "132_ditto_back"
         }
     },
     "eevee": {
@@ -15987,80 +15792,6 @@
             "back": "200_misdreavus_back"
         }
     },
-    "unown": {
-        "types": [
-            "psychic"
-        ],
-        "stats": {
-            "speed": {
-                "effort": 0,
-                "base_stat": 48
-            },
-            "special-defense": {
-                "effort": 0,
-                "base_stat": 48
-            },
-            "special-attack": {
-                "effort": 1,
-                "base_stat": 72
-            },
-            "defense": {
-                "effort": 0,
-                "base_stat": 48
-            },
-            "attack": {
-                "effort": 1,
-                "base_stat": 72
-            },
-            "hp": {
-                "effort": 0,
-                "base_stat": 48
-            }
-        },
-        "moves": [
-            "hidden-power"
-        ],
-        "sprites": {
-            "front": "201_unown_front",
-            "back": "201_unown_back"
-        }
-    },
-    "wobbuffet": {
-        "types": [
-            "psychic"
-        ],
-        "stats": {
-            "speed": {
-                "effort": 0,
-                "base_stat": 33
-            },
-            "special-defense": {
-                "effort": 0,
-                "base_stat": 58
-            },
-            "special-attack": {
-                "effort": 0,
-                "base_stat": 33
-            },
-            "defense": {
-                "effort": 0,
-                "base_stat": 58
-            },
-            "attack": {
-                "effort": 0,
-                "base_stat": 33
-            },
-            "hp": {
-                "effort": 2,
-                "base_stat": 190
-            }
-        },
-        "moves": [],
-        "sprites": {
-            "front": "202_wobbuffet_front",
-            "back": "202_wobbuffet_back"
-        }
-    },
     "girafarig": {
         "types": [
             "psychic",
@@ -18645,42 +18376,6 @@
             "back": "234_stantler_back"
         }
     },
-    "smeargle": {
-        "types": [
-            "normal"
-        ],
-        "stats": {
-            "speed": {
-                "effort": 1,
-                "base_stat": 75
-            },
-            "special-defense": {
-                "effort": 0,
-                "base_stat": 45
-            },
-            "special-attack": {
-                "effort": 0,
-                "base_stat": 20
-            },
-            "defense": {
-                "effort": 0,
-                "base_stat": 35
-            },
-            "attack": {
-                "effort": 0,
-                "base_stat": 20
-            },
-            "hp": {
-                "effort": 0,
-                "base_stat": 55
-            }
-        },
-        "moves": [],
-        "sprites": {
-            "front": "235_smeargle_front",
-            "back": "235_smeargle_back"
-        }
-    },
     "tyrogue": {
         "types": [
             "fighting"
@@ -21131,45 +20826,6 @@
             "back": "265_wurmple_back"
         }
     },
-    "silcoon": {
-        "types": [
-            "bug"
-        ],
-        "stats": {
-            "speed": {
-                "effort": 0,
-                "base_stat": 15
-            },
-            "special-defense": {
-                "effort": 0,
-                "base_stat": 25
-            },
-            "special-attack": {
-                "effort": 0,
-                "base_stat": 25
-            },
-            "defense": {
-                "effort": 2,
-                "base_stat": 55
-            },
-            "attack": {
-                "effort": 0,
-                "base_stat": 35
-            },
-            "hp": {
-                "effort": 0,
-                "base_stat": 50
-            }
-        },
-        "moves": [
-            "bug-bite",
-            "electroweb"
-        ],
-        "sprites": {
-            "front": "266_silcoon_front",
-            "back": "266_silcoon_back"
-        }
-    },
     "beautifly": {
         "types": [
             "flying",
@@ -21239,45 +20895,6 @@
         "sprites": {
             "front": "267_beautifly_front",
             "back": "267_beautifly_back"
-        }
-    },
-    "cascoon": {
-        "types": [
-            "bug"
-        ],
-        "stats": {
-            "speed": {
-                "effort": 0,
-                "base_stat": 15
-            },
-            "special-defense": {
-                "effort": 0,
-                "base_stat": 25
-            },
-            "special-attack": {
-                "effort": 0,
-                "base_stat": 25
-            },
-            "defense": {
-                "effort": 2,
-                "base_stat": 55
-            },
-            "attack": {
-                "effort": 0,
-                "base_stat": 35
-            },
-            "hp": {
-                "effort": 0,
-                "base_stat": 50
-            }
-        },
-        "moves": [
-            "bug-bite",
-            "electroweb"
-        ],
-        "sprites": {
-            "front": "268_cascoon_front",
-            "back": "268_cascoon_back"
         }
     },
     "dustox": {
@@ -28337,42 +27954,6 @@
         "sprites": {
             "front": "359_absol_front",
             "back": "359_absol_back"
-        }
-    },
-    "wynaut": {
-        "types": [
-            "psychic"
-        ],
-        "stats": {
-            "speed": {
-                "effort": 0,
-                "base_stat": 23
-            },
-            "special-defense": {
-                "effort": 0,
-                "base_stat": 48
-            },
-            "special-attack": {
-                "effort": 0,
-                "base_stat": 23
-            },
-            "defense": {
-                "effort": 0,
-                "base_stat": 48
-            },
-            "attack": {
-                "effort": 0,
-                "base_stat": 23
-            },
-            "hp": {
-                "effort": 1,
-                "base_stat": 95
-            }
-        },
-        "moves": [],
-        "sprites": {
-            "front": "360_wynaut_front",
-            "back": "360_wynaut_back"
         }
     },
     "snorunt": {

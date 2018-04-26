@@ -19,21 +19,22 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
 
 """
-	Returns the name of all types in the database.
-"""
-def possible_type_names():
-	"""
-		Args: -
-
-		Return ('list of str'):
-			The name (key) of all types in the database.
-	"""
-	return list(load_info(Directory['TYPE_FILE']).keys())
-
-"""
 	Class with information about a type.
 """
 class Type(Object_Info):
+	"""
+		Returns the name of all types in the database.
+	"""
+	@staticmethod
+	def possible_names():
+		"""
+			Args: -
+
+			Return ('list of str'):
+				The name (key) of all the types in the database.
+		"""
+		return list(load_info(Directory['TYPE_FILE']).keys())
+
 	def __init__(self, name):
 		"""
 			Args:
@@ -44,7 +45,7 @@ class Type(Object_Info):
 		"""
 		Object_Info.__init__(self, name, Directory['TYPE_FILE'])
 		self._multiplierTo = {}
-		for key in self._keys:
+		for key in Type.possible_names():
 			if   key in self._info['no_damage_to']:     self._multiplierTo[key] = 0
 			elif key in self._info['half_damage_to']:   self._multiplierTo[key] = 0.5
 			elif key in self._info['double_damage_to']: self._multiplierTo[key] = 2

@@ -11,7 +11,7 @@ It contains the following classes:
 	Agent
 """
 # Local import
-from Game.engine.core.type import possible_type_names
+from Game.engine.core.type import Type
 
 # 3rd party imports
 from keras.utils import to_categorical
@@ -47,7 +47,7 @@ class Categorical_variable:
 
 class Encoder:
 	def __init__(self):
-		Types = [t.title() for t in possible_type_names()]
+		Types = [t.title() for t in Type.possible_names()]
 		self.encoder_type = Categorical_variable(Types)#18
 		self.encoder_action = Categorical_variable(list(range(0,8)))#8
 		self.encoder_dmg = Categorical_variable(['physical','special'])#2
@@ -73,11 +73,8 @@ class Encoder:
 		#my_pokemon_data
 		ret = self._poke_to_list(state['Ally_1'])
 		moves=state['Ally_1'].moves()
-		for i in range(4):
-			if i < len(moves): ret+= self._move_to_list(moves[i])
-			else: ret+= [0]*22 #numero_de_datos_de_move
-		for j in range(2):
-			ret+=self._poke_to_list(state['Foe_'+str(j)])
+		for i in range(4): ret+= self._move_to_list(moves[i])
+		for j in range(2): ret+=self._poke_to_list(state['Foe_'+str(j)])
 		# enemies_data
 		#print('encode state = {}'.format(ret))
 		return ret
