@@ -11,12 +11,12 @@ It contains the following class:
 """
 
 # Local imports
-from Game.settings import Directory, Display_Config
-from Game.utils_data_base import load_image
+from Configuration.settings import Directory, Display_Config
+from DataBase.utils_data_base import load_image
 from .utils_display import scale_bg
-from .music.song import Song
+from .music import Song
+from .dialog import Dialog_display
 from .battle.battle import Battle_display
-from .dialog.dialog import Dialog_display
 from .selection.selection import Selection_Manager
 
 # 3rd party imports

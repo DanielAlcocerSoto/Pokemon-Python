@@ -11,7 +11,7 @@ It contains the following class:
 """
 
 # Local imports
-from Game.settings import Sentence
+from Configuration.settings import Sentence
 from Game.display.window import Window
 from .trainer import Trainer
 

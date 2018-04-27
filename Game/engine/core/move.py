@@ -12,8 +12,8 @@ This module contains the following class:
 """
 
 # Local imports
-from Game.settings import Directory
-from Game.utils_data_base import Object_Info
+from Configuration.settings import Directory
+from .object_info import Object_Info
 from .type import Type
 
 __version__ = '1.0'

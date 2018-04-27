@@ -20,8 +20,8 @@ because they are to interact with the pokeAPI:
 """
 
 # Local imports
-from Game.settings import Directory, Generate_Config
-from Game.utils_data_base import download_sprite, save_info, load_info
+from Configuration.settings import Directory, Generate_Config
+from .utils_data_base import download_sprite, save_info, load_info
 
 # General imports
 import requests
@@ -154,11 +154,11 @@ def generate_types(print_name = True):
 """
 	Function to generate moves info file
 """
-def generate_moves(start=0, print_name = True):
+def generate_moves(start_iteration=0, print_name = True):
 	"""
 		Args:
-			start ('int'): Starter iteration.
-			print_name ('bool'): Boolean to indicate if each type will be painted.
+			start_iteration ('int'): Starter iteration.
+			print_name ('bool'): Boolean to indicate if each move will be painted.
 
 		Action:
 			Create a new file with the information of the differents moves.
@@ -192,14 +192,22 @@ def generate_moves(start=0, print_name = True):
 			}
 			return (move['name'], info)
 
-	partitionate_search('move', filter_move, start, print_name)
+	partitionate_search('move', filter_move, start_iteration, print_name)
 
 ####################################POKEMON#####################################
 
 """
 	Function to generate pokemons info file
 """
-def generate_pokemons(start=0, print_name = True):
+def generate_pokemons(start_iteration=0, print_name = True):
+	"""
+		Args:
+			start_iteration ('int'): Starter iteration.
+			print_name ('bool'): Boolean to indicate if each pokemon will be painted.
+
+		Action:
+			Create a new file with the information of the differents pokemons.
+	"""
 
 	movesList = load_info(Directory['MOVE_FILE']).keys()
 
@@ -257,4 +265,4 @@ def generate_pokemons(start=0, print_name = True):
 		if len(info['moves']) < 4: return None
 		return (pokemon['name'], info)
 
-	partitionate_search('pokemon', loop_pokemon, start, print_name)
+	partitionate_search('pokemon', loop_pokemon, start_iteration, print_name)

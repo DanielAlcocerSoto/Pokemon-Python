@@ -13,9 +13,9 @@ It contains the following classes:
 """
 
 # Local imports
-from Game.settings import Display_Config
-from Game.utils_data_base import load_image, load_background
-from .utils_display import pair_mult_num, scale, scale_bg
+from Configuration.settings import Display_Config
+from DataBase.utils_data_base import load_image, load_background
+from .utils_display import scale_bg
 
 # 3rd party imports
 import pygame

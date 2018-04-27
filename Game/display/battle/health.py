@@ -11,11 +11,11 @@ It contains the following class:
 """
 
 # Local imports
-from Game.settings import Directory, Display_Config, Battle_Config
+from Configuration.settings import Directory, Display_Config, Battle_Config
 from Game.display.utils_display import num_to_text, scale_bg
-from Game.utils_data_base import load_sprite
+from DataBase.utils_data_base import load_sprite
 from Game.display.image import Background, Display, Image
-from Game.display.font.font import Font
+from Game.display.font import Font
 
 # 3rd party imports
 import pygame

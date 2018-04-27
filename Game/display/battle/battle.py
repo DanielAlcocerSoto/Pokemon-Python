@@ -13,8 +13,8 @@ It contains the following classes:
 """
 
 # Local imports
-from Game.settings import Directory, Display_Config, Battle_Config
-from Game.utils_data_base import load_sprite
+from Configuration.settings import Directory, Display_Config, Battle_Config
+from DataBase.utils_data_base import load_sprite
 from Game.display.image import Background, Display, Image
 from .health import Health_Rect_Info
 from Game.display.utils_display import \

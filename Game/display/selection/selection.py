@@ -19,9 +19,8 @@ It contains the following class:
 """
 
 # Local imports
-from Game.settings import Directory, Display_Config, Select_Config
+from Configuration.settings import Directory, Display_Config, Select_Config
 from Game.display.image import Background, Display
-from Game.display.utils_display import scale, scale_bg, final_scale
 from .button import Button_Move, Button_Target, Button_Cancel
 from .selector import Selector
 

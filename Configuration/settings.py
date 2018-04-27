@@ -41,8 +41,8 @@ def _load_dict(path):
 		obj = json.load(json_file)
 	return obj
 
-# The Root of the game directory
-_ROOT = 'Game/'
+# The Root of the configuration directory
+_ROOT = 'Configuration/'
 
 # The configuration dictionary with directories information (paths, names ...)
 Directory = _load_dict(_ROOT+'directory_config')

@@ -16,7 +16,7 @@ It also includes this function:
 """
 
 # Local imports
-from Game.settings import Attack_Config
+from Configuration.settings import Attack_Config
 
 # General imports
 from random import randint, uniform
