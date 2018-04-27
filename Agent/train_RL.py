@@ -9,9 +9,9 @@ Module to test the Agent class
 from Game.engine.core.pokemon import Pokemon_Random
 from Game.engine.trainer import TrainerRandom
 from Game.engine.trainerInput import TrainerInput
-from RL.agent_to_train import AgentTrain
-from RL.environment import Environment
-from RL.model import Model
+from Agent.agent_to_train import AgentTrain
+from Agent.environment import Environment
+from Agent.model import Model
 
 __version__ = '0.5'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
@@ -28,7 +28,7 @@ if __name__ == "__main__":
 
 	pokemon = Pokemon_Random(base_level, varability_level)
 	model = Model() #change to specify path
-	agent = AgentTrain('Ally_1', pokemon, model)
+	agent = AgentTrain('Ally_2', pokemon, model)
 
 	def constructor_agent(role, pokemon):
 		return agent

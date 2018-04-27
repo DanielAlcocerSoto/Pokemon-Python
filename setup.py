@@ -1,5 +1,6 @@
 from setuptools import setup
 
+#no tirat tt
 setup(name='pokemon-double-battle',
       version='0.5',
       description='A basic double battle engine of pokemon',

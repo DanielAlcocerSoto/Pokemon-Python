@@ -3,7 +3,7 @@
 
 """
 Module that contains the Agent, an extencion of Trainer class.
-This classes is a test of use a RL method in Game.
+This classes can be used to train a model.
 
 It contains the following classes:
 
@@ -11,7 +11,7 @@ It contains the following classes:
 """
 
 # Local import
-from .agent_to_play import TrainerIA
+from .agent_to_play import AgentPlay
 from .model import Model
 
 # General imports
@@ -27,7 +27,7 @@ file_model = "model_test"
 """
 	Extended class from Trainer that use RL.
 """
-class AgentTrain(TrainerIA):
+class AgentTrain(AgentPlay):
 	def __init__(self, role, pokemon, model = Model(),
 				 epsilon_min = 0.01, epsilon_decay = 0.995):
 		self.epsilon = 1.0  # exploration rate

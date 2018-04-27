@@ -3,7 +3,7 @@
 
 """
 Module that contains the Environment class.
-This class is the principal class to execute a battle in the game.
+This class is the principal class to train an Agent.
 
 It contains the following class:
 

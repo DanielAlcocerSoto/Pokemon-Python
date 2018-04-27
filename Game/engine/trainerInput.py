@@ -27,7 +27,7 @@ class TrainerInput(Trainer):
 	"""
 		Set the windows where is displayed the battle.
 	"""
-	def set_state(self, state):
+	def set_state(self, state): # only once time
 		"""
 			Args:
 				window (class:'Window'): The windows where is displayed the

@@ -8,8 +8,8 @@ Module to test the Double_Battle class
 
 # Local imports
 from Game.engine.double_battle import Double_Battle
-from RL.agent_to_play import TrainerIA
-from RL.model import Model
+from Agent.agent_to_play import TrainerIA
+from Agent.model import Model
 
 __version__ = '0.5'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
