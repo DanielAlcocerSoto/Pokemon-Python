@@ -25,16 +25,16 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 	Extended class from Trainer that use RL.
 """
 class AgentTrain(AgentPlay):
-	def __init__(self, role, pokemon, model = Model(),
+	def __init__(self, role, pokemon, model,
 				 epsilon_min = 0.01, epsilon_decay = 0.995):
 		self.epsilon = 1.0  # exploration rate
 		self.epsilon_min = epsilon_min
 		self.epsilon_decay = epsilon_decay
-		TrainerIA.__init__(self, role, pokemon, model)
+		AgentPlay.__init__(self, role, pokemon, model)
 		#self.replay() #to quick debug
 
 	def set_state(self, state):
-	    TrainerIA.set_state(self, state)
+	    AgentPlay.set_state(self, state)
 	    self.last_state = copy(state)
 
 	def choice_action(self):
@@ -42,7 +42,7 @@ class AgentTrain(AgentPlay):
 			self._idmove = randint(0, 3)
 			self._target = randint(0, 1)
 		else:
-			TrainerIA.choice_action(self)
+			AgentPlay.choice_action(self)
 
 	def recive_results(self, attacks, done):
 		state = self.last_state

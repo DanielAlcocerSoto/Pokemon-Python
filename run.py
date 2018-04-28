@@ -6,7 +6,7 @@
 """
 
 # Local imports
-from Game.engine.double_battle import Double_Battle
+from Game.engine.double_battle import Double_Battle as Battle
 from DataBase.generator_data_base import \
 	generate_pokemons, generate_types, generate_moves
 
@@ -53,52 +53,61 @@ def main(args):
 			args: parse_args return.
 
 		Action:
-			This function call the action indicated in the parameter 'args'.
+			This function execute the action indicated in the parameter
+			'args.action'.
 	"""
 	if args.action == 'generate_data': generate_data(args)
 	elif args.action == 'play_with_rand':
 		print('Running a battle with a random ally...')
-		Double_Battle(	base_level = args.base_level,
-						varability_level = args.var_level).play()
+		Battle(	base_level = args.base_level,
+				varability_level = args.var_level).play()
 	else: # so do not load tensorflow always
-		from Game.engine.core.pokemon import Pokemon
-		from Game.engine.trainer import TrainerRandom
-		from Game.engine.trainerInput import TrainerInput
 		from Agent.agent_to_play import AgentPlay
-		from Agent.agent_to_train import AgentTrain
-		from Agent.environment import Environment
 		from Agent.model import Model
 
+		model = Model(model_file=args.model_name, log_file=args.log_name)
 		if args.action == 'train_model':
-			#revisar log file i model file
 			print('Training model...')
-			model = Model()
 			model.train()
 			model.save(args.model_name)
 			print('Finished')
 		elif args.action == 'play_to_eval':
 			print('Running a battle with an agent ally...')
 			def constructor_agent(role, pokemon):
-				return AgentPlay(role, pokemon, Model(model_file=args.model_name))
-			Double_Battle(  constructor_trainerA2 = constructor_agent,
-							base_level = args.base_level,
-							varability_level = args.var_level).play()
+				return AgentPlay(role, pokemon, model)
+			Battle( constructor_trainerA2 = constructor_agent,
+					base_level = args.base_level,
+					varability_level = args.var_level).play()
 		elif args.action == 'eval_agent':
 			print('Running random battles to eval an agent')
-			print('Not implemented yet... Sorry')
+			print('Not implemeted evaluation yet. Running...')
+			def constructor_agent(role, pokemon):
+				return AgentPlay(role, pokemon, model)
+
+			for e in range(args.episodes):
+				battle = Battle(constructor_trainerA2 = constructor_agent,
+								base_level = args.base_level,
+								varability_level = args.var_level)
+				battle.play()
+				# More prins por analize
+
 		else: # Training actions
+			from Game.engine.core.pokemon import Pokemon
+			from Agent.agent_to_train import AgentTrain
+			from Agent.environment import Environment
+
+			def poke_rand(): return Pokemon.Random(args.base_level, args.var_level)
+			agent = AgentTrain('Ally_1', poke_rand(), model)
+			def constructor_agent(role, pokemon): return agent
+
 			if args.action == 'play_to_train':
+				from Game.engine.trainerInput import TrainerInput
 				print('Running a battle to train an agent')
 				constructor_trainerA1 = TrainerInput
 			elif args.action == 'train_agent':
+				from Game.engine.trainer import TrainerRandom
 				print('Running random battles to train an agent')
 				constructor_trainerA1 = TrainerRandom
-
-			def poke_rand(): return Pokemon.Random(args.base_level, args.var_level)
-			model = Model(model_file=args.model_name)
-			agent = AgentTrain('Ally_2', poke_rand(), model)
-			def constructor_agent(role, pokemon): return agent
-			# Iterate the game
 			for e in range(args.episodes):
 				Environment(constructor_trainerA1 = constructor_trainerA1,
 							constructor_trainerA2 = constructor_agent,
@@ -148,7 +157,10 @@ if __name__ == '__main__':
                    		help='Param for "generate_data" action. ' +\
 						'Number of the starter iteration')
 	# Arguments for play
-	parser.add_argument('--model_name' , '-model', default = 'model_test',
+	parser.add_argument('--log_name' , '-log', default = None,
+						help='Param for agent actions. ' +\
+						'Name of the log file to use/create')
+	parser.add_argument('--model_name' , '-model', default = None,
 						help='Param for agent actions. ' +\
 						'Name of the model to use/create')
 	parser.add_argument('--episodes' , '-e', type = int, default = 5,

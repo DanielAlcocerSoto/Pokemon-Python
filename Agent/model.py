@@ -54,6 +54,7 @@ class Model:
 		else: self.model = load_model(self.model_file)
 
 	def save(self, model_file=None):
+		print('Saving model...')
 		model_file = self.model_file if model_file==None else model_file
 		self.model.save(model_file)
 
@@ -87,6 +88,7 @@ class Model:
 		next_state = self.encoder.encode_state(next_state)
 		#save
 		obj = (state, action, reward, next_state, done)
+		print('Saving in log...')
 		with open(self.log_file, 'a') as csv_file:
 			writer = csv.writer(csv_file)
 			writer.writerow(obj)
