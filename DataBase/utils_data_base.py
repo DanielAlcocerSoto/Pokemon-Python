@@ -30,7 +30,7 @@ from pygame.image import load
 import json
 import shutil
 import requests
-import os.path
+from os.path import exists
 
 __version__ = '1.0'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
@@ -84,7 +84,7 @@ def download_sprite(url, name_file):
 	"""
 
 	path = Directory['DIR_SPRITES']+name_file+'.png'
-	if not os.path.exists(path): # Not download it if it already exists
+	if not exists(path): # Not download it if it already exists
 		response = requests.get(url, stream=True)
 		with open(path, 'wb') as file:
 			shutil.copyfileobj(response.raw, file)

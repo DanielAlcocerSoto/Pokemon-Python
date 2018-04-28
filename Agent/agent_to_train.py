@@ -21,9 +21,6 @@ from copy import deepcopy as copy
 __version__ = '0.5'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
-
-file_model = "model_test"
-
 """
 	Extended class from Trainer that use RL.
 """
@@ -57,12 +54,10 @@ class AgentTrain(AgentPlay):
 	# train the agent with the experience of the episode and restart the agent
 	def replay(self, pokemon):
 		self.model.train()
-
 		if self.epsilon > self.epsilon_min:
 			self.epsilon *= self.epsilon_decay
-
 		#reset trainer
 		self._pk=pokemon
 
 	def save_model(self):
-		self.model.save(file_model)
+		self.model.save()

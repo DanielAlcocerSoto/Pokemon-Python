@@ -35,5 +35,8 @@
   "DIR_IMAGES": "DataBase/Images/",
   "DIR_CELLS": "DataBase/Images/Cells/",
   "DIR_SPRITES": "DataBase/Images/Sprites/",
-  "DIR_BACKGROUND": "DataBase/Images/Backgrounds/"
+  "DIR_BACKGROUND": "DataBase/Images/Backgrounds/",
+
+  "DIR_LOGS": "DataBase/Agent/Logs/",
+  "DIR_MODELS": "DataBase/Agent/Models/"
 }

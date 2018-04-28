@@ -12,6 +12,7 @@ It contains the following classes:
 """
 
 # Local import
+from Configuration.settings import Directory
 from .encoder import Encoder
 
 # 3rd party imports
@@ -25,6 +26,7 @@ from numpy import argmax, amax, array
 from copy import deepcopy as copy
 from ast import literal_eval
 from pandas import read_csv
+from os.path import exists
 import csv
 
 
@@ -32,23 +34,28 @@ __version__ = '0.5'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
 
-
-file_log = "RL/Data/log"
-model_path = "RL/Data/"
-
-
 """
 	Extended class from Trainer that use RL.
 """
 class Model:
-	def __init__(self, model_file=None, gama = 0.95):
+	def __init__(self, model_file=None, log_file=None, gamma = 0.95):
 		self.encoder = Encoder()
-		self.gamma = gama   # discount rate
-		if model_file == None: self.model = self._build_model()
-		else: self.model = load_model(model_path+model_file+'.h5')
+		self.gamma = gamma   # discount rate
+		# Log_file
+		if log_file == None or not exists(Directory['DIR_LOGS'] + log_file + '.csv'):
+			log_file = 'log_test'
+		self.log_file = Directory['DIR_LOGS'] + log_file + '.csv'
+		# Model_file
+		mf = 'model_test' if model_file == None else model_file
+		self.model_file = Directory['DIR_MODELS'] + mf + '.h5'
+		# Model
+		if model_file == None or not exists(self.model_file):
+			self.model = self._build_model()
+		else: self.model = load_model(self.model_file)
 
-	def save(self, model_file):
-		self.model.save(model_path+model_file+'.h5')
+	def save(self, model_file=None):
+		model_file = self.model_file if model_file==None else model_file
+		self.model.save(model_file)
 
 	def _build_model(self, learning_rate = 0.001):
 		# Neural Net for Deep-Q learning Model
@@ -80,7 +87,7 @@ class Model:
 		next_state = self.encoder.encode_state(next_state)
 		#save
 		obj = (state, action, reward, next_state, done)
-		with open(file_log+'.csv', 'a') as csv_file:
+		with open(self.log_file, 'a') as csv_file:
 			writer = csv.writer(csv_file)
 			writer.writerow(obj)
 
@@ -92,7 +99,7 @@ class Model:
 		return self.encoder.decode_action(action)
 
 	def _load(self):
-		df = read_csv(file_log+'.csv', delimiter=',', header=None)
+		df = read_csv(self.log_file, delimiter=',', header=None)
 		ret = [ array (
 				[literal_eval(field) if isinstance(field, str) else field
 				 for field in row]

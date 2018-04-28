@@ -58,34 +58,55 @@ def main(args):
 	if args.action == 'generate_data': generate_data(args)
 	elif args.action == 'play_with_rand':
 		print('Running a battle with a random ally...')
-		Double_Battle(base_level = 50, varability_level = 10).play()
-	else: # para no cargar tensorflow siempre
+		Double_Battle(	base_level = args.base_level,
+						varability_level = args.var_level).play()
+	else: # so do not load tensorflow always
+		from Game.engine.core.pokemon import Pokemon
+		from Game.engine.trainer import TrainerRandom
+		from Game.engine.trainerInput import TrainerInput
 		from Agent.agent_to_play import AgentPlay
 		from Agent.agent_to_train import AgentTrain
 		from Agent.environment import Environment
 		from Agent.model import Model
 
-		if args.action == 'play_to_eval':
-			print('Running a battle with an agent ally...')
-			def constructor_agent(role, pokemon):
-				return TrainerIA(role, pokemon, Model(model_file=args.model_name))
-			Double_Battle(  constructor_trainerA2 = constructor_agent, \
-							base_level = 50, varability_level = 10).play()
-		elif args.action == 'play_to_train':
-			print('Running a battle to train an agent')
-			#train_RL
-		elif args.action == 'eval_agent':
-			print('Running random battles to eval an agent')
-			print('Not implemented yet... Sorry')
-		elif args.action == 'train_agent':
-			print('Running random battles to train an agent')
-			#train_RL
-		elif args.action == 'train_model':
+		if args.action == 'train_model':
+			#revisar log file i model file
 			print('Training model...')
 			model = Model()
 			model.train()
 			model.save(args.model_name)
 			print('Finished')
+		elif args.action == 'play_to_eval':
+			print('Running a battle with an agent ally...')
+			def constructor_agent(role, pokemon):
+				return AgentPlay(role, pokemon, Model(model_file=args.model_name))
+			Double_Battle(  constructor_trainerA2 = constructor_agent,
+							base_level = args.base_level,
+							varability_level = args.var_level).play()
+		elif args.action == 'eval_agent':
+			print('Running random battles to eval an agent')
+			print('Not implemented yet... Sorry')
+		else: # Training actions
+			if args.action == 'play_to_train':
+				print('Running a battle to train an agent')
+				constructor_trainerA1 = TrainerInput
+			elif args.action == 'train_agent':
+				print('Running random battles to train an agent')
+				constructor_trainerA1 = TrainerRandom
+
+			def poke_rand(): return Pokemon.Random(args.base_level, args.var_level)
+			model = Model(model_file=args.model_name)
+			agent = AgentTrain('Ally_2', poke_rand(), model)
+			def constructor_agent(role, pokemon): return agent
+			# Iterate the game
+			for e in range(args.episodes):
+				Environment(constructor_trainerA1 = constructor_trainerA1,
+							constructor_trainerA2 = constructor_agent,
+							base_level = args.base_level,
+							varability_level = args.var_level).play()
+				agent.replay(poke_rand())
+				agent.save_model()
+
 
 if __name__ == '__main__':
 	"""
@@ -100,27 +121,43 @@ if __name__ == '__main__':
 			'Pokémon played by an artificial intelligence created with deep ' +\
 			'reinforcement learning technics'
 
-	desc_actions = 'Main action'
+	desc_actions = 'Main action. "generate_data": this action allow to rebuild '+\
+	' information of type, move and/or pokemon from PokeAPI (https://pokeapi.co/). '+\
+	'"play_with_rand": ... '
 
 	parser = argparse.ArgumentParser(prog = program_name, description=desc)
 	parser.add_argument('action', choices=possible_actions,
 						default = 'normal', help=desc_actions)
 	# Arguments for generate_data
 	parser.add_argument('--type', '-t', action='store_true',
-						help='Param for "generate_data" action. Flag to generate type\'s info')
+						help='Param for "generate_data" action. ' +\
+						'Flag to generate type\'s info')
 	parser.add_argument('--move', '-m', action='store_true',
-                   		help='Param for "generate_data" action. Flag to generate move\'s info')
+                   		help='Param for "generate_data" action. ' +\
+						'Flag to generate move\'s info')
 	parser.add_argument('--poke', '-p', action='store_true',
-                  		help='Param for "generate_data" action. Flag to generate pokemon\'s info')
+                  		help='Param for "generate_data" action. ' +\
+						'Flag to generate pokemon\'s info')
 	parser.add_argument('--all' , '-a', action='store_true',
-                   		help='Param for "generate_data" action. Flag to generate all the information')
-	parser.add_argument('--start' , '-s', type=int, default = 0,
-                   		help='Param for "generate_data" action. Number of the starter iteration')
+                   		help='Param for "generate_data" action. ' +\
+						'Flag to generate all the information')
 	parser.add_argument('--no_print_name' , action='store_true',
-                   		help='Param for "generate_data" action. Flag to not print the name of the data')
-
+                   		help='Param for "generate_data" action. ' +\
+						'Flag to not print the name of the data')
+	parser.add_argument('--start' , '-s', type=int, default = 0,
+                   		help='Param for "generate_data" action. ' +\
+						'Number of the starter iteration')
 	# Arguments for play
 	parser.add_argument('--model_name' , '-model', default = 'model_test',
-					help='Param for agent actions. Name of the model to use/create')
-
+						help='Param for agent actions. ' +\
+						'Name of the model to use/create')
+	parser.add_argument('--episodes' , '-e', type = int, default = 5,
+						help='Param for agent train actions. ' +\
+						'Number of battles to play')
+	parser.add_argument('--base_level' , '-bl', type = int, default = 50,
+						help='Param for battle actions. ' +\
+						'Base level of each pokemon')
+	parser.add_argument('--var_level' , '-vl', type = int, default = 5,
+						help='Param for battle actions. ' +\
+						'Varability for pokemon\'s level (lvl = Base +/- Var)')
 	main(parser.parse_args())
