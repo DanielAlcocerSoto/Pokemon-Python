@@ -130,9 +130,35 @@ if __name__ == '__main__':
 			'Pokémon played by an artificial intelligence created with deep ' +\
 			'reinforcement learning technics'
 
-	desc_actions = 'Main action. "generate_data": this action allow to rebuild '+\
-	' information of type, move and/or pokemon from PokeAPI (https://pokeapi.co/). '+\
-	'"play_with_rand": ... '
+	desc_actions = 'Argument to indicate the main action. --------------- ' +\
+	' ______________________________________________________'+\
+	'"generate_data": This action allows to rebuild information of type, move '+\
+	'and/or pokemon from PokeAPI (https://pokeapi.co/). '+\
+	' ------------------------------- ' +\
+	' ______________________________________________________'+\
+	'"play_with_rand": This action executes a battle with a random ally to ' +\
+	'evaluate its correct performance. '+\
+	' ----- ' +\
+	' ______________________________________________________'+\
+	'"play_to_eval": This action runs a battle with an agent as ally for the ' +\
+	'manual evaluation of the model. '+\
+	' ______________________________________________________'+\
+	'"play_to_train": Executa N battles in which the agent learns from each ' +\
+	'of them by playing with the player. '+\
+	' - ' +\
+	' ______________________________________________________'+\
+	'"eval_agent": Executes N battles played by a random and an agent to ' +\
+	'evaluate the performance of the model. '+\
+	' ______________________________________________________'+\
+	'"train_agent": Executes N battles played by a random and an agent to ' +\
+	'train the model. '+\
+	' --------------------- ' +\
+	' ______________________________________________________'+\
+	'"train_model": Trains a model with saved information of other games.'
+
+
+
+
 
 	parser = argparse.ArgumentParser(prog = program_name, description=desc)
 	parser.add_argument('action', choices=possible_actions,
