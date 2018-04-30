@@ -96,3 +96,7 @@ Font_Config = _load_config('FONT_CONFIG')
 # The configuration dictionary with the settings
 # about how to play the music of the game
 Music_Config = _load_config('MUSIC_CONFIG')
+
+# The configuration dictionary with the
+# parameters for RL agent and its model
+Agent_config = _load_config('AGENT_CONFIG')
