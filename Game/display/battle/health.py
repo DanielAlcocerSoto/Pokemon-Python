@@ -14,7 +14,7 @@ It contains the following class:
 from Configuration.settings import Directory, Display_Config, Battle_Config
 from Game.display.utils_display import num_to_text, scale_bg
 from DataBase.utils_data_base import load_sprite
-from Game.display.image import Background, Display, Image
+from Game.display.image import Background
 from Game.display.font import Font
 
 # 3rd party imports
@@ -28,7 +28,7 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 	Class to display a info of a pokemon in the battle section.
 """
 class Health_Rect_Info:
-	def __init__(self, pokemon, POS):
+	def __init__(self, pokemon, POS, path_image):
 		"""
 		    Args:
 		        pokemon (class:'Pokemon'): The pokemon from which information
@@ -52,14 +52,17 @@ class Health_Rect_Info:
 		self.font_level = Font(location,Battle_Config['HEALTH_LVL_SHIFT'])
 		self.font_level.set_text(str(pokemon.level()),'WHITE')
 
+		self.bg = Background(path_image)
+
 	"""
         Funcion to display info of a pokemon.
     """
 	def display(self,SCREEN):
-		self.font_level.display(SCREEN)
-		self.font_name.display(SCREEN)
-		self.poke.is_fainted()
 		if not self.poke.is_fainted():
+			self.bg.display(SCREEN)
+			self.font_level.display(SCREEN)
+			self.font_name.display(SCREEN)
+
 			pct = self.poke.health()/self.poke.get_stat('hp')
 			fill = (pct * self.BAR_LENGTH)
 			x, y = self.POS_BAR
