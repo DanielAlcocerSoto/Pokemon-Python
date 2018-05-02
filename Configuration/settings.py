@@ -41,8 +41,8 @@ def _load_dict(path):
 		obj = json.load(json_file)
 	return obj
 
-# The Root of the game directory
-_ROOT = 'Game/'
+# The Root of the configuration directory
+_ROOT = 'Configuration/'
 
 # The configuration dictionary with directories information (paths, names ...)
 Directory = _load_dict(_ROOT+'directory_config')
@@ -96,3 +96,7 @@ Font_Config = _load_config('FONT_CONFIG')
 # The configuration dictionary with the settings
 # about how to play the music of the game
 Music_Config = _load_config('MUSIC_CONFIG')
+
+# The configuration dictionary with the
+# parameters for RL agent and its model
+Agent_config = _load_config('AGENT_CONFIG')

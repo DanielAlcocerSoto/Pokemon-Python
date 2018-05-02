@@ -11,6 +11,8 @@ It contains the following class:
 """
 
 # Local imports
+from Configuration.settings import Sentence
+from Game.display.window import Window
 from .trainer import Trainer
 
 __version__ = '0.5'
@@ -25,7 +27,7 @@ class TrainerInput(Trainer):
 	"""
 		Set the windows where is displayed the battle.
 	"""
-	def set_input_method(self, window):
+	def set_state(self, state): # only once time
 		"""
 			Args:
 				window (class:'Window'): The windows where is displayed the
@@ -34,11 +36,12 @@ class TrainerInput(Trainer):
 			Action:
 				Set the windows where is displayed the battle.
 		"""
-		self.window = window
+		self.window = Window(state)
+		self.show_message = self.window.show
 
 	"""
 		Implementation of choice_action funcion of the Trainer class
 	"""
 	def choice_action(self):
-		self.window.show("ASK_MOVE",self._pk.name(),time=0)
+		self.window.show(Sentence["ASK_MOVE"].format(self._pk.name()),time=0)
 		self._idmove, self._target = self.window.get_action()

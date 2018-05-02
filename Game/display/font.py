@@ -12,7 +12,7 @@ It contains the following class:
 """
 
 # Local imports
-from Game.settings import Directory, Display_Config, Font_Config
+from Configuration.settings import Directory, Display_Config, Font_Config
 from Game.display.utils_display import transalte, scale_bg
 
 # 3rd party imports

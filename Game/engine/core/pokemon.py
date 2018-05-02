@@ -9,42 +9,55 @@ This module contains the following class:
 
 	Pokemon
 
-It also includes this useful function:
-
-	possible_pokemons_names
 """
 
 # Local imports
-from Game.settings import Directory
-from Game.utils_data_base import Object_Info, load_info
+from Configuration.settings import Directory
+from .object_info import Object_Info, load_info
 from .type import Type
 from .move import Move
 
 # General imports
-from random import randint, sample
+from random import randint, sample, choice
 from math import floor
 
 __version__ = '0.9'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
-
-"""
-	Returns the name of all the pokemons in the database.
-"""
-def possible_pokemons_names():
-	"""
-		Args: -
-
-		Return ('list of str'):
-			The name (key) of all the pokemons in the database.
-	"""
-	return list(load_info(Directory['POKE_FILE']).keys())
-
-
 """
 	Class with information about a pokemon.
 """
 class Pokemon(Object_Info):
+	"""
+		Retuns a random pokemon with level = base_level +-varability_level.
+	"""
+	@staticmethod
+	def Random(base_level = 50, varability_level = 50):
+		"""
+			Args:
+				base_level ('int'): Base level to apply varaiability.
+				varability_level ('int'): The varaiability of the base level.
+
+			Return (class:'Pokemon'):
+				Random pokemon with level between base_level-varability_level
+				and base_level+varability_level.
+		"""
+		lvl = base_level + randint(-varability_level,varability_level)
+		return Pokemon(choice(Pokemon.possible_names()), lvl)
+
+	"""
+		Returns the name of all pokemons in the database.
+	"""
+	@staticmethod
+	def possible_names():
+		"""
+			Args: -
+
+			Return ('list of str'):
+				The name (key) of all the pokemons in the database.
+		"""
+		return list(load_info(Directory['POKE_FILE']).keys())
+
 	def __init__(self, name, level):
 		"""
 			Args:
@@ -56,8 +69,7 @@ class Pokemon(Object_Info):
 		Object_Info.__init__(self, name, Directory['POKE_FILE'])
 		self._level= min(max(level,1),100)
 		self._types = [Type(x) for x in self._info['types']]
-		n_moves = min(4,len(self._info['moves']))
-		self._moves = [Move(x) for x in sample(self._info['moves'], n_moves)]
+		self._moves = [Move(x) for x in sample(self._info['moves'], 4)]
 		self._stats = self._info['stats']
 		for stat in self._stats.values():
 			stat['individual_value'] = randint(0, 31)
@@ -76,7 +88,8 @@ class Pokemon(Object_Info):
 			Returns ('int'):
 				The final value of the 'stat' stadistic
 		"""
-		n=["hp", "attack", "special-attack", "defense", "special-defense", "speed"]
+		n= ["hp", "attack", "special-attack", "defense", \
+			"special-defense", "speed"]
 		if stat in n:
 			# Formulas:
 			# PS: 10 + { Nivel / 100 x [ (Stat Base x 2) + IV + PE/4 ] } + Nivel
@@ -124,15 +137,6 @@ class Pokemon(Object_Info):
 	"""
 	def moves(self): #use for get info
 		return self._moves
-
-	"""
-		Return the movesthat can be use by this pokemon now.
-		('' --> 'list of class:Moves')
-	"""
-	def moves_can_use(self): #use for get moves to use
-		ret = [move for move in self._moves if move.can_use()]
-		if len(ret) == 0 : return [Move('struggle')]
-		else: return ret
 
 	"""
 		Function to hurt the pokemon.

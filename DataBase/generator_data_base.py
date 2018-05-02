@@ -20,8 +20,8 @@ because they are to interact with the pokeAPI:
 """
 
 # Local imports
-from Game.settings import Directory, Generate_Config
-from Game.utils_data_base import download_sprite, save_info, load_info
+from Configuration.settings import Directory, Generate_Config
+from .utils_data_base import download_sprite, save_info, load_info
 
 # General imports
 import requests
@@ -44,7 +44,6 @@ def get(url):
 		Return ('dict'):
 			The dictionary that represents the url 'url'.
 	"""
-
 	response = requests.get(url)
 	if response.ok: return response.json()
 	else:
@@ -79,7 +78,7 @@ def search(attr, args={}):
 """
 	Function to generate information in a partitionate way,
 	because maybe the connection is rejected by too many requests.
-	Used when the search involves large amounts of results (atleast 100).
+	Used it when the search involves large amounts of results (atleast 100).
 """
 def partitionate_search(attr, filter_item, start, print_name):
 	"""
@@ -99,7 +98,7 @@ def partitionate_search(attr, filter_item, start, print_name):
 	PATH = Directory[name+'_FILE']
 	NUM_ITEMS = Generate_Config['N_'+name]
 
-	def loop ():
+	def loop (result):
 		dex = load_info(PATH)
 		for r in result:
 			pair = filter_item(get(r['url']))
@@ -114,7 +113,7 @@ def partitionate_search(attr, filter_item, start, print_name):
 
 	result = search(attr, args = {'limit': NUM_ITEMS})
 
-	if start == 0: save_info(pair, {})
+	if start == 0: save_info(PATH, {})
 	for i in range(start,N_ITER):
 		print (attr+'....................'+str(SIZE*i)+'/'+str(NUM_ITEMS)+ \
 					'.................... iteration: '+str(i))
@@ -155,11 +154,11 @@ def generate_types(print_name = True):
 """
 	Function to generate moves info file
 """
-def generate_moves(start=0, print_name = True):
+def generate_moves(start_iteration=0, print_name = True):
 	"""
 		Args:
-			start ('int'): Starter iteration.
-			print_name ('bool'): Boolean to indicate if each type will be painted.
+			start_iteration ('int'): Starter iteration.
+			print_name ('bool'): Boolean to indicate if each move will be painted.
 
 		Action:
 			Create a new file with the information of the differents moves.
@@ -193,14 +192,22 @@ def generate_moves(start=0, print_name = True):
 			}
 			return (move['name'], info)
 
-	partitionate_search('move', filter_move, start, print_name)
+	partitionate_search('move', filter_move, start_iteration, print_name)
 
 ####################################POKEMON#####################################
 
 """
 	Function to generate pokemons info file
 """
-def generate_pokemons(start=0, print_name = True):
+def generate_pokemons(start_iteration=0, print_name = True):
+	"""
+		Args:
+			start_iteration ('int'): Starter iteration.
+			print_name ('bool'): Boolean to indicate if each pokemon will be painted.
+
+		Action:
+			Create a new file with the information of the differents pokemons.
+	"""
 
 	movesList = load_info(Directory['MOVE_FILE']).keys()
 
@@ -255,6 +262,7 @@ def generate_pokemons(start=0, print_name = True):
 				'stats':filter_stats(pokemon['stats']),
 				'moves':filter_moves(pokemon['moves']),
 				'sprites':filter_sprites(pokemon)}
+		if len(info['moves']) < 4: return None
 		return (pokemon['name'], info)
 
-	partitionate_search('pokemon', loop_pokemon, start, print_name)
+	partitionate_search('pokemon', loop_pokemon, start_iteration, print_name)

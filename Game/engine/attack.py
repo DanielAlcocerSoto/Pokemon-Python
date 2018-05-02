@@ -16,11 +16,12 @@ It also includes this function:
 """
 
 # Local imports
-from Game.settings import Attack_Config
+from Configuration.settings import Attack_Config
 
 # General imports
 from random import randint, uniform
 from math import floor
+from copy import deepcopy as copy
 
 __version__ = '1.0'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
@@ -61,13 +62,23 @@ class Attack:
 				Create and execute the attack and save relevant information
 				about it.
 		"""
-		if with_prob_of(move.accuracy()):
-			self.missed_attack = False
-			move.use()
-			self.calc_damage(poke_attacker, poke_defender, move)
-			poke_defender.hurt(self.dmg)
+		self.poke_attacker = copy(poke_attacker)
+		self.poke_defender = copy(poke_defender)
+		self.move = move
+
+		self.dmg = 0
+		self.has_pp = move.can_use()
+		if not self.has_pp: self.missed_attack = False
 		else:
-			self.missed_attack = True
+			self.missed_attack = not with_prob_of(move.accuracy()) \
+								 or self.poke_defender.is_fainted()
+			if not self.missed_attack:
+				move.use()
+				self.calc_damage(poke_attacker, poke_defender, move)
+				poke_defender.hurt(self.dmg)
+
+		self.poke_defender_after = copy(poke_defender)
+
 
 	"""
 		Calculate the damage of this attack.

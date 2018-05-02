@@ -12,8 +12,8 @@ This module contains the following class:
 """
 
 # Local imports
-from Game.settings import Directory
-from Game.utils_data_base import Object_Info
+from Configuration.settings import Directory
+from .object_info import Object_Info
 from .type import Type
 
 __version__ = '1.0'
@@ -24,6 +24,19 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 	Class with information about a move.
 """
 class Move(Object_Info):
+	"""
+		Returns the name of all moves in the database.
+	"""
+	@staticmethod
+	def possible_names():
+		"""
+			Args: -
+
+			Return ('list of str'):
+				The name (key) of all the moves in the database.
+		"""
+		return list(load_info(Directory['MOVE_FILE']).keys())
+
 	def __init__(self, name):
 		"""
 			Args:

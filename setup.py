@@ -1,5 +1,6 @@
 from setuptools import setup
 
+#no tirat tt
 setup(name='pokemon-double-battle',
       version='0.5',
       description='A basic double battle engine of pokemon',
@@ -7,5 +8,5 @@ setup(name='pokemon-double-battle',
       author='Daniel Alcocer',
       author_email='daniel.alcocer@est.fib.upc.edu',
       install_requires=[
-          'pygame',
+          'pygame', 'keras', 'tensorflow'
       ])

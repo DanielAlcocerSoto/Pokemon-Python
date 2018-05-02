@@ -11,7 +11,7 @@ It contains the following class:
 """
 
 # Local imports
-from Game.settings import Directory,  Music_Config
+from Configuration.settings import Directory,  Music_Config
 
 # 3rd party imports
 import pygame

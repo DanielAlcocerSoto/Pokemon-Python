@@ -11,8 +11,8 @@ This module contains the following class:
 """
 
 # Local imports
-from Game.settings import Directory
-from Game.utils_data_base import Object_Info
+from Configuration.settings import Directory
+from .object_info import Object_Info, load_info
 
 __version__ = '1.0'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
@@ -22,6 +22,19 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 	Class with information about a type.
 """
 class Type(Object_Info):
+	"""
+		Returns the name of all types in the database.
+	"""
+	@staticmethod
+	def possible_names():
+		"""
+			Args: -
+
+			Return ('list of str'):
+				The name (key) of all the types in the database.
+		"""
+		return list(load_info(Directory['TYPE_FILE']).keys())
+
 	def __init__(self, name):
 		"""
 			Args:
@@ -32,7 +45,7 @@ class Type(Object_Info):
 		"""
 		Object_Info.__init__(self, name, Directory['TYPE_FILE'])
 		self._multiplierTo = {}
-		for key in self._keys:
+		for key in Type.possible_names():
 			if   key in self._info['no_damage_to']:     self._multiplierTo[key] = 0
 			elif key in self._info['half_damage_to']:   self._multiplierTo[key] = 0.5
 			elif key in self._info['double_damage_to']: self._multiplierTo[key] = 2

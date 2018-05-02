@@ -15,11 +15,11 @@ It contains the following classes:
 """
 
 # Local imports
-from Game.settings import Directory, Display_Config, Select_Config
-from Game.utils_data_base import load_cell
+from Configuration.settings import Directory, Display_Config, Select_Config
+from DataBase.utils_data_base import load_cell
 from Game.display.image import Background
 from Game.display.utils_display import scale_bg, transalte, num_to_text
-from Game.display.font.font import Font
+from Game.display.font import Font
 
 # 3rd party imports
 import pygame

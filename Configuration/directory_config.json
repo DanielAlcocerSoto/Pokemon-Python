@@ -1,21 +1,22 @@
 {
-  "FONT_CONFIG": "display/font/font_config",
+  "FONT_CONFIG": "display/font_config",
   "DISPLAY_CONFIG": "display/display_config",
-  "MUSIC_CONFIG": "display/music/music_config",
-  "DIALOG_CONFIG": "display/dialog/dialog_config",
-  "ATTACK_CONFIG": "engine/attack_config",
-  "BATTLE_CONFIG": "display/battle/battle_config",
-  "SELECT_CONFIG": "display/selection/select_config",
-  "GENERATE_CONFIG": "generate_data/generate_data_config",
+  "MUSIC_CONFIG": "display/music_config",
+  "DIALOG_CONFIG": "display/dialog_config",
+  "BATTLE_CONFIG": "display/battle_config",
+  "SELECT_CONFIG": "display/selection_config",
+  "GENERATE_CONFIG": "generate_data_config",
+  "ATTACK_CONFIG": "attack_config",
+  "AGENT_CONFIG": "RL_config",
 
-  "TEXT_PATTERN": "display/text",
+  "TEXT_PATTERN": "text",
 
   "POKE_FILE": "pokemonDB",
+  "HEALTH_FILE":"health",
   "TYPE_FILE": "typeDB",
   "MOVE_FILE": "moveDB",
   "DIALOG_FILE": "log",
   "ICON_FILE": "icon",
-  "HEALTH_FILE":"health",
 
   "SELECT_MOVE_FILE":"SelectMove",
   "SELECT_EMPTY_FILE":"select_empty",
@@ -35,5 +36,8 @@
   "DIR_IMAGES": "DataBase/Images/",
   "DIR_CELLS": "DataBase/Images/Cells/",
   "DIR_SPRITES": "DataBase/Images/Sprites/",
-  "DIR_BACKGROUND": "DataBase/Images/Backgrounds/"
+  "DIR_BACKGROUND": "DataBase/Images/Backgrounds/",
+
+  "DIR_LOGS": "DataBase/Agent/Logs/",
+  "DIR_MODELS": "DataBase/Agent/Models/"
 }

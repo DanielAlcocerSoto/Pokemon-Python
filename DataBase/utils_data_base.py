@@ -21,7 +21,7 @@ who need to save information from the database:
 """
 
 # Local imports
-from .settings import Directory
+from Configuration.settings import Directory
 
 # 3rd party imports
 from pygame.image import load
@@ -30,7 +30,7 @@ from pygame.image import load
 import json
 import shutil
 import requests
-import os.path
+from os.path import exists
 
 __version__ = '1.0'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
@@ -84,7 +84,7 @@ def download_sprite(url, name_file):
 	"""
 
 	path = Directory['DIR_SPRITES']+name_file+'.png'
-	if not os.path.exists(path): # Not download it if it already exists
+	if not exists(path): # Not download it if it already exists
 		response = requests.get(url, stream=True)
 		with open(path, 'wb') as file:
 			shutil.copyfileobj(response.raw, file)
@@ -144,35 +144,3 @@ def load_background(name_file):
 			The image founded in the backgrounds directory with name 'name_file'.
 	"""
 	return load(Directory['DIR_BACKGROUND']+name_file+'.png')
-
-
-"""
-	Generic object with information about one element of the database,
-	be it move, type or pokemon.
-"""
-class Object_Info:
-	def __init__(self, name, file_name):
-		"""
-		Args:
-			name ('str'): The name (key of the dictionary) of the resource.
-			file_name ('str'): The name of the file where is the resource.
-
-		Action:
-			Create a 'Object_Info' with the information of 'name' in the
-			'file_name' file.
-		"""
-
-		file_dict = load_info(file_name)
-		self._keys = list(file_dict.keys())
-		self._name = name
-		if self._name in self._keys:
-			self._info = file_dict[name]
-		else : raise Exception('Name "'+name+'" does not exist in '+file_name)
-
-	"""
-		Returns the name of the information resource with the first
-		characters of all the words are capitalized.
-		('' --> 'str')
-	"""
-	def name(self):
-		return self._name.title()

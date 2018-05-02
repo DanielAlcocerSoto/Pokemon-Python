@@ -13,8 +13,8 @@ It contains the following classes:
 """
 
 # Local imports
-from Game.settings import Directory, Display_Config, Battle_Config
-from Game.utils_data_base import load_sprite
+from Configuration.settings import Directory, Display_Config, Battle_Config
+from DataBase.utils_data_base import load_sprite
 from Game.display.image import Background, Display, Image
 from .health import Health_Rect_Info
 from Game.display.utils_display import \
@@ -93,18 +93,18 @@ class Battle_display(Display):
 		"""
 		num = str(randint(0,11))
 		battle_bg = Background(Directory['BACKGROUND_NAME'].format(num))
-		health_bg = Background(Directory['HEALTH_FILE'])
-
-		health_0 = Health_Rect_Info(state['Ally_0'], Battle_Config['POS_A1'])
-		health_1 = Health_Rect_Info(state['Ally_1'], Battle_Config['POS_A2'])
-		health_2 = Health_Rect_Info(state['Foe_0'], Battle_Config['POS_F1'])
-		health_3 = Health_Rect_Info(state['Foe_1'], Battle_Config['POS_F2'])
+		h = Directory['HEALTH_FILE']+"_{}_{}"
 
 		pk_a1 = Sprite(state['Ally_0'], Battle_Config['POS_A1'])
 		pk_a2 = Sprite(state['Ally_1'], Battle_Config['POS_A2'])
 		pk_f1 = Sprite(state['Foe_0'], Battle_Config['POS_F1'])
 		pk_f2 = Sprite(state['Foe_1'], Battle_Config['POS_F2'])
 
+		health_0 = Health_Rect_Info(state['Ally_0'], Battle_Config['POS_A1'], h.format('ally',0))
+		health_1 = Health_Rect_Info(state['Ally_1'], Battle_Config['POS_A2'], h.format('ally',1))
+		health_2 = Health_Rect_Info(state['Foe_0'], Battle_Config['POS_F1'], h.format('foe',0))
+		health_3 = Health_Rect_Info(state['Foe_1'], Battle_Config['POS_F2'], h.format('foe',1))
+
 		visualize_items = [battle_bg, pk_f1, pk_f2, pk_a1, pk_a2,
-						   health_bg, health_0, health_1, health_2, health_3]
+						   health_0, health_1, health_2, health_3]
 		Display.__init__(self, visualize_items)

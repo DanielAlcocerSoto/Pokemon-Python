@@ -19,9 +19,8 @@ It contains the following class:
 """
 
 # Local imports
-from Game.settings import Directory, Display_Config, Select_Config
+from Configuration.settings import Directory, Display_Config, Select_Config
 from Game.display.image import Background, Display
-from Game.display.utils_display import scale, scale_bg, final_scale
 from .button import Button_Move, Button_Target, Button_Cancel
 from .selector import Selector
 
@@ -153,7 +152,7 @@ class Selection_Move(Selection_Display):
 				Create an extension of the "Selection_Display" class to show
 				the moves of 'pokemon'.
 		"""
-		moves = pokemon.moves_can_use()
+		moves = pokemon.moves()
 		buttons = [
 		    Button_Move('POS_MOVE_'+str(i), moves[i] if i<len(moves) else None)
 		    for i in range(0,4)]
