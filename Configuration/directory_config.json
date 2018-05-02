@@ -12,7 +12,6 @@
   "TEXT_PATTERN": "text",
 
   "POKE_FILE": "pokemonDB",
-  "HEALTH_FILE":"health",
   "TYPE_FILE": "typeDB",
   "MOVE_FILE": "moveDB",
   "DIALOG_FILE": "log",
@@ -29,6 +28,7 @@
   "FONT_FILE": "DataBase/Fonts/pokemon_generation_1.ttf",
 
   "BACKGROUND_NAME":"background_{}",
+  "HEALTH_NAME":"health_{}_{}",
   "CELL_NAME":"cell_{}",
 
   "DIR_INFO": "DataBase/Info/",

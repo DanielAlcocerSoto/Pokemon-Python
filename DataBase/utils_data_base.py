@@ -30,6 +30,7 @@ from pygame.image import load
 import json
 import shutil
 import requests
+from PIL import Image
 from os.path import exists
 
 __version__ = '1.0'
@@ -86,9 +87,12 @@ def download_sprite(url, name_file):
 	path = Directory['DIR_SPRITES']+name_file+'.png'
 	if not exists(path): # Not download it if it already exists
 		response = requests.get(url, stream=True)
-		with open(path, 'wb') as file:
+		with open(path, 'wb') as file: #create file
 			shutil.copyfileobj(response.raw, file)
-
+		# Crop the image
+		image=Image.open(path)
+		image.load()
+		image.crop(image.getbbox()).save(path)
 
 """
 	Functon to load a image from the images directory.

@@ -240,10 +240,22 @@ def generate_pokemons(start_iteration=0, print_name = True):
 		('dict' --> 'dict')
 	"""
 	def filter_sprites(pokemon):
-		name_file = str(pokemon['id'])+'_'+pokemon['name']+'_'
+		name_file = str(pokemon['id'])+'_'+filter_name(pokemon['name'])+'_'
 		download_sprite(pokemon['sprites']['front_default'], name_file+'front')
 		download_sprite(pokemon['sprites']['back_default'], name_file+'back')
 		return {'front':name_file+'front', 'back':name_file+'back'}
+
+	"""
+		Function to filter the name of the pokemon.
+		('dict' --> 'dict')
+	"""
+	def filter_name(name):
+		if '-' in name:
+			name_split = name.split('-')
+			words = ['normal', 'plant', 'altered', 'land']
+			if name_split[1] in words: return name_split[0]
+			else: return name
+		else: return name
 
 	"""
 		Function to filter the information of a pokemon.
@@ -263,6 +275,6 @@ def generate_pokemons(start_iteration=0, print_name = True):
 				'moves':filter_moves(pokemon['moves']),
 				'sprites':filter_sprites(pokemon)}
 		if len(info['moves']) < 4: return None
-		return (pokemon['name'], info)
+		return (filter_name(pokemon['name']), info)
 
 	partitionate_search('pokemon', loop_pokemon, start_iteration, print_name)

@@ -48,7 +48,7 @@ class Sprite (Image):
 		self.pokemon = pokemon
 		image_file = pokemon.sprite(POS<2)
 		image = load_sprite(image_file)
-		x, y = image.get_size()
+		x, y = 90,90# image.get_size()
 		battle_size = Display_Config['BATTLE_SIZE']
 		background_size = Display_Config['BACKGROUND_SCALE']
 		b_x, b_y = pair_mult_num(battle_size, background_size)
@@ -93,7 +93,7 @@ class Battle_display(Display):
 		"""
 		num = str(randint(0,11))
 		battle_bg = Background(Directory['BACKGROUND_NAME'].format(num))
-		h = Directory['HEALTH_FILE']+"_{}_{}"
+		h = Directory['HEALTH_NAME']
 
 		pk_a1 = Sprite(state['Ally_0'], Battle_Config['POS_A1'])
 		pk_a2 = Sprite(state['Ally_1'], Battle_Config['POS_A2'])

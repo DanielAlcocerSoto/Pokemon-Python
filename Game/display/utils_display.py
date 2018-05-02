@@ -22,6 +22,7 @@ from Configuration.settings import Display_Config
 __version__ = '0.7'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
+# scale + bgscale, b&f sprite scale
 
 def transalte(pos, desp):
 	return (pos[0]+desp[0],pos[1]+desp[1])
