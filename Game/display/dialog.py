@@ -12,15 +12,8 @@ It contains the following class:
 
 # Local imports
 from Configuration.settings import Directory, Display_Config, Dialog_Config
-from Game.display.utils_display import transalte
 from Game.display.image import Background, Display
 from Game.display.font import Font
-
-# 3rd party imports
-import pygame
-
-# General imports
-from random import randint
 
 __version__ = '0.7'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'

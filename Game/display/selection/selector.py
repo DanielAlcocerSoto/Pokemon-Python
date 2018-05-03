@@ -14,7 +14,7 @@ It contains the following class:
 from Configuration.settings import Directory, Display_Config, Select_Config
 from DataBase.utils_data_base import load_cell
 from Game.display.image import Background
-from Game.display.utils_display import scale_bg, transalte
+from Game.display.utils_display import scale_bg, translate
 
 # 3rd party imports
 import pygame
@@ -64,7 +64,7 @@ class Selector:
 	        height = Select_Config['POS_MOVE_'+str(self.pos[1]*2)][1]
 	    else:
 	        width,height = Select_Config['POS_CANCEL']
-	    location = transalte((width,height), self._shift)
+	    location = translate((width,height), self._shift)
 	    self._location = scale_bg(location)
 	    self._time_init = pygame.time.get_ticks()
 

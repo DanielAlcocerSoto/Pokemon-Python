@@ -18,7 +18,7 @@ It contains the following classes:
 from Configuration.settings import Directory, Display_Config, Select_Config
 from DataBase.utils_data_base import load_cell
 from Game.display.image import Background
-from Game.display.utils_display import scale_bg, transalte, num_to_text
+from Game.display.utils_display import scale_bg, translate, num_to_text
 from Game.display.font import Font
 
 # 3rd party imports
@@ -50,7 +50,7 @@ class Button:
         top_left_location = Select_Config[position_name]
         height = Display_Config['BATTLE_SIZE'][1]+Display_Config['LOG_SIZE'][1]
         shift = (0, height)
-        self.location_pre_scale = transalte(top_left_location, shift)
+        self.location_pre_scale = translate(top_left_location, shift)
         self._location = scale_bg(self.location_pre_scale)
         image = load_cell(name_img)
         self._image = pygame.transform.scale(image, scale_bg(image.get_size()))

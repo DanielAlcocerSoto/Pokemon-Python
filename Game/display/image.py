@@ -75,7 +75,6 @@ class Background(Image):
 				'top_left_location' position.
 		"""
 		image = load_background(image_file)
-		factor = Display_Config['BACKGROUND_SCALE']
 		final_image = pygame.transform.scale(image, scale_bg(image.get_size()))
 		location = scale_bg(top_left_location)
 		Image.__init__(self,final_image,location)
