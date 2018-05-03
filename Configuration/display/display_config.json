@@ -19,7 +19,7 @@
   "YELLOW": [250,200,20],
 
   "PLAY_MUSIC": false,
-  "SHOW_EFF":true,
+  "SHOW_EFF": true,
 
   "TIME_STEP": 2,
   "FIRST_TIME_STEP":1,
