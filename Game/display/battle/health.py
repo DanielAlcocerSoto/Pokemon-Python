@@ -11,10 +11,9 @@ It contains the following class:
 """
 
 # Local imports
-from Configuration.settings import Directory, Display_Config, Battle_Config
-from Game.display.utils_display import num_to_text, scale_bg
-from DataBase.utils_data_base import load_sprite
-from Game.display.image import Background
+from Configuration.settings import Display_Config, Battle_Config
+from Game.display.utils_display import scale
+from Game.display.image import Image
 from Game.display.font import Font
 
 # 3rd party imports
@@ -39,20 +38,19 @@ class Health_Rect_Info:
 		    Action:
 		        Display the info of the 'pokemon' in the 'POS' location.
 		"""
+		self.bg = Image(path_image)
 		self.poke = pokemon
-		self.BAR_LENGTH, self.BAR_HEIGHT = scale_bg(Display_Config['BAR_SIZE'])
-		ally = 'A' if POS<2 else 'F'
+		self.BAR_LENGTH, self.BAR_HEIGHT = scale(Display_Config['BAR_SIZE'])
+		is_ally = 'A' if POS<2 else 'F'
 		name_format = Battle_Config['POS_BAR_FORMAT']
-		location = Battle_Config[name_format.format(ally,POS%2+1)]
-		self.POS_BAR = scale_bg(location)
+		location = Battle_Config[name_format.format(is_ally,POS%2+1)]
+		self.POS_BAR = scale(location)
 
 		self.font_name = Font(location,Battle_Config['HEALTH_NAME_SHIFT'])
 		self.font_name.set_text(pokemon.name(),'WHITE')
 
 		self.font_level = Font(location,Battle_Config['HEALTH_LVL_SHIFT'])
 		self.font_level.set_text(str(pokemon.level()),'WHITE')
-
-		self.bg = Background(path_image)
 
 	"""
         Funcion to display info of a pokemon.

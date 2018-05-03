@@ -12,9 +12,9 @@ It contains the following class:
 
 # Local imports
 from Configuration.settings import Directory, Display_Config, Select_Config
-from DataBase.utils_data_base import load_cell
-from Game.display.image import Background
-from Game.display.utils_display import scale_bg, translate
+from DataBase.utils_data_base import load_image
+from Game.display.image import Image
+from Game.display.utils_display import scale, shift
 
 # 3rd party imports
 import pygame
@@ -56,16 +56,16 @@ class Selector:
 	            depending on 'self.pos'.
 	    """
 	    name = 'SELECTOR_L_FILE' if self.pos[1] == 2 else 'SELECTOR_FILE'
-	    image = load_cell(Directory[name])
-	    self._image = pygame.transform.scale(image, scale_bg(image.get_size()))
+	    image = load_image(Directory[name])
+	    self._image = pygame.transform.scale(image, scale(image.get_size()))
 
 	    if self.pos[1] < 2:
 	        width = Select_Config['POS_MOVE_'+str(self.pos[0])][0]
 	        height = Select_Config['POS_MOVE_'+str(self.pos[1]*2)][1]
 	    else:
 	        width,height = Select_Config['POS_CANCEL']
-	    location = translate((width,height), self._shift)
-	    self._location = scale_bg(location)
+	    location = shift((width,height), self._shift)
+	    self._location = scale(location)
 	    self._time_init = pygame.time.get_ticks()
 
 	"""

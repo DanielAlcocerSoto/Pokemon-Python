@@ -12,7 +12,7 @@ It contains the following class:
 
 # Local imports
 from Configuration.settings import Directory, Display_Config, Dialog_Config
-from Game.display.image import Background, Display
+from Game.display.image import Image, Display
 from Game.display.font import Font
 
 __version__ = '0.7'
@@ -32,7 +32,7 @@ class Dialog_display(Display):
 				dialog section of the game.
         """
         top_left_location=(0,Display_Config['BATTLE_SIZE'][1])
-        bg = Background(Directory['DIALOG_FILE'], top_left_location)
+        bg = Image(Directory['DIALOG_FILE'], top_left_location)
         self.font = Font(top_left_location, Dialog_Config['LOG_TEXT_SHIFT'])
         Display.__init__(self, [bg,self.font])
 

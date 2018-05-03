@@ -20,7 +20,7 @@ It contains the following class:
 
 # Local imports
 from Configuration.settings import Directory, Display_Config, Select_Config
-from Game.display.image import Background, Display
+from Game.display.image import Image, Display
 from .button import Button_Move, Button_Target, Button_Cancel
 from .selector import Selector
 
@@ -111,7 +111,7 @@ class Selection_Display(Display):
 				selection section of the game. Includes its own selector.
 		"""
 		height = Display_Config['BATTLE_SIZE'][1]+Display_Config['LOG_SIZE'][1]
-		bg = Background(Directory[background_name],top_left_location=(0,height))
+		bg = Image(Directory[background_name],top_left_location=(0,height))
 		visualize_items = [bg]
 		self.buttons = buttons
 		for button in self.buttons: visualize_items.append(button)

@@ -7,12 +7,9 @@ and do some calculations.
 
 This module contains the following functions to import to another classes:
 
-	pair_mult_num
 	scale
-	scale_bg
-	center_to_top_left
-	final_scale
-	translate
+	bottom_middle_to_top_left
+	shift
 	num_to_text
 """
 
@@ -24,25 +21,15 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
 # scale + bgscale, b&f sprite scale
 
-def translate(pos, desp):
+def shift(pos, desp):
 	return (pos[0]+desp[0],pos[1]+desp[1])
 
-def scale(pair): # only in sprite
-	return pair_mult_num(pair, Display_Config['SCALE'])
-
-def pair_mult_num(pair, num): # only in sprite
-	return (int(pair[0]*num),int(pair[1]*num))
-
-def scale_bg(pair):
-	fact = Display_Config['SCALE']*Display_Config['BACKGROUND_SCALE']
-	return (int(pair[0]*fact), int(pair[1]*fact))
-
-def center_to_top_left(pos, sprite_size):  # only in sprite
-	return (pos[0]-sprite_size[0]/2,pos[1]-sprite_size[1]/2)
-
-def final_scale(pair, factor): #only in sprite
+def scale(pair, factor=1):
 	fact = Display_Config['SCALE']*factor
 	return (int(pair[0]*fact), int(pair[1]*fact))
+
+def bottom_middle_to_top_left(pos, sprite_size):  # only in sprite
+	return (pos[0]-sprite_size[0]/2,pos[1]-sprite_size[1])
 
 def num_to_text(num,max_digits=2): # only in button
 	s_num= str(num)

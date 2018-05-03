@@ -13,7 +13,7 @@ It contains the following class:
 # Local imports
 from Configuration.settings import Directory, Display_Config
 from DataBase.utils_data_base import load_image
-from .utils_display import scale_bg
+from .utils_display import scale
 from .music import Song
 from .dialog import Dialog_display
 from .battle.battle import Battle_display
@@ -52,7 +52,7 @@ class Window:
 		height += Display_Config['LOG_SIZE'][1]
 		height += Display_Config['SELECT_SIZE'][1]
 		SCREEN_SIZE = (width,height)
-		self.SCREEN = pygame.display.set_mode(scale_bg(SCREEN_SIZE))
+		self.SCREEN = pygame.display.set_mode(scale(SCREEN_SIZE))
 
 		pygame.display.set_icon(load_image(Directory['ICON_FILE']))
 		pygame.display.set_caption(Display_Config['TITLE'])

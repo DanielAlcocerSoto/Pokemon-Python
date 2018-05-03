@@ -13,7 +13,7 @@ It contains the following class:
 
 # Local imports
 from Configuration.settings import Directory, Display_Config, Font_Config
-from Game.display.utils_display import translate, scale_bg
+from Game.display.utils_display import shift, scale
 
 # 3rd party imports
 import pygame
@@ -26,7 +26,7 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
     Class to Font to write text in screen.
 """
 class Font:
-    def __init__(self, reference, shift, letter_size=Font_Config['LETTER_SIZE']):
+    def __init__(self, reference, text_shift, letter_size=Font_Config['LETTER_SIZE']):
         """
             Args:
                 reference ('int','int'): A reference point.
@@ -37,9 +37,8 @@ class Font:
                 Create an image to write on the screen in 'reference' position
                 moved 'shift', with a size of 'letter_size'.
         """
-        self.pos = scale_bg(translate(reference, shift))
-        f_scale = Display_Config['SCALE'] * Display_Config['BACKGROUND_SCALE']
-        self.LETTER_SIZE = int (letter_size * f_scale)
+        self.pos = scale(shift(reference, text_shift))
+        self.LETTER_SIZE = int (letter_size * Display_Config['SCALE'])
         self._font = pygame.font.Font(Directory['FONT_FILE'], self.LETTER_SIZE)
         self.set_text('')
 

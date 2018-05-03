@@ -8,14 +8,14 @@ classes related to the visualization of elements on the screen.
 It contains the following classes:
 
 	Image
-	Background
+	Sprite
 	Display
 """
 
 # Local imports
-from Configuration.settings import Display_Config
-from DataBase.utils_data_base import load_image, load_background
-from .utils_display import scale_bg
+from Configuration.settings import Directory, Display_Config, Battle_Config
+from DataBase.utils_data_base import load_image
+from .utils_display import scale, bottom_middle_to_top_left
 
 # 3rd party imports
 import pygame
@@ -25,10 +25,10 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
 
 """
-	Generic class to display a image.
+	Class to display an image.
 """
 class Image:
-	def __init__(self, image, top_left_location):
+	def __init__(self, image_file, top_left_location = [0,0]):
 		"""
 			Args:
 				image (class:'pygame.Surface'): The image to display in the
@@ -40,8 +40,9 @@ class Image:
 				Create a image that will be displayed in a screen in the
 				'top_left_location' position.
 		"""
-		self._image = image
-		self._location = top_left_location
+		image = load_image(image_file)
+		self._image = pygame.transform.scale(image, scale(image.get_size()))
+		self._location = scale(top_left_location)
 
 	"""
 		Funcion to display this image.
@@ -58,26 +59,47 @@ class Image:
 		"""
 		SCREEN.blit(self._image, self._location)
 
-"""
-	Class to display a Background image.
-"""
-class Background(Image):
-	def __init__(self, image_file, top_left_location = [0,0]):
-		"""
-			Args:
-				image (class:'pygame.Surface'): The image to display in the
-												screen.
-				top_left_location (set:'int','int'): The top left location of
-													 the 'image' in the screen.
 
-			Action:
-				Create a image that will be displayed in a screen in the
-				'top_left_location' position.
+"""
+	Class to display the sprite of a pokemon.
+"""
+class Sprite:
+	def __init__(self, pokemon, POS):
 		"""
-		image = load_background(image_file)
-		final_image = pygame.transform.scale(image, scale_bg(image.get_size()))
-		location = scale_bg(top_left_location)
-		Image.__init__(self,final_image,location)
+		    Args:
+		        pokemon (class:'Pokemon'): The pokemon to be displayed.
+		        POS ('str'): The key to obtain the position where display the
+							 pokemon.
+
+		    Action:
+		        Create an object to show the sprite of 'pokemon' in the position
+			    indicated by the 'POS' key.
+		"""
+		self.pokemon = pokemon
+		image_file = Directory['DIR_SPRITES'] + pokemon.sprite(POS<2)
+		image = load_image(image_file)
+
+		if POS<2 :
+			is_ally = 'A'
+			factor_sprite = Display_Config['BACK_SPRITE_SCALE']
+		else:
+			is_ally = 'F'
+			factor_sprite = Display_Config['FRONT_SPRITE_SCALE']
+
+		name_format = Battle_Config['POS_POKE_FORMAT']
+		location = Battle_Config[name_format.format(is_ally,POS%2+1)]
+
+		final_size = scale(image.get_size(), factor_sprite)
+		self._image = pygame.transform.scale(image, final_size)
+		self._location = bottom_middle_to_top_left(scale(location), final_size)
+
+	"""
+        Funcion to display this sprite.
+    """
+	def display(self,SCREEN):
+		if not self.pokemon.is_fainted():
+			SCREEN.blit(self._image, self._location)
+
 
 """
 	Generic class to display several displayables objects.

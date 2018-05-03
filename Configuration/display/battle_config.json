@@ -1,10 +1,15 @@
 {
+  "POS_BAR_FORMAT":"POS_BAR_{}{}",
   "POS_BAR_F2": [57,22],
   "POS_BAR_F1": [50,51],
   "POS_BAR_A1": [189,107],
   "POS_BAR_A2": [196,136],
 
-  "POS_BAR_FORMAT":"POS_BAR_{}{}",
+  "POS_POKE_FORMAT":"POS_POKE_{}{}",
+  "POS_POKE_F2": [224,86],
+  "POS_POKE_F1": [170,86],
+  "POS_POKE_A1": [40,155],
+  "POS_POKE_A2": [90,155],
 
   "POS_A1": 0,
   "POS_A2": 1,

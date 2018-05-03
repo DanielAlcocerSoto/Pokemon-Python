@@ -14,29 +14,28 @@
   "POKE_FILE": "pokemonDB",
   "TYPE_FILE": "typeDB",
   "MOVE_FILE": "moveDB",
-  "DIALOG_FILE": "log",
   "ICON_FILE": "icon",
-
-  "SELECT_MOVE_FILE":"SelectMove",
-  "SELECT_EMPTY_FILE":"select_empty",
-  "SELECT_TARGET_FILE":"SelectTarget",
-
-  "NONE_CELL_FILE": "cell_poke",
-  "SELECTOR_FILE": "cell_selector",
-  "SELECTOR_L_FILE": "cell_selector_large",
 
   "FONT_FILE": "DataBase/Fonts/pokemon_generation_1.ttf",
 
-  "BACKGROUND_NAME":"background_{}",
-  "HEALTH_NAME":"health_{}_{}",
-  "CELL_NAME":"cell_{}",
+  "BACKGROUND_NAME":"Backgrounds/background_{}",
+  "HEALTH_NAME":"Backgrounds/health_{}_{}",
+  
+  "SELECT_MOVE_FILE":"Backgrounds/SelectMove",
+  "SELECT_EMPTY_FILE":"Backgrounds/select_empty",
+  "SELECT_TARGET_FILE":"Backgrounds/SelectTarget",
+  "DIALOG_FILE": "Backgrounds/log",
+
+  "CELL_NAME":"Cells/cell_{}",
+
+  "NONE_CELL_FILE": "Cells/cell_poke",
+  "SELECTOR_FILE": "Cells/cell_selector",
+  "SELECTOR_L_FILE": "Cells/cell_selector_large",
 
   "DIR_INFO": "DataBase/Info/",
   "DIR_MUSIC": "DataBase/Music/",
   "DIR_IMAGES": "DataBase/Images/",
-  "DIR_CELLS": "DataBase/Images/Cells/",
-  "DIR_SPRITES": "DataBase/Images/Sprites/",
-  "DIR_BACKGROUND": "DataBase/Images/Backgrounds/",
+  "DIR_SPRITES": "Sprites/",
 
   "DIR_LOGS": "DataBase/Agent/Logs/",
   "DIR_MODELS": "DataBase/Agent/Models/"
