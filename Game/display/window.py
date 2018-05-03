@@ -18,6 +18,8 @@ from .music import Song
 from .dialog import Dialog_display
 from .battle.battle import Battle_display
 from .selection.selection import Selection_Manager
+from .display_RL_info.moves_display import Moves_display
+from .display_RL_info.stats_display import Stats_display
 
 # 3rd party imports
 import pygame, sys
@@ -51,6 +53,7 @@ class Window:
 		width, height = Display_Config['BATTLE_SIZE']
 		height += Display_Config['LOG_SIZE'][1]
 		height += Display_Config['SELECT_SIZE'][1]
+		if state['use_agent']: width*=2
 		SCREEN_SIZE = (width,height)
 		self.SCREEN = pygame.display.set_mode(scale(SCREEN_SIZE))
 
@@ -63,6 +66,10 @@ class Window:
 		self.visualize_items = [self.battle, self.dialog, self.select]
 
 		if Display_Config["PLAY_MUSIC"]: Song().play()
+
+		if state['use_agent']:
+			self.visualize_items.append(Stats_display(state))
+			self.visualize_items.append(Moves_display(state))
 
 	"""
 		Function to exit the program depending on the event of the window.
@@ -107,7 +114,7 @@ class Window:
 	"""
 		Function to display a message in the dialog section.
 	"""
-	def show(self, text, time=2):
+	def show(self, text, time):
 		"""
 			Args:
 				name ('Str'): The name of the sentence pattern.

@@ -20,11 +20,14 @@
 
   "BACKGROUND_NAME":"Backgrounds/background_{}",
   "HEALTH_NAME":"Backgrounds/health_{}_{}",
-  
+
   "SELECT_MOVE_FILE":"Backgrounds/SelectMove",
   "SELECT_EMPTY_FILE":"Backgrounds/select_empty",
   "SELECT_TARGET_FILE":"Backgrounds/SelectTarget",
   "DIALOG_FILE": "Backgrounds/log",
+  "WATCH_STATS":"Backgrounds/watch_stats",
+
+  "TYPE_IMG_NAME":"Types/{}",
 
   "CELL_NAME":"Cells/cell_{}",
 

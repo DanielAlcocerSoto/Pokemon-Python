@@ -21,6 +21,7 @@ It contains the following class:
 # Local imports
 from Configuration.settings import Directory, Display_Config, Select_Config
 from Game.display.image import Image, Display
+from Game.display.display_RL_info.moves_display import Move_Info
 from .button import Button_Move, Button_Target, Button_Cancel
 from .selector import Selector
 
@@ -49,7 +50,7 @@ class Selection_Manager:
                 of the window.
         """
         self.modes = {
-          "MODE_MOVE":  Selection_Move(state["Ally_0"]),
+          "MODE_MOVE":  Selection_Move(state["Ally_0"],state),
           "MODE_TARGET":Selection_Target(state["Foe_0"],state["Foe_1"]),
           "MODE_OFF":   Selection_None()
         }
@@ -142,20 +143,32 @@ class Selection_Display(Display):
 	Extended class from Selection_Display to display the move selection section.
 """
 class Selection_Move(Selection_Display):
-	def __init__(self, pokemon):
+	def __init__(self, pokemon, state=None):
 		"""
 			Args:
 				pokemon (class:'Pokemon'): The pokemon whose movements will be
 										   shown.
+				state ('dict of class:Pokemon'): A dictionary with all the
+    											 information needed to display
+                                                 the a battle.
 
 			Action:
 				Create an extension of the "Selection_Display" class to show
 				the moves of 'pokemon'.
 		"""
 		moves = pokemon.moves()
-		buttons = [
-		    Button_Move('POS_MOVE_'+str(i), moves[i] if i<len(moves) else None)
-		    for i in range(0,4)]
+		if Display_Config['SHOW_EFF']:
+			buttons = []
+			types = [state['Foe_0'].types(),state['Foe_1'].types()]
+			for i in range(0,4):
+				move = moves[i] if i<len(moves) else None
+				mo_in = Move_Info('POS_MOVE_'+str(i), move)
+				mo_in.set_type_enemies(types)
+				buttons.append(mo_in)
+		else:
+			buttons = [
+			    Button_Move('POS_MOVE_'+str(i), moves[i] if i<len(moves) else None)
+			    for i in range(0,4)]
 		Selection_Display.__init__(self,'SELECT_MOVE_FILE', buttons)
 
 """

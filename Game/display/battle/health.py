@@ -30,8 +30,8 @@ class Health_Rect_Info:
 	def __init__(self, pokemon, POS, path_image):
 		"""
 		    Args:
-		        pokemon (class:'Pokemon'): The pokemon from which information
-										   will be displayed.
+		        pokemon (class:'Pokemon'): The pokemon which information will be 
+										   displayed.
 		        POS ('str'): The key to obtain the position where display the
 							 pokemon info.
 
@@ -40,7 +40,7 @@ class Health_Rect_Info:
 		"""
 		self.bg = Image(path_image)
 		self.poke = pokemon
-		self.BAR_LENGTH, self.BAR_HEIGHT = scale(Display_Config['BAR_SIZE'])
+		self.BAR_LENGTH, self.BAR_HEIGHT = scale(Battle_Config['BAR_SIZE'])
 		is_ally = 'A' if POS<2 else 'F'
 		name_format = Battle_Config['POS_BAR_FORMAT']
 		location = Battle_Config[name_format.format(is_ally,POS%2+1)]

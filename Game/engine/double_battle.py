@@ -17,6 +17,7 @@ from .core.pokemon import Pokemon
 from .trainer import TrainerRandom
 from .trainerInput import TrainerInput
 from .attack import Attack
+from Agent.agent_to_play import AgentPlay
 
 __version__ = '0.7'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
@@ -72,6 +73,7 @@ class Double_Battle:
 
 		self._trainers = [trainerA1,trainerA2,trainerF1,trainerF2]
 		self.state = {t.role: t.pokemon() for t in self._trainers}
+		self.state['use_agent'] = isinstance(trainerA2, AgentPlay)
 		self.show_message = None
 		for t in self._trainers:
 			t.set_state(self.state)
@@ -82,7 +84,8 @@ class Double_Battle:
 	"""
 	def play(self):
 		print("-------------- NEW BATTLE --------------")
-		self.show('START', *[t.pokemon().name() for t in self._trainers])
+		self.show('START', *[t.pokemon().name() for t in self._trainers],\
+					time=Display_Config['FIRST_TIME_STEP'])
 		while not self.is_finished():
 			print("--------------- NEW TURN ---------------")
 			self.doTurn()
@@ -93,7 +96,7 @@ class Double_Battle:
 	"""
 		Function to display a message
 	"""
-	def show(self, name, *args, time=2):
+	def show(self, name, *args, time=Display_Config['TIME_STEP']):
 		text = Sentence[name].format(*args)
 		print(text) # To have a "log"
 		if self.show_message != None: self.show_message(text,time)
@@ -131,7 +134,8 @@ class Double_Battle:
 						if not tr.pokemon().is_fainted()]
 			if len(winners) == 2: self.show("WINNERS", *winners)
 			if len(winners) == 1: self.show("WINNER", *winners)
-			self.show("WIN" if self.winners() else "LOSE", time=5)
+			self.show("WIN" if self.winners() else "LOSE", \
+						time=Display_Config['LAST_TIME_STEP'])
 
 	"""
 		Return True if the battle is finished, False otherwise.

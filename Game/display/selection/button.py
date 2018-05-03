@@ -32,7 +32,7 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 	General class to represents a button.
 """
 class Button:
-    def __init__(self, position_name, name_img, obj):
+    def __init__(self, position_name, name_img, obj, vertical_shift=0):
         """
             Args:
                 position_name ('str'): The key to obtain the position of this
@@ -42,6 +42,7 @@ class Button:
                                            button.
                     Note: Object_Into is a general class. Some of the classes
                     that extends this class are Pokemon or Move.
+				vertical_shift ('int'): Vertical shift where display the button
 
             Action:
                 Create an General Button to show relevant information of 'obj'
@@ -49,7 +50,7 @@ class Button:
         """
         top_left_location = Select_Config[position_name]
         height = Display_Config['BATTLE_SIZE'][1]+Display_Config['LOG_SIZE'][1]
-        height_shift = (0, height)
+        height_shift = (vertical_shift, height)
         self.location_pre_scale = shift(top_left_location, height_shift)
         self._location = scale(self.location_pre_scale)
         image = load_image(name_img)
@@ -81,21 +82,22 @@ class Button:
 	Extended class from Button to display info of a move.
 """
 class Button_Move(Button):
-    def __init__(self, position_name, move):
+    def __init__(self, position_name, move, vertical_shift = 0):
         """
             Args:
                 position_name ('str'): The key to obtain the position.
                 move (class:'Move'): The move to be displayed by the button.
+				vertical_shift ('int'): Vertical shift where display the button
 
             Action:
                 Create an extencion of 'Button' to show relevant information
                 abount 'move'.
         """
         if move != None:
-            name_img = Directory['CELL_NAME'].format(move.type().name())
+            name_img = Directory['CELL_NAME'].format(move.type().name().lower())
         else:
             name_img = Directory['NONE_CELL_FILE']
-        Button.__init__(self, position_name, name_img, move)
+        Button.__init__(self, position_name, name_img, move, vertical_shift)
         if move != None:
             a_pp_shift = Select_Config['BUTTON_A_PP_SHIFT']
             self.font_actual_pp = Font(self.location_pre_scale, a_pp_shift)
