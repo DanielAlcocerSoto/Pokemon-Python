@@ -25,9 +25,6 @@ from Game.display.display_RL_info.moves_display import Move_Info
 from .button import Button_Move, Button_Target, Button_Cancel
 from .selector import Selector
 
-# 3rd party imports
-import pygame
-
 __version__ = '0.7'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 

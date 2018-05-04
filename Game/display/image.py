@@ -15,10 +15,7 @@ It contains the following classes:
 # Local imports
 from Configuration.settings import Directory, Display_Config, Battle_Config
 from DataBase.utils_data_base import load_image
-from .utils_display import scale, bottom_middle_to_top_left
-
-# 3rd party imports
-import pygame
+from .utils_display import scale, scale_img, bottom_middle_to_top_left
 
 __version__ = '0.7'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
@@ -41,7 +38,7 @@ class Image:
 				'top_left_location' position.
 		"""
 		image = load_image(image_file)
-		self._image = pygame.transform.scale(image, scale(image.get_size()))
+		self._image = scale_img(image)
 		self._location = scale(top_left_location)
 
 	"""
@@ -89,8 +86,8 @@ class Sprite:
 		name_format = Battle_Config['POS_POKE_FORMAT']
 		location = Battle_Config[name_format.format(is_ally,POS%2+1)]
 
+		self._image = scale_img(image, factor_sprite)
 		final_size = scale(image.get_size(), factor_sprite)
-		self._image = pygame.transform.scale(image, final_size)
 		self._location = bottom_middle_to_top_left(scale(location), final_size)
 
 	"""

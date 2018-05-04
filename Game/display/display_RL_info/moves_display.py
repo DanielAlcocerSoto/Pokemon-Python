@@ -14,12 +14,12 @@ It contains the following classes:
 # Local imports
 from Configuration.settings import Directory, Display_Config, Select_Config
 from Game.display.image import Image, Display
-from Game.display.selection.button import Button_Move
+from Game.display.selection_view.button import Button_Move
 from Game.display.utils_display import scale, shift
 from Game.display.font import Font
 
 # 3rd party imports
-import pygame
+from pygame import Rect, draw
 
 __version__ = '0.5'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
@@ -70,8 +70,8 @@ class Move_Info(Button_Move):
         Button_Move.__init__(self, position_name, move, vertical_shift)
         x,y = scale(shift(self.location_pre_scale, Select_Config['SHIFT_RECT_EFF']))
         width, height = scale(Select_Config['SIZE_RECT_EFF'])
-        self.bar_0 = pygame.Rect(x, y, width, height)
-        self.bar_1 = pygame.Rect(x+width, y, width, height)
+        self.bar_0 = Rect(x, y, width, height)
+        self.bar_1 = Rect(x+width, y, width, height)
 
         text_shift = shift( Select_Config['SHIFT_RECT_EFF'],\
                             Select_Config['SHIFT_TEXT_EFF'])
@@ -97,7 +97,7 @@ class Move_Info(Button_Move):
     """
     def display(self,SCREEN):
         Button_Move.display(self,SCREEN)
-        pygame.draw.rect(SCREEN, Display_Config[self.color_name_0], self.bar_0)
-        pygame.draw.rect(SCREEN, Display_Config[self.color_name_1], self.bar_1)
+        draw.rect(SCREEN, Display_Config[self.color_name_0], self.bar_0)
+        draw.rect(SCREEN, Display_Config[self.color_name_1], self.bar_1)
         self.text_0.display(SCREEN)
         self.text_1.display(SCREEN)

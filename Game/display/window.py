@@ -15,18 +15,16 @@ from Configuration.settings import Directory, Display_Config
 from DataBase.utils_data_base import load_image
 from .utils_display import scale
 from .music import Song
-from .dialog import Dialog_display
-from .battle.battle import Battle_display
-from .selection.selection import Selection_Manager
+from .dialog_view import Dialog_display
+from .battle_view import Battle_display
+from .selection_view.selection import Selection_Manager
 from .display_RL_info.moves_display import Moves_display
 from .display_RL_info.stats_display import Stats_display
 
 # 3rd party imports
 import pygame, sys
+from pygame import display, time
 from pygame.locals import *
-
-# General imports
-from time import sleep
 
 __version__ = '0.7'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
@@ -55,10 +53,10 @@ class Window:
 		height += Display_Config['SELECT_SIZE'][1]
 		if state['use_agent']: width*=2
 		SCREEN_SIZE = (width,height)
-		self.SCREEN = pygame.display.set_mode(scale(SCREEN_SIZE))
+		self.SCREEN = display.set_mode(scale(SCREEN_SIZE))
 
-		pygame.display.set_icon(load_image(Directory['ICON_FILE']))
-		pygame.display.set_caption(Display_Config['TITLE'])
+		display.set_icon(load_image(Directory['ICON_FILE']))
+		display.set_caption(Display_Config['TITLE'])
 
 		self.battle = Battle_display(state)
 		self.dialog = Dialog_display()
@@ -109,36 +107,36 @@ class Window:
 				self.manage_event_quit(event)
 		for surface in self.visualize_items:
 			surface.display(self.SCREEN)
-		pygame.display.update()
+		display.update()
 
 	"""
 		Function to display a message in the dialog section.
 	"""
-	def show(self, text, time):
+	def show(self, text, time_display):
 		"""
 			Args:
 				name ('Str'): The name of the sentence pattern.
 				args ('list od str'): The params to do a format to the sentence.
-				time ('int'): Time (in seconds) the message will be displayed.
+				time_display ('int'): Time (in seconds) the message will be displayed.
 
 			Action:
 				Display a the sentence pattern 'name', foramted with 'args' and
-				wait 'time' seconds. The message also disappear if the enter or
-				space key is pressed.
+				wait 'time_display' seconds. The message also disappear if the
+				enter or space key is pressed.
 		"""
 		self.dialog.set_text(text)
 		self.visualize(manage_event=False)
-		time_init = pygame.time.get_ticks()
+		time_init = time.get_ticks()
 		delta_time = 0
 		click_enter = False
 		# Wait 'time' sec or click/enter event
-		while delta_time < time and not click_enter:
+		while delta_time < time_display and not click_enter:
 			for event in pygame.event.get():
 				self.manage_event_quit(event)
 				if (event.type == MOUSEBUTTONDOWN and event.button == 1) or \
 				(event.type == KEYDOWN and event.key in [K_RETURN, K_SPACE]):
 					click_enter = True
-			delta_time = (pygame.time.get_ticks() - time_init)/1000
+			delta_time = (time.get_ticks() - time_init)/1000
 
 	"""
 		Function to get the index of the selected item in the selection section.

@@ -17,9 +17,6 @@ from Game.display.image import Image, Display
 from Game.display.utils_display import scale, shift
 from Game.display.font import Font
 
-# 3rd party imports
-import pygame
-
 __version__ = '0.5'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
@@ -68,7 +65,6 @@ class Stats_view(Display):
         visualize_items = [text]
         #stats
         x,y = Battle_Config['SHIFT_STAT_VALUE']
-        print (x,y)
         self.hp = Font(top_left_pos,(x,y))
         y+=Battle_Config['INTERLINE_VALUE']
         n= ["attack", "special-attack", "defense", "special-defense", "speed"]

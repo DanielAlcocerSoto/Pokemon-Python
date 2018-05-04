@@ -14,10 +14,10 @@ It contains the following class:
 from Configuration.settings import Directory, Display_Config, Select_Config
 from DataBase.utils_data_base import load_image
 from Game.display.image import Image
-from Game.display.utils_display import scale, shift
+from Game.display.utils_display import scale, scale_img, shift
 
 # 3rd party imports
-import pygame
+from pygame import time
 
 __version__ = '0.9'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
@@ -41,7 +41,7 @@ class Selector:
 		shift = Display_Config['BATTLE_SIZE'][1]+Display_Config['LOG_SIZE'][1]
 		self._shift = (0, shift)
 		self.pos = [0,0]
-		self._time_init = pygame.time.get_ticks()
+		self._time_init = time.get_ticks()
 		self._set_location()
 
 	"""
@@ -57,7 +57,7 @@ class Selector:
 	    """
 	    name = 'SELECTOR_L_FILE' if self.pos[1] == 2 else 'SELECTOR_FILE'
 	    image = load_image(Directory[name])
-	    self._image = pygame.transform.scale(image, scale(image.get_size()))
+	    self._image = scale_img(image)
 
 	    if self.pos[1] < 2:
 	        width = Select_Config['POS_MOVE_'+str(self.pos[0])][0]
@@ -66,7 +66,7 @@ class Selector:
 	        width,height = Select_Config['POS_CANCEL']
 	    location = shift((width,height), self._shift)
 	    self._location = scale(location)
-	    self._time_init = pygame.time.get_ticks()
+	    self._time_init = time.get_ticks()
 
 	"""
 	    Moves the selector to the left.
@@ -111,6 +111,6 @@ class Selector:
 	"""
 	def display(self,SCREEN):
 	    stripe = (1000*Select_Config["SELECTOR_DISPLAY_STRIPE"])
-	    delta_time = (pygame.time.get_ticks() - self._time_init)/stripe
+	    delta_time = (time.get_ticks() - self._time_init)/stripe
 	    if delta_time-int(delta_time)<Select_Config["SELECTOR_DISPLAY_TIME"]:
 	        SCREEN.blit(self._image, self._location)

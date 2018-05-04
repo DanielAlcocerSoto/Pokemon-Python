@@ -8,6 +8,7 @@ and do some calculations.
 This module contains the following functions to import to another classes:
 
 	scale
+	scale_img
 	bottom_middle_to_top_left
 	shift
 	num_to_text
@@ -16,10 +17,12 @@ This module contains the following functions to import to another classes:
 # Local imports
 from Configuration.settings import Display_Config
 
+# 3rd party imports
+import pygame
+
 __version__ = '0.7'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
-# scale + bgscale, b&f sprite scale
 
 def shift(pos, desp):
 	return (pos[0]+desp[0],pos[1]+desp[1])
@@ -27,6 +30,9 @@ def shift(pos, desp):
 def scale(pair, factor=1):
 	fact = Display_Config['SCALE']*factor
 	return (int(pair[0]*fact), int(pair[1]*fact))
+
+def scale_img(image, factor=1):
+	return pygame.transform.scale(image, scale(image.get_size(),factor))
 
 def bottom_middle_to_top_left(pos, sprite_size):  # only in sprite
 	return (pos[0]-sprite_size[0]/2,pos[1]-sprite_size[1])

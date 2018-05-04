@@ -79,7 +79,7 @@ class Type(Object_Info):
 												  from which you want to obtain
 												  the bonification.
 
-			Return (class:'pygame.Surface'):
+			Return (class:'float'):
 				The coresponding bonification factor depending on the 'listTypes'.
 		"""
 		if any([x._name==self._name for x in listTypes]): return 1.5

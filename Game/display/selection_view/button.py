@@ -18,7 +18,7 @@ It contains the following classes:
 from Configuration.settings import Directory, Display_Config, Select_Config
 from DataBase.utils_data_base import load_image
 from Game.display.image import Image
-from Game.display.utils_display import scale, shift, num_to_text
+from Game.display.utils_display import scale, scale_img, shift, num_to_text
 from Game.display.font import Font
 
 # 3rd party imports
@@ -54,7 +54,7 @@ class Button:
         self.location_pre_scale = shift(top_left_location, height_shift)
         self._location = scale(self.location_pre_scale)
         image = load_image(name_img)
-        self._image = pygame.transform.scale(image, scale(image.get_size()))
+        self._image = scale_img(image)
 
         self.obj = obj
         button_shift =  Select_Config['BUTTON_NAME_SHIFT']

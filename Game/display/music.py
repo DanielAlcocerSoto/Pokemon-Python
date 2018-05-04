@@ -14,7 +14,7 @@ It contains the following class:
 from Configuration.settings import Directory,  Music_Config
 
 # 3rd party imports
-import pygame
+from pygame.mixer import music
 
 # General imports
 from random import choice
@@ -34,12 +34,13 @@ class Song:
             Action:
                 Create a Song that can be played.
         """
-        self.name_song = choice(Music_Config['NAME_MUSIC'])+'_'+choice(Music_Config['NAME_GEN'])
-        pygame.mixer.music.load(Directory['DIR_MUSIC']+self.name_song+Music_Config['EXTENSION'])
-        pygame.mixer.music.set_volume(Music_Config['VOLUME']/100)
+        name_song = choice(Music_Config['NAME_MUSIC'])+'_'+\
+					choice(Music_Config['NAME_GEN'])
+        music.load(Directory['DIR_MUSIC']+name_song+Music_Config['EXTENSION'])
+        music.set_volume(Music_Config['VOLUME']/100)
 
     """
         Funcion to play the song.
     """
     def play(self):
-        pygame.mixer.music.play(-1)
+        music.play(-1)

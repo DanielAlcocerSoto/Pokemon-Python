@@ -43,5 +43,6 @@ class TrainerInput(Trainer):
 		Implementation of choice_action funcion of the Trainer class
 	"""
 	def choice_action(self):
-		self.window.show(Sentence["ASK_MOVE"].format(self._pk.name()),time=0)
+		self.window.show(Sentence["ASK_MOVE"].format(self._pk.name()),\
+						time_display=0)
 		self._idmove, self._target = self.window.get_action()
