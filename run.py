@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-
+Main exeutable file
 """
 
 # Local imports
@@ -132,15 +132,15 @@ if __name__ == '__main__':
 
 	desc_actions = 'Argument to indicate the main action. --------------- ' +\
 	' ______________________________________________________'+\
-	'"generate_data": This action allows to rebuild information of type, move '+\
-	'and/or pokemon from PokeAPI (https://pokeapi.co/). '+\
+	'"generate_data": This action allows to rebuild information of type, move'+\
+	' and/or pokemon from PokeAPI (https://pokeapi.co/). '+\
 	' ------------------------------- ' +\
 	' ______________________________________________________'+\
 	'"play_with_rand": This action executes a battle with a random ally to ' +\
 	'evaluate its correct performance. '+\
 	' ----- ' +\
 	' ______________________________________________________'+\
-	'"play_to_eval": This action runs a battle with an agent as ally for the ' +\
+	'"play_to_eval": This action runs a battle with an agent as ally for the '+\
 	'manual evaluation of the model. '+\
 	' ______________________________________________________'+\
 	'"play_to_train": Executa N battles in which the agent learns from each ' +\
@@ -156,13 +156,9 @@ if __name__ == '__main__':
 	' ______________________________________________________'+\
 	'"train_model": Trains a model with saved information of other games.'
 
-
-
-
-
 	parser = argparse.ArgumentParser(prog = program_name, description=desc)
 	parser.add_argument('action', choices=possible_actions,
-						default = 'normal', help=desc_actions)
+						default = 'play_to_eval', help=desc_actions)
 	# Arguments for generate_data
 	parser.add_argument('--type', '-t', action='store_true',
 						help='Param for "generate_data" action. ' +\

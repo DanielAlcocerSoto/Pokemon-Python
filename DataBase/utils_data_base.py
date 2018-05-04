@@ -10,14 +10,6 @@ This module contains the following functions to import to another classes:
 	save_info
 	download_sprite
 	load_image
-	load_sprite
-	load_cell
-	load_background
-
-And the generic class useful for create other classes
-who need to save information from the database:
-
-	Object_Info
 """
 
 # Local imports

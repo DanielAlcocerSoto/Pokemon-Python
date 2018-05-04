@@ -22,7 +22,7 @@ from Game.display.utils_display import scale, scale_img, shift, num_to_text
 from Game.display.font import Font
 
 # 3rd party imports
-import pygame
+from pygame import Rect
 
 __version__ = '0.7'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
@@ -31,7 +31,7 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 """
 	General class to represents a button.
 """
-class Button:
+class Button(Image):
     def __init__(self, position_name, name_img, obj, vertical_shift=0):
         """
             Args:
@@ -52,10 +52,7 @@ class Button:
         height = Display_Config['BATTLE_SIZE'][1]+Display_Config['LOG_SIZE'][1]
         height_shift = (vertical_shift, height)
         self.location_pre_scale = shift(top_left_location, height_shift)
-        self._location = scale(self.location_pre_scale)
-        image = load_image(name_img)
-        self._image = scale_img(image)
-
+        Image.__init__(self, name_img, self.location_pre_scale)
         self.obj = obj
         button_shift =  Select_Config['BUTTON_NAME_SHIFT']
         self.font_name = Font(self.location_pre_scale, button_shift)
@@ -65,7 +62,7 @@ class Button:
         Funcion to display this button.
     """
     def display(self,SCREEN):
-        SCREEN.blit(self._image, self._location)
+        Image.display(self,SCREEN)
         self.font_name.display(SCREEN)
 
     """
@@ -75,8 +72,7 @@ class Button:
     def point_inside(self, point):
         left, top = self._location
         width, height = self._image.get_size()
-        rect = pygame.Rect(left, top, width, height)
-        return rect.collidepoint(point)
+        return Rect(left, top, width, height).collidepoint(point)
 
 """
 	Extended class from Button to display info of a move.
