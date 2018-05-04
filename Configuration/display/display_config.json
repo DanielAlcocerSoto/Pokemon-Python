@@ -11,17 +11,19 @@
 
   "RED": [255,0,0],
   "GREEN": [0,255,0],
-  "BLUE": [0,0,255],
+  "BLUE": [10,50,255],
   "BLACK": [0, 0, 0],
   "WHITE": [255, 255, 255],
   "CYAN": [20,200,250],
   "MAGENTA": [250,20,200],
   "YELLOW": [250,200,20],
+  "GRAY": [180,180,180],
 
   "PLAY_MUSIC": false,
   "SHOW_EFF": true,
+  "VISUALIZE_AGENT_INFO": true,
 
-  "TIME_STEP": 2,
   "FIRST_TIME_STEP":1,
+  "TIME_STEP": 2,
   "LAST_TIME_STEP":5
 }

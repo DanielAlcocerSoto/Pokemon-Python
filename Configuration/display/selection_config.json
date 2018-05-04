@@ -23,5 +23,6 @@
 
   "SHIFT_RECT_EFF":[6,43],
   "SHIFT_TEXT_EFF":[15,-1],
-  "SIZE_RECT_EFF":[55,8]
+  "SIZE_RECT_EFF":[110,8],
+  "V_SPACE_RECTS": 2
 }

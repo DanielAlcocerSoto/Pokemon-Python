@@ -51,7 +51,7 @@ class Window:
 		width, height = Display_Config['BATTLE_SIZE']
 		height += Display_Config['LOG_SIZE'][1]
 		height += Display_Config['SELECT_SIZE'][1]
-		if state['use_agent']: width*=2
+		if state['use_agent'] and Display_Config['VISUALIZE_AGENT_INFO']: width*=2
 		SCREEN_SIZE = (width,height)
 		self.SCREEN = display.set_mode(scale(SCREEN_SIZE))
 
@@ -65,7 +65,7 @@ class Window:
 
 		if Display_Config["PLAY_MUSIC"]: Song().play()
 
-		if state['use_agent']:
+		if state['use_agent'] and Display_Config['VISUALIZE_AGENT_INFO']:
 			self.visualize_items.append(Stats_display(state))
 			self.visualize_items.append(Moves_display(state))
 
