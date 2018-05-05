@@ -1,3 +1,8 @@
 {
-  "GAMMA":0.95
+  "GAMMA": 0.95,
+  "DEFAULT_LOG": "log_test",
+  "DEFAULT_MODEL": "model_test",
+
+  "NEURAL_NET_NODES": [24,24,8],
+  "NEURAL_NET_ACTIVATION": ["relu","relu","linear"]
 }

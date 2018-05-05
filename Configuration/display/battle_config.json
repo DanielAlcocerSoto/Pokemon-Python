@@ -1,10 +1,15 @@
 {
+  "POS_BAR_FORMAT":"POS_BAR_{}{}",
   "POS_BAR_F2": [57,22],
   "POS_BAR_F1": [50,51],
   "POS_BAR_A1": [189,107],
   "POS_BAR_A2": [196,136],
 
-  "POS_BAR_FORMAT":"POS_BAR_{}{}",
+  "POS_POKE_FORMAT":"POS_POKE_{}{}",
+  "POS_POKE_F2": [224,86],
+  "POS_POKE_F1": [170,86],
+  "POS_POKE_A1": [40,155],
+  "POS_POKE_A2": [90,155],
 
   "POS_A1": 0,
   "POS_A2": 1,
@@ -12,5 +17,18 @@
   "POS_F2": 3,
 
   "HEALTH_NAME_SHIFT":[-49,-15],
-  "HEALTH_LVL_SHIFT":[33,-15]
+  "HEALTH_LVL_SHIFT":[33,-15],
+
+  "BAR_SIZE": [48,2],
+
+  "POS_STATS_F1":[7,13],
+  "POS_STATS_F2":[135,13],
+  "POS_STATS_A1":[7,101],
+  "POS_STATS_A2":[135,101],
+
+  "SHIFT_STAT_NAME":[4,0],
+  "SHIFT_STAT_VALUE":[55,16],
+  "SHIFT_STAT_TYPE_0":[83,40],
+  "SHIFT_STAT_TYPE_1":[83,57],
+  "INTERLINE_VALUE":10
 }

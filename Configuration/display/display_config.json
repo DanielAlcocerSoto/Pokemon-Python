@@ -1,23 +1,29 @@
 {
   "TITLE": "POKEMON DOUBLE BATTLE",
 
-  "SCALE": 1.2,
-  "BACKGROUND_SCALE": 1.5,
-  "BACK_SPRITE_SCALE": 1.75,
-  "FRONT_SPRITE_SCALE": 1.25,
+  "SCALE": 2,
+  "BACK_SPRITE_SCALE": 1.3,
+  "FRONT_SPRITE_SCALE": 0.9,
 
   "BATTLE_SIZE": [256,144],
-  "SELECT_SIZE": [256,190],
-  "SPRITE_SIZE": [96,96],
   "LOG_SIZE": [256,46],
-  "BAR_SIZE": [48,2],
+  "SELECT_SIZE": [256,190],
 
   "RED": [255,0,0],
   "GREEN": [0,255,0],
-  "BLUE": [0,0,255],
+  "BLUE": [10,50,255],
   "BLACK": [0, 0, 0],
   "WHITE": [255, 255, 255],
+  "CYAN": [20,200,250],
+  "MAGENTA": [250,20,200],
   "YELLOW": [250,200,20],
+  "GRAY": [180,180,180],
 
-  "PLAY_MUSIC": false
+  "PLAY_MUSIC": false,
+  "SHOW_EFF": true,
+  "VISUALIZE_AGENT_INFO": true,
+
+  "FIRST_TIME_STEP":1,
+  "TIME_STEP": 2,
+  "LAST_TIME_STEP":5
 }

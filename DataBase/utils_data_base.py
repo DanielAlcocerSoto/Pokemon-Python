@@ -10,14 +10,6 @@ This module contains the following functions to import to another classes:
 	save_info
 	download_sprite
 	load_image
-	load_sprite
-	load_cell
-	load_background
-
-And the generic class useful for create other classes
-who need to save information from the database:
-
-	Object_Info
 """
 
 # Local imports
@@ -30,6 +22,7 @@ from pygame.image import load
 import json
 import shutil
 import requests
+from PIL import Image
 from os.path import exists
 
 __version__ = '1.0'
@@ -86,9 +79,12 @@ def download_sprite(url, name_file):
 	path = Directory['DIR_SPRITES']+name_file+'.png'
 	if not exists(path): # Not download it if it already exists
 		response = requests.get(url, stream=True)
-		with open(path, 'wb') as file:
+		with open(path, 'wb') as file: #create file
 			shutil.copyfileobj(response.raw, file)
-
+		# Crop the image
+		image=Image.open(path)
+		image.load()
+		image.crop(image.getbbox()).save(path)
 
 """
 	Functon to load a image from the images directory.
@@ -102,45 +98,3 @@ def load_image(name_file):
 			The image founded in the image directory with name 'name_file'.
 	"""
 	return load(Directory['DIR_IMAGES']+name_file+'.png')
-
-
-"""
-	Functon to load sprite images.
-"""
-def load_sprite(name_file):
-	"""
-		Args:
-			name_file ('str'): The name of the sprite image.
-
-		Return (class:'pygame.Surface'):
-			The image founded in the sprites directory with name 'name_file'.
-	"""
-	return load(Directory['DIR_SPRITES']+name_file+'.png')
-
-
-"""
-	Functon to load cell images.
-"""
-def load_cell(name_file):
-	"""
-		Args:
-			name_file ('str'): The name of the cell image.
-
-		Return (class:'pygame.Surface'):
-			The image founded in the cells directory with name 'name_file'.
-	"""
-	return load(Directory['DIR_CELLS']+name_file+'.png')
-
-
-"""
-	Functon to load background images.
-"""
-def load_background(name_file):
-	"""
-		Args:
-			name_file ('str'): The name of the background image.
-
-		Return (class:'pygame.Surface'):
-			The image founded in the backgrounds directory with name 'name_file'.
-	"""
-	return load(Directory['DIR_BACKGROUND']+name_file+'.png')

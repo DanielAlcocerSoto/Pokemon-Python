@@ -29860,7 +29860,7 @@
             "back": "385_jirachi_back"
         }
     },
-    "deoxys-normal": {
+    "deoxys": {
         "types": [
             "psychic"
         ],
@@ -29945,8 +29945,8 @@
             "brutal-swing"
         ],
         "sprites": {
-            "front": "386_deoxys-normal_front",
-            "back": "386_deoxys-normal_back"
+            "front": "386_deoxys_front",
+            "back": "386_deoxys_back"
         }
     },
     "turtwig": {
@@ -31816,7 +31816,7 @@
             "back": "412_burmy_back"
         }
     },
-    "wormadam-plant": {
+    "wormadam": {
         "types": [
             "grass",
             "bug"
@@ -31880,8 +31880,8 @@
             "infestation"
         ],
         "sprites": {
-            "front": "413_wormadam-plant_front",
-            "back": "413_wormadam-plant_back"
+            "front": "413_wormadam_front",
+            "back": "413_wormadam_back"
         }
     },
     "mothim": {
@@ -37395,7 +37395,7 @@
             "back": "486_regigigas_back"
         }
     },
-    "giratina-altered": {
+    "giratina": {
         "types": [
             "dragon",
             "ghost"
@@ -37485,8 +37485,8 @@
             "brutal-swing"
         ],
         "sprites": {
-            "front": "487_giratina-altered_front",
-            "back": "487_giratina-altered_back"
+            "front": "487_giratina_front",
+            "back": "487_giratina_back"
         }
     },
     "cresselia": {
@@ -37775,7 +37775,7 @@
             "back": "491_darkrai_back"
         }
     },
-    "shaymin-land": {
+    "shaymin": {
         "types": [
             "grass"
         ],
@@ -37831,8 +37831,8 @@
             "dazzling-gleam"
         ],
         "sprites": {
-            "front": "492_shaymin-land_front",
-            "back": "492_shaymin-land_back"
+            "front": "492_shaymin_front",
+            "back": "492_shaymin_back"
         }
     },
     "arceus": {

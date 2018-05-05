@@ -11,9 +11,6 @@ who need to save information from the database:
 # Local imports
 from DataBase.utils_data_base import load_info
 
-# 3rd party imports
-from pygame.image import load
-
 __version__ = '1.0'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 

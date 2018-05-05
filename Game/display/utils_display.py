@@ -7,43 +7,37 @@ and do some calculations.
 
 This module contains the following functions to import to another classes:
 
-	pair_mult_num
 	scale
-	scale_bg
-	center_to_top_left
-	final_scale
-	transalte
+	scale_img
+	bottom_middle_to_top_left
+	shift
 	num_to_text
 """
 
 # Local imports
 from Configuration.settings import Display_Config
 
+# 3rd party imports
+import pygame
+
 __version__ = '0.7'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
 
-def transalte(pos, desp):
+def shift(pos, desp):
 	return (pos[0]+desp[0],pos[1]+desp[1])
 
-def scale(pair):
-	return pair_mult_num(pair, Display_Config['SCALE'])
-
-def pair_mult_num(pair, num):
-	return (int(pair[0]*num),int(pair[1]*num))
-
-def scale_bg(pair):
-	fact = Display_Config['SCALE']*Display_Config['BACKGROUND_SCALE']
-	return (int(pair[0]*fact), int(pair[1]*fact))
-
-def center_to_top_left(pos, sprite_size):
-	return (pos[0]-sprite_size[0]/2,pos[1]-sprite_size[1]/2)
-
-def final_scale(pair, factor):
+def scale(pair, factor=1):
 	fact = Display_Config['SCALE']*factor
 	return (int(pair[0]*fact), int(pair[1]*fact))
 
-def num_to_text(num,max_digits=2):
+def scale_img(image, factor=1):
+	return pygame.transform.scale(image, scale(image.get_size(),factor))
+
+def bottom_middle_to_top_left(pos, sprite_size):  # only in sprite
+	return (pos[0]-sprite_size[0]/2,pos[1]-sprite_size[1])
+
+def num_to_text(num,max_digits=2): # only in button
 	s_num= str(num)
 	if len(s_num) < max_digits:
 		spaces = max_digits-len(s_num)

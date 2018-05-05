@@ -3,16 +3,15 @@
 # -*- coding: utf-8 -*-
 
 """
-Module that contains the Agent, an extencion of Trainer class.
-This classes is a test of use a RL method in Game.
+Module that contains the Model, main class of RL.
 
-It contains the following classes:
+It contains the following class:
 
-	Agent
+	Model
 """
 
 # Local import
-from Configuration.settings import Directory
+from Configuration.settings import Directory, Agent_config
 from .encoder import Encoder
 
 # 3rd party imports
@@ -21,7 +20,7 @@ from keras.layers import Dense, Activation
 from keras.optimizers import Adam
 
 # General imports
-from random import randint, choice, random, sample
+from random import random, sample
 from numpy import argmax, amax, array
 from copy import deepcopy as copy
 from ast import literal_eval
@@ -38,15 +37,14 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 	Extended class from Trainer that use RL.
 """
 class Model:
-	def __init__(self, model_file=None, log_file=None, gamma = 0.95):
+	def __init__(self, model_file=None, log_file=None):
 		self.encoder = Encoder()
-		self.gamma = gamma   # discount rate
+		self.gamma = Agent_config['GAMMA']   # discount rate
 		# Log_file
-		if log_file == None or not exists(Directory['DIR_LOGS'] + log_file + '.csv'):
-			log_file = 'log_test'
+		if log_file == None: log_file = Agent_config['DEFAULT_LOG']
 		self.log_file = Directory['DIR_LOGS'] + log_file + '.csv'
 		# Model_file
-		mf = 'model_test' if model_file == None else model_file
+		mf = Agent_config['DEFAULT_MODEL'] if model_file == None else model_file
 		self.model_file = Directory['DIR_MODELS'] + mf + '.h5'
 		# Model
 		if model_file == None or not exists(self.model_file):
@@ -61,14 +59,19 @@ class Model:
 	def _build_model(self, learning_rate = 0.001):
 		# Neural Net for Deep-Q learning Model
 		# Sequential() creates the foundation of the layers.
-		model = Sequential()
 		# 'Dense' is the basic form of a neural network layer
-		# Input Layer of state size(4) and Hidden Layer with 24 nodes
-		model.add(Dense(24, input_dim=self.encoder.state_size, activation='relu'))
-		# Hidden layer with 24 nodes
-		model.add(Dense(24, activation='relu'))
-		# Output Layer with # of actions: 8 nodes (left, right)
-		model.add(Dense(4*2, activation='linear'))
+		Neural_net = zip(Agent_config['NEURAL_NET_NODES'],\
+						 Agent_config['NEURAL_NET_ACTIVATION'])
+		dim_input = self.encoder.state_size
+		model = Sequential()
+		for i, nodes, act_func in enumerate(Neural_net):
+			# Input Layer of state size and Hidden Layer with 24 nodes
+			if i=0: layer=Dense(nodes,input_dim=dim_input,activation=act_func))
+			# Output Layer with # of actions: 4*2 nodes
+			elif: layer = Dense(8, activation=act_func))
+			# Hidden layer with X nodes
+			else: layer = Dense(nodes, activation=act_func))
+			model.add(layer)
 		# Create the model based on the information above
 		model.compile(loss='categorical_crossentropy',
 		              optimizer=Adam(lr=learning_rate))
@@ -94,7 +97,6 @@ class Model:
 			writer.writerow(obj)
 
 	def predict(self, state):
-		#predic 1 action with 1 state of 10 elemens
 		state = array([self.encoder.encode_state(state)])
 		act_values = self.model.predict(state)
 		action = argmax(act_values[0])
