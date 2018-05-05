@@ -83,13 +83,16 @@ def main(args):
 			print('Not implemeted evaluation yet. Running...')
 			def constructor_agent(role, pokemon):
 				return AgentPlay(role, pokemon, model)
-
+			wins = 0
 			for e in range(args.episodes):
+				print('-------------- EPISODE: {}/{} --------------'.format(i,args.episodes))
 				battle = Battle(constructor_trainerA2 = constructor_agent,
 								base_level = args.base_level,
 								varability_level = args.var_level)
 				battle.play()
+				wins+=battle.winners()
 				# More prins por analize
+			print('WINS: {}/{} = {}'.format(wins,args.episodes,wins/args.episodes))
 
 		else: # Training actions
 			from Game.engine.core.pokemon import Pokemon
@@ -108,7 +111,8 @@ def main(args):
 				from Game.engine.trainer import TrainerRandom
 				print('Running random battles to train an agent')
 				constructor_trainerA1 = TrainerRandom
-			for e in range(args.episodes):
+			for i in range(args.episodes):
+				print('-------------- EPISODE: {}/{} --------------'.format(i,args.episodes))
 				Environment(constructor_trainerA1 = constructor_trainerA1,
 							constructor_trainerA2 = constructor_agent,
 							base_level = args.base_level,

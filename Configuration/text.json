@@ -3,6 +3,7 @@
   "START": "Start Battle: {} and {} vs. {} and {}.",
   "ASK_MOVE": "What will {} do?",
   "USE_ATTACK": "{} used {} versus {}.",
+  "NO_PP_LEFT": "{} could not use {} because it has no PP left.",
   "EFECTIVITY_x4": "It's super effective!",
   "EFECTIVITY_x2": "It's very effective!",
   "EFECTIVITY_x05": "It's not very effective ...",

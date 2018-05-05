@@ -75,6 +75,7 @@ class Double_Battle:
 		self.state = {t.role: t.pokemon() for t in self._trainers}
 		self.state['use_agent'] = isinstance(trainerA2, AgentPlay)
 		self.show_message = None
+		self.n_turn = 0
 		for t in self._trainers:
 			t.set_state(self.state)
 			if isinstance(t, TrainerInput):	self.show_message = t.show_message
@@ -87,7 +88,7 @@ class Double_Battle:
 		self.show('START', *[t.pokemon().name() for t in self._trainers],\
 					time=Display_Config['FIRST_TIME_STEP'])
 		while not self.is_finished():
-			print("--------------- NEW TURN ---------------")
+			print("--------------- NEW TURN: {} ---------------".format(self.n_turn))
 			self.doTurn()
 		print("------------- BATTLE ENDED -------------")
 		self.show_result()
@@ -112,8 +113,10 @@ class Double_Battle:
 			ea = attack.poke_defender_after
 			name_p = p.name()
 			name_e = eb.name()
-			self.show('USE_ATTACK', name_p, attack.move.name(), name_e)
+			name_m = attack.move.name()
+			self.show('USE_ATTACK', name_p, name_m, name_e)
 			if eb.is_fainted(): self.show('TARGET_FAINTED', name_e)
+			elif not attack.has_pp: self.show('NO_PP_LEFT', name_p, name_m)
 			elif attack.missed_attack: self.show('MISS_ATTACK', name_p)
 			else: # Show results of the attack
 				if   attack.efectivity == 4: self.show('EFECTIVITY_x4')
@@ -173,6 +176,7 @@ class Double_Battle:
 	"""
 	def doTurn(self):
 		if not self.is_finished():
+			self.n_turn+=1
 			# choice actions
 			live_trainers = []
 			for trainer in self._trainers:
