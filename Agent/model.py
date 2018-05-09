@@ -79,7 +79,7 @@ class Model:
 		# Create the model based on the information above
 		# Configure the learning process,
 		model.compile(optimizer='rmsprop',#Adam(lr=learning_rate), #rmsprop
-              		  loss='categorical_crossentropy',
+              		  loss='mse',
 			  		  metrics=['accuracy']) # categorical_accuracy
 		return model
 
@@ -147,9 +147,10 @@ class Model:
 		states, actions, rewards, next_states, dones = zip(*minibatch)
 		states = array(states) # list of inputs in a numpy.array
 		next_states = array(next_states)
+		print(next_states)
 		targets = [reward if done else
-				  reward + self.gamma * amax(self.model.predict(next_states)[0])
-				  for reward, done in zip(rewards, dones)]
+				  reward + self.gamma * amax(self.model.predict(next_states)[i])
+				  for i, reward, done in enumerate(zip(rewards, dones))]
 		target_f = self.model.predict(states)
 		for i, (action, target) in enumerate(zip(actions, targets)):
 			target_f[i][action] = target
