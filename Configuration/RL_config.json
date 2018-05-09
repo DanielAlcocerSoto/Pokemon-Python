@@ -4,5 +4,11 @@
   "DEFAULT_MODEL": "model_test",
 
   "NEURAL_NET_NODES": [24,24,8],
-  "NEURAL_NET_ACTIVATION": ["relu","relu","linear"]
+  "NEURAL_NET_ACTIVATION": ["relu","relu","softmax"],
+
+  "BATCH_FACTOR":0.2,
+  "VERBOSE_FIT":1,
+  "EPOCHS_FIT":10,
+  "VAL_SPLIT_FIT":0.1,
+  "BATCH_SIZE_FACTOR":5
 }

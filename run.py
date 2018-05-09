@@ -12,6 +12,7 @@ from DataBase.generator_data_base import \
 
 # General imports
 import argparse
+from time import time
 
 __version__ = '0.5'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
@@ -68,9 +69,11 @@ def main(args):
 		model = Model(model_file=args.model_name, log_file=args.log_name)
 		if args.action == 'train_model':
 			print('Training model...')
+			start=time()
 			model.train()
+			end=time()
 			model.save(args.model_name)
-			print('Finished')
+			print('Finished time = {0:.2f}s'.format(end-start))
 		elif args.action == 'play_to_eval':
 			print('Running a battle with an agent ally...')
 			def constructor_agent(role, pokemon):
@@ -118,7 +121,7 @@ def main(args):
 							base_level = args.base_level,
 							varability_level = args.var_level).play()
 				agent.replay(poke_rand())
-				agent.save_model()
+			agent.save_model()
 
 
 if __name__ == '__main__':

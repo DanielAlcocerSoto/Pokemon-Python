@@ -53,7 +53,7 @@ class AgentTrain(AgentPlay):
 
 	# train the agent with the experience of the episode and restart the agent
 	def replay(self, pokemon):
-		self.model.train()
+		#self.model.train()
 		if self.epsilon > self.epsilon_min:
 			self.epsilon *= self.epsilon_decay
 		#reset trainer

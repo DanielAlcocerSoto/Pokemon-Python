@@ -53,28 +53,34 @@ class Model:
 
 	def save(self, model_file=None):
 		print('Saving model...')
-		model_file = self.model_file if model_file==None else model_file
+		if model_file==None: model_file = self.model_file
+		else: model_file = Directory['DIR_MODELS'] + model_file + '.h5'
 		self.model.save(model_file)
 
-	def _build_model(self, learning_rate = 0.001):
+	def _build_model(self):
 		# Neural Net for Deep-Q learning Model
 		# Sequential() creates the foundation of the layers.
 		# 'Dense' is the basic form of a neural network layer
 		Neural_net = zip(Agent_config['NEURAL_NET_NODES'],\
 						 Agent_config['NEURAL_NET_ACTIVATION'])
 		dim_input = self.encoder.state_size
+		Neural_net = list(Neural_net)
+		last = len(Neural_net) - 1
 		model = Sequential()
-		for i, nodes, act_func in enumerate(Neural_net):
+		for i, (nodes, act_func) in enumerate(Neural_net):
 			# Input Layer of state size and Hidden Layer with 24 nodes
-			if i=0: layer=Dense(nodes,input_dim=dim_input,activation=act_func))
+			if i==0:layer=Dense(nodes,input_dim=dim_input,activation=act_func)
 			# Output Layer with # of actions: 4*2 nodes
-			elif: layer = Dense(8, activation=act_func))
+			elif i==last:layer = Dense(8, activation=act_func)
 			# Hidden layer with X nodes
-			else: layer = Dense(nodes, activation=act_func))
+			else: layer = Dense(nodes, activation=act_func)
 			model.add(layer)
+			#model.add(Dropout(0.5))
 		# Create the model based on the information above
-		model.compile(loss='categorical_crossentropy',
-		              optimizer=Adam(lr=learning_rate))
+		# Configure the learning process,
+		model.compile(optimizer='rmsprop',#Adam(lr=learning_rate), #rmsprop
+              		  loss='categorical_crossentropy',
+			  		  metrics=['accuracy']) # categorical_accuracy
 		return model
 
 	def _calc_reward(self, my_role, attacks):
@@ -88,19 +94,22 @@ class Model:
 		state = self.encoder.encode_state(state)
 		action = self.encoder.encode_action(move, target)
 		reward = self._calc_reward(my_role, attacks)
+		print('reward= ',reward)
 		next_state = self.encoder.encode_state(next_state)
 		#save
 		obj = (state, action, reward, next_state, done)
 		print('Saving in log...')
 		with open(self.log_file, 'a') as csv_file:
-			writer = csv.writer(csv_file)
-			writer.writerow(obj)
+			csv.writer(csv_file).writerow(obj)
 
 	def predict(self, state):
+		print('Predicting...')
 		state = array([self.encoder.encode_state(state)])
 		act_values = self.model.predict(state)
-		action = argmax(act_values[0])
-		return self.encoder.decode_action(action)
+		print('Result keras model: {}'.format(act_values))
+		ret = self.encoder.decode_action(act_values[0])
+		print('Result my model: {}'.format(ret))
+		return ret
 
 	def _load(self):
 		df = read_csv(self.log_file, delimiter=',', header=None)
@@ -111,11 +120,12 @@ class Model:
 		return ret
 
 	# train the agent with the experience of the episode
-	def train(self,	batch_size = 32):
+	def train(self,	batch_factor = Agent_config['BATCH_FACTOR']):
 		memory = self._load()
-		minibatch = sample(memory,  min(len(memory), batch_size))
+		minibatch = sample(memory,  int(len(memory)*batch_factor))
 		# Extract informations from each memory
-
+		print('Training...')
+		"""
 		for state, action, reward, next_state, done in minibatch:
 			state = array([state]) # list of inputs in a numpy.array
 			next_state = array([next_state])
@@ -131,9 +141,9 @@ class Model:
 			target_f[0][action] = target
 
 			# Train the Neural Net with the state and target_f
-			self.model.fit(state, target_f, epochs=1, verbose=0)
-
+			self.model.fit(state, target_f,epochs=1,verbose=0)
 		"""
+		print('Preparing fit...')
 		states, actions, rewards, next_states, dones = zip(*minibatch)
 		states = array(states) # list of inputs in a numpy.array
 		next_states = array(next_states)
@@ -145,5 +155,9 @@ class Model:
 			target_f[i][action] = target
 
 		# Train the Neural Net with the state and target_f
-		self.model.fit(states, target_f, epochs=1, verbose=0)
-		"""
+		print('Fitting...')
+		self.model.fit( states, target_f,
+						batch_size=Agent_config['BATCH_SIZE_FACTOR'],
+						validation_split = Agent_config['VAL_SPLIT_FIT'],
+						epochs=Agent_config['EPOCHS_FIT'],
+						verbose=Agent_config['VERBOSE_FIT'])

@@ -42,7 +42,7 @@ class Categorical_variable:
 
 	#not used
 	def decode_values(self, encoded_type):
-		return list(self.type_alphabet.keys())[argmax(encoded_type)]
+		return list(self.alphabet.keys())[argmax(encoded_type)]
 
 
 class Encoder:
@@ -82,5 +82,6 @@ class Encoder:
 	def encode_action(self, move, target):
 		return self.encoder_action.encode(target*4 + move)
 
-	def decode_action(self, action):
-		return action%4, action//4
+	def decode_action(self, encoded_type):
+		action = self.encoder_action.decode_values(encoded_type)
+		return action%4, action//4 # return move, target
