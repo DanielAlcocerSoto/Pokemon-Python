@@ -51,7 +51,9 @@ class Encoder:
 		self.encoder_type = Categorical_variable(Types)#18
 		self.encoder_action = Categorical_variable(list(range(0,8)))#8
 		self.encoder_dmg = Categorical_variable(['physical','special'])#2
-		self.state_size = 22*4 + 45*3
+		len_poke_enc = 2*self.encoder_type.lenght+6+3 #6 stats,health,level,fainted
+		len_move_enc = self.encoder_type.lenght+self.encoder_dmg.lenght+2 #actual_pp,power
+		self.state_size = len_move_enc*4 + len_poke_enc*3 #3 pokemon and 4 moves
 
 	def _poke_to_list(self, poke): #6+18*2+3 = 45
 		n = ["hp", "attack", "special-attack", "defense", \
@@ -80,8 +82,7 @@ class Encoder:
 		return ret
 
 	def encode_action(self, move, target):
-		return self.encoder_action.encode(target*4 + move)
+		return target*4 + move
 
-	def decode_action(self, encoded_type):
-		action = self.encoder_action.decode_values(encoded_type)
+	def decode_action(self, action):
 		return action%4, action//4 # return move, target

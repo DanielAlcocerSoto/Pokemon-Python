@@ -1,5 +1,7 @@
 {
-  "GAMMA": 0.95,
+  "GAMMA_DISCOUNTING_RATE": 0.95,
+  "LEARNING_RATE_RL": 0.75,
+
   "DEFAULT_LOG": "log_test",
   "DEFAULT_MODEL": "model_test",
 

@@ -39,7 +39,6 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 class Model:
 	def __init__(self, model_file=None, log_file=None):
 		self.encoder = Encoder()
-		self.gamma = Agent_config['GAMMA']   # discount rate
 		# Log_file
 		if log_file == None: log_file = Agent_config['DEFAULT_LOG']
 		self.log_file = Directory['DIR_LOGS'] + log_file + '.csv'
@@ -111,53 +110,59 @@ class Model:
 		print('Result my model: {}'.format(ret))
 		return ret
 
-	def _load(self):
-		df = read_csv(self.log_file, delimiter=',', header=None)
-		ret = [ array (
-				[literal_eval(field) if isinstance(field, str) else field
-				 for field in row]
-				) for row in df.values]
-		return ret
-
-	# train the agent with the experience of the episode
-	def train(self,	batch_factor = Agent_config['BATCH_FACTOR']):
-		memory = self._load()
-		minibatch = sample(memory,  int(len(memory)*batch_factor))
+	# Train the agent with the experience of the episode
+	def train(self,	memory):
 		# Extract informations from each memory
-		print('Training...')
-		"""
-		for state, action, reward, next_state, done in minibatch:
-			state = array([state]) # list of inputs in a numpy.array
-			next_state = array([next_state])
-			# if done, make our target reward
-			target = reward
-			if not done: # predict the future discounted reward
-				target += self.gamma * amax(self.model.predict(next_state)[0])
+		print('Training model with this battle...')
+		for state, action, reward, next_state, done in memory:
+			self.learn_turn(state, action, reward, next_state, done)
 
-			# make the agent to approximately map
-		    # the current state to future discounted reward
-		    # We'll call that target_f
-			target_f = self.model.predict(state)
-			target_f[0][action] = target
+	# Train the agent with the experience of a turn
+	def learn_turn(self,state, action, reward, next_state, done):
+		learning_rate = Agent_config['LEARNING_RATE_RL']
+		gama = Agent_config['GAMMA_DISCOUNTING_RATE']
+		state = array([state])
+		next_state = array([next_state])
 
-			# Train the Neural Net with the state and target_f
-			self.model.fit(state, target_f,epochs=1,verbose=0)
-		"""
-		print('Preparing fit...')
-		states, actions, rewards, next_states, dones = zip(*minibatch)
-		states = array(states) # list of inputs in a numpy.array
-		next_states = array(next_states)
-		print(next_states)
-		targets = [reward if done else
-				  reward + self.gamma * amax(self.model.predict(next_states)[i])
-				  for i, reward, done in enumerate(zip(rewards, dones))]
-		target_f = self.model.predict(states)
-		for i, (action, target) in enumerate(zip(actions, targets)):
-			target_f[i][action] = target
+		target_f = self.model.predict(state)[0]
+		aux = 0
+		if not done:
+			aux = gamma*amax(self.model.predict(next_state)[0])-target_f[action]
+		target_f[action] += learning_rate*(reward+aux)
 
 		# Train the Neural Net with the state and target_f
+		self.model.fit(state, target_f, epochs=1, verbose=0)
+
+
+	def _load_log_memory(self,log_file):
+		df = read_csv(log_file, delimiter=',', header=None)
+		ret = [ [literal_eval(field) if isinstance(field, str) else field
+				 for field in row] for row in df.values]
+		return ret
+
+	def rebuid_Q_function(self, log_file):
+		print('Rebuilding Q-function\nPreparing fit...')
+		memory = self._load_log_memory(log_file)
+		# Extract informations from each memory
+		learning_rate = Agent_config['LEARNING_RATE_RL']
+		gama = Agent_config['GAMMA_DISCOUNTING_RATE']
+		states, actions, rewards, next_states, dones = zip(*memory)
+		dones = array(dones)
+		states = array(states)
+		rewards = array(rewards)
+		next_states = array(next_states)
+		predict_s = self.model.predict(states) # Actual prediction
+
+		# Calculate new prediction
+		Q_s_a = array([pred[action] for pred, action in zip(predict_s,actions)])
+		Q_next = array(list(map(amax,self.model.predict(next_states))))
+		news_Q = Q_s_a + learning_rate*(rewards + dones*(gama*Q_next - Q_s_a))
+		# Replace new Q-value in predict_s
+		for pred, act, new in zip(predict_s, actions, news_Q): pred[act] = new
+
+		# Train the Neural Net with the state and news_rewards
 		print('Fitting...')
-		self.model.fit( states, target_f,
+		self.model.fit( states, predict_s,
 						batch_size=Agent_config['BATCH_SIZE_FACTOR'],
 						validation_split = Agent_config['VAL_SPLIT_FIT'],
 						epochs=Agent_config['EPOCHS_FIT'],
