@@ -66,15 +66,17 @@ def main(args):
 		from Agent.agent_to_play import AgentPlay
 		from Agent.model import Model
 
-		model = Model(model_file=args.model_name, log_file=args.log_name)
+
 		if args.action == 'train_model':
 			print('Training model...')
 			start=time()
-			model.train()
+			model = Model(model_name=args.model_name, log_name=args.log_name)
 			end=time()
 			model.save(args.model_name)
 			print('Finished time = {0:.2f}s'.format(end-start))
-		elif args.action == 'play_to_eval':
+
+		model = Model(model_name=args.model_name, log_name=args.log_name)
+		if args.action == 'play_to_eval':
 			print('Running a battle with an agent ally...')
 			def constructor_agent(role, pokemon):
 				return AgentPlay(role, pokemon, model)
@@ -82,14 +84,15 @@ def main(args):
 					base_level = args.base_level,
 					varability_level = args.var_level).play()
 		elif args.action == 'eval_agent':
+			from Game.engine.trainer import TrainerRandom
 			print('Running random battles to eval an agent')
-			print('Not implemeted evaluation yet. Running...')
 			def constructor_agent(role, pokemon):
 				return AgentPlay(role, pokemon, model)
 			wins = 0
-			for e in range(args.episodes):
+			for i in range(args.episodes):
 				print('-------------- EPISODE: {}/{} --------------'.format(i,args.episodes))
 				battle = Battle(constructor_trainerA2 = constructor_agent,
+								constructor_trainerA1 = TrainerRandom,
 								base_level = args.base_level,
 								varability_level = args.var_level)
 				battle.play()
@@ -102,9 +105,11 @@ def main(args):
 			from Agent.agent_to_train import AgentTrain
 			from Agent.environment import Environment
 
-			def poke_rand(): return Pokemon.Random(args.base_level, args.var_level)
-			agent = AgentTrain('Ally_1', poke_rand(), model)
-			def constructor_agent(role, pokemon): return agent
+			poke_rand = Pokemon.Random(args.base_level, args.var_level)
+			agent = AgentTrain('Ally_1', poke_rand, model)
+			def constructor_agent(role, pokemon):
+				agent.replay_and_train(pokemon)
+				return agent
 
 			if args.action == 'play_to_train':
 				from Game.engine.trainerInput import TrainerInput
@@ -120,8 +125,7 @@ def main(args):
 							constructor_trainerA2 = constructor_agent,
 							base_level = args.base_level,
 							varability_level = args.var_level).play()
-				agent.replay(poke_rand())
-			agent.save_model()
+			agent.save_model(args.model_name)
 
 
 if __name__ == '__main__':

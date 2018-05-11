@@ -49,7 +49,6 @@ class Encoder:
 	def __init__(self):
 		Types = [t.title() for t in Type.possible_names()]
 		self.encoder_type = Categorical_variable(Types)#18
-		self.encoder_action = Categorical_variable(list(range(0,8)))#8
 		self.encoder_dmg = Categorical_variable(['physical','special'])#2
 		len_poke_enc = 2*self.encoder_type.lenght+6+3 #6 stats,health,level,fainted
 		len_move_enc = self.encoder_type.lenght+self.encoder_dmg.lenght+2 #actual_pp,power
@@ -84,5 +83,6 @@ class Encoder:
 	def encode_action(self, move, target):
 		return target*4 + move
 
-	def decode_action(self, action):
+	def decode_action(self, list_Q):
+		action = argmax(list_Q)
 		return action%4, action//4 # return move, target

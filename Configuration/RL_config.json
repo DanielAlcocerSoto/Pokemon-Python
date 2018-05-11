@@ -1,16 +1,20 @@
 {
-  "GAMMA_DISCOUNTING_RATE": 0.95,
-  "LEARNING_RATE_RL": 0.75,
-
-  "DEFAULT_LOG": "log_test",
-  "DEFAULT_MODEL": "model_test",
+  "DEFAULT_LOG": "log_rand",
+  "DEFAULT_MODEL": "model_rand",
 
   "NEURAL_NET_NODES": [200,100,20,8],
   "NEURAL_NET_ACTIVATION": ["relu","relu","relu","softmax"],
 
-  "BATCH_FACTOR":0.2,
-  "VERBOSE_FIT":1,
-  "EPOCHS_FIT":10,
-  "VAL_SPLIT_FIT":0.1,
-  "BATCH_SIZE_FACTOR":5
+  "INCREMENTAL_TRAIN": false,
+
+  "GAMMA_DISCOUNTING_RATE": 0.25,
+  "LEARNING_RATE_RL": 0.75,
+
+  "VERBOSE_FIT": 1,
+  "EPOCHS_FIT": 10,
+  "VAL_SPLIT_FIT": 0.1,
+  "BATCH_SIZE_FACTOR": 5,
+
+  "MIN_EPSILON": 0.01,
+  "EPSILON_DECAY": 0.995
 }
