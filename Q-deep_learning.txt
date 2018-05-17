@@ -1,9 +1,0 @@
-NN -> (state, action) ---> reward
-NN output not is a categorical variable
-reward for each action, (metode de triar accio correcte [amax.... //%])
-
-done -> Q-learnig indicar quina formula fa ---> fer *done[0,1] i evitar bucle
-
-metode de entrenament incorrecte
-    cal un per el primer cop -> entrenar NN amb rewards coneguts + iterar per RL
-    un per a cada nova partida (remember/ replay)

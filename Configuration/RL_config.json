@@ -1,11 +1,12 @@
 {
-  "DEFAULT_LOG": "log_rand",
-  "DEFAULT_MODEL": "model_rand",
+  "INIT_MODEL_MODE": "LOAD",
+  "LOG_NAME": "log_rand",
+  "MODEL_NAME": "model_rand",
 
-  "NEURAL_NET_NODES": [200,100,20,8],
-  "NEURAL_NET_ACTIVATION": ["relu","relu","relu","softmax"],
-
-  "INCREMENTAL_TRAIN": false,
+  "NEURAL_NET_DESIGN": [
+    [100,"relu"],
+    [20,"relu"]
+  ],
 
   "GAMMA_DISCOUNTING_RATE": 0.25,
   "LEARNING_RATE_RL": 0.50,
@@ -13,8 +14,6 @@
   "VERBOSE_FIT": 1,
   "EPOCHS_FIT": 10,
   "VAL_SPLIT_FIT": 0.1,
-  "BATCH_SIZE_FACTOR": 5,
+  "BATCH_SIZE": 128
 
-  "MIN_EPSILON": 0.01,
-  "EPSILON_DECAY": 1
 }

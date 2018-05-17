@@ -80,7 +80,7 @@ def search(attr, args={}):
 	because maybe the connection is rejected by too many requests.
 	Used it when the search involves large amounts of results (atleast 100).
 """
-def partitionate_search(attr, filter_item, start, print_name):
+def partitionate_search(attr, filter_item, start):
 	"""
 		Args:
 			attr ('str'): Attribute param for the search function.
@@ -88,7 +88,6 @@ def partitionate_search(attr, filter_item, start, print_name):
 								  It must to Return a key (name) and value (info)
 								  in a pair format.
 			start ('int'): Starter iteration.
-			print_name ('bool'): Boolean to indicate if each type will be painted.
 
 		Action:
 			Generate a info file for 'attr', but done in iterations.
@@ -104,7 +103,7 @@ def partitionate_search(attr, filter_item, start, print_name):
 			pair = filter_item(get(r['url']))
 			if pair != None:
 				key, value = pair
-				if print_name: print(key)
+				if Generate_Config['PRINT_NAME']: print(key)
 				dex[key]=value
 		save_info(PATH, dex)
 
@@ -125,10 +124,9 @@ def partitionate_search(attr, filter_item, start, print_name):
 """
 	Function to generate types info file
 """
-def generate_types(print_name = True):
+def generate_types():
 	"""
-		Args:
-			print_name ('bool'): Boolean to indicate if each type will be painted.
+		Args: -
 
 		Action:
 			Create a new file with the information of the differents types.
@@ -139,7 +137,7 @@ def generate_types(print_name = True):
 		('dict' --> 'dict')
 	"""
 	def filter_type_info(ty):
-		if print_name: print(ty['name'])
+		if Generate_Config['PRINT_NAME']: print(ty['name'])
 		return {relation: [t['name'] for t in types]
 				for relation, types in ty['damage_relations'].items()
 				if relation.split('_')[2] == 'to'}
@@ -154,11 +152,10 @@ def generate_types(print_name = True):
 """
 	Function to generate moves info file
 """
-def generate_moves(start_iteration=0, print_name = True):
+def generate_moves(start_iteration=0):
 	"""
 		Args:
 			start_iteration ('int'): Starter iteration.
-			print_name ('bool'): Boolean to indicate if each move will be painted.
 
 		Action:
 			Create a new file with the information of the differents moves.
@@ -192,18 +189,17 @@ def generate_moves(start_iteration=0, print_name = True):
 			}
 			return (move['name'], info)
 
-	partitionate_search('move', filter_move, start_iteration, print_name)
+	partitionate_search('move', filter_move, start_iteration)
 
 ####################################POKEMON#####################################
 
 """
 	Function to generate pokemons info file
 """
-def generate_pokemons(start_iteration=0, print_name = True):
+def generate_pokemons(start_iteration=0):
 	"""
 		Args:
 			start_iteration ('int'): Starter iteration.
-			print_name ('bool'): Boolean to indicate if each pokemon will be painted.
 
 		Action:
 			Create a new file with the information of the differents pokemons.
@@ -277,4 +273,4 @@ def generate_pokemons(start_iteration=0, print_name = True):
 		if len(info['moves']) < 4: return None
 		return (filter_name(pokemon['name']), info)
 
-	partitionate_search('pokemon', loop_pokemon, start_iteration, print_name)
+	partitionate_search('pokemon', loop_pokemon, start_iteration)

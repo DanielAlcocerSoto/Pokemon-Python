@@ -3,5 +3,7 @@
 
   "N_POKE": 493,
   "N_TYPE": 18,
-  "N_MOVE": 719
+  "N_MOVE": 719,
+
+  "PRINT_NAME": true
 }

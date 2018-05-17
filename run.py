@@ -7,6 +7,13 @@ Main exeutable file
 
 # Local imports
 from Game.engine.double_battle import Double_Battle as Battle
+from Game.engine.trainer import TrainerRandom
+from Game.engine.core.pokemon import Pokemon
+
+from Agent.agent_to_play import AgentPlay
+from Agent.agent_to_train import AgentTrain
+from Agent.environment import Environment
+
 from DataBase.generator_data_base import \
 	generate_pokemons, generate_types, generate_moves
 
@@ -30,20 +37,150 @@ def generate_data(args):
 		Action:
 			This function call the action indicated in the parameter 'args'.
 	"""
-	print_name = not args.no_print_name
 	start = args.start
 	if  args.type or args.all:
 		print('Generating types info...')
-		generate_types(print_name = print_name)
+		generate_types()
 	if  args.move or args.all:
 		print('Generating moves info...')
-		generate_moves(start_iteration = start, print_name = print_name)
+		generate_moves(start_iteration = start)
 	if  args.poke or args.all:
 		print('Generating pokemons info...')
-		generate_pokemons(start_iteration = start, print_name = print_name)
+		generate_pokemons(start_iteration = start)
 	if  not (args.poke or args.move or args.type or args.all):
 		print(	'Specify that you want to generate: --type (-t), --move (-m),'
 				' --poke (-p) or --all (-a)')
+
+
+"""
+This code rebuid a model from a log file and measures the time it takes.
+"""
+def build_model():
+	"""
+		Args: -
+
+		Action:
+			This function create a new model with the help of a log and saved in
+			a file.
+	"""
+	from Agent.model import Model # so do not load tensorflow always
+	from Configuration.settings import Agent_config
+	print('Training model...')
+	Agent_config['INIT_MODEL_MODE'] = 'REBUILD' #force to rebuild model
+	start = time()
+	model = Model()
+	end = time()
+	model.save()
+	print('Finished time = {0:.2f}s'.format(end-start))
+
+
+"""
+Run this code to play a battle with a random ally to evaluate the correct
+functioning of the game.
+"""
+def play_with_rand(args):
+	"""
+		Args:
+			args: parse_args return.
+
+		Action:
+			This function run a battle with a random ally with the parameters
+			indicated in the parameter 'args'.
+	"""
+	print('Running a battle with a random ally...')
+	Battle(	base_level = args.base_level,
+			varability_level = args.var_level).play()
+
+
+"""
+Run this code to play a battle with an agent as ally for the manual evaluation
+of the model.
+"""
+def play_to_eval(args):
+	"""
+		Args:
+			args: parse_args return.
+
+		Action:
+			This function run a battle with an agent as ally with the parameters
+			indicated in the parameter 'args'.
+	"""
+	from Agent.agent_to_play import AgentPlay
+	print('Running a battle with an agent ally...')
+	Battle( constructor_trainerA2 = AgentPlay,
+			base_level = args.base_level,
+			varability_level = args.var_level).play()
+
+
+"""
+Executes N battles played by a random and an agent to evaluate the performance
+of the model.
+"""
+def eval_agent(args):
+	"""
+		Args:
+			args: parse_args return.
+
+		Action:
+			This function play N battles with a random and an agent to evaluate
+			the performance	of the model.
+	"""
+	from Agent.model import Model
+	print('Running random battles to eval an agent')
+	model = Model() #same model in each episode
+	wins = 0
+	def constructor_agent(role, pokemon): return AgentPlay(role, pokemon, model)
+	header = '--------------------- EPISODE: {}/{} ---------------------'
+	myheader = header.format('{}',args.episodes)
+	for i in range(args.episodes):
+		print(myheader.format(i+1))
+		battle = Battle(constructor_trainerA2 = constructor_agent,
+						constructor_trainerA1 = TrainerRandom,
+						base_level = args.base_level,
+						varability_level = args.var_level)
+		battle.play()
+		wins+=battle.winners()
+		# More prins for analize
+	print('WINS: {}/{} = {}'.format(wins,args.episodes,wins/args.episodes))
+
+
+def play_to_train(args):
+	from Agent.model import Model
+	print('Running a battle to train an agent')
+
+	model = Model()
+	def constructor_agent(role, pokemon):
+		model.replay_and_train()
+		return AgentPlay(role, pokemon, model)
+
+	header = '--------------------- EPISODE: {}/{} ---------------------'
+	myheader = header.format('{}',args.episodes)
+	for i in range(args.episodes):
+		print(myheader.format(i+1))
+		Environment(constructor_trainerA2 = constructor_agent,
+					base_level = args.base_level,
+					varability_level = args.var_level).play()
+	model.save()
+
+def train_agent(args):
+	from Agent.model import Model
+	print('Running random battles to train an agent')
+
+	model = Model()
+	def constructor_agent(role, pokemon):
+		model.replay_and_train()
+		return AgentPlay(role, pokemon, model)
+
+	header = '--------------------- EPISODE: {}/{} ---------------------'
+	myheader = header.format('{}',args.episodes)
+	for i in range(args.episodes):
+		print(myheader.format(i+1))
+		Environment(constructor_trainerA1 = TrainerRandom,
+					constructor_trainerA2 = constructor_agent,
+					base_level = args.base_level,
+					varability_level = args.var_level).play()
+	model.save()
+
 
 """
 Main function to execute this program
@@ -57,77 +194,15 @@ def main(args):
 			This function execute the action indicated in the parameter
 			'args.action'.
 	"""
-	if args.action == 'generate_data': generate_data(args)
-	elif args.action == 'play_with_rand':
-		print('Running a battle with a random ally...')
-		Battle(	base_level = args.base_level,
-				varability_level = args.var_level).play()
-	else: # so do not load tensorflow always
-		from Agent.agent_to_play import AgentPlay
-		from Agent.model import Model
+	if   args.action == 'generate_data':  generate_data(args)
+	elif args.action == 'play_with_rand': play_with_rand(args)
+	elif args.action == 'play_to_train':  play_to_train(args)
+	elif args.action == 'play_to_eval':   play_to_eval(args)
+	elif args.action == 'train_agent':    train_agent(args)
+	elif args.action == 'eval_agent':     eval_agent(args)
+	elif args.action == 'train_model':    build_model()
 
-
-		if args.action == 'train_model':
-			print('Training model...')
-			start=time()
-			model = Model(model_name=args.model_name, log_name=args.log_name)
-			end=time()
-			model.save(args.model_name)
-			print('Finished time = {0:.2f}s'.format(end-start))
-
-		model = Model(model_name=args.model_name, log_name=args.log_name)
-		if args.action == 'play_to_eval':
-			print('Running a battle with an agent ally...')
-			def constructor_agent(role, pokemon):
-				return AgentPlay(role, pokemon, model)
-			Battle( constructor_trainerA2 = constructor_agent,
-					base_level = args.base_level,
-					varability_level = args.var_level).play()
-		elif args.action == 'eval_agent':
-			from Game.engine.trainer import TrainerRandom
-			print('Running random battles to eval an agent')
-			def constructor_agent(role, pokemon):
-				return AgentPlay(role, pokemon, model)
-			wins = 0
-			for i in range(args.episodes):
-				print('-------------- EPISODE: {}/{} --------------'.format(i,args.episodes))
-				battle = Battle(constructor_trainerA2 = constructor_agent,
-								constructor_trainerA1 = TrainerRandom,
-								base_level = args.base_level,
-								varability_level = args.var_level)
-				battle.play()
-				wins+=battle.winners()
-				# More prins por analize
-			print('WINS: {}/{} = {}'.format(wins,args.episodes,wins/args.episodes))
-
-		else: # Training actions
-			from Game.engine.core.pokemon import Pokemon
-			from Agent.agent_to_train import AgentTrain
-			from Agent.environment import Environment
-
-			poke_rand = Pokemon.Random(args.base_level, args.var_level)
-			agent = AgentTrain('Ally_1', poke_rand, model)
-			def constructor_agent(role, pokemon):
-				agent.replay_and_train(pokemon)
-				return agent
-
-			if args.action == 'play_to_train':
-				from Game.engine.trainerInput import TrainerInput
-				print('Running a battle to train an agent')
-				constructor_trainerA1 = TrainerInput
-			elif args.action == 'train_agent':
-				from Game.engine.trainer import TrainerRandom
-				print('Running random battles to train an agent')
-				constructor_trainerA1 = TrainerRandom
-			for i in range(args.episodes):
-				print('-------------- EPISODE: {}/{} --------------'.format(i,args.episodes))
-				Environment(constructor_trainerA1 = constructor_trainerA1,
-							constructor_trainerA2 = constructor_agent,
-							base_level = args.base_level,
-							varability_level = args.var_level).play()
-			agent.save_model(args.model_name)
-
-
+#Main of run
 if __name__ == '__main__':
 	"""
 		Main function of this funcionality.
@@ -183,19 +258,10 @@ if __name__ == '__main__':
 	parser.add_argument('--all' , '-a', action='store_true',
                    		help='Param for "generate_data" action. ' +\
 						'Flag to generate all the information')
-	parser.add_argument('--no_print_name' , action='store_true',
-                   		help='Param for "generate_data" action. ' +\
-						'Flag to not print the name of the data')
 	parser.add_argument('--start' , '-s', type=int, default = 0,
                    		help='Param for "generate_data" action. ' +\
 						'Number of the starter iteration')
 	# Arguments for play
-	parser.add_argument('--log_name' , '-log', default = None,
-						help='Param for agent actions. ' +\
-						'Name of the log file to use/create')
-	parser.add_argument('--model_name' , '-model', default = None,
-						help='Param for agent actions. ' +\
-						'Name of the model to use/create')
 	parser.add_argument('--episodes' , '-e', type = int, default = 5,
 						help='Param for agent train actions. ' +\
 						'Number of battles to play')
