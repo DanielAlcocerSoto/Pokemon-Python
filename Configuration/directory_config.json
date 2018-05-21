@@ -8,6 +8,7 @@
   "GENERATE_CONFIG": "generate_data_config",
   "ATTACK_CONFIG": "attack_config",
   "AGENT_CONFIG": "RL_config",
+  "GENERAL_CONFIG": "general_config",
 
   "TEXT_PATTERN": "text",
 

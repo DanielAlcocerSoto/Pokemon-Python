@@ -40,7 +40,7 @@ def with_prob_of(prob):
 			Note: With a 'prob' = 100 already exists a 1/100 probability of
 				  False, only with 'prob' = None a True is always guaranteed.
 	"""
-	if prob == None: return True
+	if not Attack_Config ['USE_MISSING'] or prob == None: return True
 	return uniform(0,100) < prob
 
 
@@ -70,12 +70,12 @@ class Attack:
 		self.has_pp = move.can_use()
 		if not self.has_pp: self.missed_attack = False
 		else:
-			self.missed_attack = not with_prob_of(move.accuracy()) \
-								 or self.poke_defender.is_fainted()
+			self.missed_attack = not with_prob_of(move.accuracy())
 			if not self.missed_attack:
 				move.use()
-				self.calc_damage(poke_attacker, poke_defender, move)
-				poke_defender.hurt(self.dmg)
+				if not self.poke_defender.is_fainted():
+					self.calc_damage(poke_attacker, poke_defender, move)
+					poke_defender.hurt(self.dmg)
 
 		self.poke_defender_after = copy(poke_defender)
 

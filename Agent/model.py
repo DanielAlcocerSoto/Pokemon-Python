@@ -25,6 +25,7 @@ from copy import deepcopy as copy
 from ast import literal_eval
 from pandas import read_csv
 from csv import writer
+from os.path import exists
 
 
 __version__ = '0.5'
@@ -42,15 +43,14 @@ class Model:
 
 		if Agent_config['INIT_MODEL_MODE'] == 'LOAD':
 			model_file=Directory['DIR_MODELS']+Agent_config['MODEL_NAME']+'.h5'
-			self.keras_NN_model = load_model(model_file)
+			if exists(model_file): self.keras_NN_model = load_model(model_file)
+			else: self.keras_NN_model = self._build_model()
 		elif Agent_config['INIT_MODEL_MODE'] == 'REBUILD':
 			self.keras_NN_model = self._build_model()
 			self._rebuid_Q_function(self.log_file)
-		elif Agent_config['INIT_MODEL_MODE'] == 'BUILD':
-			self.keras_NN_model = self._build_model()
 		else: raise Exception('The "INIT_MODEL_MODE" parameter of the '+\
 		'configuration file "RL_config.json" must be one of the following '+\
-		'values: "LOAD", "REBUILD" or "BUILD"')
+		'values: "LOAD" or "REBUILD"')
 
 	def predict(self, state):
 		print('Predicting...')
@@ -67,12 +67,12 @@ class Model:
 		next_state = self.encoder.encode_state(next_state)
 		action = self.encoder.encode_action(move, target)
 		reward = self._get_reward(my_role, attacks)
-		print('Reward of this turn = ', reward)
+		#print('Reward of this turn = ', reward)
 		self.memory.append( (state, action, reward, next_state, done) )
 
 	def replay_and_train(self):
 		# Save memory in log file
-		print('Saving log in {} ...'.format(self.log_file))
+		#print('Saving log in {} ...'.format(self.log_file))
 		with open(self.log_file, 'a') as csv_file:
 			for obj in self.memory:	writer(csv_file).writerow(obj)
 		# Train model with all battle (episodic RL)
@@ -117,20 +117,21 @@ class Model:
 
 	# Train the agent with the experience of the episode
 	def _traing_episode(self):
-		print('Training model with this battle...')
+		#print('Training model with this battle...')
 		self.memory.reverse() #reverse for fiting first the next state
 		learning_rate = Agent_config['LEARNING_RATE_RL']
 		gamma = Agent_config['GAMMA_DISCOUNTING_RATE']
-		for state, action, reward, next_state, done in self.memory:
-			state = array([state])
-			next_state = array([next_state])
-			target_f = self.keras_NN_model.predict(state)[0]
-			if not done:
-				reward += gamma*amax(self.keras_NN_model.predict(next_state)[0])
-				reward -= target_f[action]
-			target_f[action] += learning_rate*(reward)
-			# Train the Neural Net with the state and target_f
-			self.keras_NN_model.fit(state, array([target_f]), epochs=1, verbose=0)
+		for i in range(Agent_config['EPOCHS_EPISODIC_FIT']):
+			for state, action, reward, next_state, done in self.memory:
+				state = array([state])
+				next_state = array([next_state])
+				target_f = self.keras_NN_model.predict(state)[0]
+				if not done:
+					reward += gamma*amax(self.keras_NN_model.predict(next_state)[0])
+					reward -= target_f[action]
+				target_f[action] += learning_rate*(reward)
+				# Train the Neural Net with the state and target_f
+				self.keras_NN_model.fit(state, array([target_f]), epochs=1, verbose=0)
 
 	def _load_log_memory(self,log_file):
 		df = read_csv(log_file, delimiter=',', header=None)
@@ -143,26 +144,27 @@ class Model:
 		learning_rate = Agent_config['LEARNING_RATE_RL']
 		gamma = Agent_config['GAMMA_DISCOUNTING_RATE']
 
-		print('Preparing fit...')
 		states,actions,rewards,next_states,dones=self._load_log_memory(log_file)
 		dones = array(dones)
 		states = array(states)
 		rewards = array(rewards)
 		next_states = array(next_states)
 
-		predict_s = self.keras_NN_model.predict(states) # Actual prediction
+		for i in range(Agent_config['EPOCHS_REBUILD_FIT']):
+			print('Preparing fit...')
+			predict_s = self.keras_NN_model.predict(states) # Actual prediction
 
-		# Calculate new prediction
-		Q_s_a = array([pred[action] for pred, action in zip(predict_s,actions)])
-		Q_next = array(list(map(amax,self.keras_NN_model.predict(next_states))))
-		news_Q = Q_s_a + learning_rate*(rewards + dones*(gamma*Q_next - Q_s_a))
-		# Replace new Q-value in predict_s
-		for pred, act, new in zip(predict_s, actions, news_Q): pred[act] = new
+			# Calculate new prediction
+			Q_s_a = array([pred[action] for pred, action in zip(predict_s,actions)])
+			Q_next = array(list(map(amax,self.keras_NN_model.predict(next_states))))
+			news_Q = Q_s_a + learning_rate*(rewards + dones*(gamma*Q_next - Q_s_a))
+			# Replace new Q-value in predict_s
+			for pred, act, new in zip(predict_s, actions, news_Q): pred[act] = new
 
-		# Train the Neural Net with the state and news_rewards
-		print('Fitting...')
-		self.keras_NN_model.fit(states, predict_s,
-			batch_size=Agent_config['BATCH_SIZE'],
-			validation_split = Agent_config['VAL_SPLIT_FIT'],
-			epochs=Agent_config['EPOCHS_FIT'],
-			verbose=Agent_config['VERBOSE_FIT'])
+			# Train the Neural Net with the state and news_rewards
+			print('Fitting...')
+			self.keras_NN_model.fit(states, predict_s,
+				batch_size=Agent_config['BATCH_SIZE'],
+				validation_split = Agent_config['VAL_SPLIT_FIT'],
+				epochs=Agent_config['EPOCHS_FIT'],
+				verbose=Agent_config['VERBOSE_FIT'])

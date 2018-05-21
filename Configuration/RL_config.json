@@ -1,19 +1,21 @@
 {
   "INIT_MODEL_MODE": "LOAD",
-  "LOG_NAME": "log_rand",
-  "MODEL_NAME": "model_rand",
+
+  "LOG_NAME": "log_redu_stat",
+  "MODEL_NAME": "model_redu_stat",
 
   "NEURAL_NET_DESIGN": [
-    [100,"relu"],
+    [50,"relu"],
     [20,"relu"]
   ],
 
   "GAMMA_DISCOUNTING_RATE": 0.25,
   "LEARNING_RATE_RL": 0.50,
+  "EPOCHS_EPISODIC_FIT":1,
 
+  "EPOCHS_REBUILD_FIT":10,
   "VERBOSE_FIT": 1,
   "EPOCHS_FIT": 10,
   "VAL_SPLIT_FIT": 0.1,
   "BATCH_SIZE": 128
-
 }

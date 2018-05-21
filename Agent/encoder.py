@@ -50,33 +50,35 @@ class Encoder:
 		Types = [t.title() for t in Type.possible_names()]
 		self.encoder_type = Categorical_variable(Types)#18
 		self.encoder_dmg = Categorical_variable(['physical','special'])#2
-		len_poke_enc = 2*self.encoder_type.lenght+6+3 #6 stats,health,level,fainted
-		len_move_enc = self.encoder_type.lenght+self.encoder_dmg.lenght+2 #actual_pp,power
+		#len_poke_enc = 2*self.encoder_type.lenght+6+3 #6 stats,health,level,fainted
+		#len_move_enc = self.encoder_type.lenght+self.encoder_dmg.lenght+2 #actual_pp,power
+		len_poke_enc = 2*self.encoder_type.lenght+1
+		len_move_enc = self.encoder_type.lenght+2
 		self.state_size = len_move_enc*4 + len_poke_enc*3 #3 pokemon and 4 moves
 
-	def _poke_to_list(self, poke): #6+18*2+3 = 45
-		n = ["hp", "attack", "special-attack", "defense", \
-			 "special-defense", "speed"]
-		stats = [poke.get_stat(s) for s in n]
+	def _poke_to_list(self, poke):
+		#n = ["hp", "attack", "special-attack", "defense", \
+		#	 "special-defense", "speed"]
+		#stats = [poke.get_stat(s) for s in n]
 		types = self.encoder_type.encode([t.name() for t in poke.types()])
 		if not isinstance(types[0], list):
 			types = [types, [0]*self.encoder_type.lenght]
 		types = types[0] + types[1]
-		return stats + types + [poke.health(), poke.level(), int(poke.is_fainted())]
+		#return stats + types + [poke.health(), poke.level(), int(poke.is_fainted())]
+		return types + [int(poke.is_fainted())]
 
-	def _move_to_list(self, move): #2 + 18 + 2 = 22
-		return  self.encoder_type.encode(move.type().name()) + \
-				self.encoder_dmg.encode(move.damage_class()) + \
-				[move.actual_pp(), move.power()]
+	def _move_to_list(self, move):
+			#self.encoder_dmg.encode(move.damage_class()) + \
+		return self.encoder_type.encode(move.type().name()) + \
+				[int(move.can_use()), move.power()]
 
-	def encode_state(self, state):# 22*4 + 45*3
-		#TODO  index-->value
+	def encode_state(self, state):
 		#my_pokemon_data
 		ret = self._poke_to_list(state['Ally_1'])
 		moves=state['Ally_1'].moves()
-		for i in range(4): ret+= self._move_to_list(moves[i])
-		for j in range(2): ret+=self._poke_to_list(state['Foe_'+str(j)])
+		for i in range(4): ret += self._move_to_list(moves[i])
 		# enemies_data
+		for j in range(2): ret+=self._poke_to_list(state['Foe_'+str(j)])
 		#print('encode state = {}'.format(ret))
 		return ret
 

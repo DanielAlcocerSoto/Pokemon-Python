@@ -105,11 +105,17 @@ def play_to_eval(args):
 			This function run a battle with an agent as ally with the parameters
 			indicated in the parameter 'args'.
 	"""
-	from Agent.agent_to_play import AgentPlay
+	from Agent.model import Model
 	print('Running a battle with an agent ally...')
-	Battle( constructor_trainerA2 = AgentPlay,
-			base_level = args.base_level,
-			varability_level = args.var_level).play()
+	def constructor_agent(role, pokemon): return AgentPlay(role, pokemon,  Model())
+	header = '--------------------- EPISODE: {}/{} ---------------------'
+	myheader = header.format('{}',args.episodes)
+	for i in range(args.episodes):
+		print(myheader.format(i+1))
+		Battle( constructor_trainerA2 = constructor_agent,
+				base_level = args.base_level,
+				varability_level = args.var_level).play()
+
 
 
 """
@@ -141,7 +147,7 @@ def eval_agent(args):
 		battle.play()
 		wins+=battle.winners()
 		# More prins for analize
-	print('WINS: {}/{} = {}'.format(wins,args.episodes,wins/args.episodes))
+	print('WINS: {}/{} = {}%'.format(wins,args.episodes,wins/args.episodes*100))
 
 
 def play_to_train(args):
@@ -151,7 +157,7 @@ def play_to_train(args):
 	model = Model()
 	def constructor_agent(role, pokemon):
 		model.replay_and_train()
-		return AgentPlay(role, pokemon, model)
+		return AgentTrain(role, pokemon, model)
 
 	header = '--------------------- EPISODE: {}/{} ---------------------'
 	myheader = header.format('{}',args.episodes)
@@ -163,23 +169,30 @@ def play_to_train(args):
 	model.save()
 
 def train_agent(args):
+	from Configuration.settings import General_config
+	from Configuration.settings import Attack_Config
 	from Agent.model import Model
 	print('Running random battles to train an agent')
-
+	General_config['BATTLE_VERBOSE'] = False
+	Attack_Config['USE_VARABILITY'] = False
+	Attack_Config['USE_CRITIC'] = False
+	Attack_Config['USE_MISSING'] = False
+	start = time()
 	model = Model()
 	def constructor_agent(role, pokemon):
 		model.replay_and_train()
-		return AgentPlay(role, pokemon, model)
+		return AgentTrain(role, pokemon, model)
 
 	header = '--------------------- EPISODE: {}/{} ---------------------'
 	myheader = header.format('{}',args.episodes)
 	for i in range(args.episodes):
-		print(myheader.format(i+1))
+		if (i+1)%100 == 0: print(myheader.format(i+1))
 		Environment(constructor_trainerA1 = TrainerRandom,
 					constructor_trainerA2 = constructor_agent,
 					base_level = args.base_level,
 					varability_level = args.var_level).play()
 	model.save()
+	print('Finished time = {0:.2f}s'.format(time()-start))
 
 
 """
@@ -194,6 +207,17 @@ def main(args):
 			This function execute the action indicated in the parameter
 			'args.action'.
 	"""
+
+	from keras import backend as K
+	import tensorflow as tf
+
+	config = tf.ConfigProto(intra_op_parallelism_threads=args.jobs, \
+	                        inter_op_parallelism_threads=args.jobs, \
+	                        allow_soft_placement=True, \
+	                        device_count = {'CPU': args.jobs})
+	session = tf.Session(config=config)
+	K.set_session(session)
+
 	if   args.action == 'generate_data':  generate_data(args)
 	elif args.action == 'play_with_rand': play_with_rand(args)
 	elif args.action == 'play_to_train':  play_to_train(args)
@@ -271,4 +295,6 @@ if __name__ == '__main__':
 	parser.add_argument('--var_level' , '-vl', type = int, default = 5,
 						help='Param for battle actions. ' +\
 						'Varability for pokemon\'s level (lvl = Base +/- Var)')
+	parser.add_argument('--jobs' , '-j', type = int, default = 4,
+						help='Num threads')
 	main(parser.parse_args())

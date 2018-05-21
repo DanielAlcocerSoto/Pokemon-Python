@@ -100,3 +100,7 @@ Music_Config = _load_config('MUSIC_CONFIG')
 # The configuration dictionary with the
 # parameters for RL agent and its model
 Agent_config = _load_config('AGENT_CONFIG')
+
+# The configuration dictionary with the
+# parameters some general features
+General_config = _load_config('GENERAL_CONFIG')

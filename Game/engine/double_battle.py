@@ -11,7 +11,7 @@ It contains the following class:
 """
 
 # Local imports
-from Configuration.settings import Sentence, Display_Config
+from Configuration.settings import Sentence, Display_Config, General_config
 from Game.display.window import Window
 from .core.pokemon import Pokemon
 from .trainer import TrainerRandom
@@ -84,13 +84,16 @@ class Double_Battle:
 		Function to play the battle
 	"""
 	def play(self):
-		print("-------------- NEW BATTLE --------------")
+		if General_config['BATTLE_VERBOSE']:
+			print("-------------- NEW BATTLE --------------")
 		self.show('START', *[t.pokemon().name() for t in self._trainers],\
 					time=Display_Config['FIRST_TIME_STEP'])
 		while not self.is_finished():
-			print("--------------- NEW TURN: {} ---------------".format(self.n_turn))
+			if General_config['BATTLE_VERBOSE']:
+				print("--------------- NEW TURN: {} ---------------".format(self.n_turn))
 			self.doTurn()
-		print("------------- BATTLE ENDED -------------")
+		if General_config['BATTLE_VERBOSE']:
+			print("------------- BATTLE ENDED -------------")
 		self.show_result()
 
 
@@ -99,7 +102,7 @@ class Double_Battle:
 	"""
 	def show(self, name, *args, time=Display_Config['TIME_STEP']):
 		text = Sentence[name].format(*args)
-		print(text) # To have a "log"
+		if General_config['BATTLE_VERBOSE']: print(text) # To have a "log" in terminal
 		if self.show_message != None: self.show_message(text,time)
 
 
@@ -146,7 +149,12 @@ class Double_Battle:
 	"""
 	def is_finished(self):
 		fainteds = list(map(lambda tr:tr.pokemon().is_fainted(),self._trainers))
-		return (fainteds[0] and fainteds[1]) or (fainteds[2] and fainteds[3])
+		end_battle = (fainteds[0] and fainteds[1]) or (fainteds[2] and fainteds[3])
+		#check pp
+		pk = list(map(lambda tr:tr.pokemon(),self._trainers))
+		moves_can_not_use = [not m.can_use() for p in pk if not p.is_fainted() for m in p.moves()]
+		return end_battle or all(moves_can_not_use)
+
 
 	"""
 		Returns True if the battle is won by the Ally team, False if the battle
