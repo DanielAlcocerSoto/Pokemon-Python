@@ -134,20 +134,22 @@ def eval_agent(args):
 	from Agent.model import Model
 	print('Running random battles to eval an agent')
 	model = Model() #same model in each episode
-	wins = 0
 	def constructor_agent(role, pokemon): return AgentPlay(role, pokemon, model)
+	model2 = Model() #same model in each episode
+	def constructor_agent2(role, pokemon): return AgentPlay(role, pokemon, model2)
+	wins = 0
 	header = '--------------------- EPISODE: {}/{} ---------------------'
 	myheader = header.format('{}',args.episodes)
 	for i in range(args.episodes):
 		print(myheader.format(i+1))
 		battle = Battle(constructor_trainerA2 = constructor_agent,
-						constructor_trainerA1 = TrainerRandom,
+						constructor_trainerA1 = constructor_agent2,#TrainerRandom,
 						base_level = args.base_level,
 						varability_level = args.var_level)
 		battle.play()
-		wins+=battle.winners()
+		wins+=int(battle.winners())
 		# More prins for analize
-	print('WINS: {}/{} = {}%'.format(wins,args.episodes,wins/args.episodes*100))
+	print('WINS: {}/{} = {}%'.format(wins,args.episodes,(wins*100)/args.episodes))
 
 
 def play_to_train(args):

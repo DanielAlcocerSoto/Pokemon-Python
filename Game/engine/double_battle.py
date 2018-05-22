@@ -134,7 +134,7 @@ class Double_Battle:
 		Function to show the result of the battle if the battle is finished.
 	"""
 	def show_result(self):
-		if self.is_finished:
+		if self.is_finished():
 			winners = [ tr.pokemon().name()
 						for tr in self._trainers
 						if not tr.pokemon().is_fainted()]
@@ -162,7 +162,7 @@ class Double_Battle:
 		('' --> 'bool')
 	"""
 	def winners(self):
-		if self.is_finished:
+		if self.is_finished():
 			for tr in self._trainers:
 				if not tr.pokemon().is_fainted(): return tr.is_ally()
 		else: return None
