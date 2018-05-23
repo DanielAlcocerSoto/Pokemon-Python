@@ -135,36 +135,44 @@ class Double_Battle:
 	"""
 	def show_result(self):
 		if self.is_finished():
-			winners = [ tr.pokemon().name()
-						for tr in self._trainers
-						if not tr.pokemon().is_fainted()]
-			if len(winners) == 2: self.show("WINNERS", *winners)
-			if len(winners) == 1: self.show("WINNER", *winners)
-			self.show("WIN" if self.winners() else "LOSE", \
-						time=Display_Config['LAST_TIME_STEP'])
+			if self.winners() == None:
+				self.show("DEAD_HEAT",time=Display_Config['LAST_TIME_STEP'])
+			else:
+				winners = [ tr.pokemon().name()
+							for tr in self._trainers
+							if not tr.pokemon().is_fainted()]
+				if len(winners) == 2: self.show("WINNERS", *winners)
+				if len(winners) == 1: self.show("WINNER", *winners)
+				self.show("WIN" if self.winners() else "LOSE", \
+							time=Display_Config['LAST_TIME_STEP'])
 
 	"""
 		Return True if the battle is finished, False otherwise.
 		('' --> 'bool')
 	"""
 	def is_finished(self):
+		#check only one team live
 		fainteds = list(map(lambda tr:tr.pokemon().is_fainted(),self._trainers))
 		end_battle = (fainteds[0] and fainteds[1]) or (fainteds[2] and fainteds[3])
 		#check pp
 		pk = list(map(lambda tr:tr.pokemon(),self._trainers))
 		moves_can_not_use = [not m.can_use() for p in pk if not p.is_fainted() for m in p.moves()]
-		return end_battle or all(moves_can_not_use)
+		dead_heat = all(moves_can_not_use) or self.n_turn>General_config['MAX_NUM_TURN']
+		return end_battle or dead_heat
 
 
 	"""
 		Returns True if the battle is won by the Ally team, False if the battle
-		is won by the Foe team, or None otherwise.
+		is won by the Foe team, or None otherwise (also if had had a Dead Heat).
 		('' --> 'bool')
 	"""
 	def winners(self):
 		if self.is_finished():
-			for tr in self._trainers:
-				if not tr.pokemon().is_fainted(): return tr.is_ally()
+			fainteds = list(map(lambda tr:tr.pokemon().is_fainted(),self._trainers))
+			if (fainteds[0] and fainteds[1]) or (fainteds[2] and fainteds[3]):
+				for tr in self._trainers:
+					if not tr.pokemon().is_fainted(): return tr.is_ally()
+			else: return None
 		else: return None
 
 	"""

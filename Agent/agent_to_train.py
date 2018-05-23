@@ -41,8 +41,9 @@ class AgentTrain(AgentPlay):
 	def recive_results(self, attacks, done):
 		state = self.last_state
 		next_state = self.actual_state
-		self.model.remember(state, self._idmove, self._target, \
-							self.role, attacks, next_state, done)
+		if not self.last_state[self.role].is_fainted():
+			self.model.remember(state, self._idmove, self._target, \
+								self.role, attacks, next_state, done)
 		self.last_state = copy(self.actual_state)
 
 	# train the agent with the experience of the episode and restart the agent

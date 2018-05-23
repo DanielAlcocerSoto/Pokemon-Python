@@ -1,3 +1,11 @@
 {
-  "BATTLE_VERBOSE": true
+  "BATTLE_VERBOSE": true,
+  "MAX_NUM_TURN":500,
+
+  "GENERATIONS":[1],
+
+  "END_GEN_1":146,
+  "END_GEN_2":243,
+  "END_GEN_3":375,
+  "END_GEN_4":482
 }

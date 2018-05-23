@@ -137,7 +137,7 @@ def eval_agent(args):
 	def constructor_agent(role, pokemon): return AgentPlay(role, pokemon, model)
 	model2 = Model() #same model in each episode
 	def constructor_agent2(role, pokemon): return AgentPlay(role, pokemon, model2)
-	wins = 0
+	wins = emp = 0
 	header = '--------------------- EPISODE: {}/{} ---------------------'
 	myheader = header.format('{}',args.episodes)
 	for i in range(args.episodes):
@@ -147,9 +147,11 @@ def eval_agent(args):
 						base_level = args.base_level,
 						varability_level = args.var_level)
 		battle.play()
-		wins+=int(battle.winners())
+		if battle.winners() == None: emp +=1
+		elif battle.winners(): wins+=1
 		# More prins for analize
 	print('WINS: {}/{} = {}%'.format(wins,args.episodes,(wins*100)/args.episodes))
+	print('Dead_Heat: {}/{} = {}%'.format(emp,args.episodes,(emp*100)/args.episodes))
 
 
 def play_to_train(args):
@@ -294,7 +296,7 @@ if __name__ == '__main__':
 	parser.add_argument('--base_level' , '-bl', type = int, default = 50,
 						help='Param for battle actions. ' +\
 						'Base level of each pokemon')
-	parser.add_argument('--var_level' , '-vl', type = int, default = 5,
+	parser.add_argument('--var_level' , '-vl', type = int, default = 0,
 						help='Param for battle actions. ' +\
 						'Varability for pokemon\'s level (lvl = Base +/- Var)')
 	parser.add_argument('--jobs' , '-j', type = int, default = 4,

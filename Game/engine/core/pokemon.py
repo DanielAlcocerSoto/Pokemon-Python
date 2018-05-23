@@ -12,7 +12,7 @@ This module contains the following class:
 """
 
 # Local imports
-from Configuration.settings import Directory
+from Configuration.settings import Directory, General_config
 from .object_info import Object_Info, load_info
 from .type import Type
 from .move import Move
@@ -42,8 +42,15 @@ class Pokemon(Object_Info):
 				Random pokemon with level between base_level-varability_level
 				and base_level+varability_level.
 		"""
+		all_poke_name = Pokemon.possible_names()
+		possible_names = []
+		for gen in General_config['GENERATIONS']:
+			if gen == 1: first_p = 0
+			else: first_p = General_config['END_GEN_{}'.format(gen-1)]
+			last_p = General_config['END_GEN_{}'.format(gen)]
+			possible_names += all_poke_name[first_p:last_p]
 		lvl = base_level + randint(-varability_level,varability_level)
-		return Pokemon(choice(Pokemon.possible_names()), lvl)
+		return Pokemon(choice(possible_names), lvl)
 
 	"""
 		Returns the name of all pokemons in the database.
