@@ -126,10 +126,9 @@ class Model:
 				state = array([state])
 				next_state = array([next_state])
 				target_f = self.keras_NN_model.predict(state)[0]
-				reward -= target_f[action]
 				if not done:
 					reward += gamma*amax(self.keras_NN_model.predict(next_state)[0])
-				#Q(s,a) = Q(s,a) + l_r*(r + gamma*max(Q(s')) - Q(s,a))
+					reward -= target_f[action]
 				target_f[action] += learning_rate*(reward)
 				# Train the Neural Net with the state and target_f
 				self.keras_NN_model.fit(state, array([target_f]), epochs=1, verbose=0)
@@ -161,7 +160,7 @@ class Model:
 			# Calculate new prediction
 			Q_s_a = array([pred[action] for pred, action in zip(predict_s,actions)])
 			Q_next = array(list(map(amax,self.keras_NN_model.predict(next_states))))
-			news_Q = Q_s_a + learning_rate*(rewards - Q_s_a + dones*gamma*Q_next)
+			news_Q = Q_s_a + learning_rate*(rewards + dones*(gamma*Q_next - Q_s_a))
 			# Replace new Q-value in predict_s
 			for pred, act, new in zip(predict_s, actions, news_Q): pred[act] = new
 
