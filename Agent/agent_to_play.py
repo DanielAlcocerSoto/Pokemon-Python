@@ -29,4 +29,5 @@ class AgentPlay(Trainer):
 	    self.actual_state = state
 
 	def choice_action(self):
+		print('Agent {} choice action:'.format(self.role))
 		self._idmove, self._target = self.model.predict(self.actual_state)

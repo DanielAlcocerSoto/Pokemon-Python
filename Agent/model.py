@@ -145,13 +145,16 @@ class Model:
 		learning_rate = Agent_config['LEARNING_RATE_RL']
 		gamma = Agent_config['GAMMA_DISCOUNTING_RATE']
 
+		print('Loading data...')
 		states,actions,rewards,next_states,dones=self._load_log_memory(log_file)
 		dones = array(dones)
 		states = array(states)
 		rewards = array(rewards)
 		next_states = array(next_states)
-
+		header = '--------------------- EPOCHS: {}/{} ---------------------'
+		myheader = header.format('{}',Agent_config['EPOCHS_REBUILD_FIT'])
 		for i in range(Agent_config['EPOCHS_REBUILD_FIT']):
+			print(myheader.format(i+1))
 			print('Preparing fit...')
 			predict_s = self.keras_NN_model.predict(states) # Actual prediction
 
