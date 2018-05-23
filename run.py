@@ -151,7 +151,7 @@ def eval_agent(args):
 		elif battle.winners(): wins+=1
 		# More prins for analize
 	print('WINS: {}/{} = {}%'.format(wins,args.episodes,(wins*100)/args.episodes))
-	print('Dead_Heat: {}/{} = {}%'.format(emp,args.episodes,(emp*100)/args.episodes))
+	print('Draws: {}/{} = {}%'.format(emp,args.episodes,(emp*100)/args.episodes))
 
 
 def play_to_train(args):
