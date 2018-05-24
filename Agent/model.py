@@ -36,22 +36,19 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 	Extended class from Trainer that use RL.
 """
 class Model:
-	def __init__(self):
+	def __init__(self, rebuid=false):
 		self.encoder = Encoder()
 		self.memory = []
 		self.log_file = Directory['DIR_LOGS'] + Agent_config['LOG_NAME'] + '.csv'
 
-		if Agent_config['INIT_MODEL_MODE'] == 'LOAD':
-			model_file=Directory['DIR_MODELS']+Agent_config['MODEL_NAME']+'.h5'
-			if exists(model_file): self.keras_NN_model = load_model(model_file)
-			else: self.keras_NN_model = self._build_model()
-		elif Agent_config['INIT_MODEL_MODE'] == 'REBUILD':
+		if rebuid:
 			print('Rebuilding model from {}'.format(self.log_file))
 			self.keras_NN_model = self._build_model()
 			self._rebuid_Q_function(self._load_log_memory(self.log_file))
-		else: raise Exception('The "INIT_MODEL_MODE" parameter of the '+\
-		'configuration file "RL_config.json" must be one of the following '+\
-		'values: "LOAD" or "REBUILD"')
+		else:
+			model_file=Directory['DIR_MODELS']+Agent_config['MODEL_NAME']+'.h5'
+			if exists(model_file): self.keras_NN_model = load_model(model_file)
+			else: self.keras_NN_model = self._build_model()
 
 	def predict(self, state):
 		state = array([self.encoder.encode_state(state)])

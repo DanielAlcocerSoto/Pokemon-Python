@@ -1,6 +1,4 @@
 {
-  "INIT_MODEL_MODE": "LOAD",
-
   "LOG_NAME": "log_redu_stat_gen1",
   "MODEL_NAME": "model_redu_stat_gen1",
 
