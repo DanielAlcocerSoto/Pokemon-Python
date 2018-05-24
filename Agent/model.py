@@ -27,6 +27,7 @@ from ast import literal_eval
 from pandas import read_csv
 from csv import writer
 from os.path import exists
+from time import time
 
 
 __version__ = '0.5'
@@ -151,15 +152,17 @@ class Model:
 		header = '--------------------- EPOCHS: {}/{} ---------------------'
 		myheader = header.format('{}',Agent_config['EPOCHS_REBUILD_FIT'])
 		print('Loading data...')
+		now=time()
 		states,actions,rewards,next_states,dones=self._load_log_memory(log_file)
 		dones = array(dones)
 		states = array(states)
 		rewards = array(rewards)
 		next_states = array(next_states)
-
+		print('Data loaded in {}s'.format(time()-now))
 		for i in range(Agent_config['EPOCHS_REBUILD_FIT']):
 			print(myheader.format(i+1))
 			print('Preparing fit...')
+			now=time()
 			predict_s = self.keras_NN_model.predict(states) # Actual prediction
 
 			# Calculate new prediction
@@ -169,6 +172,7 @@ class Model:
 			# Replace new Q-value in predict_s
 			for pred, act, new in zip(predict_s, actions, news_Q): pred[act] = new
 
+			print('Q-function calculated in {}s'.format(time()-now))
 			# Train the Neural Net with the state and news_rewards
 			print('Fitting...')
 			self.keras_NN_model.fit(states, predict_s,
