@@ -15,19 +15,17 @@ from Configuration.settings import Directory, Agent_config
 from .encoder import Encoder
 
 # 3rd party imports
+from keras.callbacks import TensorBoard
 from keras.models import Sequential, load_model
 from keras.layers import Dense
-from keras.callbacks import TensorBoard
 
 # General imports
-from random import random, sample
-from numpy import argmax, amax, array
-from copy import deepcopy as copy
+from numpy import amax, array
 from ast import literal_eval
 from pandas import read_csv
 from csv import writer
-from os.path import exists
 from time import time
+from os.path import exists
 
 
 __version__ = '0.5'
@@ -48,20 +46,18 @@ class Model:
 			if exists(model_file): self.keras_NN_model = load_model(model_file)
 			else: self.keras_NN_model = self._build_model()
 		elif Agent_config['INIT_MODEL_MODE'] == 'REBUILD':
+			print('Rebuilding model from {}'.format(self.log_file))
 			self.keras_NN_model = self._build_model()
-			self._rebuid_Q_function(self.log_file)
+			self._rebuid_Q_function(self._load_log_memory(self.log_file))
 		else: raise Exception('The "INIT_MODEL_MODE" parameter of the '+\
 		'configuration file "RL_config.json" must be one of the following '+\
 		'values: "LOAD" or "REBUILD"')
 
 	def predict(self, state):
-		print('Predicting...')
 		state = array([self.encoder.encode_state(state)])
 		act_values = self.keras_NN_model.predict(state)
-		print('Result keras model: {}'.format(act_values))
-		ret = self.encoder.decode_action(act_values[0])
-		print('Result my model: {}'.format(ret))
-		return ret
+		print('Result of Keras model: {}'.format(act_values))
+		return self.encoder.decode_action(act_values[0])
 
 	def remember(self, state, move, target, my_role, attacks, next_state, done):
 		# get information
@@ -78,7 +74,7 @@ class Model:
 		with open(self.log_file, 'a') as csv_file:
 			for obj in self.memory:	writer(csv_file).writerow(obj)
 		# Train model with all battle (episodic RL)
-		self._traing_episode()
+		if self.memory != []: self._rebuid_Q_function(self.memory)
 		# Reset memory
 		self.memory = []
 
@@ -88,9 +84,7 @@ class Model:
 		self.keras_NN_model.save(model_file)
 
 #private functions
-
 	def _get_reward(self, my_role, attacks):
-		# TODO self.actual_state
 		if my_role in attacks.keys():
 			attack=attacks[my_role]
 			return attack.dmg
@@ -100,81 +94,57 @@ class Model:
 		# Neural Net for Deep-Q learning Model
 		Neural_net = Agent_config['NEURAL_NET_DESIGN']
 		dim_input = self.encoder.state_size
-		model = Sequential() #Sequential() creates the foundation of the layers.
+		model = Sequential()
 		for i, (nodes, act_func) in enumerate(Neural_net):
-			# 'Dense' is the basic form of a neural network layer
-			# Input Layer of state size and Hidden Layer with 24 nodes
+			# Input Layer of state size and Hidden Layer
 			if i==0:layer=Dense(nodes,input_dim=dim_input,activation=act_func)
 			# Hidden layer with X nodes
 			else: layer = Dense(nodes, activation=act_func)
-			model.add(layer)
-			#model.add(Dropout(0.5))
+			model.add(layer)  #model.add(Dropout(0.5)) #not to overfit
 		# Output Layer with # of actions: 4*2 nodes
 		model.add(Dense(8, activation='linear'))
-		# Create the model based on the information above
-		# Configure the learning process,
-		model.compile(optimizer='adam',#Adam(lr=learning_rate), #rmsprop
-              		  loss='mse', metrics=['accuracy'])
+		# Create the model based on the information above and configure the learning process,
+		model.compile(optimizer='adam', loss='mse', metrics=['accuracy'])
 		return model
 
-	# Train the agent with the experience of the episode
-	def _traing_episode(self):
-		#print('Training model with this battle...')
-		self.memory.reverse() #reverse for fiting first the next state
-		learning_rate = Agent_config['LEARNING_RATE_RL']
-		gamma = Agent_config['GAMMA_DISCOUNTING_RATE']
-		for i in range(Agent_config['EPOCHS_EPISODIC_FIT']):
-			for state, action, reward, next_state, done in self.memory:
-				state = array([state])
-				next_state = array([next_state])
-				target_f = self.keras_NN_model.predict(state)[0]
-				reward -= target_f[action]
-				if not done:
-					reward += gamma*amax(self.keras_NN_model.predict(next_state)[0])
-				#Q(s,a) = Q(s,a) + l_r*(r + gamma*max(Q(s')) - Q(s,a))
-				target_f[action] += learning_rate*(reward)
-				# Train the Neural Net with the state and target_f
-				self.keras_NN_model.fit(state, array([target_f]), epochs=1, verbose=0)
-
-	def _load_log_memory(self,log_file):
-		df = read_csv(log_file, delimiter=',', header=None)
-		memory = [[literal_eval(field) if isinstance(field, str) else field
-				for field in row] for row in df.values]
-		return zip(*memory)
-
-	def _rebuid_Q_function(self, log_file):
-		print('Rebuilding Q-function')
-		learning_rate = Agent_config['LEARNING_RATE_RL']
-		gamma = Agent_config['GAMMA_DISCOUNTING_RATE']
-		tbCallback = TensorBoard(log_dir=Directory['TB_PATH'], histogram_freq=0,
-						write_graph=True, write_images=True)
-
-		header = '--------------------- EPOCHS: {}/{} ---------------------'
-		myheader = header.format('{}',Agent_config['EPOCHS_REBUILD_FIT'])
+	def _load_log_memory(self, log_file):
 		print('Loading data...')
 		now=time()
-		states,actions,rewards,next_states,dones=self._load_log_memory(log_file)
+		df = read_csv(log_file, delimiter=',', header=None)
+		log = [[literal_eval(field) if isinstance(field, str) else field
+				for field in row] for row in df.values]
+		print('Data loaded in {}s'.format(time()-now))
+		return log
+
+	def _rebuid_Q_function(self, dataset):
+		tbCallback= TensorBoard(log_dir=Directory['TB_PATH'], histogram_freq=0,
+								write_graph=True, write_images=True)
+		header = '--------------------- RL_EPOCHS: {}/{} ---------------------'
+		myheader = header.format('{}',Agent_config['EPOCHS_REBUILD_FIT'])
+		learning_rate = Agent_config['LEARNING_RATE_RL']
+		gamma = Agent_config['GAMMA_DISCOUNTING_RATE']
+
+		states,actions,rewards,next_states,dones = zip(*dataset)
 		dones = array(dones)
 		states = array(states)
 		rewards = array(rewards)
 		next_states = array(next_states)
-		print('Data loaded in {}s'.format(time()-now))
+
 		for i in range(Agent_config['EPOCHS_REBUILD_FIT']):
 			print(myheader.format(i+1))
-			print('Preparing fit...')
+			print('Processing data...')
 			now=time()
 			predict_s = self.keras_NN_model.predict(states) # Actual prediction
-
 			# Calculate new prediction
 			Q_s_a = array([pred[action] for pred, action in zip(predict_s,actions)])
 			Q_next = array(list(map(amax,self.keras_NN_model.predict(next_states))))
 			news_Q = Q_s_a + learning_rate*(rewards - Q_s_a + dones*gamma*Q_next)
 			# Replace new Q-value in predict_s
 			for pred, act, new in zip(predict_s, actions, news_Q): pred[act] = new
+			print('Data processed in {}s'.format(time()-now))
 
-			print('Q-function calculated in {}s'.format(time()-now))
 			# Train the Neural Net with the state and news_rewards
-			print('Fitting...')
+			print('Fitting Keras model...')
 			self.keras_NN_model.fit(states, predict_s,
 				batch_size=Agent_config['BATCH_SIZE'],
 				validation_split = Agent_config['VAL_SPLIT_FIT'],

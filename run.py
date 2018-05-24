@@ -55,7 +55,7 @@ def generate_data(args):
 """
 This code rebuid a model from a log file and measures the time it takes.
 """
-def build_model():
+def rebuild_model():
 	"""
 		Args: -
 
@@ -138,10 +138,10 @@ def eval_agent(args):
 	model2 = Model() #same model in each episode
 	def constructor_agent2(role, pokemon): return AgentPlay(role, pokemon, model2)
 	wins = emp = 0
-	header = '--------------------- EPISODE: {}/{} ---------------------'
-	myheader = header.format('{}',args.episodes)
+	header = '--------------------- EPISODE: {}/{} --- WIN_RATE: {} ---------------------'
+	myheader = header.format('{}',args.episodes,'{}')
 	for i in range(args.episodes):
-		print(myheader.format(i+1))
+		print(myheader.format(i+1),(wins*100)/args.episodes))
 		battle = Battle(constructor_trainerA2 = constructor_agent,
 						constructor_trainerA1 = constructor_agent2,#TrainerRandom,
 						base_level = args.base_level,
@@ -226,7 +226,7 @@ def main(args):
 	elif args.action == 'play_to_eval':   play_to_eval(args)
 	elif args.action == 'train_agent':    train_agent(args)
 	elif args.action == 'eval_agent':     eval_agent(args)
-	elif args.action == 'train_model':    build_model()
+	elif args.action == 'rebuild_model':    rebuild_model()
 
 #Main of run
 if __name__ == '__main__':
@@ -235,7 +235,7 @@ if __name__ == '__main__':
 	"""
 	possible_actions = ['generate_data', 'play_with_rand', 'play_to_eval', \
 					  	'play_to_train', 'eval_agent', 'train_agent', \
-						'train_model']
+						'rebuild_model']
 
 	program_name = 'Pokémon Game'
 	desc =  'This is a program to play a Double Battle Pokémon with an ally ' +\
@@ -266,7 +266,7 @@ if __name__ == '__main__':
 	'train the model. '+\
 	' --------------------- ' +\
 	' ______________________________________________________'+\
-	'"train_model": Trains a model with saved information of other games.'
+	'"rebuild_model": Trains a model with saved information of other games.'
 
 	parser = argparse.ArgumentParser(prog = program_name, description=desc)
 	parser.add_argument('action', choices=possible_actions,
