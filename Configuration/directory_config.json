@@ -42,5 +42,7 @@
   "DIR_SPRITES": "Sprites/",
 
   "DIR_LOGS": "DataBase/Agent/Logs/",
-  "DIR_MODELS": "DataBase/Agent/Models/"
+  "DIR_MODELS": "DataBase/Agent/Models/",
+
+  "TB_PATH":"TensorBoard/Graph"
 }

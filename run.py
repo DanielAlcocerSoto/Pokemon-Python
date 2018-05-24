@@ -215,10 +215,8 @@ def main(args):
 	from keras import backend as K
 	import tensorflow as tf
 
-	config = tf.ConfigProto(intra_op_parallelism_threads=args.jobs, \
-	                        inter_op_parallelism_threads=args.jobs, \
-	                        allow_soft_placement=True, \
-	                        device_count = {'CPU': args.jobs})
+	config = tf.ConfigProto()
+	config.gpu_options.allow_growth = True
 	session = tf.Session(config=config)
 	K.set_session(session)
 

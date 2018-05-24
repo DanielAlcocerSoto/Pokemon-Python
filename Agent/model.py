@@ -17,6 +17,7 @@ from .encoder import Encoder
 # 3rd party imports
 from keras.models import Sequential, load_model
 from keras.layers import Dense
+from keras.callbacks import TensorBoard
 
 # General imports
 from random import random, sample
@@ -144,15 +145,18 @@ class Model:
 		print('Rebuilding Q-function')
 		learning_rate = Agent_config['LEARNING_RATE_RL']
 		gamma = Agent_config['GAMMA_DISCOUNTING_RATE']
+		tbCallback = TensorBoard(log_dir=Directory['TB_PATH'], histogram_freq=0,
+						write_graph=True, write_images=True)
 
+		header = '--------------------- EPOCHS: {}/{} ---------------------'
+		myheader = header.format('{}',Agent_config['EPOCHS_REBUILD_FIT'])
 		print('Loading data...')
 		states,actions,rewards,next_states,dones=self._load_log_memory(log_file)
 		dones = array(dones)
 		states = array(states)
 		rewards = array(rewards)
 		next_states = array(next_states)
-		header = '--------------------- EPOCHS: {}/{} ---------------------'
-		myheader = header.format('{}',Agent_config['EPOCHS_REBUILD_FIT'])
+
 		for i in range(Agent_config['EPOCHS_REBUILD_FIT']):
 			print(myheader.format(i+1))
 			print('Preparing fit...')
@@ -171,4 +175,5 @@ class Model:
 				batch_size=Agent_config['BATCH_SIZE'],
 				validation_split = Agent_config['VAL_SPLIT_FIT'],
 				epochs=Agent_config['EPOCHS_FIT'],
-				verbose=Agent_config['VERBOSE_FIT'])
+				verbose=Agent_config['VERBOSE_FIT'],
+				callbacks=[tbCallback])
