@@ -20,33 +20,30 @@ __version__ = '0.5'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
 
-def set_poke(params,args):
-	pass#params['poke_A1'] = Pokemon.Random(50, 0)
-
 def set_agents(params,args):
 	model = BaseModel() #same model in each episode -> no load memory
 	def const_agent(r, p): return Agent(r, p, model, train_mode=False)
 	params['const_A1']=params['const_A2']=const_agent
 
-def run_battle_evaluation(n_episodes, params):
+def run_random_battle_evaluation(n_episodes, params):
 	header = '--------------------- EPISODE: {}/{} ------- WIN_RATE: {} ---------------------'
 	myheader = header.format('{0}',n_episodes,'{1:.2f}')
 	wins = emp = 0
-	print('--------------------- EVALUATING AGENT ----------------------------')
+	print('--------------------- EVALUATING AGENT RANDOM ----------------------------')
 	for i in range(n_episodes):
 		win_rate = (wins*100)/max(i,1)
 		print(myheader.format(i+1,win_rate))
 		battle = Battle(**params)
 		battle.play()
-		if battle.winners() == None: emp+=1
-		elif battle.winners(): wins+=1
+		winners = battle.winners()
+		if winners == None: emp+=1
+		elif winners: wins+=1
 	# Prins for analize
 	print('----------------------------------------------------------')
 	print('--------------------- RESULTS ----------------------------')
 	print('WINS: {0}/{1} = {2:.2f}%'.format(wins,n_episodes,(wins*100)/n_episodes))
 	print('Draws: {0}/{1} = {2:.2f}%'.format(emp,n_episodes,(emp*100)/n_episodes))
 	print('----------------------------------------------------------')
-
 
 """
 Executes N battles played by two agent to evaluate the performance of the model.
@@ -73,9 +70,8 @@ def main(args):
 	params = Battle.default_argunents()
 	params['base_level'] = args.base_level
 	params['varability_level'] = args.var_level
-	set_poke(params,args)
 	set_agents(params,args)
-	run_battle_evaluation(args.episodes, params)
+	run_random_battle_evaluation(args.episodes, params)
 
 #Main of run
 if __name__ == '__main__':

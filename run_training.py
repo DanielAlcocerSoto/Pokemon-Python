@@ -16,6 +16,7 @@ from Agent.model import BaseModel
 # General imports
 import argparse
 from time import time
+from itertools import combinations
 
 __version__ = '0.5'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
@@ -27,14 +28,11 @@ def set_random_attack(bool):
 	Attack_Config['USE_MISSING'] = bool
 	Attack_Config['USE_IV'] = bool
 
-def set_poke(params,args):
-	pass#params['poke_A1'] = Pokemon.Random(50, 0)
-
 def set_agents(params,args):
 	model = BaseModel()
 	def const_agent(r, p): return Agent(r, p, model, train_mode=True)
 	params['const_A1']=params['const_A2']=const_agent
-	params['const_F1']=params['const_F2']=const_agent
+	#params['const_F1']=params['const_F2']=const_agent
 	return model
 
 def run_battle_training(n_episodes, model, params):
@@ -48,6 +46,32 @@ def run_battle_training(n_episodes, model, params):
 		if (i+1)%1000 == 0: model.train_and_save()
 	model.train_and_save()
 	print('Finished! Time = {0:.2f}s'.format(time()-start))
+
+
+def run_combo_battle_training(n_repetitions, model, params):
+	header = '--------------------- EPISODE: {}/{} ---------------------'
+	start = time()
+	names = Pokemon.possible_names()
+	possible_names_comb = list(combinations(names, 2))
+	len_comb = len(possible_names_comb)
+	iner_loop = int(len(names)/2)
+	myheader = header.format('{}',len_comb*iner_loop)
+	wins = emp = i = 0
+	print('--------------------- TRAINING AGENT EQUALLY ----------------------------')
+	for pF1,pF2 in possible_names_comb:
+		for j in range(iner_loop):
+			if (i+1)%100 == 0: print(myheader.format(i+1))
+
+			params['poke_A1'] = Pokemon(names[j],50)
+			params['poke_A2'] = Pokemon(names[-j-1],50)
+			params['poke_F1'] = Pokemon(pF1,50)
+			params['poke_F2'] = Pokemon(pF2,50)
+
+			Battle(**params).play()
+			if (i+1)%100000 == 0: model.train_and_save()
+			i+=1
+	model.train_and_save()
+	print('Finished! Time = {0:.2f}h'.format((time()-start)/3600))
 
 def main(args):
 	# GPU TensorFlow Configuration
@@ -67,14 +91,14 @@ def main(args):
 	params = Battle.default_argunents()
 	params['base_level'] = args.base_level
 	params['varability_level'] = args.var_level
-	set_poke(params,args)
 	model = set_agents(params,args)
-	run_battle_training(args.episodes, model, params)
+	#run_battle_training(args.episodes, model, params)
+	run_combo_battle_training(args.episodes, model, params)
 
 #Main of run
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--episodes' , '-e', type = int, default = 5,
+	parser.add_argument('--episodes' , '-e', type = int, default = 500,
 						help='Param for agent train actions. ' +\
 						'Number of battles to play')
 	parser.add_argument('--base_level' , '-bl', type = int, default = 50,

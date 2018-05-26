@@ -1,6 +1,6 @@
 {
-  "LOG_NAME": "state_withaout_state_level",
-  "MODEL_NAME": "state_withaout_state_level",
+  "LOG_NAME": "combo_test",
+  "MODEL_NAME": "combo_test",
 
   "NEURAL_NET_DESIGN": [
     [50,"relu"],
