@@ -6,7 +6,7 @@ Main exeutable file
 """
 
 # Local imports
-from Agent.model import Model
+from Agent.model import BaseModel
 
 # General imports
 from time import time
@@ -28,6 +28,6 @@ if __name__ == '__main__':
 	"""
 	print('Training model...')
 	start = time()
-	model = Model(rebuid=true)
+	model = BaseModel(rebuid=True)
 	model.save()
 	print('Finished, time = {0:.2f}s'.format(time()-start))

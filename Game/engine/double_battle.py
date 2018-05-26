@@ -27,16 +27,23 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 	Class to make a double battle.
 """
 class Double_Battle:
-	def __init__(self, constructor_trainerA1 = TrainerInput,
-					   constructor_trainerA2 = TrainerRandom,
-					   constructor_trainerF1 = TrainerRandom,
-					   constructor_trainerF2 = TrainerRandom,
-					   pokemon_trainerA1 = None,
-					   pokemon_trainerA2 = None,
-				   	   pokemon_trainerF1 = None,
-					   pokemon_trainerF2 = None,
-				 	   base_level = 50,
-					   varability_level = 50):
+	"""
+		Retuns the dafoauts arguments of de __int__ function as a dictionary.
+		Use: Double_Battle(**default_argunents())
+	"""
+	@staticmethod
+	def default_argunents():
+		return {'const_A1': TrainerInput,  'poke_A1': None,
+				'const_A2': TrainerRandom, 'poke_A2': None,
+				'const_F1': TrainerRandom, 'poke_F1': None,
+				'const_F2': TrainerRandom, 'poke_F2': None,
+				'base_level': 50, 'varability_level': 50}
+
+	def __init__(self, const_A1 = TrainerInput,  poke_A1 = None,
+					   const_A2 = TrainerRandom, poke_A2 = None,
+					   const_F1 = TrainerRandom, poke_F1 = None,
+					   const_F2 = TrainerRandom, poke_F2 = None,
+					   base_level = 50, varability_level = 50):
 		"""
 			Args:
 				trainerA1 (class:'Trainer'): The allied trainer 1 (the user's
@@ -58,18 +65,18 @@ class Double_Battle:
 				Create and execute the attack and save relevant information
 				about it.
 		"""
-		if pokemon_trainerA1==None:
-			pokemon_trainerA1 = Pokemon.Random(base_level, varability_level)
-		trainerA1 = constructor_trainerA1("Ally_0", pokemon_trainerA1)
-		if pokemon_trainerA2==None:
-			pokemon_trainerA2 = Pokemon.Random(base_level, varability_level)
-		trainerA2 = constructor_trainerA2("Ally_1", pokemon_trainerA2)
-		if pokemon_trainerF1==None:
-			pokemon_trainerF1 = Pokemon.Random(base_level, varability_level)
-		trainerF1 = constructor_trainerF1("Foe_0", pokemon_trainerF1)
-		if pokemon_trainerF2==None:
-			pokemon_trainerF2 = Pokemon.Random(base_level, varability_level)
-		trainerF2 = constructor_trainerF2("Foe_1", pokemon_trainerF2)
+		if poke_A1==None:
+			poke_A1 = Pokemon.Random(base_level, varability_level)
+		trainerA1 = const_A1("Ally_0", poke_A1)
+		if poke_A2==None:
+			poke_A2 = Pokemon.Random(base_level, varability_level)
+		trainerA2 = const_A2("Ally_1", poke_A2)
+		if poke_F1==None:
+			poke_F1 = Pokemon.Random(base_level, varability_level)
+		trainerF1 = const_F1("Foe_0", poke_F1)
+		if poke_F2==None:
+			poke_F2 = Pokemon.Random(base_level, varability_level)
+		trainerF2 = const_F2("Foe_1", poke_F2)
 
 		self._trainers = [trainerA1,trainerA2,trainerF1,trainerF2]
 		self.state = {t.role: t.pokemon() for t in self._trainers}
@@ -195,13 +202,15 @@ class Double_Battle:
 			self.n_turn+=1
 			# choice actions
 			live_trainers = []
+			last_choices = {}
 			for trainer in self._trainers:
 				if not trainer.pokemon().is_fainted():
 					trainer.choice_action()
+					last_choices[trainer.role]=trainer.raw_action()
 					live_trainers.append(trainer)
 
 			tr_sort = sorted(live_trainers, key=self.attack_order, reverse=True)
-			self.last_attacks = {}
+			last_attacks = {}
 
 			# do actions
 			for trainer in tr_sort:
@@ -211,5 +220,10 @@ class Double_Battle:
 					move, target = trainer.action()
 					pk_enemy = self._trainers[target].pokemon()
 					attack = Attack(poke, pk_enemy, move)
-					self.last_attacks[trainer.role]=attack
+					last_attacks[trainer.role]=attack
 					self.show_attack(attack)
+
+			#recive_results
+			for trainer in self._trainers:
+			    trainer.recive_results( last_attacks, last_choices,
+			                            self.is_finished())

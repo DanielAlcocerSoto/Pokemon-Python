@@ -1,5 +1,6 @@
 {
   "USE_VARABILITY": true,
   "USE_CRITIC" : true,
-  "USE_MISSING" : true
+  "USE_MISSING" : true,
+  "USE_IV": true
 }

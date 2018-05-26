@@ -72,13 +72,14 @@ class Encoder:
 		return self.encoder_type.encode(move.type().name()) + \
 				[int(move.can_use()), move.power()]
 
-	def encode_state(self, state):
+	def encode_state(self, state, my_role):
 		#my_pokemon_data
-		ret = self._poke_to_list(state['Ally_1'])
-		moves=state['Ally_1'].moves()
+		ret = self._poke_to_list(state[my_role])
+		moves=state[my_role].moves()
 		for i in range(4): ret += self._move_to_list(moves[i])
 		# enemies_data
-		for j in range(2): ret+=self._poke_to_list(state['Foe_'+str(j)])
+		enemy_role = 'Foe_' if 'Ally_' in my_role else 'Ally_'
+		for j in range(2): ret+=self._poke_to_list(state[enemy_role+str(j)])
 		#print('encode state = {}'.format(ret))
 		return ret
 

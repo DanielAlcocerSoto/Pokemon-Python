@@ -53,6 +53,17 @@ class Trainer:
 		return "A" in self.role
 
 	"""
+		Return the actual _idmove and _target.
+	"""
+	def raw_action(self):
+		"""
+			Args: -
+
+			Return  (class:'int', 'int'):
+				The actual row action.
+		"""
+		return self._idmove, self._target
+	"""
 		Return the action setted using the choice_action function.
 	"""
 	def action(self):
@@ -83,7 +94,7 @@ class Trainer:
 	def set_state(self, state):
 		pass
 
-	def recive_results(self, attacks, done):
+	def recive_results(self, attacks, choices, done):
 		pass
 
 """

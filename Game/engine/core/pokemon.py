@@ -12,7 +12,7 @@ This module contains the following class:
 """
 
 # Local imports
-from Configuration.settings import Directory, General_config
+from Configuration.settings import Directory, General_config, Attack_Config
 from .object_info import Object_Info, load_info
 from .type import Type
 from .move import Move
@@ -79,7 +79,10 @@ class Pokemon(Object_Info):
 		self._moves = [Move(x) for x in sample(self._info['moves'], 4)]
 		self._stats = self._info['stats']
 		for stat in self._stats.values():
-			stat['individual_value'] = randint(0, 31)
+			if Attack_Config['USE_IV']: 
+				stat['individual_value'] = randint(0, 31)
+			else:
+				stat['individual_value'] = 15
 		self._health = self.get_stat('hp')
 
 	"""

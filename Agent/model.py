@@ -7,7 +7,7 @@ Module that contains the Model, main class of RL.
 
 It contains the following class:
 
-	Model
+	BaseModel
 """
 
 # Local import
@@ -27,20 +27,19 @@ from csv import writer
 from time import time
 from os.path import exists
 
-
 __version__ = '0.5'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
 
-"""
-	Extended class from Trainer that use RL.
-"""
-class Model:
-	def __init__(self, rebuid=false):
+class BaseModel:
+	def __init__(self, rebuid=False):
 		self.encoder = Encoder()
 		self.memory = []
 		self.log_file = Directory['DIR_LOGS'] + Agent_config['LOG_NAME'] + '.csv'
-
+		self.tbCallback=TensorBoard(log_dir=Directory['TB_PATH']+\
+									Agent_config['MODEL_NAME'] + '-TensorBoard_LOG',
+									histogram_freq=0,
+									write_graph=True, write_images=True)
 		if rebuid:
 			print('Rebuilding model from {}'.format(self.log_file))
 			self.keras_NN_model = self._build_model()
@@ -50,35 +49,36 @@ class Model:
 			if exists(model_file): self.keras_NN_model = load_model(model_file)
 			else: self.keras_NN_model = self._build_model()
 
-	def predict(self, state):
-		state = array([self.encoder.encode_state(state)])
+	def predict(self, state, role):
+		state = array([self.encoder.encode_state(state, role)])
 		act_values = self.keras_NN_model.predict(state)
-		print('Result of Keras model: {}'.format(act_values))
+		print('Result of Keras model for {}: {}'.format(role,act_values))
 		return self.encoder.decode_action(act_values[0])
 
-	def remember(self, state, move, target, my_role, attacks, next_state, done):
-		# get information
-		state = self.encoder.encode_state(state)
-		next_state = self.encoder.encode_state(next_state)
-		action = self.encoder.encode_action(move, target)
-		reward = self._get_reward(my_role, attacks)
-		#print('Reward of this turn = ', reward)
-		self.memory.append( (state, action, reward, next_state, done) )
+	def remember(self, state, role, attacks, choices, next_state, done):
+		if not state[role].is_fainted():
+			# get information
+			state = self.encoder.encode_state(state, role)
+			next_state = self.encoder.encode_state(next_state, role)
+			action = self.encoder.encode_action(*choices[role])
+			reward = self._get_reward(role, attacks)
+			#print('Reward of this turn = ', reward)
+			self.memory.append( (state, action, reward, next_state, done) )
 
-	def replay_and_train(self):
-		# Save memory in log file
-		#print('Saving log in {} ...'.format(self.log_file))
-		with open(self.log_file, 'a') as csv_file:
-			for obj in self.memory:	writer(csv_file).writerow(obj)
-		# Train model with all battle (episodic RL)
-		if self.memory != []: self._rebuid_Q_function(self.memory)
-		# Reset memory
-		self.memory = []
-
-	def save(self):
-		model_file=Directory['DIR_MODELS']+Agent_config['MODEL_NAME']+'.h5'
-		print('Saving model in {} ...'.format(model_file))
-		self.keras_NN_model.save(model_file)
+	def train_and_save(self): # Episodic training
+		if self.memory != []:
+			# Train model with memory
+			self._rebuid_Q_function(self.memory)
+			# Save model
+			model_file=Directory['DIR_MODELS']+Agent_config['MODEL_NAME']+'.h5'
+			print('Saving model in {} ...'.format(model_file))
+			self.keras_NN_model.save(model_file)
+			# Save memory in log file
+			print('Saving log in {} ...'.format(self.log_file))
+			with open(self.log_file, 'a') as csv_file:
+				for obj in self.memory:	writer(csv_file).writerow(obj)
+			# Reset memory
+			self.memory = []
 
 #private functions
 	def _get_reward(self, my_role, attacks):
@@ -114,8 +114,6 @@ class Model:
 		return log
 
 	def _rebuid_Q_function(self, dataset):
-		tbCallback= TensorBoard(log_dir=Directory['TB_PATH'], histogram_freq=0,
-								write_graph=True, write_images=True)
 		header = '--------------------- RL_EPOCHS: {}/{} ---------------------'
 		myheader = header.format('{}',Agent_config['EPOCHS_REBUILD_FIT'])
 		learning_rate = Agent_config['LEARNING_RATE_RL']
@@ -138,13 +136,28 @@ class Model:
 			news_Q = Q_s_a + learning_rate*(rewards - Q_s_a + dones*gamma*Q_next)
 			# Replace new Q-value in predict_s
 			for pred, act, new in zip(predict_s, actions, news_Q): pred[act] = new
-			print('Data processed in {}s'.format(time()-now))
+			print('Data processed in {0:.2f}s'.format(time()-now))
 
 			# Train the Neural Net with the state and news_rewards
 			print('Fitting Keras model...')
+			now=time()
 			self.keras_NN_model.fit(states, predict_s,
 				batch_size=Agent_config['BATCH_SIZE'],
 				validation_split = Agent_config['VAL_SPLIT_FIT'],
 				epochs=Agent_config['EPOCHS_FIT'],
 				verbose=Agent_config['VERBOSE_FIT'],
-				callbacks=[tbCallback])
+				callbacks=[self.tbCallback])
+			print('Keras model fited processed in {0:.2f}s'.format(time()-now))
+
+
+"""
+
+"""
+class LearnerModel(BaseModel):
+	def remember(self, state, role, attacks, choices, next_state, done):
+		#my experience
+		BaseModel.remember(self, state, role, attacks, choices, next_state, done)
+		# ally's experience
+		r = role.split('_')
+		role_ally=r[0]+'_'+str((int(r[1])+1)%2)
+		BaseModel.remember(self, state, role_ally, attacks, choices, next_state, done)
