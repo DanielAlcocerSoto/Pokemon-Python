@@ -2,7 +2,9 @@
 # -*- coding: utf-8 -*-
 
 """
-Main exeutable file
+Exeutable file.
+Run this code to re-generate the information database of Types, Moves, and
+Pokemons, and the image dataset of the pokemon sprites.
 """
 
 # Local imports
@@ -12,12 +14,12 @@ from DataBase.generator_data_base import \
 # General imports
 import argparse
 
-__version__ = '0.5'
+__version__ = '1.0'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
 
 """
-Run this code to re-generate the information database of Types, Moves, and
+This functoin re-generate the information database of Types, Moves, and
 Pokemons, and the image dataset of the pokemon sprites.
 """
 def generate_data(args):

@@ -27,10 +27,10 @@ def set_random_attack(bool):
 	Attack_Config['USE_MISSING'] = bool
 	Attack_Config['USE_IV'] = bool
 
-def set_poke(params):
+def set_poke(params,args):
 	pass#params['poke_A1'] = Pokemon.Random(50, 0)
 
-def set_agents(params):
+def set_agents(params,args):
 	model = BaseModel()
 	def const_agent(r, p): return Agent(r, p, model, train_mode=True)
 	params['const_A1']=params['const_A2']=const_agent
@@ -67,8 +67,8 @@ def main(args):
 	params = Battle.default_argunents()
 	params['base_level'] = args.base_level
 	params['varability_level'] = args.var_level
-	set_poke(params)
-	model = set_agents(params)
+	set_poke(params,args)
+	model = set_agents(params,args)
 	run_battle_training(args.episodes, model, params)
 
 #Main of run

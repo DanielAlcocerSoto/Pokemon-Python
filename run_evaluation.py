@@ -20,10 +20,10 @@ __version__ = '0.5'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
 
-def set_poke(params):
+def set_poke(params,args):
 	pass#params['poke_A1'] = Pokemon.Random(50, 0)
 
-def set_agents(params):
+def set_agents(params,args):
 	model = BaseModel() #same model in each episode -> no load memory
 	def const_agent(r, p): return Agent(r, p, model, train_mode=False)
 	params['const_A1']=params['const_A2']=const_agent
@@ -73,8 +73,8 @@ def main(args):
 	params = Battle.default_argunents()
 	params['base_level'] = args.base_level
 	params['varability_level'] = args.var_level
-	set_poke(params)
-	set_agents(params)
+	set_poke(params,args)
+	set_agents(params,args)
 	run_battle_evaluation(args.episodes, params)
 
 #Main of run

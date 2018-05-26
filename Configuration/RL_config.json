@@ -1,6 +1,6 @@
 {
-  "LOG_NAME": "log_redu_stat_gen1",
-  "MODEL_NAME": "model_redu_stat_gen1",
+  "LOG_NAME": "state_withaout_state_level",
+  "MODEL_NAME": "state_withaout_state_level",
 
   "NEURAL_NET_DESIGN": [
     [50,"relu"],

@@ -51,9 +51,8 @@ class Encoder:
 		self.encoder_type = Categorical_variable(Types)#18
 		self.encoder_dmg = Categorical_variable(['physical','special'])#2
 		#len_poke_enc = 2*self.encoder_type.lenght+6+3 #6 stats,health,level,fainted
-		#len_move_enc = self.encoder_type.lenght+self.encoder_dmg.lenght+2 #actual_pp,power
-		len_poke_enc = 2*self.encoder_type.lenght+1
-		len_move_enc = self.encoder_type.lenght+2
+		len_move_enc = self.encoder_type.lenght+self.encoder_dmg.lenght+2 #actual_pp,power
+		len_poke_enc = 2*self.encoder_type.lenght+2
 		self.state_size = len_move_enc*4 + len_poke_enc*3 #3 pokemon and 4 moves
 
 	def _poke_to_list(self, poke):
@@ -65,11 +64,11 @@ class Encoder:
 			types = [types, [0]*self.encoder_type.lenght]
 		types = types[0] + types[1]
 		#return stats + types + [poke.health(), poke.level(), int(poke.is_fainted())]
-		return types + [int(poke.is_fainted())]
+		return types + [int(poke.is_fainted()),poke.health()/poke.get_stat('hp')]
 
 	def _move_to_list(self, move):
-			#self.encoder_dmg.encode(move.damage_class()) + \
-		return self.encoder_type.encode(move.type().name()) + \
+		return  self.encoder_type.encode(move.type().name()) + \
+				self.encoder_dmg.encode(move.damage_class()) + \
 				[int(move.can_use()), move.power()]
 
 	def encode_state(self, state, my_role):
