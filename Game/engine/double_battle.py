@@ -13,11 +13,11 @@ It contains the following class:
 # Local imports
 from Configuration.settings import Sentence, Display_Config, General_config
 from Game.display.window import Window
+from Agent.agent import Agent
 from .core.pokemon import Pokemon
 from .trainer import TrainerRandom
 from .trainerInput import TrainerInput
 from .attack import Attack
-from Agent.agent_to_play import AgentPlay
 
 __version__ = '0.7'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
@@ -80,7 +80,7 @@ class Double_Battle:
 
 		self._trainers = [trainerA1,trainerA2,trainerF1,trainerF2]
 		self.state = {t.role: t.pokemon() for t in self._trainers}
-		self.state['use_agent'] = isinstance(trainerA2, AgentPlay)
+		self.state['use_agent'] = isinstance(trainerA2, Agent)
 		self.show_message = None
 		self.n_turn = 0
 		for t in self._trainers:

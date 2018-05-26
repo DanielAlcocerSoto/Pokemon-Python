@@ -6,52 +6,52 @@ Main exeutable file
 """
 
 # Local imports
+from Configuration.settings import General_config, Agent_config
 from Game.engine.double_battle import Double_Battle as Battle
-from Game.engine.trainer import TrainerRandom
 from Game.engine.core.pokemon import Pokemon
 
-from Agent.agent_to_play import AgentPlay
-from Agent.agent_to_train import AgentTrain
+from Agent.agent import Agent
+from Agent.model import BaseModel
 
 # General imports
 import argparse
-from time import time
 
 __version__ = '0.5'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
 
-"""
-Run this code to play a battle with an agent as ally for the manual evaluation
-of the model.
-"""
-def play_to_eval(args):
-	"""
-		Args:
-			args: parse_args return.
+def set_poke(params):
+	pass#params['poke_A1'] = Pokemon.Random(50, 0)
 
-		Action:
-			This function run a battle with an agent as ally with the parameters
-			indicated in the parameter 'args'.
-	"""
-	from Agent.model import BaseModel
-	print('Running a battle with an agent ally...')
-	def constructor_agent(role, pokemon): return AgentPlay(role, pokemon,  BaseModel())
-	header = '--------------------- EPISODE: {}/{} ---------------------'
-	myheader = header.format('{}',args.episodes)
-	for i in range(args.episodes):
-		print(myheader.format(i+1))
-		Battle( constructor_trainerA2 = constructor_agent,
-				base_level = args.base_level,
-				varability_level = args.var_level).play()
+def set_agents(params):
+	model = BaseModel() #same model in each episode -> no load memory
+	def const_agent(r, p): return Agent(r, p, model, train_mode=False)
+	params['const_A1']=params['const_A2']=const_agent
 
+def run_battle_evaluation(n_episodes, params):
+	header = '--------------------- EPISODE: {}/{} ------- WIN_RATE: {} ---------------------'
+	myheader = header.format('{0}',n_episodes,'{1:.2f}')
+	wins = emp = 0
+	print('--------------------- EVALUATING AGENT ----------------------------')
+	for i in range(n_episodes):
+		win_rate = (wins*100)/max(i,1)
+		print(myheader.format(i+1,win_rate))
+		battle = Battle(**params)
+		battle.play()
+		if battle.winners() == None: emp+=1
+		elif battle.winners(): wins+=1
+	# Prins for analize
+	print('----------------------------------------------------------')
+	print('--------------------- RESULTS ----------------------------')
+	print('WINS: {0}/{1} = {2:.2f}%'.format(wins,n_episodes,(wins*100)/n_episodes))
+	print('Draws: {0}/{1} = {2:.2f}%'.format(emp,n_episodes,(emp*100)/n_episodes))
+	print('----------------------------------------------------------')
 
 
 """
-Executes N battles played by a random and an agent to evaluate the performance
-of the model.
+Executes N battles played by two agent to evaluate the performance of the model.
 """
-def eval_agent(args):
+def main(args):
 	"""
 		Args:
 			args: parse_args return.
@@ -60,28 +60,22 @@ def eval_agent(args):
 			This function play N battles with a random and an agent to evaluate
 			the performance	of the model.
 	"""
-	from Agent.model import BaseModel
-	print('Running random battles to eval an agent')
-	model = BaseModel() #same model in each episode
-	def constructor_agent(role, pokemon): return AgentPlay(role, pokemon, model)
-	model2 = BaseModel() #same model in each episode
-	def constructor_agent2(role, pokemon): return AgentPlay(role, pokemon, model2)
-	wins = emp = 0
-	header = '--------------------- EPISODE: {}/{} ------- WIN_RATE: {} ---------------------'
-	myheader = header.format('{0}',args.episodes,'{1:.2f}')
-	for i in range(args.episodes):
-		win_rate = (wins*100)/max(i,1)
-		print(myheader.format(i+1,win_rate))
-		battle = Battle(constructor_trainerA2 = constructor_agent,
-						constructor_trainerA1 = constructor_agent2,#TrainerRandom,
-						base_level = args.base_level,
-						varability_level = args.var_level)
-		battle.play()
-		if battle.winners() == None: emp +=1
-		elif battle.winners(): wins+=1
-	# Prins for analize
-	print('WINS: {0}/{1} = {2:.2f}%'.format(wins,args.episodes,(wins*100)/args.episodes))
-	print('Draws: {0}/{1} = {2:.2f}%'.format(emp,args.episodes,(emp*100)/args.episodes))
+	# GPU TensorFlow Configuration
+	from keras import backend as K
+	import tensorflow as tf
+	config = tf.ConfigProto()
+	config.gpu_options.allow_growth = True
+	session = tf.Session(config=config)
+	K.set_session(session)
+	print('GPU TensorFLow Configurated')
+
+	# Params configuration
+	params = Battle.default_argunents()
+	params['base_level'] = args.base_level
+	params['varability_level'] = args.var_level
+	set_poke(params)
+	set_agents(params)
+	run_battle_evaluation(args.episodes, params)
 
 #Main of run
 if __name__ == '__main__':
@@ -95,4 +89,4 @@ if __name__ == '__main__':
 	parser.add_argument('--var_level' , '-vl', type = int, default = 0,
 						help='Param for battle actions. ' +\
 						'Varability for pokemon\'s level (lvl = Base +/- Var)')
-	eval_agent(parser.parse_args())
+	main(parser.parse_args())

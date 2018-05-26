@@ -10,8 +10,7 @@ from Configuration.settings import General_config, Agent_config
 from Game.engine.double_battle import Double_Battle as Battle
 from Game.engine.core.pokemon import Pokemon
 
-from Agent.agent_to_play import AgentPlay
-from Agent.agent_to_train import AgentTrain
+from Agent.agent import Agent
 from Agent.model import BaseModel
 
 # General imports
@@ -33,12 +32,12 @@ def set_poke(params):
 
 def set_agents(params):
 	model = BaseModel()
-	def const_agent(r, p): return AgentTrain(r, p, model)
+	def const_agent(r, p): return Agent(r, p, model, train_mode=True)
 	params['const_A1']=params['const_A2']=const_agent
 	params['const_F1']=params['const_F2']=const_agent
 	return model
 
-def run_battle(n_episodes, model, params):
+def run_battle_training(n_episodes, model, params):
 	header = '--------------------- EPISODE: {}/{} ---------------------'
 	myheader = header.format('{}',n_episodes)
 	print('--------------------- TRAINING AGENT ----------------------------')
@@ -70,7 +69,7 @@ def main(args):
 	params['varability_level'] = args.var_level
 	set_poke(params)
 	model = set_agents(params)
-	run_battle(args.episodes, model, params)
+	run_battle_training(args.episodes, model, params)
 
 #Main of run
 if __name__ == '__main__':
