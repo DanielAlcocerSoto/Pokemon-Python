@@ -1,6 +1,6 @@
 {
-  "LOG_NAME": "combo_test",
-  "MODEL_NAME": "combo_test",
+  "LOG_NAME": "combo_type_test_x10",
+  "MODEL_NAME": "combo_type_test_x10",
 
   "NEURAL_NET_DESIGN": [
     [50,"relu"],

@@ -87,7 +87,7 @@ def run_combo_type_battle_training(n_repetitions, model, params):
 		if key in type_poke.keys():type_poke[key].append(name)
 		else: type_poke[key] = [name]
 
-	names = type_poke.keys()
+	names = list(type_poke.keys())
 	possible_types_comb = list(combinations(names, 2))
 	len_comb = len(possible_types_comb)
 	iner_loop = int(len(names)/2)
