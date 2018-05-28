@@ -20,6 +20,13 @@ __version__ = '0.5'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
 
+def set_random_attack(bool):
+	from Configuration.settings import Attack_Config
+	Attack_Config['USE_VARABILITY'] = bool
+	Attack_Config['USE_CRITIC'] = bool
+	Attack_Config['USE_MISSING'] = bool
+	Attack_Config['USE_IV'] = bool
+
 def set_agents(params,args):
 	model = BaseModel() #same model in each episode -> no load memory
 	def const_agent(r, p): return Agent(r, p, model, train_mode=False)
@@ -65,6 +72,11 @@ def main(args):
 	session = tf.Session(config=config)
 	K.set_session(session)
 	print('GPU TensorFLow Configurated')
+
+	#General configuartion
+	General_config['BATTLE_VERBOSE'] = False
+	General_config['GENERATIONS'] = [2,3,4]
+	set_random_attack(True)
 
 	# Params configuration
 	params = Battle.default_argunents()

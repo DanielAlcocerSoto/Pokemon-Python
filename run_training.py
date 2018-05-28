@@ -17,6 +17,7 @@ from Agent.model import BaseModel
 import argparse
 from time import time
 from itertools import combinations
+from random import choice, randint
 
 __version__ = '0.5'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
@@ -48,7 +49,7 @@ def run_battle_training(n_episodes, model, params):
 	print('Finished! Time = {0:.2f}s'.format(time()-start))
 
 
-def run_combo_battle_training(n_repetitions, model, params):
+def run_combo_name_battle_training(n_repetitions, model, params):
 	header = '--------------------- EPISODE: {}/{} ---------------------'
 	start = time()
 	names = Pokemon.possible_names()
@@ -56,20 +57,59 @@ def run_combo_battle_training(n_repetitions, model, params):
 	len_comb = len(possible_names_comb)
 	iner_loop = int(len(names)/2)
 	myheader = header.format('{}',len_comb*iner_loop)
-	wins = emp = i = 0
+	i = 0
 	print('--------------------- TRAINING AGENT EQUALLY ----------------------------')
 	for pF1,pF2 in possible_names_comb:
 		for j in range(iner_loop):
 			if (i+1)%100 == 0: print(myheader.format(i+1))
 
-			params['poke_A1'] = Pokemon(names[j],50)
-			params['poke_A2'] = Pokemon(names[-j-1],50)
-			params['poke_F1'] = Pokemon(pF1,50)
-			params['poke_F2'] = Pokemon(pF2,50)
+			params['poke_A1'] = Pokemon(names[j], bl+randint(-vl,vl))
+			params['poke_A2'] = Pokemon(names[-j-1], bl+randint(-vl,vl))
+			params['poke_F1'] = Pokemon(pF1, bl+randint(-vl,vl))
+			params['poke_F2'] = Pokemon(pF2, bl+randint(-vl,vl))
 
 			Battle(**params).play()
-			if (i+1)%100000 == 0: model.train_and_save()
+			if (i+1)%10000 == 0: model.train_and_save()
 			i+=1
+	model.train_and_save()
+	print('Finished! Time = {0:.2f}h'.format((time()-start)/3600))
+
+def run_combo_type_battle_training(n_repetitions, model, params):
+	header = '--------------------- EPISODE: {}/{} ---------------------'
+	from Game.engine.core.type import Type
+	from Game.engine.core.pokemon import Pokemon
+	type_poke = {}
+	for name in Pokemon.possible_names():
+		types = Pokemon(name,50)._info['types']
+		if len(types) == 1: key = types[0]
+		elif types[0] < types[1]: key = types[0]+'-'+types[1]
+		else: key = types[1]+'-'+types[0]
+		if key in type_poke.keys():type_poke[key].append(name)
+		else: type_poke[key] = [name]
+
+	names = type_poke.keys()
+	possible_types_comb = list(combinations(names, 2))
+	len_comb = len(possible_types_comb)
+	iner_loop = int(len(names)/2)
+	myheader = header.format('{}',len_comb*iner_loop*n_repetitions)
+	i = 0
+	bl = params['base_level']
+	vl = params['varability_level']
+	start = time()
+	print('--------------------- TRAINING AGENT EQUALLY ----------------------------')
+	for pF1,pF2 in possible_types_comb:
+		for j in range(iner_loop):
+			for k in range(n_repetitions):
+				if (i+1)%100 == 0: print(myheader.format(i+1))
+
+				params['poke_A1'] = Pokemon(choice(type_poke[names[j]]), bl+randint(-vl,vl))
+				params['poke_A2'] = Pokemon(choice(type_poke[names[-j-1]]), bl+randint(-vl,vl))
+				params['poke_F1'] = Pokemon(choice(type_poke[pF1]), bl+randint(-vl,vl))
+				params['poke_F2'] = Pokemon(choice(type_poke[pF2]), bl+randint(-vl,vl))
+
+				Battle(**params).play()
+				if (i+1)%10000 == 0: model.train_and_save()
+				i+=1
 	model.train_and_save()
 	print('Finished! Time = {0:.2f}h'.format((time()-start)/3600))
 
@@ -93,12 +133,13 @@ def main(args):
 	params['varability_level'] = args.var_level
 	model = set_agents(params,args)
 	#run_battle_training(args.episodes, model, params)
-	run_combo_battle_training(args.episodes, model, params)
+	#run_combo_name_battle_training(args.episodes, model, params)
+	run_combo_type_battle_training(args.episodes, model, params)
 
 #Main of run
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--episodes' , '-e', type = int, default = 500,
+	parser.add_argument('--episodes' , '-e', type = int, default = 5,
 						help='Param for agent train actions. ' +\
 						'Number of battles to play')
 	parser.add_argument('--base_level' , '-bl', type = int, default = 50,

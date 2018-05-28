@@ -33,11 +33,12 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
 class BaseModel:
 	def __init__(self, rebuid=False):
+		self.output_layer_size = 8
 		self.encoder = Encoder()
 		self.memory = []
 		self.log_file = Directory['DIR_LOGS'] + Agent_config['LOG_NAME'] + '.csv'
 		self.tbCallback=TensorBoard(log_dir=Directory['TB_PATH']+\
-									Agent_config['MODEL_NAME'] + '-TensorBoard_LOG',
+									Agent_config['MODEL_NAME'],
 									histogram_freq=0,
 									write_graph=True, write_images=True)
 		if rebuid:
@@ -99,7 +100,7 @@ class BaseModel:
 			else: layer = Dense(nodes, activation=act_func)
 			model.add(layer)  #model.add(Dropout(0.5)) #not to overfit
 		# Output Layer with # of actions: 4*2 nodes
-		model.add(Dense(8, activation='linear'))
+		model.add(Dense(self.output_layer_size, activation='linear'))
 		# Create the model based on the information above and configure the learning process,
 		model.compile(optimizer='adam', loss='mse', metrics=['accuracy'])
 		return model
@@ -161,3 +162,40 @@ class LearnerModel(BaseModel):
 		r = role.split('_')
 		role_ally=r[0]+'_'+str((int(r[1])+1)%2)
 		BaseModel.remember(self, state, role_ally, attacks, choices, next_state, done)
+
+"""
+
+"""
+class CoopModel(BaseModel):
+	def __init__(self, rebuid=False):
+		BaseModel-__init__(self, rebuid)
+		self.output_layer_size = 8*8
+		self.encoder = CoopEncoder()
+
+	def predict(self, state, role):
+		## TODO cambiar para recivir la accion del compañero
+		state = array([self.encoder.encode_state(state, role)])
+		act_values = self.keras_NN_model.predict(state)
+		print('Result of Keras model for {}: {}'.format(role,act_values))
+		return self.encoder.decode_action(act_values[0])
+
+	def remember(self, state, role, attacks, choices, next_state, done):
+		## TODO cambiar para soportar en nuevo formato de accion
+		#my experience
+		BaseModel.remember(self, state, role, attacks, choices, next_state, done)
+		# ally's experience
+		r = role.split('_')
+		role_ally=r[0]+'_'+str((int(r[1])+1)%2)
+		BaseModel.remember(self, state, role_ally, attacks, choices, next_state, done)
+
+#private functions
+	def _get_reward(self, my_role, attacks):
+		## TODO cambiar para mexclar las recomensas
+		if my_role in attacks.keys():
+			attack=attacks[my_role]
+			return attack.dmg
+		else: return 0
+""""
+class CoopEncoder(Encoder):
+	def __init__(self):
+"""
