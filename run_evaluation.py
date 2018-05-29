@@ -71,7 +71,7 @@ def main(args):
 	config.gpu_options.allow_growth = True
 	session = tf.Session(config=config)
 	K.set_session(session)
-	print('GPU TensorFLow Configurated')
+	print('GPU TensorFlow Configurated')
 
 	#General configuartion
 	General_config['BATTLE_VERBOSE'] = False
