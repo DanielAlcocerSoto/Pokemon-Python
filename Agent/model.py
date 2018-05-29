@@ -1,4 +1,3 @@
-
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
@@ -32,13 +31,13 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
 
 class BaseModel:
-	def __init__(self, rebuid=False):
+	def __init__(self, model_name = Agent_config['MODEL_NAME'], rebuid = False):
 		self.output_layer_size = 8
 		self.encoder = Encoder()
 		self.memory = []
+		self.model_name = model_name
 		self.log_file = Directory['DIR_LOGS'] + Agent_config['LOG_NAME'] + '.csv'
-		self.tbCallback=TensorBoard(log_dir=Directory['TB_PATH']+\
-									Agent_config['MODEL_NAME'],
+		self.tbCallback=TensorBoard(log_dir=Directory['TB_PATH']+self.model_name,
 									histogram_freq=0,
 									write_graph=True, write_images=True)
 		if rebuid:
@@ -46,17 +45,17 @@ class BaseModel:
 			self.keras_NN_model = self._build_model()
 			self._rebuid_Q_function(self._load_log_memory(self.log_file))
 		else:
-			model_file=Directory['DIR_MODELS']+Agent_config['MODEL_NAME']+'.h5'
+			model_file=Directory['DIR_MODELS']+self.model_name+'.h5'
 			if exists(model_file): self.keras_NN_model = load_model(model_file)
 			else: self.keras_NN_model = self._build_model()
 
 	def predict(self, state, role):
 		state = array([self.encoder.encode_state(state, role)])
 		act_values = self.keras_NN_model.predict(state)
-		print('Result of Keras model for {}: {}'.format(role,act_values))
+		#print('Result of Keras model for {}: {}'.format(role,act_values))
 		return self.encoder.decode_action(act_values[0])
 
-	def remember(self, state, role, attacks, choices, next_state, done):
+	def remember(self, state, role, attacks, choices, next_state, done, player=False):
 		if not state[role].is_fainted():
 			# get information
 			state = self.encoder.encode_state(state, role)
@@ -64,14 +63,14 @@ class BaseModel:
 			action = self.encoder.encode_action(*choices[role])
 			reward = self._get_reward(role, attacks)
 			#print('Reward of this turn = ', reward)
-			self.memory.append( (state, action, reward, next_state, done) )
+			self.memory.append( (state, action, reward, next_state, player, done) )
 
 	def train_and_save(self): # Episodic training
 		if self.memory != []:
 			# Train model with memory
 			self._rebuid_Q_function(self.memory)
 			# Save model
-			model_file=Directory['DIR_MODELS']+Agent_config['MODEL_NAME']+'.h5'
+			model_file=Directory['DIR_MODELS']+self.model_name+'.h5'
 			print('Saving model in {} ...'.format(model_file))
 			self.keras_NN_model.save(model_file)
 			# Save memory in log file
@@ -117,14 +116,16 @@ class BaseModel:
 	def _rebuid_Q_function(self, dataset):
 		header = '--------------------- RL_EPOCHS: {}/{} ---------------------'
 		myheader = header.format('{}',Agent_config['EPOCHS_REBUILD_FIT'])
-		learning_rate = Agent_config['LEARNING_RATE_RL']
 		gamma = Agent_config['GAMMA_DISCOUNTING_RATE']
 
-		states,actions,rewards,next_states,dones = zip(*dataset)
+		states,actions,rewards,next_states,players,dones = zip(*dataset)
 		dones = array(dones)
 		states = array(states)
 		rewards = array(rewards)
 		next_states = array(next_states)
+		learning_rate = array([ Agent_config['LEARNING_RATE_RL_PLAYER'] if player \
+		 						else Agent_config['LEARNING_RATE_RL']
+								for player in players])
 
 		for i in range(Agent_config['EPOCHS_REBUILD_FIT']):
 			print(myheader.format(i+1))
@@ -152,7 +153,7 @@ class BaseModel:
 
 
 """
-
+To learn from an experienced player
 """
 class LearnerModel(BaseModel):
 	def remember(self, state, role, attacks, choices, next_state, done):
@@ -160,42 +161,6 @@ class LearnerModel(BaseModel):
 		BaseModel.remember(self, state, role, attacks, choices, next_state, done)
 		# ally's experience
 		r = role.split('_')
-		role_ally=r[0]+'_'+str((int(r[1])+1)%2)
-		BaseModel.remember(self, state, role_ally, attacks, choices, next_state, done)
-
-"""
-
-"""
-class CoopModel(BaseModel):
-	def __init__(self, rebuid=False):
-		BaseModel-__init__(self, rebuid)
-		self.output_layer_size = 8*8
-		self.encoder = CoopEncoder()
-
-	def predict(self, state, role):
-		## TODO cambiar para recivir la accion del compañero
-		state = array([self.encoder.encode_state(state, role)])
-		act_values = self.keras_NN_model.predict(state)
-		print('Result of Keras model for {}: {}'.format(role,act_values))
-		return self.encoder.decode_action(act_values[0])
-
-	def remember(self, state, role, attacks, choices, next_state, done):
-		## TODO cambiar para soportar en nuevo formato de accion
-		#my experience
-		BaseModel.remember(self, state, role, attacks, choices, next_state, done)
-		# ally's experience
-		r = role.split('_')
-		role_ally=r[0]+'_'+str((int(r[1])+1)%2)
-		BaseModel.remember(self, state, role_ally, attacks, choices, next_state, done)
-
-#private functions
-	def _get_reward(self, my_role, attacks):
-		## TODO cambiar para mexclar las recomensas
-		if my_role in attacks.keys():
-			attack=attacks[my_role]
-			return attack.dmg
-		else: return 0
-""""
-class CoopEncoder(Encoder):
-	def __init__(self):
-"""
+		role_ally = r[0]+'_'+str((int(r[1])+1)%2)
+		BaseModel.remember( self, state, role_ally, attacks, choices, next_state,
+		 					done, player = True)

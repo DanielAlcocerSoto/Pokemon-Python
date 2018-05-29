@@ -30,7 +30,8 @@ def set_random_attack(bool):
 def set_agents(params,args):
 	model = BaseModel() #same model in each episode -> no load memory
 	def const_agent(r, p): return Agent(r, p, model, train_mode=False)
-	params['const_A1']=params['const_A2']=const_agent
+	params['const_A1']=const_agent
+	params['const_A2']=const_agent
 
 def run_random_battle_evaluation(n_episodes, params):
 	header = '--------------------- EPISODE: {}/{} ------- WIN_RATE: {} ---------------------'

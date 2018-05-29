@@ -1,6 +1,8 @@
 {
-  "LOG_NAME": "combo_type_test_x10",
-  "MODEL_NAME": "combo_type_test_x10",
+  "LOG_NAME": "combo_type_x5_learner",
+  "MODEL_NAME": "combo_type_x5_learner",
+
+  "SUPPORT_MODEL_NAME": "combo_test",
 
   "NEURAL_NET_DESIGN": [
     [50,"relu"],
@@ -9,7 +11,7 @@
 
   "GAMMA_DISCOUNTING_RATE": 0.20,
   "LEARNING_RATE_RL": 0.75,
-  "EPOCHS_EPISODIC_FIT":1,
+  "LEARNING_RATE_RL_PLAYER": 0.90,
 
   "EPOCHS_REBUILD_FIT":20,
   "VERBOSE_FIT": 1,

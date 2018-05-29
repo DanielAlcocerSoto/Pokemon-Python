@@ -45,7 +45,7 @@ class Agent(Trainer):
 		else:
 			self._idmove, self._target = self._predict_choise()
 			str = 'Agent {} choice action: ({},{})'
-			print(str.format( self.role, self._idmove, self._target))
+			#print(str.format( self.role, self._idmove, self._target))
 
 	def recive_results(self, attacks, choices, done):
 		if self.train_mode:

@@ -11,7 +11,7 @@ from Game.engine.double_battle import Double_Battle as Battle
 from Game.engine.core.pokemon import Pokemon
 
 from Agent.agent import Agent
-from Agent.model import BaseModel
+from Agent.model import BaseModel, LearnerModel
 
 # General imports
 import argparse
@@ -28,13 +28,23 @@ def set_random_attack(bool):
 	Attack_Config['USE_CRITIC'] = bool
 	Attack_Config['USE_MISSING'] = bool
 	Attack_Config['USE_IV'] = bool
-
+"""
 def set_agents(params,args):
 	model = BaseModel()
-	def const_agent(r, p): return Agent(r, p, model, train_mode=True)
-	params['const_A1']=params['const_A2']=const_agent
-	#params['const_F1']=params['const_F2']=const_agent
+	def const_agent(r, p): return Agent(r, p, model, train_mode=False)
+	params['const_F1']=params['const_F2']=const_agent
 	return model
+"""
+
+def set_agents(params,args):
+	baseModel = BaseModel(model_name = Agent_config['SUPPORT_MODEL_NAME'])
+	learnerModel = LearnerModel()
+	def const_agent(r, p): return Agent(r, p, baseModel, train_mode=False)
+	def const_agent_learn(r, p): return Agent(r, p, learnerModel, train_mode=True)
+	params['const_A1']=const_agent
+	params['const_A2']=const_agent_learn
+	#params['const_F1']=params['const_F2']=const_agent
+	return learnerModel
 
 def run_battle_training(n_episodes, model, params):
 	header = '--------------------- EPISODE: {}/{} ---------------------'
@@ -58,7 +68,10 @@ def run_combo_name_battle_training(n_repetitions, model, params):
 	iner_loop = int(len(names)/2)
 	myheader = header.format('{}',len_comb*iner_loop)
 	i = 0
+	bl = params['base_level']
+	vl = params['varability_level']
 	print('--------------------- TRAINING AGENT EQUALLY ----------------------------')
+	print(myheader.format(0))
 	for pF1,pF2 in possible_names_comb:
 		for j in range(iner_loop):
 			if (i+1)%100 == 0: print(myheader.format(i+1))
