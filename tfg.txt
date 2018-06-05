@@ -1,0 +1,66 @@
+TFG
+juego:
+ para concretar un poco mas, ipara aquellos que sepan un poco del tema, la version realizada tiene los pokemons intriducidos hasta la 4 generacion, coresponiente a las versiones diamte perla platino, pero con los valores coresponientes a la ultima version (sol y luna) debido a la manera de obtenerla (secionn api).
+
+(esta introduce algunos cambios importantes, como por ejemplo la itroducin del un nuevo tipo hada canvindo asi el tipo de algunos ataques i pokemons) ---> en la API
+
+El juego implementado basicamento es solo la parte de las batallas dobles, y a estas se les a reducido mucho su complejidad por motivos de tiempo de implementaciónn prinicpalmente. algunas de las dinamicas eliminadas an sido los efectos como conjelado paralizado enverenado... efectos que porvocavan ciertos ataques , como hcer que lloviera granicara crear bareras...
+i muchos mas por el estilo.
+
+Lo que si se ha conservado ha sido la mecanica de daño pricipal la cual es bastante compleja.
+Esta tiene en cuenta valores como ..... (secion ...)
+
+[ antes de poder ver bien com se raliza el clculo de daño primero hay que itroducior bien los conceptos de ...
+
+un vez introducidos lo conceptos... veamos com se relaiza el calculo de daño  ---> parte del engine, creo?
+]
+
+
+tipos:
+
+Por la parte de los movinetos, estos solo pueden tener un tipo, a diferencia de los pokemon, los cuales pueden tener 1 o dos tipos. el tipo de un movioiento o de un pokemon esta pre fijado, es decir, es invarinte y siempre sera el mismo para el mismo pokemon/movimiento 
+
+
+Estas devididades y fortalezas que tienen los tipos entre ellos son las que crean una mecanica fundamental en el juego. 
+
+
+Cuando se elije que ataque se realizará es muy impotante tener en cuenta cual es la relacion que tiene el tipo del movimiento con los tipos del pokemon.
+ a continuacion , en la figura \ref{} se puede apreciar la relacion entre los tipos
+
+en las filas podemos encontrar el tipo del ataque realizado, i en las columnas el tipo del pokemon que recive el ataque.
+
+(leyenda?? x0.5 x2 OX-)
+para el calculo de la efectividad en los poquemons se realiza la acumulacion mutiplicativa del daño es decir si es 2 0,5 sera 1 ...
+
+por ejemplo, podemos ver que el fuego es eficaz contra el tipo planta, el tipo planta contra el tipo agua y el agua contra el tipo fueggo
+
+esta relaciones avezes estan fundamentadas en la ralidad como por ejemplo el agua es fuert contra el fuego, (otro ejemppl). En algunas ocasiones, las relacones son un poco mas estrañas o sacadas de reflnes como por ejemplo matar a dos pajaros con un sola piedra (el tipo roca es eficaz contr el tipo volador)
+
+Y otras vezes la relaciones son mas dificiles de explicar, (por que alguna solo estan para equilivrar como por ejemplo el tipo hada de introdujo solo para devilitar el tipo dragon), por esto , y anadido a la combinacion de tipos en los pokemon, esta dinamica suele tener un punto de misterio dado que hasta que no lo proveas en combate no sabes si sera util o no
+
+
+
+
+
+
+Movimientos:
+ los movimientos son los distintos taques que puede realizar un pokemon. De estos ai una gran variedad, dado que nu todos los pokemon pueden aprender los mismos movimientos. 
+
+los movimientos que puede aprender un pokemon son un rasgo distintivo de este, aunque en general, un pokemon podra aprender la mayoria de ataque del mismo tipo que el, pero esto no es ninguna condicion ni nada po rel estilo
+
+hay algunos movimientos que son unicos de un pokemon com por ejemplo distorsion de dialga o .... Y hay otros que son muy comunes  como placaje snore ....
+
+a patre del tipo, los movimientos se caracteriza por..
+
+
+
+
+
+
+
+
+
+
+
+
+ 

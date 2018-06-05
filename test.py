@@ -1,3 +1,4 @@
+"""
 from Configuration.settings import Directory
 from Game.engine.core.object_info import load_info
 
@@ -35,3 +36,33 @@ for p in obj.values():
         if m[stat] < info[stat]:
             m[stat] = info[stat]
 print(m) #maximum stats posibles
+"""
+
+from DataBase.utils_data_base import load_info
+from Configuration.settings import Directory
+moves_counter = {}
+
+for pk in load_info(Directory['POKE_FILE']).values():
+    for move in pk['moves']:
+        if move in moves_counter.keys():
+            moves_counter[move] += 1
+        else: moves_counter[move] = 1
+
+from numpy import array, argmax, mean
+count = array(list(moves_counter.values()))
+i_max = argmax(count)
+print(max(count), argmax(count), len(count), mean(count))
+move = list(moves_counter.keys())[i_max]
+
+print('max count: ', move, moves_counter[move])
+unic_move=[]
+for move, count in moves_counter.items():
+    if count == 1:
+        unic_move.append(move)
+
+moves =  load_info(Directory['MOVE_FILE'])
+
+for name, pk in load_info(Directory['POKE_FILE']).items():
+    for move in pk['moves']:
+        if move in unic_move:
+            print (move, name, moves[move]['power'])
