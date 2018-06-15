@@ -872,15 +872,6 @@
         "damage_class": "physical",
         "crit_rate": 1
     },
-    "struggle": {
-        "power": 50,
-        "pp": 1,
-        "type": "normal",
-        "accuracy": null,
-        "priority": 0,
-        "damage_class": "physical",
-        "crit_rate": 0
-    },
     "triple-kick": {
         "power": 10,
         "pp": 10,
@@ -3239,15 +3230,6 @@
         "damage_class": "physical",
         "crit_rate": 0
     },
-    "catastropika": {
-        "power": 210,
-        "pp": 1,
-        "type": "electric",
-        "accuracy": null,
-        "priority": 0,
-        "damage_class": "physical",
-        "crit_rate": 0
-    },
     "first-impression": {
         "power": 90,
         "pp": 10,
@@ -3455,69 +3437,6 @@
         "damage_class": "physical",
         "crit_rate": 0
     },
-    "sinister-arrow-raid": {
-        "power": 180,
-        "pp": 1,
-        "type": "ghost",
-        "accuracy": null,
-        "priority": 0,
-        "damage_class": "physical",
-        "crit_rate": 0
-    },
-    "malicious-moonsault": {
-        "power": 180,
-        "pp": 1,
-        "type": "dark",
-        "accuracy": null,
-        "priority": 0,
-        "damage_class": "physical",
-        "crit_rate": 0
-    },
-    "oceanic-operetta": {
-        "power": 195,
-        "pp": 1,
-        "type": "water",
-        "accuracy": null,
-        "priority": 0,
-        "damage_class": "special",
-        "crit_rate": 0
-    },
-    "soul-stealing-7-star-strike": {
-        "power": 195,
-        "pp": 1,
-        "type": "ghost",
-        "accuracy": null,
-        "priority": 0,
-        "damage_class": "physical",
-        "crit_rate": 0
-    },
-    "stoked-sparksurfer": {
-        "power": 175,
-        "pp": 1,
-        "type": "electric",
-        "accuracy": null,
-        "priority": 0,
-        "damage_class": "special",
-        "crit_rate": 0
-    },
-    "pulverizing-pancake": {
-        "power": 210,
-        "pp": 1,
-        "type": "normal",
-        "accuracy": null,
-        "priority": 0,
-        "damage_class": "physical",
-        "crit_rate": 0
-    },
-    "genesis-supernova": {
-        "power": 185,
-        "pp": 1,
-        "type": "psychic",
-        "accuracy": null,
-        "priority": 0,
-        "damage_class": "special",
-        "crit_rate": 0
-    },
     "shell-trap": {
         "power": 150,
         "pp": 5,
@@ -3634,14 +3553,5 @@
         "priority": 0,
         "damage_class": "physical",
         "crit_rate": 0
-    },
-    "10-000-000-volt-thunderbolt": {
-        "power": 195,
-        "pp": 1,
-        "type": "electric",
-        "accuracy": null,
-        "priority": 0,
-        "damage_class": "special",
-        "crit_rate": 2
     }
 }

@@ -175,7 +175,7 @@ def generate_moves(start_iteration=0):
 				of 'move' filtered.
 		"""
 
-		if move['power'] == None:
+		if move['power'] == None or move['pp'] < 5:
 			return None
 		else:
 			info = {

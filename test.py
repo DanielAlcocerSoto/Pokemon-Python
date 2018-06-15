@@ -40,8 +40,11 @@ print(m) #maximum stats posibles
 
 from DataBase.utils_data_base import load_info
 from Configuration.settings import Directory
+from numpy import array, argmax, mean
+"""
+#pokemon-move count
 moves_counter = {}
-
+print('num of pokes = ',len(load_info(Directory['POKE_FILE'])))
 for pk in load_info(Directory['POKE_FILE']).values():
     for move in pk['moves']:
         if move in moves_counter.keys():
@@ -54,7 +57,11 @@ i_max = argmax(count)
 print(max(count), argmax(count), len(count), mean(count))
 move = list(moves_counter.keys())[i_max]
 
+
 print('max count: ', move, moves_counter[move])
+
+print(sorted(moves_counter.items(),key=lambda x: x[1]))
+
 unic_move=[]
 for move, count in moves_counter.items():
     if count == 1:
@@ -66,3 +73,39 @@ for name, pk in load_info(Directory['POKE_FILE']).items():
     for move in pk['moves']:
         if move in unic_move:
             print (move, name, moves[move]['power'])
+
+"""
+"""
+# presision
+count = 0
+count_2 = 0
+for name, move in load_info(Directory['MOVE_FILE']).items():
+    if move['accuracy'] != None and move['accuracy'] <= 80:
+        print('ac: {}, pow: {},'.format( move['accuracy'], move['power']), name)
+        count+=1
+        if move['power'] != None and move['power'] < 80: count_2+=1
+print (count,count_2)
+"""
+"""
+#PPs
+count = 0
+count_2 = 0
+count_3 = 0
+print('num of moves = ',len(load_info(Directory['MOVE_FILE'])))
+for name, move in load_info(Directory['MOVE_FILE']).items():
+    if move['power'] != None and move['power'] > 100: count_3 +=1
+    if move['pp'] != None and move['pp'] == 5:
+        print('pp: {}, pow: {},'.format( move['pp'], move['power']), name)
+        count+=1
+        if move['power'] != None and move['power'] < 100: count_2+=1
+print( '#PP=5: {}, #PP=5&p<100: {}, p>100: {}'.format(count,count_2,count_3))
+"""
+
+#legendarios
+for name, pk in load_info(Directory['POKE_FILE']).items():
+    st = 0
+    for stat in pk['stats']:
+        st += pk['stats'][stat]['base_stat']
+    st = st /  len(pk['stats'].keys())
+    if st > 95:
+        print (name.title())

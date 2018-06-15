@@ -76,7 +76,7 @@ def download_sprite(url, name_file):
 			the sprites directory with the name 'name_file'.
 	"""
 
-	path = Directory['DIR_SPRITES']+name_file+'.png'
+	path = Directory['DIR_IMAGES']+Directory['DIR_SPRITES']+name_file+'.png'
 	if not exists(path): # Not download it if it already exists
 		response = requests.get(url, stream=True)
 		with open(path, 'wb') as file: #create file

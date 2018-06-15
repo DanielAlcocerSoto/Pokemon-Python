@@ -16,7 +16,7 @@ N_Battles = 772.705
 ****No random (10.000)
 gen 1:      78.05%
 gen 2,3,4:  78.38%
-****Yes random  (10.000)
+****Yes random (10.000)
 gen 1:      76.54%
 gen 2,3,4:  76.97%
 
@@ -33,7 +33,7 @@ N_Battles = 59.940
 ****No random (10.000)
 gen 1:      70.59%
 gen 2,3,4:  71.01%
-****Yes random  (10.000)
+****Yes random (10.000)
 gen 1:      70.45%
 gen 2,3,4:  70.11%
 
@@ -41,7 +41,7 @@ ________________________________________________________________________________
 Model: combo_type_test_x10
 Description: resultado de entrenar con la funcion run_combo_type_battle_training,
       donde el aliado 1 y el aliado 2 son agentes normales y los demas son randoms.
-      Se ha entrenado sin usar el random y haciendo 10 repeticiones por combinacion 
+      Se ha entrenado sin usar el random y haciendo 10 repeticiones por combinacion
       de tipo
 Training time: 4.94h
 Log_Size = 1.000.424
@@ -50,6 +50,96 @@ N_Battles = 119.880
 ****No random (10.000)
 gen 1:      72.91%
 gen 2,3,4:  72.82%
-****Yes random  (10.000)
+****Yes random (10.000)
 gen 1:      70.83%
 gen 2,3,4:  71,58%
+
+________________________________________________________________________________
+Model: combo_type_x5_learner
+Description: resultado de entrenar con la funcion run_combo_type_battle_training,
+      donde el aliado 1 es un agente con el modelo 'combo_test' y el aliado 2
+      es agentes con el modelo de aprndizaje del jugador y los demas son randoms.
+      Se ha entrenado sin usar el random y haciendo 5 repeticiones por combinacion
+      de tipo. LR = 0.75, LR_player = 0.90
+Training time: h
+Log_Size =
+N_Battles = 59.940
+-----Evaluation-----------------------------------------------------------------
+****No random (10.000)
+gen 1:      70.28%
+gen 2,3,4:  70.26%
+****Yes random (10.000)
+gen 1:      68.85%
+gen 2,3,4:  68.75%
+
+________________________________________________________________________________
+Model: combo_type_x5_learner
+Description: resultado de entrenar con la funcion run_combo_type_battle_training,
+      donde el aliado 1 es un agente con el modelo 'combo_test' y el aliado 2
+      es agentes con el modelo de aprndizaje del jugador y los demas son randoms.
+      Se ha entrenado sin usar el random y haciendo 5 repeticiones por combinacion
+      de tipo. LR = 0.75, LR_player = 0.80
+Training time: h
+Log_Size =
+N_Battles = 59.940
+-----Evaluation-----------------------------------------------------------------
+****No random (10.000)
+gen 1:      71.64%
+gen 2,3,4:  %
+****Yes random (10.000)
+gen 1:      %
+gen 2,3,4:  %
+
+________________________________________________________________________________
+Model: combo_type_x5_learner2
+Description: resultado de entrenar con la funcion run_combo_type_battle_training,
+      donde el aliado 1 es un agente con el modelo 'combo_type_test' y el aliado 2
+      es agentes con el modelo de aprndizaje del jugador y los demas son randoms.
+      Se ha entrenado sin usar el random y haciendo 5 repeticiones por combinacion
+      de tipo. LR = 0.75, LR_player = 0.75
+Training time: 2.20h
+Log_Size =
+N_Battles = 59.940
+-----Evaluation-----------------------------------------------------------------
+****No random (10.000)
+gen 1:      72.30%
+gen 2,3,4:  71.85%
+****Yes random (10.000)
+gen 1:      70.18%
+gen 2,3,4:  70.79%
+
+
+________________________________________________________________________________
+Model: combo_type_x5_learner3
+Description: resultado de entrenar con la funcion run_combo_type_battle_training,
+      donde el aliado 1 es un agente con el modelo 'combo_type_test' y el aliado 2
+      es agentes con el modelo de aprndizaje del jugador y los demas son randoms.
+      Se ha entrenado sin usar el random y haciendo 5 repeticiones por combinacion
+      de tipo. LR = 0.75, LR_player = 0.80
+Training time: 2.48h
+Log_Size =
+N_Battles = 59.940
+-----Evaluation-----------------------------------------------------------------
+****No random (10.000)
+gen 1:      72.05%
+gen 2,3,4:  71.84%
+****Yes random (10.000)
+gen 1:      69.76%
+gen 2,3,4:  71.29%
+
+________________________________________________________________________________
+Model: type_no_random_x5
+Description: resultado de entrenar con la funcion run_combo_type_battle_training,
+      donde el aliado es un agente con el modelo 'combo_type_test' y los demas son randoms.
+      Se ha entrenado usando el random y haciendo 5 repeticiones por combinacion
+      de tipo. LR = 0.75, LR_player = 0.80
+Training time: 2.43h
+Log_Size =
+N_Battles = 59.940
+-----Evaluation-----------------------------------------------------------------
+****No random (10.000)
+gen 1:      71.15%
+gen 2,3,4:  70.61%
+****Yes random (10.000)
+gen 1:      70.77%
+gen 2,3,4:  70.21%

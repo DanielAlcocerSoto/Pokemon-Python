@@ -28,10 +28,11 @@ def set_random_attack(bool):
 	Attack_Config['USE_CRITIC'] = bool
 	Attack_Config['USE_MISSING'] = bool
 	Attack_Config['USE_IV'] = bool
+
 """
 def set_agents(params,args):
 	model = BaseModel()
-	def const_agent(r, p): return Agent(r, p, model, train_mode=False)
+	def const_agent(r, p): return Agent(r, p, model, train_mode=True)
 	params['const_F1']=params['const_F2']=const_agent
 	return model
 """
@@ -39,9 +40,9 @@ def set_agents(params,args):
 def set_agents(params,args):
 	baseModel = BaseModel(model_name = Agent_config['SUPPORT_MODEL_NAME'])
 	learnerModel = LearnerModel()
-	def const_agent(r, p): return Agent(r, p, baseModel, train_mode=False)
+	def const_agent_base(r, p): return Agent(r, p, baseModel, train_mode=False)
 	def const_agent_learn(r, p): return Agent(r, p, learnerModel, train_mode=True)
-	params['const_A1']=const_agent
+	params['const_A1']=const_agent_base
 	params['const_A2']=const_agent_learn
 	#params['const_F1']=params['const_F2']=const_agent
 	return learnerModel
@@ -51,6 +52,7 @@ def run_battle_training(n_episodes, model, params):
 	myheader = header.format('{}',n_episodes)
 	print('--------------------- TRAINING AGENT ----------------------------')
 	start = time()
+	print(myheader.format(0))
 	for i in range(n_episodes):
 		if (i+1)%100 == 0: print(myheader.format(i+1))
 		Battle(**params).play()
@@ -110,6 +112,7 @@ def run_combo_type_battle_training(n_repetitions, model, params):
 	vl = params['varability_level']
 	start = time()
 	print('--------------------- TRAINING AGENT EQUALLY ----------------------------')
+	print(myheader.format(0))
 	for pF1,pF2 in possible_types_comb:
 		for j in range(iner_loop):
 			for k in range(n_repetitions):
@@ -138,7 +141,7 @@ def main(args):
 
 	#General configuartion
 	General_config['BATTLE_VERBOSE'] = False
-	set_random_attack(False)
+	set_random_attack(True)
 
 	# Params configuration
 	params = Battle.default_argunents()
