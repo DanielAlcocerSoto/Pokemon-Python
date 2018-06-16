@@ -219,9 +219,7 @@ def generate_pokemons(start_iteration=0):
 		('list of dict' --> 'dict')
 	"""
 	def filter_stats(stats):
-		return {st["stat"]["name"]:
-				{"effort": st["effort"],
-				"base_stat": st["base_stat"]}
+		return {st["stat"]["name"]: st["base_stat"]
 				for st in stats }
 
 	"""

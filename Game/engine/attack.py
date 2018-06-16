@@ -41,7 +41,7 @@ def with_prob_of(prob):
 				  False, only with 'prob' = None a True is always guaranteed.
 	"""
 	if not Attack_Config ['USE_MISSING'] or prob == None: return True
-	return uniform(0,100) < prob
+	return uniform(0,100) <= prob
 
 
 """

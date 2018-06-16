@@ -80,18 +80,17 @@ class Pokemon(Object_Info):
 		self._stats = self._info['stats']
 		for name, stat in self._stats.items():
 			if Attack_Config['USE_IV']:
-				stat['individual_value'] = randint(0, 31)
+				individual_value = randint(0, 31)
 			else:
-				stat['individual_value'] = 15
+				individual_value = 15
 			# Formulas:
 			# PS: 10 + { Nivel / 100 x [ (Stat Base x 2) + IV + PE/4 ] } + Nivel
 			# OTHER:( 5 + { Nivel / 100 x [ (Stat Base x 2) + IV + PE/4 ] } )
-			#		x "Naturaleza" --> not used/ not implemented
-			precalc = stat['individual_value'] + floor(stat['effort']/4)
-			precalc = stat['base_stat']*2 + precalc
+			#		x "Naturaleza" "PE"--> not used/ not implemented
+			precalc = stat*2 + individual_value
 			precalc = floor(self._level/100 * precalc)
-			if name == 'hp': stat['final_value'] = precalc + self._level + 10
-			else: stat['final_value'] = precalc + 5
+			if name == 'hp': stat = precalc + self._level + 10
+			else: stat = precalc + 5
 		self._health = self.get_stat('hp')
 
 	"""
@@ -107,7 +106,7 @@ class Pokemon(Object_Info):
 			Returns ('int'):
 				The final value of the 'stat' stadistic
 		"""
-		if stat in self._stats.keys(): return self._stats[stat]['final_value']
+		if stat in self._stats.keys(): return self._stats[stat]
 		else: return None
 
 	"""
