@@ -58,7 +58,7 @@ class Trainer:
 	"""
 	def ally_role(self):
 		r = self.role.split('_')
-		return = r[0]+'_'+str((int(r[1])+1)%2)
+		return r[0]+'_'+str((int(r[1])+1)%2)
 
 	"""
 		Return the actual _idmove and _target.

@@ -142,7 +142,7 @@ class Button_Cancel(Button):
                 Create an extencion of 'Button' that not show anything.
                 It is the button for the cancel button.
         """
-        name_img = Directory['CELL_NAME'].format('poke')
+        name_img = Directory['CELL_NAME'].format('selector_large')
         Button.__init__(self, 'POS_CANCEL', name_img, None)
 
     """

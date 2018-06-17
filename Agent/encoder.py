@@ -75,7 +75,7 @@ class Encoder:
 		ret=[]
 		# enemies_data
 		enemy_role = 'Foe_' if 'Ally_' in my_role else 'Ally_'
-		for j in range(2): ret+=self._poke_to_list(state[enemy_role+str(j)]
+		for j in range(2): ret+=self._poke_to_list(state[enemy_role+str(j)])
 		#my_pokemon_data
 		ret += self._poke_to_list(state[my_role])
 		moves=state[my_role].moves()
