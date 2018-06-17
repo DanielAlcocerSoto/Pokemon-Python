@@ -107,9 +107,18 @@ class CoopEncoder(Encoder):
 		for i in range(4): ret += self._move_to_list(moves[i])
 		return ret
 
-	def encode_action(self, move, target): #TODO
-		return target*4 + move
+	def encode_action(self, move, target, move_ally, target_ally):
+		action = Encoder.encode_action(self, move, target)
+		action_ally = Encoder.encode_action(self, move_ally, target_ally)
+		return action*8+action_ally
 
-	def decode_action(self, list_Q): #TODO
-		action = argmax(list_Q)
+	def decode_action(self, list_Q, move_ally, target_ally):
+		action_ally = Encoder.encode_action(self, move_ally, target_ally)
+		indexes = array(range(0,64))%8 == action_ally
+		list_Q_ally = list_Q[indexes]
+		action = argmax(list_Q_ally)
+		return action%4, action//4
+
+	def decode_best_action(self, list_Q):
+		action = argmax(list_Q)//8
 		return action%4, action//4

@@ -12,6 +12,7 @@ from Game.engine.core.pokemon import Pokemon
 
 from Agent.agent import Agent
 from Agent.model import BaseModel
+from Agent.cooperative_model import CoopModel, LearnerModel
 
 # General imports
 import argparse
@@ -28,10 +29,13 @@ def set_random_attack(bool):
 	Attack_Config['USE_IV'] = bool
 
 def set_agents(params,args):
-	model = BaseModel() #same model in each episode -> no load memory
+	#same model in each episode -> no load memory
+	if args.model_type == 'base': model = BaseModel()
+	elif args.model_type == 'coop': model = CoopModel()
+	else: model = LearnerModel()
 	def const_agent(r, p): return Agent(r, p, model, train_mode=False)
 	params['const_A1']=const_agent
-	params['const_A2']=const_agent
+	params['const_A2']=const_agent # TODO if not coop??
 
 def run_random_battle_evaluation(n_episodes, params):
 	header = '--------------------- EPISODE: {}/{} ------- WIN_RATE: {} ---------------------'
@@ -76,8 +80,8 @@ def main(args):
 
 	#General configuartion
 	General_config['BATTLE_VERBOSE'] = False
-	General_config['GENERATIONS'] = [2,3,4]
-	set_random_attack(True)
+	if arg.generation == 234: General_config['GENERATIONS'] = [2,3,4]
+	set_random_attack(args.no_random)
 
 	# Params configuration
 	params = Battle.default_argunents()
@@ -98,4 +102,12 @@ if __name__ == '__main__':
 	parser.add_argument('--var_level' , '-vl', type = int, default = 0,
 						help='Param for battle actions. ' +\
 						'Varability for pokemon\'s level (lvl = Base +/- Var)')
+	parser.add_argument('--no_random' , '-no_rand', action = 'store_false',
+						default = True, help='Param for train with random')
+	parser.add_argument('--generation' , '-gen', type=int, default = 1,
+						choices = [1,234],
+						default = True, help='Param for test with gen 1 or the others')
+	parser.add_argument('--model_type', default = 'base',
+						choices = ['base', 'learner', 'coop'],
+						help='Model of ally')
 	main(parser.parse_args())

@@ -30,23 +30,27 @@ def set_random_attack(bool):
 	Attack_Config['USE_MISSING'] = bool
 	Attack_Config['USE_IV'] = bool
 
-"""
 def set_agents(params,args):
-	model = BaseModel()
-	def const_agent(r, p): return Agent(r, p, model, train_mode=True)
-	params['const_F1']=params['const_F2']=const_agent
-	return model
-"""
+	if args.model_type == 'base':
+		model = BaseModel()
+		def const_agent(r, p): return Agent(r, p, model, train_mode=True)
+		params['const_A1'] = params['const_A2'] = const_agent
+		if args.mode == 'rand':
+			params['const_F1'] = params['const_F2'] = const_agent
+		return model
+	else:
+		if args.model_type == 'coop': mainModel = CoopModel()
+		else: mainModel = LearnerModel()
 
-def set_agents(params,args):
-	baseModel = BaseModel(model_name = Agent_config['SUPPORT_MODEL_NAME'])
-	learnerModel = LearnerModel()
-	def const_agent_base(r, p): return Agent(r, p, baseModel, train_mode=False)
-	def const_agent_learn(r, p): return Agent(r, p, learnerModel, train_mode=True)
-	params['const_A1']=const_agent_base
-	params['const_A2']=const_agent_learn
-	#params['const_F1']=params['const_F2']=const_agent
-	return learnerModel
+		auxModel = BaseModel(model_name = Agent_config['SUPPORT_MODEL_NAME'])
+		def const_agent_base(r, p): return Agent(r, p, auxModel, train_mode=False)
+		def const_agent_learn(r, p): return Agent(r, p, mainModel, train_mode=True)
+		params['const_A1']=const_agent_base
+		params['const_A2']=const_agent_learn
+		if args.mode == 'rand':
+			params['const_F1']=const_agent_base
+			params['const_F2']=const_agent_learn
+	return mainModel
 
 def run_battle_training(n_episodes, model, params):
 	header = '--------------------- EPISODE: {}/{} ---------------------'
@@ -61,7 +65,6 @@ def run_battle_training(n_episodes, model, params):
 	model.train_and_save()
 	print('Finished! Time = {0:.2f}s'.format(time()-start))
 
-
 def run_combo_name_battle_training(n_repetitions, model, params):
 	header = '--------------------- EPISODE: {}/{} ---------------------'
 	start = time()
@@ -73,7 +76,7 @@ def run_combo_name_battle_training(n_repetitions, model, params):
 	i = 0
 	bl = params['base_level']
 	vl = params['varability_level']
-	print('--------------------- TRAINING AGENT EQUALLY ----------------------------')
+	print('--------------------- TRAINING AGENT EQUALLY BY NAMES ----------------------------')
 	print(myheader.format(0))
 	for pF1,pF2 in possible_names_comb:
 		for j in range(iner_loop):
@@ -112,7 +115,7 @@ def run_combo_type_battle_training(n_repetitions, model, params):
 	bl = params['base_level']
 	vl = params['varability_level']
 	start = time()
-	print('--------------------- TRAINING AGENT EQUALLY ----------------------------')
+	print('--------------------- TRAINING AGENT EQUALLY BY TYPES ----------------------------')
 	print(myheader.format(0))
 	for pF1,pF2 in possible_types_comb:
 		for j in range(iner_loop):
@@ -142,16 +145,19 @@ def main(args):
 
 	#General configuartion
 	General_config['BATTLE_VERBOSE'] = False
-	set_random_attack(True)
+	set_random_attack(args.no_random)
 
 	# Params configuration
 	params = Battle.default_argunents()
 	params['base_level'] = args.base_level
 	params['varability_level'] = args.var_level
 	model = set_agents(params,args)
-	#run_battle_training(args.episodes, model, params)
-	#run_combo_name_battle_training(args.episodes, model, params)
-	run_combo_type_battle_training(args.episodes, model, params)
+
+	if args.mode == 'types':
+		run_combo_type_battle_training(args.episodes, model, params)
+	elif args.mode == 'names':
+		run_combo_name_battle_training(args.episodes, model, params)
+	else: run_battle_training(args.episodes, model, params) #random
 
 #Main of run
 if __name__ == '__main__':
@@ -165,4 +171,12 @@ if __name__ == '__main__':
 	parser.add_argument('--var_level' , '-vl', type = int, default = 0,
 						help='Param for battle actions. ' +\
 						'Varability for pokemon\'s level (lvl = Base +/- Var)')
+	parser.add_argument('--no_random' , '-no_rand', action = 'store_false',
+						default = True, help='Param for train with random')
+	parser.add_argument('--mode', default = 'types',
+						choices = ['types', 'rand', 'names'],
+						help='Mode of training')
+	parser.add_argument('--model_type', default = 'base',
+						choices = ['base', 'learner', 'coop'],
+						help='Model of ally')
 	main(parser.parse_args())
