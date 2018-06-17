@@ -28,12 +28,13 @@ def set_random_attack(bool):
 	Attack_Config['USE_IV'] = bool
 
 def set_agents(params,args):
-	model = BaseModel(model_name = args.model)
+	if args.model == "": model = BaseModel()
+	else: model = BaseModel(model_name = args.model)
 	def const_agent(r, p): return Agent(r, p, model, train_mode=False)
 	params['const_A2']=const_agent
 
 """
-Executes N battles played by two agent to evaluate the performance of the model.
+Execute a battle with a TrainerInput and agent
 """
 def main(args):
 	"""
@@ -41,10 +42,10 @@ def main(args):
 			args: parse_args return.
 
 		Action:
-			This function play N battles with a random and an agent to evaluate
-			the performance	of the model.
+			This function play a battle with a player and an agent.
 	"""
 	# GPU TensorFlow Configuration
+	"""
 	from keras import backend as K
 	import tensorflow as tf
 	config = tf.ConfigProto()
@@ -52,6 +53,13 @@ def main(args):
 	session = tf.Session(config=config)
 	K.set_session(session)
 	print('GPU TensorFlow Configurated')
+	"""
+
+	"""
+	#random
+	import random
+	random.seed(222)
+	"""
 
 	#General configuartion
 	General_config['BATTLE_VERBOSE'] = True

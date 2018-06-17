@@ -11,7 +11,8 @@ from Game.engine.double_battle import Double_Battle as Battle
 from Game.engine.core.pokemon import Pokemon
 
 from Agent.agent import Agent
-from Agent.model import BaseModel, LearnerModel
+from Agent.model import BaseModel
+from Agent.cooperative_model import CoopModel, LearnerModel
 
 # General imports
 import argparse

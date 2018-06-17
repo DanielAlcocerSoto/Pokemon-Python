@@ -150,17 +150,3 @@ class BaseModel:
 				verbose=Agent_config['VERBOSE_FIT'],
 				callbacks=[self.tbCallback])
 			print('Keras model fited processed in {0:.2f}s'.format(time()-now))
-
-
-"""
-To learn from an experienced player
-"""
-class LearnerModel(BaseModel):
-	def remember(self, state, role, attacks, choices, next_state, done):
-		#my experience
-		BaseModel.remember(self, state, role, attacks, choices, next_state, done)
-		# ally's experience
-		r = role.split('_')
-		role_ally = r[0]+'_'+str((int(r[1])+1)%2)
-		BaseModel.remember( self, state, role_ally, attacks, choices, next_state,
-		 					done, player = True)

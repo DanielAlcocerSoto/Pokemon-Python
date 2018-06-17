@@ -53,6 +53,14 @@ class Trainer:
 		return "A" in self.role
 
 	"""
+		Return the ally role.
+		('' --> 'str')
+	"""
+	def ally_role(self):
+		r = self.role.split('_')
+		return = r[0]+'_'+str((int(r[1])+1)%2)
+
+	"""
 		Return the actual _idmove and _target.
 	"""
 	def raw_action(self):

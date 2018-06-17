@@ -51,9 +51,9 @@ class Encoder:
 		self.encoder_type = Categorical_variable(Types)#18
 		self.encoder_dmg = Categorical_variable(['physical','special'])#2
 		#len_poke_enc = 2*self.encoder_type.lenght+6+3 #6 stats,health,level,fainted
-		len_move_enc = self.encoder_type.lenght+self.encoder_dmg.lenght+2 #actual_pp,power
-		len_poke_enc = 2*self.encoder_type.lenght+2
-		self.state_size = len_move_enc*4 + len_poke_enc*3 #3 pokemon and 4 moves
+		self.len_move_enc = self.encoder_type.lenght+self.encoder_dmg.lenght+2 #actual_pp,power
+		self.len_poke_enc = 2*self.encoder_type.lenght+2
+		self.state_size = self.len_poke_enc*3 + self.len_move_enc*4#3 pokemon and 4 moves
 
 	def _poke_to_list(self, poke):
 		#n = ["hp", "attack", "special-attack", "defense", \
@@ -72,13 +72,14 @@ class Encoder:
 				[int(move.can_use()), move.power()]
 
 	def encode_state(self, state, my_role):
-		#my_pokemon_data
-		ret = self._poke_to_list(state[my_role])
-		moves=state[my_role].moves()
-		for i in range(4): ret += self._move_to_list(moves[i])
+		ret=[]
 		# enemies_data
 		enemy_role = 'Foe_' if 'Ally_' in my_role else 'Ally_'
-		for j in range(2): ret+=self._poke_to_list(state[enemy_role+str(j)])
+		for j in range(2): ret+=self._poke_to_list(state[enemy_role+str(j)]
+		#my_pokemon_data
+		ret += self._poke_to_list(state[my_role])
+		moves=state[my_role].moves()
+		for i in range(4): ret += self._move_to_list(moves[i])
 		#print('encode state = {}'.format(ret))
 		return ret
 
@@ -88,3 +89,27 @@ class Encoder:
 	def decode_action(self, list_Q):
 		action = argmax(list_Q)
 		return action%4, action//4 # return move, target
+
+
+
+class CoopEncoder(Encoder):
+	def __init__(self):
+		Encoder.__init__(self)
+		self.state_size += self.len_poke_enc + self.len_move_enc*4
+
+	def encode_state(self, state, my_role):
+		ret=Encoder.encode_state(self,state,my_role)
+		#my_ally_data
+		r = my_role.split('_')
+		ally_role = r[0]+'_'+str((int(r[1])+1)%2)
+		ret += self._poke_to_list(state[ally_role])
+		moves=state[ally_role].moves()
+		for i in range(4): ret += self._move_to_list(moves[i])
+		return ret
+
+	def encode_action(self, move, target): #TODO
+		return target*4 + move
+
+	def decode_action(self, list_Q): #TODO
+		action = argmax(list_Q)
+		return action%4, action//4

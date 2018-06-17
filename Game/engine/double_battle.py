@@ -13,7 +13,7 @@ It contains the following class:
 # Local imports
 from Configuration.settings import Sentence, Display_Config, General_config
 from Game.display.window import Window
-from Agent.agent import Agent
+from Agent.agent import Agent, CoopAgent
 from .core.pokemon import Pokemon
 from .trainer import TrainerRandom
 from .trainerInput import TrainerInput
@@ -208,6 +208,11 @@ class Double_Battle:
 					trainer.choice_action()
 					last_choices[trainer.role]=trainer.raw_action()
 					live_trainers.append(trainer)
+
+			for trainer in self._trainers:
+				if isinstance(trainer, CoopAgent):
+					ally_action = last_choices[trainer.ally_role()]
+					trainer.choice_action_base_ally(ally_action)
 
 			tr_sort = sorted(live_trainers, key=self.attack_order, reverse=True)
 			last_attacks = {}

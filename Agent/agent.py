@@ -44,7 +44,7 @@ class Agent(Trainer):
 		if self.train_mode: self._idmove,self._target = self._random_choise()
 		else:
 			self._idmove, self._target = self._predict_choise()
-			str = 'Agent {} choice action: ({},{})'
+			#str = 'Agent {} choice action: ({},{})'
 			#print(str.format( self.role, self._idmove, self._target))
 
 	def recive_results(self, attacks, choices, done):
@@ -53,3 +53,9 @@ class Agent(Trainer):
 			next_state = self.actual_state
 			self.model.remember(state,self.role,attacks,choices,next_state,done)
 			self.last_state = copy(self.actual_state)
+"""
+	Extended class from Trainer that use RL.
+"""
+class CoopAgent(Agent):
+	def choice_action_base_ally(self, ally_action):
+		self.model.predict_base_on_ally_action(self.actual_state, self.role, ally_action)
