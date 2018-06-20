@@ -17,5 +17,5 @@
   "WINNER": "{} won!",
   "WIN": "Congratulations trainer, you have won the battle !!!",
   "LOSE": "You have lost the battle ... More luck the next!",
-  "DEAD_HEAT": "Too many turns or don't have any PP. Battle ended in a dead heat."
+  "DEAD_HEAT": "Too many turns or don't have any PP. Battle ended in a draw."
 }

@@ -11,7 +11,7 @@ It contains the following class:
 
 # Local import
 from Configuration.settings import Agent_config
-from .encoder import Encoder
+from .encoder import Encoder, CoopEncoder
 from .model import BaseModel
 
 # General imports
@@ -40,33 +40,28 @@ class LearnerModel(BaseModel):
 
 """
 class CoopModel(LearnerModel):
-	def __init__(self, rebuid=False):
-		BaseModel.__init__(self, rebuid)
+	def __init__(self,  model_name = Agent_config['MODEL_NAME'], rebuid = False):
 		self.output_layer_size = 8*8
 		self.encoder = CoopEncoder()
+		self._init_model(model_name, rebuid)
 
 	def predict(self, state, role):
 		state = array([self.encoder.encode_state(state, role)])
 		act_values = self.keras_NN_model.predict(state)
-		print('Result of Keras model for {}: {}'.format(role,act_values))
+		#print('Result of Keras model for {}: {}'.format(role,act_values))
 		return self.encoder.decode_best_action(act_values[0])
 
 	def predict_base_on_ally_action(self, state, role, action_ally):
 		state = array([self.encoder.encode_state(state, role)])
 		act_values = self.keras_NN_model.predict(state)
-		print('Result of Keras model for {}: {}'.format(role,act_values))
+		#print('Result of Keras model for {}: {}'.format(role,act_values))
 		move_ally, target_ally = action_ally
-		return self.encoder.decode_action(act_values[0],move_ally, target_ally)
+		return self.encoder.decode_action(act_values[0], move_ally, target_ally)
 
 #private functions
-	def _get_reward(self, my_role, attacks):
+	def _get_reward(self, attacks, my_role):
 		r = my_role.split('_')
 		ally_role = r[0]+'_'+str((int(r[1])+1)%2)
-		dmg = 0
-		if my_role in attacks.keys():
-			attack=attacks[my_role]
-			dmg = attack.dmg
-		if ally_role in attacks.keys():
-			attack=attacks[my_role]
-			dmg += attack.dmg
+		dmg = LearnerModel._get_reward(self, attacks, my_role)
+		dmg += LearnerModel._get_reward(self, attacks, ally_role)
 		return dmg

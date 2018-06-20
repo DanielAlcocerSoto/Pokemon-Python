@@ -34,6 +34,9 @@ class BaseModel:
 	def __init__(self, model_name = Agent_config['MODEL_NAME'], rebuid = False):
 		self.output_layer_size = 8
 		self.encoder = Encoder()
+		self._init_model(model_name, rebuid)
+
+	def _init_model(self, model_name, rebuid):
 		self.memory = []
 		self.model_name = model_name
 		self.log_file = Directory['DIR_LOGS'] + Agent_config['LOG_NAME'] + '.csv'
@@ -60,8 +63,8 @@ class BaseModel:
 			# get information
 			state = self.encoder.encode_state(state, role)
 			next_state = self.encoder.encode_state(next_state, role)
-			action = self.encoder.encode_action(*choices[role])
-			reward = self._get_reward(role, attacks)
+			action = self.encoder.encode_action(choices, role)
+			reward = self._get_reward(attacks, role)
 			#print('Reward of this turn = ', reward)
 			self.memory.append( (state, action, reward, next_state, player, done) )
 
@@ -81,7 +84,7 @@ class BaseModel:
 			self.memory = []
 
 #private functions
-	def _get_reward(self, my_role, attacks):
+	def _get_reward(self, attacks, my_role):
 		if my_role in attacks.keys():
 			attack=attacks[my_role]
 			return attack.dmg
@@ -115,7 +118,7 @@ class BaseModel:
 
 	def _rebuid_Q_function(self, dataset):
 		header = '--------------------- RL_EPOCHS: {}/{} ---------------------'
-		myheader = header.format('{}',Agent_config['EPOCHS_REBUILD_FIT'])
+		myheader = header.format('{}',Agent_config['EPOCHS_RL_FIT'])
 		gamma = Agent_config['GAMMA_DISCOUNTING_RATE']
 
 		states,actions,rewards,next_states,players,dones = zip(*dataset)
@@ -127,7 +130,7 @@ class BaseModel:
 		 						else Agent_config['LEARNING_RATE_RL']
 								for player in players])
 
-		for i in range(Agent_config['EPOCHS_REBUILD_FIT']):
+		for i in range(Agent_config['EPOCHS_RL_FIT']):
 			print(myheader.format(i+1))
 			print('Processing data...')
 			now=time()

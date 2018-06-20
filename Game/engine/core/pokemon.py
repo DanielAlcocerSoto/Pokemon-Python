@@ -18,7 +18,7 @@ from .type import Type
 from .move import Move
 
 # General imports
-from random import randint, sample, choice
+from random import Random, randint, sample, choice
 from math import floor
 
 __version__ = '0.9'
@@ -32,7 +32,7 @@ class Pokemon(Object_Info):
 		Retuns a random pokemon with level = base_level +-varability_level.
 	"""
 	@staticmethod
-	def Random(base_level = 50, varability_level = 50):
+	def Random(base_level = 50, varability_level = 50, rand = None):
 		"""
 			Args:
 				base_level ('int'): Base level to apply varaiability.
@@ -42,8 +42,9 @@ class Pokemon(Object_Info):
 				Random pokemon with level between base_level-varability_level
 				and base_level+varability_level.
 		"""
-		lvl = base_level + randint(-varability_level,varability_level)
-		return Pokemon(choice(Pokemon.possible_names()), lvl)
+		if rand == None: rand = Random()
+		lvl = base_level + rand.randint(-varability_level,varability_level)
+		return Pokemon(rand.choice(Pokemon.possible_names()), lvl)
 
 	"""
 		Returns the name of all pokemons in the database.

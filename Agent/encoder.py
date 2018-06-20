@@ -51,7 +51,7 @@ class Encoder:
 		self.encoder_type = Categorical_variable(Types)#18
 		self.encoder_dmg = Categorical_variable(['physical','special'])#2
 		#len_poke_enc = 2*self.encoder_type.lenght+6+3 #6 stats,health,level,fainted
-		self.len_move_enc = self.encoder_type.lenght+self.encoder_dmg.lenght+2 #actual_pp,power
+		self.len_move_enc = self.encoder_type.lenght+2 #actual_pp,power """+self.encoder_dmg.lenght"""
 		self.len_poke_enc = 2*self.encoder_type.lenght+2
 		self.state_size = self.len_poke_enc*3 + self.len_move_enc*4#3 pokemon and 4 moves
 
@@ -67,8 +67,8 @@ class Encoder:
 		return types + [int(poke.is_fainted()),poke.health()/poke.get_stat('hp')]
 
 	def _move_to_list(self, move):
+			#self.encoder_dmg.encode(move.damage_class()) + \
 		return  self.encoder_type.encode(move.type().name()) + \
-				self.encoder_dmg.encode(move.damage_class()) + \
 				[int(move.can_use()), move.power()]
 
 	def encode_state(self, state, my_role):
@@ -83,8 +83,11 @@ class Encoder:
 		#print('encode state = {}'.format(ret))
 		return ret
 
-	def encode_action(self, move, target):
+	def _encode_action(self, move, target):
 		return target*4 + move
+
+	def encode_action(self, choices, role):
+		return self._encode_action(*choices[role])
 
 	def decode_action(self, list_Q):
 		action = argmax(list_Q)
@@ -107,13 +110,17 @@ class CoopEncoder(Encoder):
 		for i in range(4): ret += self._move_to_list(moves[i])
 		return ret
 
-	def encode_action(self, move, target, move_ally, target_ally):
-		action = Encoder.encode_action(self, move, target)
-		action_ally = Encoder.encode_action(self, move_ally, target_ally)
+	def encode_action(self, choices, role):
+		r = role.split('_')
+		ally_role = r[0]+'_'+str((int(r[1])+1)%2)
+		action = self._encode_action(*choices[role])
+		if ally_role in choices.keys():
+			action_ally = self._encode_action(*choices[ally_role])
+		else: action_ally = 0 #cualquier accion
 		return action*8+action_ally
 
 	def decode_action(self, list_Q, move_ally, target_ally):
-		action_ally = Encoder.encode_action(self, move_ally, target_ally)
+		action_ally = Encoder._encode_action(self, move_ally, target_ally)
 		indexes = array(range(0,64))%8 == action_ally
 		list_Q_ally = list_Q[indexes]
 		action = argmax(list_Q_ally)

@@ -143,3 +143,99 @@ gen 2,3,4:  70.61%
 ****Yes random (10.000)
 gen 1:      70.77%
 gen 2,3,4:  70.21%
+
+________________________________________________________________________________
+________________________________________________________________________________
+Model: type_no_random_x5 SI random
+Description: resultado de entrenar con la funcion run_combo_type_battle_training,
+      donde los demas son randoms.
+      Se ha entrenado usando el random y haciendo 5 repeticiones por combinacion
+      de tipo. LR = 0.75, LR_player = 0.80
+Training time: 2.28h
+Log_Size =
+N_Battles = 59.940
+-----Evaluation-----------------------------------------------------------------
+****Yes random (10.000)
+gen 1:      67.63%
+
+________________________________________________________________________________
+Model: type_random_x5 NO random
+Description: resultado de entrenar con la funcion run_combo_type_battle_training,
+      donde  los demas son randoms.
+      Se ha entrenado sin usar el random y haciendo 5 repeticiones por combinacion
+      de tipo. LR = 0.75, LR_player = 0.80
+Training time: 2.17h
+Log_Size =
+N_Battles = 59.940
+-----Evaluation-----------------------------------------------------------------
+****Yes random (10.000)
+gen 1:      68.08%
+
+________________________________________________________________________________
+Model: coperative_x5
+Description: resultado de entrenar con la funcion run_combo_type_battle_training,
+      donde el aliado es un agente con el modelo 'type_no random' y los demas son randoms.
+      Se ha entrenado usando el random y haciendo 5 repeticiones por combinacion
+      de tipo. LR = 0.75, LR_player = 0.80
+Training time: 2.17h
+Log_Size =
+N_Battles = 59.940
+-----Evaluation-----------------------------------------------------------------
+****Yes random (10.000)
+gen 1:     65.21 %
+________________________________________________________________________________
+Model: test_fast_train
+Description: resultado de entrenar de forma alratoria con 10.000
+      donde todos aprnede
+      Se ha entrenado usando el random
+      de tipo. LR = 0.75, LR_player = 0.80
+Training time:
+Log_Size =
+N_Battles = 10.000
+-----Evaluation-----------------------------------------------------------------
+****Yes random (10.000)
+gen 1:     65.93 % - 66.91%
+
+________________________________________________________________________________
+Model: test_fast_train_2
+Description: resultado de entrenar de forma alratoria con 10.000
+      donde todos aprnede
+      Se ha entrenado usando el random
+      de tipo. LR = 0.75, LR_player = 0.80
+      se le quirta la codificacion de la clase de daño
+Training time 20227.93s:
+Log_Size =
+N_Battles = 10.000
+-----Evaluation-----------------------------------------------------------------
+****Yes random (10.000)
+gen 1:    66.49%
+
+_______________________________________________________________________________
+Model: test_fast_train_3
+Description: resultado de entrenar de forma alratoria con 10.000
+      donde todos aprnede
+      Se ha entrenado usando el random
+      de tipo. LR = 0.75, LR_player = 0.80
+      se le quirta la codificacion de la clase de daño
+      akñadida capa de 100 neuronas
+Training time 0.58h:
+Log_Size =
+N_Battles = 10.000
+-----Evaluation-----------------------------------------------------------------
+****Yes random (10.000)
+gen 1:    63.81%
+
+_______________________________________________________________________________
+Model: test_fast_train_4
+Description: resultado de entrenar de forma alratoria con 10.000
+      donde todos aprnede
+      Se ha entrenado usando el random
+      de tipo. LR = 0.75, LR_player = 0.80
+      se le quirta la codificacion de la clase de daño
+    quitada capa de 50
+Training time 0.52h:
+Log_Size =
+N_Battles = 10.000
+-----Evaluation-----------------------------------------------------------------
+****Yes random (10.000)
+gen 1:    67.10% 66.44

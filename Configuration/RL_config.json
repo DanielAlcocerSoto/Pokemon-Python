@@ -1,11 +1,10 @@
 {
-  "LOG_NAME": "type_no_random_x5",
-  "MODEL_NAME": "type_no_random_x5",
+  "LOG_NAME": "trash",
+  "MODEL_NAME": "trash",
 
   "SUPPORT_MODEL_NAME": "type_no_random_x5",
 
   "NEURAL_NET_DESIGN": [
-    [50,"relu"],
     [20,"relu"]
   ],
 
@@ -13,9 +12,9 @@
   "LEARNING_RATE_RL": 0.75,
   "LEARNING_RATE_RL_PLAYER": 0.80,
 
-  "EPOCHS_REBUILD_FIT":20,
-  "VERBOSE_FIT": 1,
+  "EPOCHS_RL_FIT":20,
   "EPOCHS_FIT": 20,
+  "BATCH_SIZE": 512,
   "VAL_SPLIT_FIT": 0.2,
-  "BATCH_SIZE": 512
+  "VERBOSE_FIT": 1
 }

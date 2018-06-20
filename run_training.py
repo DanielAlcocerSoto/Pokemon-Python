@@ -18,7 +18,7 @@ from Agent.cooperative_model import CoopModel, LearnerModel
 import argparse
 from time import time
 from itertools import combinations
-from random import choice, randint
+from random import choice, randint, Random
 
 __version__ = '0.5'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
@@ -63,7 +63,7 @@ def run_battle_training(n_episodes, model, params):
 		Battle(**params).play()
 		if (i+1)%1000 == 0: model.train_and_save()
 	model.train_and_save()
-	print('Finished! Time = {0:.2f}s'.format(time()-start))
+	print('Finished! Time = {0:.2f}h'.format((time()-start)/3600))
 
 def run_combo_name_battle_training(n_repetitions, model, params):
 	header = '--------------------- EPISODE: {}/{} ---------------------'
@@ -135,13 +135,16 @@ def run_combo_type_battle_training(n_repetitions, model, params):
 
 def main(args):
 	# GPU TensorFlow Configuration
-	from keras import backend as K
-	import tensorflow as tf
-	config = tf.ConfigProto()
-	config.gpu_options.allow_growth = True
-	session = tf.Session(config=config)
-	K.set_session(session)
-	print('GPU TensorFLow Configurated')
+	try:
+		from keras import backend as K
+		import tensorflow as tf
+		config = tf.ConfigProto()
+		config.gpu_options.allow_growth = True
+		session = tf.Session(config=config)
+		K.set_session(session)
+		print('GPU TensorFlow Configurated')
+	except:
+		print('GPU TensorFlow could not be configured')
 
 	#General configuartion
 	General_config['BATTLE_VERBOSE'] = False
@@ -151,6 +154,7 @@ def main(args):
 	params = Battle.default_argunents()
 	params['base_level'] = args.base_level
 	params['varability_level'] = args.var_level
+	if args.seed !=0: params['rand'] = Random(args.seed)
 	model = set_agents(params,args)
 
 	if args.mode == 'types':
@@ -162,21 +166,24 @@ def main(args):
 #Main of run
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--episodes' , '-e', type = int, default = 5,
+	parser.add_argument('--episodes' , '-e', type = int, default = 10000,
 						help='Param for agent train actions. ' +\
 						'Number of battles to play')
 	parser.add_argument('--base_level' , '-bl', type = int, default = 50,
 						help='Param for battle actions. ' +\
 						'Base level of each pokemon')
-	parser.add_argument('--var_level' , '-vl', type = int, default = 0,
+	parser.add_argument('--var_level' , '-vl', type = int, default = 2,
 						help='Param for battle actions. ' +\
 						'Varability for pokemon\'s level (lvl = Base +/- Var)')
 	parser.add_argument('--no_random' , '-no_rand', action = 'store_false',
 						default = True, help='Param for train with random')
-	parser.add_argument('--mode', default = 'types',
+	parser.add_argument('--mode', default = 'rand',
 						choices = ['types', 'rand', 'names'],
 						help='Mode of training')
 	parser.add_argument('--model_type', default = 'base',
 						choices = ['base', 'learner', 'coop'],
 						help='Model of ally')
+
+	parser.add_argument('--seed' , '-s', type=int, default = 22,
+						help='Seed to generate pokemon')
 	main(parser.parse_args())

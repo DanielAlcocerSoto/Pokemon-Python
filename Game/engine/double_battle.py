@@ -37,13 +37,13 @@ class Double_Battle:
 				'const_A2': TrainerRandom, 'poke_A2': None,
 				'const_F1': TrainerRandom, 'poke_F1': None,
 				'const_F2': TrainerRandom, 'poke_F2': None,
-				'base_level': 50, 'varability_level': 50}
+				'base_level': 50, 'varability_level': 50, 'rand': None}
 
 	def __init__(self, const_A1 = TrainerInput,  poke_A1 = None,
 					   const_A2 = TrainerRandom, poke_A2 = None,
 					   const_F1 = TrainerRandom, poke_F1 = None,
 					   const_F2 = TrainerRandom, poke_F2 = None,
-					   base_level = 50, varability_level = 50):
+					   base_level = 50, varability_level = 50, rand = None):
 		"""
 			Args:
 				trainerA1 (class:'Trainer'): The allied trainer 1 (the user's
@@ -66,16 +66,16 @@ class Double_Battle:
 				about it.
 		"""
 		if poke_A1==None:
-			poke_A1 = Pokemon.Random(base_level, varability_level)
+			poke_A1 = Pokemon.Random(base_level, varability_level, rand)
 		trainerA1 = const_A1("Ally_0", poke_A1)
 		if poke_A2==None:
-			poke_A2 = Pokemon.Random(base_level, varability_level)
+			poke_A2 = Pokemon.Random(base_level, varability_level, rand)
 		trainerA2 = const_A2("Ally_1", poke_A2)
 		if poke_F1==None:
-			poke_F1 = Pokemon.Random(base_level, varability_level)
+			poke_F1 = Pokemon.Random(base_level, varability_level, rand)
 		trainerF1 = const_F1("Foe_0", poke_F1)
 		if poke_F2==None:
-			poke_F2 = Pokemon.Random(base_level, varability_level)
+			poke_F2 = Pokemon.Random(base_level, varability_level, rand)
 		trainerF2 = const_F2("Foe_1", poke_F2)
 
 		self._trainers = [trainerA1,trainerA2,trainerF1,trainerF2]
@@ -109,7 +109,7 @@ class Double_Battle:
 	"""
 	def show(self, name, *args, time=Display_Config['TIME_STEP']):
 		text = Sentence[name].format(*args)
-		if General_config['BATTLE_VERBOSE']: print(text) # To have a "log" in terminal
+		if General_config['BATTLE_VERBOSE'] : print(text) # To have a "log" in terminal
 		if self.show_message != None: self.show_message(text,time)
 
 
@@ -211,8 +211,10 @@ class Double_Battle:
 
 			for trainer in self._trainers:
 				if isinstance(trainer, CoopAgent):
-					ally_action = last_choices[trainer.ally_role()]
-					trainer.choice_action_base_ally(ally_action)
+					ally_role = trainer.ally_role()
+					if ally_role in last_choices.keys():
+						ally_action = last_choices[ally_role]
+						trainer.choice_action_base_ally(ally_action)
 
 			tr_sort = sorted(live_trainers, key=self.attack_order, reverse=True)
 			last_attacks = {}

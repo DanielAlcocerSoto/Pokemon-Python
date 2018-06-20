@@ -10,8 +10,9 @@ from Configuration.settings import General_config, Agent_config
 from Game.engine.double_battle import Double_Battle as Battle
 from Game.engine.core.pokemon import Pokemon
 
-from Agent.agent import Agent
+from Agent.agent import Agent, CoopAgent
 from Agent.model import BaseModel
+from Agent.cooperative_model import CoopModel, LearnerModel
 
 # General imports
 import argparse
@@ -28,10 +29,20 @@ def set_random_attack(bool):
 	Attack_Config['USE_IV'] = bool
 
 def set_agents(params,args):
-	if args.model == "": model = BaseModel()
-	else: model = BaseModel(model_name = args.model)
-	def const_agent(r, p): return Agent(r, p, model, train_mode=False)
+	if args.model_type == 'coop':
+		if args.model == "": model = CoopModel()
+		else: model = CoopModel(model_name = args.model)
+		def const_agent(r, p): return CoopAgent(r, p, model, train_mode=False)
+	else:
+		if args.model_type == 'base':
+			if args.model == "": model = BaseModel()
+			else: model = BaseModel(model_name = args.model)
+		else:
+			if args.model == "": model = LearnerModel()
+			else: model = LearnerModel(model_name = args.model)
+		def const_agent(r, p): return Agent(r, p, model, train_mode=False)
 	params['const_A2']=const_agent
+
 
 """
 Execute a battle with a TrainerInput and agent
@@ -43,16 +54,6 @@ def main(args):
 
 		Action:
 			This function play a battle with a player and an agent.
-	"""
-	# GPU TensorFlow Configuration
-	"""
-	from keras import backend as K
-	import tensorflow as tf
-	config = tf.ConfigProto()
-	config.gpu_options.allow_growth = True
-	session = tf.Session(config=config)
-	K.set_session(session)
-	print('GPU TensorFlow Configurated')
 	"""
 
 	"""
@@ -84,7 +85,10 @@ if __name__ == '__main__':
 						'Varability for pokemon\'s level (lvl = Base +/- Var)')
 
 	parser.add_argument('--model' , '-m', type = str, default = "",
-											help='Model to use as ally agent.')
+						help='Name of the model to use as ally agent.')
+	parser.add_argument('--model_type', default = 'base',
+						choices = ['base', 'learner', 'coop'],
+						help='Model of ally')
 	parser.add_argument('--random' , '-r', type = bool, default = True,
 						help='Use random in battle')
 	main(parser.parse_args())

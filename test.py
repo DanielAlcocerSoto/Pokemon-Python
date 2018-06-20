@@ -100,7 +100,7 @@ for name, move in load_info(Directory['MOVE_FILE']).items():
         if move['power'] != None and move['power'] < 100: count_2+=1
 print( '#PP=5: {}, #PP=5&p<100: {}, p>100: {}'.format(count,count_2,count_3))
 """
-
+"""
 #legendarios
 for name, pk in load_info(Directory['POKE_FILE']).items():
     st = 0
@@ -109,3 +109,5 @@ for name, pk in load_info(Directory['POKE_FILE']).items():
     st = st /  len(pk['stats'].keys())
     if st > 95:
         print (name.title())
+
+"""
