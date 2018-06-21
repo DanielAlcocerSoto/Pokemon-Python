@@ -66,7 +66,8 @@ def run_random_battle_evaluation(n_episodes, params):
 	print('--------------------- RESULTS ----------------------------')
 	print('WINS: {0}/{1} = {2:.2f}%'.format(wins,n_episodes,(wins*100)/n_episodes))
 	print('Draws: {0}/{1} = {2:.2f}%'.format(emp,n_episodes,(emp*100)/n_episodes))
-	print(turns/n_episodes)
+	print('Mean turns: {0:.2f}'.format(turns/(n_episodes-emp)))
+	print('State Size: {0}'.format(BaseModel().encoder.state_size))
 	print('----------------------------------------------------------')
 
 """
@@ -98,7 +99,7 @@ def main(args):
 #Main of run
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--episodes' , '-e', type = int, default = 10000,
+	parser.add_argument('--episodes' , '-e', type = int, default = 2000,
 						help='Param for agent train actions. ' +\
 						'Number of battles to play')
 	parser.add_argument('--base_level' , '-bl', type = int, default = 50,

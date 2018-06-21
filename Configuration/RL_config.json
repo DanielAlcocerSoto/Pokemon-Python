@@ -14,7 +14,7 @@
 
   "EPOCHS_RL_FIT": 10,
   "EPOCHS_FIT": 10,
-  "BATCH_SIZE": 128,
+  "BATCH_SIZE": 32,
   "VAL_SPLIT_FIT": 0.2,
   "VERBOSE_FIT": 1
 }

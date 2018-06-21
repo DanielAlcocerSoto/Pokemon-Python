@@ -6,7 +6,7 @@ Main exeutable file
 """
 
 # Local imports
-from Configuration.settings import General_config, Agent_config
+from Configuration.settings import General_config, Agent_config, Directory
 from Game.engine.double_battle import Double_Battle as Battle
 from Game.engine.core.pokemon import Pokemon
 
@@ -61,7 +61,7 @@ def run_battle_training(n_episodes, model, params):
 	for i in range(n_episodes):
 		if (i+1)%100 == 0: print(myheader.format(i+1))
 		Battle(**params).play()
-		if (i+1)%1000 == 0: model.train_and_save()
+		if (i+1)%(n_episodes/10) == 0: model.train_and_save()
 	model.train_and_save()
 	print('Finished! Time = {0:.2f}h'.format((time()-start)/3600))
 
@@ -88,7 +88,7 @@ def run_combo_name_battle_training(n_repetitions, model, params):
 			params['poke_F2'] = Pokemon(pF2, bl+randint(-vl,vl))
 
 			Battle(**params).play()
-			if (i+1)%10000 == 0: model.train_and_save()
+			if (i+1)%(n_episodes/10) == 0: model.train_and_save()
 			i+=1
 	model.train_and_save()
 	print('Finished! Time = {0:.2f}h'.format((time()-start)/3600))
@@ -128,7 +128,7 @@ def run_combo_type_battle_training(n_repetitions, model, params):
 				params['poke_F2'] = Pokemon(choice(type_poke[pF2]), bl+randint(-vl,vl))
 
 				Battle(**params).play()
-				if (i+1)%10000 == 0: model.train_and_save()
+				if (i+1)%(n_episodes/10) == 0: model.train_and_save()
 				i+=1
 	model.train_and_save()
 	print('Finished! Time = {0:.2f}h'.format((time()-start)/3600))
@@ -145,7 +145,13 @@ def main(args):
 		print('GPU TensorFlow Configurated')
 	except:
 		print('GPU TensorFlow could not be configured')
-
+	try:
+		import os
+		os.remove(Directory['DIR_LOGS']+'trash.csv')
+		os.remove(Directory['DIR_MODELS']+'trash.h5')
+		print('Trash files deleted')
+	except:
+		print('Trash files not founded')
 	#General configuartion
 	General_config['BATTLE_VERBOSE'] = False
 	set_random_attack(args.no_random)
@@ -166,7 +172,7 @@ def main(args):
 #Main of run
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--episodes' , '-e', type = int, default = 10000,
+	parser.add_argument('--episodes' , '-e', type = int, default = 1000,
 						help='Param for agent train actions. ' +\
 						'Number of battles to play')
 	parser.add_argument('--base_level' , '-bl', type = int, default = 50,
@@ -175,6 +181,7 @@ if __name__ == '__main__':
 	parser.add_argument('--var_level' , '-vl', type = int, default = 2,
 						help='Param for battle actions. ' +\
 						'Varability for pokemon\'s level (lvl = Base +/- Var)')
+
 	parser.add_argument('--no_random' , '-no_rand', action = 'store_false',
 						default = True, help='Param for train with random')
 	parser.add_argument('--mode', default = 'rand',
