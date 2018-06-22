@@ -5,7 +5,7 @@
   "SUPPORT_MODEL_NAME": "type_no_random_x5",
 
   "NEURAL_NET_DESIGN": [
-    [20,"relu"]
+    [20,"softmax"]
   ],
 
   "GAMMA_DISCOUNTING_RATE": 0.20,

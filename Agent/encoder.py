@@ -86,12 +86,12 @@ class Encoder:
 		damage_l = [poke.level()/100]
 		if ally_poke:
 			damage_l += [stats['attack'], stats['special-attack']]
-			health_l = []
+			#health_l = []
 		else:
 			damage_l += [stats['defense'], stats['special-defense']]
-			health_l = [stats['hp']]#, stats['hp']]poke.health()/poke.get_stat('hp')
-		order_l  = [stats['speed']]
-		return basic_l + damage_l + health_l
+			#health_l = [poke.health()/poke.get_stat('hp')] # not good results; ,stats['hp']]
+		#order_l  = [stats['speed']]
+		return basic_l + damage_l
 
 	def _move_to_list(self, move):
 		t_name = move.type().name()
@@ -100,8 +100,8 @@ class Encoder:
 		# Return
 		basic_l  = self.encoder_type.encode(t_name)+[int(move.can_use())]
 		damage_l = [move.power()] + self.encoder_dmg.encode(move.damage_class())
-		order_l  = [move.priority()/3]
-		random_l = [acc,move.prob_critic()]
+		# not good results; order_l  = [move.priority()/3]
+		#random_l = [acc,move.prob_critic()]
 		return  basic_l + damage_l
 
 	def encode_state(self, state, my_role):
