@@ -17,6 +17,7 @@ from Agent.cooperative_model import CoopModel, LearnerModel
 # General imports
 import argparse
 from random import Random
+from time import time
 
 __version__ = '0.5'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
@@ -51,6 +52,7 @@ def run_random_battle_evaluation(n_episodes, params):
 	myheader = header.format('{0}',n_episodes,'{1:.2f}')
 	wins = emp = turns = 0
 	print('--------------------- EVALUATING AGENT RANDOM ----------------------------')
+	start = time()
 	for i in range(n_episodes):
 		win_rate = (wins*100)/max(i,1)
 		print(myheader.format(i+1,win_rate))
@@ -63,6 +65,7 @@ def run_random_battle_evaluation(n_episodes, params):
 			turns += battle.n_turn
 	# Prins for analize
 	print('----------------------------------------------------------')
+	print('Finished! Time = {0:.2f}h, {1:.2f}min'.format((time()-start)/3600,(time()-start)/60))
 	print('--------------------- RESULTS ----------------------------')
 	print('WINS: {0}/{1} = {2:.2f}%'.format(wins,n_episodes,(wins*100)/n_episodes))
 	print('Draws: {0}/{1} = {2:.2f}%'.format(emp,n_episodes,(emp*100)/n_episodes))

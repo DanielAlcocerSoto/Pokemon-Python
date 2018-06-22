@@ -58,8 +58,9 @@ class Encoder:
 					'defense': 230, 'special-defense': 230, 'speed': 160}
 		#len_poke_enc = 2*self.encoder_type.lenght+6+3 #6 stats,health,level,fainted
 		self.len_move_enc = len(self._move_to_list(Move('pound')))#self.encoder_type.lenght+2 #actual_pp,power """+self.encoder_dmg.lenght"""
-		self.len_poke_enc = len(self._poke_to_list(Pokemon('bulbasaur',50)))#2*self.encoder_type.lenght+2
-		self.state_size = self.len_poke_enc*3 + self.len_move_enc*4#3 pokemon and 4 moves
+		self.len_poke_def_enc = len(self._poke_to_list(Pokemon('bulbasaur',50)))#2*self.encoder_type.lenght+2
+		self.len_poke_atk_enc = len(self._poke_to_list(Pokemon('bulbasaur',50), ally_poke = True))
+		self.state_size = self.len_poke_def_enc*2 + self.len_poke_atk_enc + self.len_move_enc*4#3 pokemon and 4 moves
 
 	"""
 	def _calc_max_stats(self,state):
@@ -83,11 +84,14 @@ class Encoder:
 		# Return
 		basic_l  = types + [int(poke.is_fainted())]
 		damage_l = [poke.level()/100]
-		if ally_poke: damage_l += [stats['attack'], stats['special-attack']]
-		else: damage_l += [stats['defense'], stats['special-defense']]
-		health_l = [poke.health()/poke.get_stat('hp'), stats['hp']]
+		if ally_poke:
+			damage_l += [stats['attack'], stats['special-attack']]
+			health_l = []
+		else:
+			damage_l += [stats['defense'], stats['special-defense']]
+			health_l = [stats['hp']]#, stats['hp']]poke.health()/poke.get_stat('hp')
 		order_l  = [stats['speed']]
-		return basic_l #+ damage_l
+		return basic_l + damage_l + health_l
 
 	def _move_to_list(self, move):
 		t_name = move.type().name()
@@ -98,7 +102,7 @@ class Encoder:
 		damage_l = [move.power()] + self.encoder_dmg.encode(move.damage_class())
 		order_l  = [move.priority()/3]
 		random_l = [acc,move.prob_critic()]
-		return  basic_l #+ damage_l
+		return  basic_l + damage_l
 
 	def encode_state(self, state, my_role):
 		#self._calc_max_stats(state)
@@ -128,7 +132,7 @@ class Encoder:
 class CoopEncoder(Encoder):
 	def __init__(self):
 		Encoder.__init__(self)
-		self.state_size += self.len_poke_enc + self.len_move_enc*4
+		self.state_size += self.len_poke_atk_enc + self.len_move_enc*4
 
 	def encode_state(self, state, my_role):
 		ret=Encoder.encode_state(self,state,my_role)

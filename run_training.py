@@ -63,7 +63,7 @@ def run_battle_training(n_episodes, model, params):
 		Battle(**params).play()
 		if (i+1)%(n_episodes/10) == 0: model.train_and_save()
 	model.train_and_save()
-	print('Finished! Time = {0:.2f}h'.format((time()-start)/3600))
+	print('Finished! Time = {0:.2f}h, {1:.2f}min'.format((time()-start)/3600,(time()-start)/60))
 
 def run_combo_name_battle_training(n_repetitions, model, params):
 	header = '--------------------- EPISODE: {}/{} ---------------------'
