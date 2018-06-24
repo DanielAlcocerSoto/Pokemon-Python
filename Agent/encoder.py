@@ -98,7 +98,7 @@ class Encoder:
 		if move.accuracy() == None : acc = 1
 		else: acc = move.accuracy()/100
 		# Return
-		basic_l  = self.encoder_type.encode(t_name)+[int(move.can_use())]
+		basic_l  = self.encoder_type.encode(t_name) + [int(move.can_use())]
 		damage_l = [move.power()] + self.encoder_dmg.encode(move.damage_class())
 		# not good results; order_l  = [move.priority()/3]
 		#random_l = [acc,move.prob_critic()]

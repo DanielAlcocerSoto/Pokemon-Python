@@ -5,16 +5,18 @@
   "SUPPORT_MODEL_NAME": "type_no_random_x5",
 
   "NEURAL_NET_DESIGN": [
-    [20,"softmax"]
+    [10,"relu"]
   ],
 
-  "GAMMA_DISCOUNTING_RATE": 0.20,
+  "GAMMA_DISCOUNTING_RATE": 0.10,
   "LEARNING_RATE_RL": 0.75,
   "LEARNING_RATE_RL_PLAYER": 0.80,
 
   "EPOCHS_RL_FIT": 10,
+
   "EPOCHS_FIT": 10,
   "BATCH_SIZE": 32,
   "VAL_SPLIT_FIT": 0.2,
+
   "VERBOSE_FIT": 1
 }
