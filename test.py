@@ -92,7 +92,7 @@ for name, move in load_info(Directory['MOVE_FILE']).items():
 print (count,count_2)
 """
 """
-#PPs
+#PPs y potencia
 count = 0
 count_2 = 0
 count_3 = 0

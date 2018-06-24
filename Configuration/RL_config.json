@@ -2,7 +2,7 @@
   "LOG_NAME": "trash",
   "MODEL_NAME": "trash",
 
-  "SUPPORT_MODEL_NAME": "type_no_random_x5",
+  "SUPPORT_MODEL_NAME": "support",
 
   "NEURAL_NET_DESIGN": [
     [10,"relu"]
