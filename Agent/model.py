@@ -73,15 +73,21 @@ class BaseModel:
 			# Train model with memory
 			self._rebuid_Q_function(self.memory)
 			# Save model
-			model_file=Directory['DIR_MODELS']+self.model_name+'.h5'
-			print('Saving model in {} ...'.format(model_file))
-			self.keras_NN_model.save(model_file)
+			self._save_model()
 			# Save memory in log file
-			print('Saving log in {} ...'.format(self.log_file))
-			with open(self.log_file, 'a') as csv_file:
-				for obj in self.memory:	writer(csv_file).writerow(obj)
+			safe._save_log()
 			# Reset memory
 			self.memory = []
+
+	def _save_model(self):
+		model_file=Directory['DIR_MODELS']+self.model_name+'.h5'
+		print('Saving model in {} ...'.format(model_file))
+		self.keras_NN_model.save(model_file)
+
+	def _save_log(self):
+		print('Saving log in {} ...'.format(self.log_file))
+		with open(self.log_file, 'a') as csv_file:
+			for obj in self.memory:	writer(csv_file).writerow(obj)
 
 #private functions
 	def _get_reward(self, attacks, my_role):

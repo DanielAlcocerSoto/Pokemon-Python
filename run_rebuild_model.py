@@ -29,5 +29,5 @@ if __name__ == '__main__':
 	print('Training model...')
 	start = time()
 	model = BaseModel(rebuid=True)
-	model.save()
+	model._save_model()
 	print('Finished, time = {0:.2f}s'.format(time()-start))
