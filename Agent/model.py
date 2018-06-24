@@ -75,7 +75,7 @@ class BaseModel:
 			# Save model
 			self._save_model()
 			# Save memory in log file
-			safe._save_log()
+			self._save_log()
 			# Reset memory
 			self.memory = []
 
