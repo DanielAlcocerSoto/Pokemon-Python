@@ -72,7 +72,8 @@ def run_combo_name_battle_training(n_repetitions, model, params):
 	possible_names_comb = list(combinations(names, 2))
 	len_comb = len(possible_names_comb)
 	iner_loop = int(len(names)/2)
-	myheader = header.format('{}',len_comb*iner_loop)
+	n_episodes = len_comb*iner_loop
+	myheader = header.format('{}',n_episodes)
 	i = 0
 	bl = params['base_level']
 	vl = params['varability_level']
@@ -110,7 +111,8 @@ def run_combo_type_battle_training(n_repetitions, model, params):
 	possible_types_comb = list(combinations(names, 2))
 	len_comb = len(possible_types_comb)
 	iner_loop = int(len(names)/2)
-	myheader = header.format('{}',len_comb*iner_loop*n_repetitions)
+	n_episodes = len_comb*iner_loop*n_repetitions
+	myheader = header.format('{}', n_episodes)
 	i = 0
 	bl = params['base_level']
 	vl = params['varability_level']
