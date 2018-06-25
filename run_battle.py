@@ -16,6 +16,7 @@ from Agent.cooperative_model import CoopModel, LearnerModel
 
 # General imports
 import argparse
+from random import Random
 
 __version__ = '0.5'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
@@ -71,8 +72,11 @@ def main(args):
 	params = Battle.default_argunents()
 	params['base_level'] = args.base_level
 	params['varability_level'] = args.var_level
+	if args.seed !=0: params['rand'] = Random(args.seed)
 	set_agents(params,args)
-	Battle(**params).play()
+
+	for i in range (0,5):
+		Battle(**params).play()
 
 #Main of run
 if __name__ == '__main__':
@@ -80,7 +84,7 @@ if __name__ == '__main__':
 	parser.add_argument('--base_level' , '-bl', type = int, default = 50,
 						help='Param for battle actions. ' +\
 						'Base level of each pokemon')
-	parser.add_argument('--var_level' , '-vl', type = int, default = 0,
+	parser.add_argument('--var_level' , '-vl', type = int, default = 2,
 						help='Param for battle actions. ' +\
 						'Varability for pokemon\'s level (lvl = Base +/- Var)')
 
@@ -91,4 +95,7 @@ if __name__ == '__main__':
 						help='Model of ally')
 	parser.add_argument('--random' , '-r', type = bool, default = True,
 						help='Use random in battle')
+
+	parser.add_argument('--seed' , '-s', type=int, default = 232,
+						help='Seed to generate pokemon')
 	main(parser.parse_args())
