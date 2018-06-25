@@ -58,8 +58,8 @@ class Encoder:
 					'defense': 230, 'special-defense': 230, 'speed': 160}
 		#len_poke_enc = 2*self.encoder_type.lenght+6+3 #6 stats,health,level,fainted
 		self.len_move_enc = len(self._move_to_list(Move('pound')))#self.encoder_type.lenght+2 #actual_pp,power """+self.encoder_dmg.lenght"""
-		self.len_poke_def_enc = len(self._poke_to_list(Pokemon('bulbasaur',50)))#2*self.encoder_type.lenght+2
-		self.len_poke_atk_enc = len(self._poke_to_list(Pokemon('bulbasaur',50), ally_poke = True))
+		self.len_poke_def_enc = len(self._poke_to_list(Pokemon.Random()))#2*self.encoder_type.lenght+2
+		self.len_poke_atk_enc = len(self._poke_to_list(Pokemon.Random(), ally_poke = True))
 		self.state_size = self.len_poke_def_enc*2 + self.len_poke_atk_enc + self.len_move_enc*4#3 pokemon and 4 moves
 
 	"""

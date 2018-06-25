@@ -18,7 +18,8 @@ from .type import Type
 from .move import Move
 
 # General imports
-from random import Random, randint, sample, choice
+from random import Random as Std_Random
+from random import randint, sample, choice
 from math import floor
 
 __version__ = '0.9'
@@ -42,9 +43,9 @@ class Pokemon(Object_Info):
 				Random pokemon with level between base_level-varability_level
 				and base_level+varability_level.
 		"""
-		if rand == None: rand = Random()
+		if rand == None: rand = Std_Random()
 		lvl = base_level + rand.randint(-varability_level,varability_level)
-		return Pokemon(rand.choice(Pokemon.possible_names()), lvl)
+		return Pokemon(rand.choice(Pokemon.possible_names()), lvl, rand)
 
 	"""
 		Returns the name of all pokemons in the database.
@@ -66,7 +67,7 @@ class Pokemon(Object_Info):
 			possible_names += all_poke_name[first_p:last_p]
 		return possible_names
 
-	def __init__(self, name, level):
+	def __init__(self, name, level, rand = Std_Random()):
 		"""
 			Args:
 				name ('str'): The name (key of the dictionary) of the pokemon.
@@ -77,11 +78,11 @@ class Pokemon(Object_Info):
 		Object_Info.__init__(self, name, Directory['POKE_FILE'])
 		self._level= min(max(level,1),100)
 		self._types = [Type(x) for x in self._info['types']]
-		self._moves = [Move(x) for x in sample(self._info['moves'], 4)]
+		self._moves = [Move(x) for x in rand.sample(self._info['moves'], 4)]
 		self._stats = self._info['stats']
 		for name, stat in self._stats.items():
 			if Attack_Config['USE_IV']:
-				individual_value = randint(0, 31)
+				individual_value = rand.randint(0, 31)
 			else:
 				individual_value = 15
 			# Formulas:

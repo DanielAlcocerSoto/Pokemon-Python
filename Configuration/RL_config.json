@@ -5,7 +5,7 @@
   "SUPPORT_MODEL_NAME": "support",
 
   "NEURAL_NET_DESIGN": [
-    [10,"relu"]
+    [65,"relu"]
   ],
 
   "GAMMA_DISCOUNTING_RATE": 0.10,
