@@ -40,7 +40,7 @@ class LearnerModel(BaseModel):
 
 """
 class CoopModel(LearnerModel):
-	def __init__(self,  model_name = Agent_config['MODEL_NAME'], rebuid = False):
+	def __init__(self, model_name = None, rebuid = False):
 		self.output_layer_size = 8*8
 		self.encoder = CoopEncoder()
 		self._init_model(model_name, rebuid)

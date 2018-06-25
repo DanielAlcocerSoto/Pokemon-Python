@@ -31,7 +31,8 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
 
 class BaseModel:
-	def __init__(self, model_name = Agent_config['MODEL_NAME'], rebuid = False):
+	def __init__(self, model_name = None, rebuid = False):
+		if model_name == None: model_name = Agent_config['MODEL_NAME']
 		self.output_layer_size = 8
 		self.encoder = Encoder()
 		self._init_model(model_name, rebuid)

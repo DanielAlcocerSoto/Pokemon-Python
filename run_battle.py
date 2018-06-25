@@ -65,7 +65,7 @@ def main(args):
 
 	#General configuartion
 	General_config['BATTLE_VERBOSE'] = True
-	General_config['GENERATIONS'] = [2,3,4]
+	General_config['GENERATIONS'] = [1,2,3,4]
 	set_random_attack(args.random)
 
 	# Params configuration
@@ -76,6 +76,7 @@ def main(args):
 	set_agents(params,args)
 
 	for i in range (0,5):
+		print('________________ BATTLE NUMBER {} ________________'.format(i+1))
 		Battle(**params).play()
 
 #Main of run
@@ -96,6 +97,6 @@ if __name__ == '__main__':
 	parser.add_argument('--random' , '-r', type = bool, default = True,
 						help='Use random in battle')
 
-	parser.add_argument('--seed' , '-s', type=int, default = 232,
+	parser.add_argument('--seed' , '-s', type=int, default = 222,
 						help='Seed to generate pokemon')
 	main(parser.parse_args())

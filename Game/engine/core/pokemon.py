@@ -51,14 +51,15 @@ class Pokemon(Object_Info):
 		Returns the name of all pokemons in the database.
 	"""
 	@staticmethod
-	def possible_names(generations=General_config['GENERATIONS']):
+	def possible_names():
 		"""
 			Args: -
 
 			Return ('list of str'):
 				The name (key) of all the pokemons in the database.
 		"""
-		all_poke_name =list(load_info(Directory['POKE_FILE']).keys())
+		generations = General_config['GENERATIONS']
+		all_poke_name = list(load_info(Directory['POKE_FILE']).keys())
 		possible_names = []
 		for gen in generations:
 			if gen == 1: first_p = 0
@@ -67,7 +68,7 @@ class Pokemon(Object_Info):
 			possible_names += all_poke_name[first_p:last_p]
 		return possible_names
 
-	def __init__(self, name, level, rand = Std_Random()):
+	def __init__(self, name, level, rand = None):
 		"""
 			Args:
 				name ('str'): The name (key of the dictionary) of the pokemon.
@@ -75,6 +76,7 @@ class Pokemon(Object_Info):
 			Action:
 				Create a Pokemon with the information of 'name' pokemon.
 		"""
+		if rand == None: rand = Std_Random()
 		Object_Info.__init__(self, name, Directory['POKE_FILE'])
 		self._level= min(max(level,1),100)
 		self._types = [Type(x) for x in self._info['types']]
