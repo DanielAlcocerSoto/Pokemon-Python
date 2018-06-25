@@ -58,4 +58,6 @@ class Agent(Trainer):
 """
 class CoopAgent(Agent):
 	def choice_action_base_ally(self, ally_action):
-		self.model.predict_base_on_ally_action(self.actual_state, self.role, ally_action)
+		if self.train_mode: self._idmove,self._target = self._random_choise()
+		else:
+			self._idmove, self._target = self.model.predict_base_on_ally_action(self.actual_state, self.role, ally_action)

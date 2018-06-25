@@ -157,6 +157,7 @@ class CoopEncoder(Encoder):
 		action_ally = Encoder._encode_action(self, move_ally, target_ally)
 		indexes = array(range(0,64))%8 == action_ally
 		list_Q_ally = list_Q[indexes]
+		print(list_Q_ally)
 		action = argmax(list_Q_ally)
 		return action%4, action//4
 

@@ -32,13 +32,13 @@ __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
 class BaseModel:
 	def __init__(self, model_name = None, rebuid = False):
-		if model_name == None: model_name = Agent_config['MODEL_NAME']
 		self.output_layer_size = 8
 		self.encoder = Encoder()
 		self._init_model(model_name, rebuid)
 
 	def _init_model(self, model_name, rebuid):
 		self.memory = []
+		if model_name == None: model_name = Agent_config['MODEL_NAME']
 		self.model_name = model_name
 		self.log_file = Directory['DIR_LOGS'] + Agent_config['LOG_NAME'] + '.csv'
 		self.tbCallback=TensorBoard(log_dir=Directory['TB_PATH']+self.model_name,

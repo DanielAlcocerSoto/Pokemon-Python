@@ -97,6 +97,6 @@ if __name__ == '__main__':
 	parser.add_argument('--random' , '-r', type = bool, default = True,
 						help='Use random in battle')
 
-	parser.add_argument('--seed' , '-s', type=int, default = 222,
+	parser.add_argument('--seed' , '-s', type=int, default = 555,
 						help='Seed to generate pokemon')
 	main(parser.parse_args())

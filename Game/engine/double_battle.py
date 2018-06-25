@@ -209,12 +209,13 @@ class Double_Battle:
 					last_choices[trainer.role]=trainer.raw_action()
 					live_trainers.append(trainer)
 
-			for trainer in self._trainers:
+			for trainer in live_trainers:
 				if isinstance(trainer, CoopAgent):
 					ally_role = trainer.ally_role()
 					if ally_role in last_choices.keys():
 						ally_action = last_choices[ally_role]
 						trainer.choice_action_base_ally(ally_action)
+						last_choices[trainer.role]=trainer.raw_action()
 
 			tr_sort = sorted(live_trainers, key=self.attack_order, reverse=True)
 			last_attacks = {}
