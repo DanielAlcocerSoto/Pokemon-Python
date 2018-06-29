@@ -147,6 +147,7 @@ def main(args):
 		print('GPU TensorFlow Configurated')
 	except:
 		print('GPU TensorFlow could not be configured')
+	"""
 	try:
 		import os
 		os.remove(Directory['DIR_LOGS']+'trash.csv')
@@ -154,6 +155,7 @@ def main(args):
 		print('Trash files deleted')
 	except:
 		print('Trash files not founded')
+	"""
 	#General configuartion
 	General_config['BATTLE_VERBOSE'] = False
 	set_random_attack(args.no_random)

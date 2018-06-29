@@ -23,7 +23,7 @@
   "SHOW_EFF": true,
   "VISUALIZE_AGENT_INFO": true,
 
-  "FIRST_TIME_STEP":1,
-  "TIME_STEP": 2,
+  "FIRST_TIME_STEP":5,
+  "TIME_STEP": 5,
   "LAST_TIME_STEP":5
 }

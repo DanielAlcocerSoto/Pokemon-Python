@@ -19,6 +19,8 @@ from .trainer import TrainerRandom
 from .trainerInput import TrainerInput
 from .attack import Attack
 
+from termcolor import colored
+
 __version__ = '0.7'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
 
@@ -107,35 +109,41 @@ class Double_Battle:
 	"""
 		Function to display a message
 	"""
-	def show(self, name, *args, time=Display_Config['TIME_STEP']):
+	def show(self, name, *args, time=Display_Config['TIME_STEP'], color = None):
 		text = Sentence[name].format(*args)
-		if General_config['BATTLE_VERBOSE'] : print(text) # To have a "log" in terminal
+		if General_config['BATTLE_VERBOSE']:
+			if color != None: print(colored(text, color))
+			else: print(text) # To have a "log" in terminal
 		if self.show_message != None: self.show_message(text,time)
 
 
 	"""
 		Function to display as a message the result of an attack
 	"""
-	def show_attack(self, attack):
+	def show_attack(self, attack, role):
 		p = attack.poke_attacker
+		color = None
+		if role == "Ally_1": color = 'green'
+		elif role == "Ally_0": color = 'yellow'
+
 		if not p.is_fainted():
 			eb = attack.poke_defender
 			ea = attack.poke_defender_after
 			name_p = p.name()
 			name_e = eb.name()
 			name_m = attack.move.name()
-			self.show('USE_ATTACK', name_p, name_m, name_e)
-			if eb.is_fainted(): self.show('TARGET_FAINTED', name_e)
-			elif not attack.has_pp: self.show('NO_PP_LEFT', name_p, name_m)
-			elif attack.missed_attack: self.show('MISS_ATTACK', name_p)
+			self.show('USE_ATTACK', name_p, name_m, name_e, color = color)
+			if eb.is_fainted(): self.show('TARGET_FAINTED', name_e, color = color)
+			elif not attack.has_pp: self.show('NO_PP_LEFT', name_p, name_m, color = color)
+			elif attack.missed_attack: self.show('MISS_ATTACK', name_p, color = color)
 			else: # Show results of the attack
-				if   attack.efectivity == 4: self.show('EFECTIVITY_x4')
-				elif attack.efectivity == 2: self.show('EFECTIVITY_x2')
-				elif attack.efectivity == 0.5: self.show('EFECTIVITY_x05')
-				elif attack.efectivity == 0.25: self.show('EFECTIVITY_x025')
-				elif attack.efectivity == 0: self.show('EFECTIVITY_x0')
-				if attack.is_critic: self.show('CRITIC_ATTACK')
-				if ea.is_fainted(): self.show('DEAD_POKEMON', name_e)
+				if   attack.efectivity == 4: self.show('EFECTIVITY_x4', color = color)
+				elif attack.efectivity == 2: self.show('EFECTIVITY_x2', color = color)
+				elif attack.efectivity == 0.5: self.show('EFECTIVITY_x05', color = color)
+				elif attack.efectivity == 0.25: self.show('EFECTIVITY_x025', color = color)
+				elif attack.efectivity == 0: self.show('EFECTIVITY_x0', color = color)
+				if attack.is_critic: self.show('CRITIC_ATTACK', color = color)
+				if ea.is_fainted(): self.show('DEAD_POKEMON', name_e, color = color)
 
 	"""
 		Function to show the result of the battle if the battle is finished.
@@ -229,7 +237,7 @@ class Double_Battle:
 					pk_enemy = self._trainers[target].pokemon()
 					attack = Attack(poke, pk_enemy, move)
 					last_attacks[trainer.role]=attack
-					self.show_attack(attack)
+					self.show_attack(attack, trainer.role)
 
 			#recive_results
 			for trainer in self._trainers:

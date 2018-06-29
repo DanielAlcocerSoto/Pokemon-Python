@@ -20,7 +20,7 @@ from keras.utils import to_categorical
 
 # General imports
 from numpy import argmax, array
-
+from termcolor import colored
 
 __version__ = '0.5'
 __author__  = 'Daniel Alcocer (daniel.alcocer@est.fib.upc.edu)'
@@ -157,10 +157,31 @@ class CoopEncoder(Encoder):
 		action_ally = Encoder._encode_action(self, move_ally, target_ally)
 		indexes = array(range(0,64))%8 == action_ally
 		list_Q_ally = list_Q[indexes]
-		#print(list_Q_ally)
 		action = argmax(list_Q_ally)
+		self.print_Q(list_Q_ally, action)
 		return action%4, action//4
 
 	def decode_best_action(self, list_Q):
 		action = argmax(list_Q)//8
 		return action%4, action//4
+
+	def print_Q(self, list_Q_ally, action):
+
+		print("Move {}:\t\t\tMove {}:".format(0,1))
+		for e in range(2):
+			p = ""
+			for m in [0,1]:
+				a = e*4+m
+				move = "Enemy {0}: {1:.4f}".format(e,list_Q_ally[a])
+				if a == action: move = colored(move, 'green')
+				p += '\t'+move
+			print(p)
+		print("Move {}:\t\t\tMove {}:".format(2,3))
+		for e in range(2):
+			p = ""
+			for m in [2,3]:
+				a = e*4+m
+				move = "Enemy {0}: {1:.4f}".format(e,list_Q_ally[a])
+				if a == action: move = colored(move, 'green')
+				p += '\t'+move
+			print(p)
