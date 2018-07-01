@@ -104,7 +104,7 @@ if __name__ == '__main__':
 						help='Param for battle actions. ' +\
 						'Varability for pokemon\'s level (lvl = Base +/- Var)')
 
-	parser.add_argument('--model' , '-m', type = str, default = "coop",
+	parser.add_argument('--model' , '-m', type = str, default = "coop_demo",
 						help='Name of the model to use as ally agent.')
 	parser.add_argument('--model_type', default = 'coop',
 						choices = ['base', 'learner', 'coop'],
