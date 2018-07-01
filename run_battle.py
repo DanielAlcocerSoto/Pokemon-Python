@@ -78,14 +78,14 @@ def main(args):
 
 	#random
 	import random
-	random.seed(222)
 
-	N_Games = 2
-	Battles = [(0,333),(1,333),(2,111),(4,222)]
+	N_Games = 4
+	Battles = [(2,111)]#[(2,222)] #(0,333)       (2,111),
 
 	k=1
 	for i, seed in Battles:
 		for test in range(N_Games):
+			random.seed(222*i)
 			if args.seed !=0: params['rand'] = Random(seed) #Random(args.seed)
 			battle = Battle(**params)
 			for j in range(0,i): battle = Battle(**params)
@@ -93,6 +93,14 @@ def main(args):
 			battle.play()
 		k+=1
 
+	for i in range(2):
+		random.seed(2+i*4)
+		params["poke_A2"] = Pokemon('carnivine',52,Random(22))
+		params["poke_A1"] = Pokemon('budew',52,Random(222))
+		params["poke_F1"] = Pokemon('chinchou',49,Random(22))
+		params["poke_F2"] = Pokemon('breloom',49,Random(222))
+		battle = Battle(**params)
+		battle.play()
 
 #Main of run
 if __name__ == '__main__':
